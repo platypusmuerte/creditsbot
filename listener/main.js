@@ -1,6 +1,5 @@
 const { constants } = require('../constants');
 const { config } = require('../config');
-const bodyParser = require('body-parser');
 
 let { EventManager } = require("../managers/events");
 
@@ -14,34 +13,6 @@ class Listener {
 	}
 
 	start() {
-		this.cleanUp().then(()=>{
-			this.startExpress();
-		});
-	}
-
-	cleanUp() {
-		return new Promise(function (resolve, reject) {
-			if (config.CLEAN_ON_STARTUP) {
-				let dir = path.join(this.dataDir, "");
-
-				fs.readdir(dir, (err, files) => {
-					if (err) throw err;
-
-					for (const file of files) {
-						fs.unlink(path.join(dir, file), err => {
-							if (err) throw err;
-						});
-					}
-
-					resolve();
-				});				
-			} else {
-				resolve();
-			}
-		});
-	}
-
-	startExpress() {
 		this.exp.listen(constants.PORT, () => {
 			this.utils.console("Started listening at http://localhost:" + constants.PORT);
 			this.setDefaultListeners();

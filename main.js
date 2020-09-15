@@ -2,6 +2,7 @@ let express = require("express");
 let exp = express();
 
 const path = require('path');
+const fs = require('fs');
 const { config } = require('./config');
 const { constants } = require('./constants');
 const { Utils } = require("./utils/utils");
@@ -14,8 +15,34 @@ const cryptr = new Cryptr('platyscreditsbot');
 let utils, listener, db;
 let { Listener } = require("./listener/main");
 
-utils = new Utils()
-db = new Database({ cryptr, dataDir, utils });
+function init() {
+	return new Promise(function (resolve, reject) {
+		if (config.CLEAN_ON_STARTUP) {
+			let dir = path.join(dataDir, "");
 
-listener = new Listener({ db, utils, exp, dataDir });
-listener.start();
+			fs.readdir(dir, (err, files) => {
+				if (err) throw err;
+
+
+				for (const file of files) {
+					if (!fs.lstatSync(path.join(dir, file)).isDirectory()) {
+						console.log("removing " + file)
+						fs.unlink(path.join(dir, file), err => {
+							//if (err) throw err;
+						});
+					}
+				}
+
+				resolve();
+			});
+		}
+	});
+}
+
+init().then(() => {
+	utils = new Utils()
+	db = new Database({ cryptr, dataDir, utils });
+
+	listener = new Listener({ db, utils, exp, dataDir });
+	listener.start();
+});
