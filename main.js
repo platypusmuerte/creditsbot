@@ -26,7 +26,7 @@ function init() {
 
 				for (const file of files) {
 					if (!fs.lstatSync(path.join(dir, file)).isDirectory()) {
-						console.log("removing " + file)
+						config.CLEAN_ON_STARTUP && console.log("[CREDITSBOT] cleaning " + file)
 						fs.unlink(path.join(dir, file), err => {
 							//if (err) throw err;
 						});
