@@ -121,7 +121,7 @@ class Listener {
 	 */
 	removeUser(req, res, user) {
 		this.db.databases.bits.removeUser(user).then((r) => {
-			config.DEBUG && this.utils.console("Remove user: " + JSON.stringify(r));
+			config.DEBUG && this.utils.console("Remove user: " + user);
 			res.send(JSON.stringify(r));
 		});
 		// todo - call removes for all here
@@ -130,7 +130,7 @@ class Listener {
 	// add to user of
 	addToUser(req, res, key, user, amount) {
 		this.db.databases[key].addUser(user, amount).then((r) => {
-			config.DEBUG && this.utils.console("Add to user: " + JSON.stringify(r));
+			config.DEBUG && this.utils.console("Add to user: " + key + " " + user + " " + amount);
 			res.send(JSON.stringify(r));
 		}).then(()=>{
 			console.log(key, user, amount);
@@ -141,7 +141,7 @@ class Listener {
 	// get all users of
 	getAllUsers(req, res, key) {
 		this.db.databases[key].getAll().then((r) => {
-			config.DEBUG && this.utils.console("Get all users: " + JSON.stringify(r));
+			config.DEBUG && this.utils.console("Get all users: " + key + " " + JSON.stringify(r));
 			res.send(JSON.stringify(r));
 		});
 	}
@@ -149,7 +149,7 @@ class Listener {
 	// get top 10 of
 	getTop10(req, res, key) {
 		this.db.databases[key].getTop10().then((r) => {
-			config.DEBUG && this.utils.console("Get 10 users: " + JSON.stringify(r));
+			config.DEBUG && this.utils.console("Get top 10: " + key + " " + JSON.stringify(r));
 			res.send(JSON.stringify(r));
 		});
 	}
@@ -157,7 +157,7 @@ class Listener {
 	// get top 5 of
 	getTop5(req, res, key) {
 		this.db.databases[key].getTop5().then((r) => {
-			config.DEBUG && this.utils.console("Get 5 usesr: " + JSON.stringify(r));
+			config.DEBUG && this.utils.console("Get top 5: " + key + " " + JSON.stringify(r));
 			res.send(JSON.stringify(r));
 		});
 	}
@@ -165,7 +165,7 @@ class Listener {
 	// get user of
 	getByUser(req, res, key, user) {
 		this.db.databases[key].getUser(user).then((r) => {
-			config.DEBUG && this.utils.console("Get user: " + JSON.stringify(r));
+			config.DEBUG && this.utils.console("Get user: " + key + " " + user);
 			res.send(JSON.stringify(r));
 		});
 	}

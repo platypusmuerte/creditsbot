@@ -57,13 +57,17 @@ class HChannelPointsQueries {
 
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).sortBy("value").take(10).value();
-			resp = [];
+			let resp = [];
 
 			list.forEach((d) => {
 				resp.push(d.name + ": " + d.amount)
 			});
 
-			resolve(resp.join(", "));
+			if (resp.length) {
+				resolve(resp.join(", "));
+			} else {
+				resolve("No users");
+			}
 		});
 	}
 
@@ -75,13 +79,17 @@ class HChannelPointsQueries {
 
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).sortBy("value").take(5).value();
-			resp = [];
+			let resp = [];
 
 			list.forEach((d) => {
 				resp.push(d.name + ": " + d.amount)
 			});
 
-			resolve(resp.join(", "));
+			if (resp.length) {
+				resolve(resp.join(", "));
+			} else {
+				resolve("No users");
+			}
 		});
 	}
 
@@ -94,7 +102,11 @@ class HChannelPointsQueries {
 		return new Promise(function (resolve, reject) {
 			let data = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).find({ name: user }).value();
 
-			resolve(data.name + ": " + data.amount);
+			if (data) {
+				resolve(data.name + ": " + data.amount);
+			} else {
+				resolve(user + " not found");
+			}
 		});
 	}
 }

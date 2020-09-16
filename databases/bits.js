@@ -60,13 +60,17 @@ class BitsQueries {
 
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.BITS).sortBy("value").take(10).value();
-			resp = [];
+			let resp = [];
 
 			list.forEach((d)=>{
 				resp.push(d.name + ": " + d.amount)
 			});
 
-			resolve(resp.join(", "));
+			if (resp.length) {
+				resolve(resp.join(", "));
+			} else {
+				resolve("No users");
+			}
 		});
 	}
 
@@ -78,13 +82,17 @@ class BitsQueries {
 
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.BITS).sortBy("value").take(5).value();
-			resp = [];
+			let resp = [];
 
 			list.forEach((d) => {
 				resp.push(d.name + ": " + d.amount)
 			});
 
-			resolve(resp.join(", "));
+			if(resp.length) {
+				resolve(resp.join(", "));
+			} else {
+				resolve("No users");
+			}
 		});
 	}
 
@@ -101,8 +109,7 @@ class BitsQueries {
 				resolve(data.name + ": " + data.amount);
 			} else {
 				resolve(user + " not found");
-			}
-			
+			}			
 		});
 	}
 }
