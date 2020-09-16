@@ -56,8 +56,6 @@ class HSubsQueries {
 	 * returns string of user:amount,...
 	 */
 	getTop10() {
-		let db = this.db;
-
 		return new Promise(function (resolve, reject) {
 			resolve("");
 		});

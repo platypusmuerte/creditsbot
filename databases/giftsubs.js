@@ -74,6 +74,8 @@ class GiftSubsQueries {
 	 * returns string of user:amount,...
 	 */
 	getTop5() {
+		let db = this.db;
+
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.GIFTSUBS).sortBy("value").take(5).value();
 			resp = [];
@@ -90,6 +92,8 @@ class GiftSubsQueries {
 	 * returns string user: amount
 	 */
 	getUser(user) {
+		let db = this.db;
+
 		return new Promise(function (resolve, reject) {
 			let data = db.get(constants.DATABASE_NAMES.GIFTSUBS).find({ name: user }).value();
 

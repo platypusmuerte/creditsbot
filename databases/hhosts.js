@@ -73,6 +73,8 @@ class HHostsQueries {
 	 * returns string of user:amount,...
 	 */
 	getTop5() {
+		let db = this.db;
+
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.HOSTS).sortBy("value").take(5).value();
 			resp = [];
@@ -89,6 +91,8 @@ class HHostsQueries {
 	 * returns string user: amount
 	 */
 	getUser(user) {
+		let db = this.db;
+
 		return new Promise(function (resolve, reject) {
 			let data = db.get(constants.DATABASE_NAMES.HOSTS).find({ name: user }).value();
 

@@ -55,8 +55,6 @@ class FollowsQueries {
 	 * returns string
 	 */
 	getTop10() {
-		let db = this.db;
-
 		return new Promise(function (resolve, reject) {
 			resolve("");
 		});

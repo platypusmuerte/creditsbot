@@ -133,6 +133,7 @@ class Listener {
 			config.DEBUG && this.utils.console("Add to user: " + JSON.stringify(r));
 			res.send(JSON.stringify(r));
 		}).then(()=>{
+			console.log(key, user, amount);
 			this.historyManager(key, user, amount);
 		});
 	}
