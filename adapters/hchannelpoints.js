@@ -9,12 +9,12 @@ class HChannelPointsDBAdapter {
 		this.low = require('lowdb');
 		this.FileSync = require('lowdb/adapters/FileSync');
 
-		this.dataFile = path.join(this.dataDir, constants.DATABASE_NAMES.HISTORIC_CHANNELPOINTS + constants.DATA_FILE_EXT);
+		this.dataFile = path.join(this.dataDir, constants.DATABASE_NAMES.HISTORIC_CHANNELPOINTS + constants.DATA_FILE_HISTORIC_EXT);
 	}
 
 	getDefaults() {
 		let obj = {};
-		obj[constants.DATABASE_NAMES.CHANNELPOINTS] = [];
+		obj[constants.DATABASE_NAMES.HISTORIC_CHANNELPOINTS] = [];
 
 		return obj;
 	}

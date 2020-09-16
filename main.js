@@ -32,16 +32,6 @@ header(utils, constants).then(()=>{
 		}
 	}).then(() => {
 		config.DEBUG && utils.console(" ");
-		config.DEBUG && utils.console("Looking for ./data/h");
-
-		if (!fs.existsSync("./data/h")) {
-			fs.mkdirSync("./data/h");
-			config.DEBUG && utils.console("Created ./data/h");
-		} else {
-			config.DEBUG && utils.console("./data/h exists");
-		}
-	}).then(() => {
-		config.DEBUG && utils.console(" ");
 		config.DEBUG && utils.console("Starting...");
 		config.DEBUG && utils.console(" ");
 		db = new Database({ cryptr, dataDir, utils });

@@ -4,6 +4,7 @@ exports.constants = {
 		VERSION: "1.0.0"
 	},
 	DATA_FILE_EXT: ".db",
+	DATA_FILE_HISTORIC_EXT: ".hdb",
 	DATABASE_NAMES: {
 		BANS: "bans",
 		BITS: "bits",
@@ -16,12 +17,12 @@ exports.constants = {
 		RAIDS: "raids",
 		SUBS: "subs",
 
-		HISTORIC_BITS: "h/bits",
-		HISTORIC_CHANNELPOINTS: "h/hchannelpoints",
-		HISTORIC_GIFTSUBS: "h/hgiftsubs",
-		HISTORIC_HOSTS: "h/hhosts",
-		HISTORIC_RAIDS: "h/hraids",
-		HISTORIC_SUBS: "h/hsubs",
+		HISTORIC_BITS: "hbits",
+		HISTORIC_CHANNELPOINTS: "hchannelpoints",
+		HISTORIC_GIFTSUBS: "hgiftsubs",
+		HISTORIC_HOSTS: "hhosts",
+		HISTORIC_RAIDS: "hraids",
+		HISTORIC_SUBS: "hsubs",
 	},
 	PATHS: {
 		ADD_USER: "/add/:key/:user/:amount",

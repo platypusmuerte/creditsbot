@@ -9,12 +9,12 @@ class HBitsDBAdapter {
 		this.low = require('lowdb');
 		this.FileSync = require('lowdb/adapters/FileSync');
 
-		this.dataFile = path.join(this.dataDir, constants.DATABASE_NAMES.HISTORIC_BITS + constants.DATA_FILE_EXT);
+		this.dataFile = path.join(this.dataDir, constants.DATABASE_NAMES.HISTORIC_BITS + constants.DATA_FILE_HISTORIC_EXT);
 	}
 
 	getDefaults() {
 		let obj = {};
-		obj[constants.DATABASE_NAMES.BITS] = [];
+		obj[constants.DATABASE_NAMES.HISTORIC_BITS] = [];
 
 		return obj;
 	}

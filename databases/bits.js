@@ -97,7 +97,12 @@ class BitsQueries {
 		return new Promise(function (resolve, reject) {
 			let data = db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).value();
 
-			resolve(data.name + ": " + data.amount);
+			if(data) {
+				resolve(data.name + ": " + data.amount);
+			} else {
+				resolve(user + " not found");
+			}
+			
 		});
 	}
 }

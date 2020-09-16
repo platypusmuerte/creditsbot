@@ -9,12 +9,12 @@ class HRaidsDBAdapter {
 		this.low = require('lowdb');
 		this.FileSync = require('lowdb/adapters/FileSync');
 
-		this.dataFile = path.join(this.dataDir, constants.DATABASE_NAMES.HISTORIC_RAIDS + constants.DATA_FILE_EXT);
+		this.dataFile = path.join(this.dataDir, constants.DATABASE_NAMES.HISTORIC_RAIDS + constants.DATA_FILE_HISTORIC_EXT);
 	}
 
 	getDefaults() {
 		let obj = {};
-		obj[constants.DATABASE_NAMES.RAIDS] = [];
+		obj[constants.DATABASE_NAMES.HISTORIC_RAIDS] = [];
 
 		return obj;
 	}

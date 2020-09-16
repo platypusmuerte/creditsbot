@@ -8,7 +8,7 @@ exports.cleanup = (config, path, fs, utils, dataDir)=>{
 
 
 				for (const file of files) {
-					if (!fs.lstatSync(path.join(dir, file)).isDirectory()) {
+					if (!fs.lstatSync(path.join(dir, file)).isDirectory() && (path.extname(file) !== "hdb")) {
 						(config.CLEAN_ON_STARTUP && config.DEBUG) && utils.console("Cleaning " + file);
 						fs.unlink(path.join(dir, file), err => {
 							//if (err) throw err;

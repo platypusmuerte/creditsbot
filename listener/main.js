@@ -182,9 +182,10 @@ class Listener {
 
 	// bits history
 	addToUserHistory(key, user, amount) {
-		this.db.databases[key].addUser(user, amount).then((r) => {
+		console.log(key, user, amount);
+		/*this.db.databases[key].addUser(user, amount).then((r) => {
 			config.DEBUG && this.utils.console("Add to user history: " + JSON.stringify(r));
-		});
+		});*/
 	}
 }
 
