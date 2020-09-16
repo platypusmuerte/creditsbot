@@ -1,5 +1,6 @@
 const fs = require("fs");
 const { constants } = require('../constants');
+const chalk = require("chalk");
 
 class Utils {
 	constructor(params) {
@@ -7,7 +8,7 @@ class Utils {
 	}
 
 	console(msg) {
-		console.log("[CREDITSBOT] " + msg);
+		console.log(chalk.hex("#ff9900")("[CREDITSBOT] ") + chalk.hex("#297bd6")(msg));
 	}
 }
 

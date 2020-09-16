@@ -26,6 +26,7 @@ class Listener {
 		this.get_5Of({ path: constants.PATHS.GET_5, callback: this.getTop5.bind(this) });
 		this.get_userOf({ path: constants.PATHS.GET_USER, callback: this.getByUser.bind(this) });
 		this.get_removeUser({ path: constants.PATHS.REMOVE_USER, callback: this.removeUser.bind(this) });
+		this.utils.console(" ");
 	}
 
 	get_addToUser(data) {

@@ -5,16 +5,20 @@
   "description": "Parse dirs of names, and return html for credits scene.",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js"
+    "start": "node main.js",
+    "build": "node build.js"
   },
   "author": "PlatypusMuerte",
   "license": "ISC",
   "dependencies": {
+    "async": "3.2.0",
     "body-parser": "1.19.0",
+    "chalk": "4.1.0",
     "cryptr": "4.0.2",
     "express": "4.17.1",
     "jquery": "3.5.1",
     "lowdb": "1.0.0",
+    "pkg": "4.4.9",
     "uuid": "8.3.0"
   },
   "devDependencies": {}

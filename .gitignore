@@ -3,3 +3,4 @@ package-lock.json
 data/*.db
 data/h/*.db
 data/h/tmp.txt
+dist/*
