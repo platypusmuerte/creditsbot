@@ -132,6 +132,8 @@ class Listener {
 		this.db.databases[key].addUser(user, amount).then((r) => {
 			config.DEBUG && this.utils.console("Add to user: " + JSON.stringify(r));
 			res.send(JSON.stringify(r));
+		}).then(()=>{
+			this.historyManager(key, user, amount);
 		});
 	}
 
@@ -164,6 +166,23 @@ class Listener {
 		this.db.databases[key].getUser(user).then((r) => {
 			config.DEBUG && this.utils.console("Get user: " + JSON.stringify(r));
 			res.send(JSON.stringify(r));
+		});
+	}
+
+	// history manager
+	historyManager(key, user, amount) {
+		switch(key) {
+			case constants.DATABASE_NAMES.BITS:
+				this.addToUserHistory(constants.DATABASE_NAMES.HISTORIC_BITS, user, amount);
+			break;
+		}
+
+	}
+
+	// bits history
+	addToUserHistory(key, user, amount) {
+		this.db.databases[key].addUser(user, amount).then((r) => {
+			config.DEBUG && this.utils.console("Add to user history: " + JSON.stringify(r));
 		});
 	}
 }

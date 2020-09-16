@@ -29,9 +29,9 @@ class HRaidsQueries {
 
 		return new Promise(function (resolve, reject) {
 			if (db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).has("name").value()) {
-				this.db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).assign({ name: user, amount: amount }).write();
+				db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).assign({ name: user, amount: amount }).write();
 			} else {
-				this.db.get(constants.DATABASE_NAMES.RAIDS).push({ name: user, amount: amount }).write();
+				db.get(constants.DATABASE_NAMES.RAIDS).push({ name: user, amount: amount }).write();
 			}
 
 			resolve("");

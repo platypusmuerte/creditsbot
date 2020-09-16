@@ -30,9 +30,9 @@ class SubsQueries {
 		return new Promise(function (resolve, reject) {
 			if (db.get(constants.DATABASE_NAMES.SUBS).find({ name: user }).has("name").value()) {
 				let newAmount = (this.db.get(constants.DATABASE_NAMES.SUBS).find({ name: user }).value().amount * 1) + amount * 1;
-				this.db.get(constants.DATABASE_NAMES.SUBS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
+				db.get(constants.DATABASE_NAMES.SUBS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
-				this.db.get(constants.DATABASE_NAMES.SUBS).push({ name: user, amount: amount }).write();
+				db.get(constants.DATABASE_NAMES.SUBS).push({ name: user, amount: amount }).write();
 			}
 
 			resolve("");

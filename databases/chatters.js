@@ -30,9 +30,9 @@ class ChattersQueries {
 		return new Promise(function (resolve, reject) {
 			if (db.get(constants.DATABASE_NAMES.CHATTERS).find({ name: user }).has("name").value()) {
 				let newAmount = (this.db.get(constants.DATABASE_NAMES.CHATTERS).find({ name: user }).value().amount * 1) + 1;
-				this.db.get(constants.DATABASE_NAMES.CHATTERS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
+				db.get(constants.DATABASE_NAMES.CHATTERS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
-				this.db.get(constants.DATABASE_NAMES.CHATTERS).push({ name: user, amount: 1 }).write();
+				db.get(constants.DATABASE_NAMES.CHATTERS).push({ name: user, amount: 1 }).write();
 			}
 
 			resolve("");

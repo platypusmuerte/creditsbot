@@ -6,7 +6,7 @@ exports.constants = {
 	DATA_FILE_EXT: ".db",
 	DATABASE_NAMES: {
 		BANS: "bans",
-		BITS: "users",
+		BITS: "bits",
 		CHANNELPOINTS: "channelpoints",
 		CHATTERS: "chatters",
 		FOLLOWS: "follows",
@@ -16,7 +16,7 @@ exports.constants = {
 		RAIDS: "raids",
 		SUBS: "subs",
 
-		HISTORIC_BITS: "h/hbits",
+		HISTORIC_BITS: "h/bits",
 		HISTORIC_CHANNELPOINTS: "h/hchannelpoints",
 		HISTORIC_GIFTSUBS: "h/hgiftsubs",
 		HISTORIC_HOSTS: "h/hhosts",
