@@ -29,7 +29,7 @@ class BitsQueries {
 
 		return new Promise(function (resolve, reject) {
 			if (db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).has("name").value()) {
-				let newAmount = (this.db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).value().amount * 1) + amount * 1;
+				let newAmount = (db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).value().amount * 1) + amount * 1;
 				db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
 				db.get(constants.DATABASE_NAMES.BITS).push({ name: user, amount: amount }).write();
@@ -106,7 +106,7 @@ class BitsQueries {
 			let data = db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).value();
 
 			if(data) {
-				resolve(data.name + ": " + data.amount);
+				resolve(data.amount);
 			} else {
 				resolve(user + " not found");
 			}			

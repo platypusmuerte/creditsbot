@@ -26,6 +26,9 @@ class Listener {
 		this.get_5Of({ path: constants.PATHS.GET_5, callback: this.getTop5.bind(this) });
 		this.get_userOf({ path: constants.PATHS.GET_USER, callback: this.getByUser.bind(this) });
 		this.get_removeUser({ path: constants.PATHS.REMOVE_USER, callback: this.removeUser.bind(this) });
+
+		this.exp.get(constants.PATHS.PING, (req, res) => {res.send("pong");});
+
 		this.utils.console(" ");
 	}
 
@@ -122,7 +125,7 @@ class Listener {
 	removeUser(req, res, user) {
 		this.db.databases.bits.removeUser(user).then((r) => {
 			config.DEBUG && this.utils.console("Remove user: " + user);
-			res.send(JSON.stringify(r));
+			res.send(r.toString());
 		});
 		// todo - call removes for all here
 	}
@@ -131,9 +134,8 @@ class Listener {
 	addToUser(req, res, key, user, amount) {
 		this.db.databases[key].addUser(user, amount).then((r) => {
 			config.DEBUG && this.utils.console("Add to user: " + key + " " + user + " " + amount);
-			res.send(JSON.stringify(r));
+			res.send(r.toString());
 		}).then(()=>{
-			console.log(key, user, amount);
 			this.historyManager(key, user, amount);
 		});
 	}
@@ -150,7 +152,7 @@ class Listener {
 	getTop10(req, res, key) {
 		this.db.databases[key].getTop10().then((r) => {
 			config.DEBUG && this.utils.console("Get top 10: " + key + " " + JSON.stringify(r));
-			res.send(JSON.stringify(r));
+			res.send(r.toString());
 		});
 	}
 
@@ -158,7 +160,7 @@ class Listener {
 	getTop5(req, res, key) {
 		this.db.databases[key].getTop5().then((r) => {
 			config.DEBUG && this.utils.console("Get top 5: " + key + " " + JSON.stringify(r));
-			res.send(JSON.stringify(r));
+			res.send(r);
 		});
 	}
 
@@ -166,7 +168,7 @@ class Listener {
 	getByUser(req, res, key, user) {
 		this.db.databases[key].getUser(user).then((r) => {
 			config.DEBUG && this.utils.console("Get user: " + key + " " + user);
-			res.send(JSON.stringify(r));
+			res.send(r.toString());
 		});
 	}
 

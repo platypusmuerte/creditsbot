@@ -106,7 +106,7 @@ class ChattersQueries {
 			let data = db.get(constants.DATABASE_NAMES.CHATTERS).find({ name: user }).value();
 
 			if (data) {
-				resolve(data.name + ": " + data.amount);
+				resolve(data.amount);
 			} else {
 				resolve(user + " not found");
 			}

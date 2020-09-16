@@ -105,7 +105,7 @@ class HostsQueries {
 			let data = db.get(constants.DATABASE_NAMES.HOSTS).find({ name: user }).value();
 
 			if (data) {
-				resolve(data.name + ": " + data.amount);
+				resolve(data.amount);
 			} else {
 				resolve(user + " not found");
 			}
