@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node main.js",
     "build": "node build.js",
-    "test": "mocha tests"
+    "test": "mocha tests/*/*"
   },
   "author": "PlatypusMuerte",
   "license": "ISC",

@@ -36,7 +36,7 @@ class BansQueries {
 		});
 	}
 
-	removeUser() {
+	removeUser(user) {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
