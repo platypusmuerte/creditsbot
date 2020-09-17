@@ -123,12 +123,6 @@ class Listener {
 	 * ROUTE HANDLERS 
 	 */
 	removeUser(req, res, user) {
-		/*this.db.databases.bits.removeUser(user).then((r) => {
-			config.DEBUG && this.utils.console("Remove user: " + user);
-			res.send(r.toString());
-		});*/
-		
-
 		let db = this.db;
 		let utils = this.utils;
 		let dbs = constants.DATABASE_NAMES;
@@ -139,7 +133,6 @@ class Listener {
 			});			
 		});
 
-		//config.DEBUG && utils.console("Remove user: " + user);
 		res.send("");
 	}
 
