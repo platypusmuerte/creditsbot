@@ -189,15 +189,31 @@ class Listener {
 	historyManager(key, user, amount) {
 		switch(key) {
 			case constants.DATABASE_NAMES.BITS:
-				this.addToUserHistory(constants.DATABASE_NAMES.HISTORIC_BITS, user, amount);
-			break;
+				this.addToUserHistory(key, user, amount);
+				break;
+			case constants.DATABASE_NAMES.CHANNELPOINTS:
+				this.addToUserHistory(key, user, amount);
+				break;
+			case constants.DATABASE_NAMES.GIFTSUBS:
+				this.addToUserHistory(key, user, amount);
+				break;
+			case constants.DATABASE_NAMES.HOSTS:
+				this.addToUserHistory(key, user, amount);
+				break;
+			case constants.DATABASE_NAMES.RAIDS:
+				this.addToUserHistory(key, user, amount);
+				break;
+			case constants.DATABASE_NAMES.SUBS:
+				this.addToUserHistory(key, user, amount);
+				break;
 		}
-
 	}
 
 	// bits history
 	addToUserHistory(key, user, amount) {
-		
+		this.db.databases["h" + key].addUser(user, amount).then((r) => {
+			config.DEBUG && this.utils.console("Add to user history: " + key + " " + user + " " + amount);
+		});
 	}
 }
 

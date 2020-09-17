@@ -2,51 +2,11 @@ let assert = require("assert");
 let expect = require("expect");
 const superagent = require("superagent");
 let userArr;
-let amount = 99;
 let key = "hbits";
 let userKey = "testuser";
 
-function callAddUser(u, b) {
-	describe("Add " + b + " " + key + " to " + userKey + u, function () {
-		it("Should return empty string", (done) => {
-			superagent.get("http://localhost:3011/add/" + key + "/" + userKey + u + "/" + b).end((e, r) => {
-				if (e) done(e);
-				assert.equal("", r.text);
-				done();
-			});
-		});
-	});
-}
-
 describe("=========== " + key.toUpperCase() + " ===========", function () {
 	describe("Get " + userKey + " " + key, function () {
-		it("Should return '" + userKey + "1 not found'", (done) => {
-			superagent.get("http://localhost:3011/get/" + key + "/" + userKey + "1").end((e, r) => {
-				if (e) done(e);
-				assert.equal(userKey + "1 not found", r.text);
-				done();
-			});
-		});
-	});
-
-
-	// add to 15 users
-	for (let u = 1; u <= 15; ++u) {
-		++amount;
-		callAddUser(u, amount);
-	}
-
-	describe("Add 100 " + key + " to " + userKey + "1", function () {
-		it("Should return ''", (done) => {
-			superagent.get("http://localhost:3011/add/" + key + "/" + userKey + "1/100").end((e, r) => {
-				if (e) done(e);
-				assert.equal("", r.text);
-				done();
-			});
-		});
-	});
-
-	describe("Get " + userKey + "1 " + key, function () {
 		it("Should return 200", (done) => {
 			superagent.get("http://localhost:3011/get/" + key + "/" + userKey + "1").end((e, r) => {
 				if (e) done(e);
