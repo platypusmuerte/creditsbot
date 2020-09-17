@@ -17,8 +17,11 @@ if (!fs.existsSync("./data")) {
 	fs.mkdirSync("./data");
 	config.DEBUG && utils.console("Created ./data");
 } else {
-	config.DEBUG && utils.console("./data exists");
+	config.DEBUG && utils.console("data folder exists OK to start");
 }
+
+config.DEBUG && utils.console(" ");
+config.DEBUG && utils.console(" ");
 
 const dataDir = path.join("./", "/data");
 const Cryptr = require('cryptr');
