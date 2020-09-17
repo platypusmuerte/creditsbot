@@ -26,7 +26,7 @@ class HChannelPointsQueries {
 
 		return new Promise(function (resolve, reject) {
 			if (db.get(constants.DATABASE_NAMES.CHANNELPOINTS).find({ name: user }).has("name").value()) {
-				let newAmount = (this.db.get(constants.DATABASE_NAMES.CHANNELPOINTS).find({ name: user }).value().amount * 1) + amount * 1;
+				let newAmount = (db.get(constants.DATABASE_NAMES.CHANNELPOINTS).find({ name: user }).value().amount * 1) + amount * 1;
 				db.get(constants.DATABASE_NAMES.CHANNELPOINTS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
 				db.get(constants.DATABASE_NAMES.CHANNELPOINTS).push({ name: user, amount: amount }).write();
@@ -41,6 +41,7 @@ class HChannelPointsQueries {
 	 */
 	removeUser(user) {
 		let db = this.db;
+		let lodash = this.lodash;
 
 		return new Promise(function (resolve, reject) {
 			db.get(constants.DATABASE_NAMES.CHANNELPOINTS).remove({ name: user }).write();
@@ -54,20 +55,12 @@ class HChannelPointsQueries {
 	 */
 	getTop10() {
 		let db = this.db;
+		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).sortBy("value").take(10).value();
-			let resp = [];
+			let list = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).value();
 
-			list.forEach((d) => {
-				resp.push(d.name + ": " + d.amount)
-			});
-
-			if (resp.length) {
-				resolve(resp.join(", "));
-			} else {
-				resolve("No users");
-			}
+			resolve(utils.getTopUsers(list, "amount", "desc", 10));
 		});
 	}
 
@@ -76,20 +69,12 @@ class HChannelPointsQueries {
 	 */
 	getTop5() {
 		let db = this.db;
+		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).sortBy("value").take(5).value();
-			let resp = [];
+			let list = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).value();
 
-			list.forEach((d) => {
-				resp.push(d.name + ": " + d.amount)
-			});
-
-			if (resp.length) {
-				resolve(resp.join(", "));
-			} else {
-				resolve("No users");
-			}
+			resolve(utils.getTopUsers(list, "amount", "desc", 5));
 		});
 	}
 

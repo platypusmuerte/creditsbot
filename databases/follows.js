@@ -28,10 +28,11 @@ class FollowsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			let exists = db.get(constants.DATABASE_NAMES.FOLLOWS).includes(user).value();
+			let exists = db.get(constants.DATABASE_NAMES.FOLLOWS).has({ name: user }).value();
 
-			if (!exists) {
-				db.get(constants.DATABASE_NAMES.FOLLOWS).push(user).write();
+			if (db.get(constants.DATABASE_NAMES.FOLLOWS).filter({ name: user }).size().value()*1 < 1) {
+				console.log("ADDED FOLLOWER " + user);
+				db.get(constants.DATABASE_NAMES.FOLLOWS).push({ name: user, amount: 1 }).write();
 			}
 
 			resolve("");
@@ -45,7 +46,7 @@ class FollowsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			db.get(constants.DATABASE_NAMES.FOLLOWS).remove(user).write();
+			db.get(constants.DATABASE_NAMES.FOLLOWS).remove({ name: user }).write();
 
 			resolve("");
 		});

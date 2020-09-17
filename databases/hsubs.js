@@ -5,6 +5,7 @@ class HSubsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.lodash = params.lodash;
 
 		const { HSubsDBAdapter } = require("../adapters/hsubs");
 		this.db = new HSubsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();

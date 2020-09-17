@@ -123,11 +123,24 @@ class Listener {
 	 * ROUTE HANDLERS 
 	 */
 	removeUser(req, res, user) {
-		this.db.databases.bits.removeUser(user).then((r) => {
+		/*this.db.databases.bits.removeUser(user).then((r) => {
 			config.DEBUG && this.utils.console("Remove user: " + user);
 			res.send(r.toString());
+		});*/
+		
+
+		let db = this.db;
+		let utils = this.utils;
+		let dbs = constants.DATABASE_NAMES;
+
+		Object.entries(dbs).forEach(([k,v])=>{
+			db.databases[v].removeUser(user).then((r) => {
+				config.DEBUG && utils.console("Remove user from : " + v + " " + user);
+			});			
 		});
-		// todo - call removes for all here
+
+		//config.DEBUG && utils.console("Remove user: " + user);
+		res.send("");
 	}
 
 	// add to user of
@@ -184,10 +197,7 @@ class Listener {
 
 	// bits history
 	addToUserHistory(key, user, amount) {
-		console.log(key, user, amount);
-		/*this.db.databases[key].addUser(user, amount).then((r) => {
-			config.DEBUG && this.utils.console("Add to user history: " + JSON.stringify(r));
-		});*/
+		
 	}
 }
 

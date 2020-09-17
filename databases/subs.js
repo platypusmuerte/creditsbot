@@ -5,6 +5,7 @@ class SubsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.lodash = params.lodash;
 
 		const { SubsDBAdapter } = require("../adapters/subs");
 		this.db = new SubsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();

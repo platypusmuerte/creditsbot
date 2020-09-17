@@ -18,6 +18,8 @@ exports.cleanup = (config, path, fs, utils, dataDir)=>{
 
 				resolve();
 			});
+		} else {
+			resolve();
 		}
 	});
 };

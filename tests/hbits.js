@@ -3,7 +3,7 @@ let expect = require("expect");
 const superagent = require("superagent");
 let userArr;
 let amount = 99;
-let key = "bits";
+let key = "hbits";
 let userKey = "testuser";
 
 function callAddUser(u, b) {

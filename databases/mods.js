@@ -5,6 +5,7 @@ class ModsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.lodash = params.lodash;
 
 		const { ModsDBAdapter } = require("../adapters/mods");
 		this.db = new ModsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();

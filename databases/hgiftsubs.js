@@ -29,7 +29,7 @@ class HGiftSubsQueries {
 
 		return new Promise(function (resolve, reject) {
 			if (db.get(constants.DATABASE_NAMES.GIFTSUBS).find({ name: user }).has("name").value()) {
-				let newAmount = (this.db.get(constants.DATABASE_NAMES.GIFTSUBS).find({ name: user }).value().amount * 1) + amount * 1;
+				let newAmount = (db.get(constants.DATABASE_NAMES.GIFTSUBS).find({ name: user }).value().amount * 1) + amount * 1;
 				db.get(constants.DATABASE_NAMES.GIFTSUBS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
 				db.get(constants.DATABASE_NAMES.GIFTSUBS).push({ name: user, amount: amount }).write();
@@ -57,20 +57,12 @@ class HGiftSubsQueries {
 	 */
 	getTop10() {
 		let db = this.db;
+		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.GIFTSUBS).sortBy("value").take(10).value();
-			let resp = [];
+			let list = db.get(constants.DATABASE_NAMES.GIFTSUBS).value();
 
-			list.forEach((d) => {
-				resp.push(d.name + ": " + d.amount)
-			});
-
-			if (resp.length) {
-				resolve(resp.join(", "));
-			} else {
-				resolve("No users");
-			}
+			resolve(utils.getTopUsers(list, "amount", "desc", 10));
 		});
 	}
 
@@ -79,20 +71,12 @@ class HGiftSubsQueries {
 	 */
 	getTop5() {
 		let db = this.db;
+		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.GIFTSUBS).sortBy("value").take(5).value();
-			let resp = [];
+			let list = db.get(constants.DATABASE_NAMES.GIFTSUBS).value();
 
-			list.forEach((d) => {
-				resp.push(d.name + ": " + d.amount)
-			});
-
-			if (resp.length) {
-				resolve(resp.join(", "));
-			} else {
-				resolve("No users");
-			}
+			resolve(utils.getTopUsers(list, "amount", "desc", 5));
 		});
 	}
 

@@ -57,20 +57,12 @@ class BitsQueries {
 	 */
 	getTop10() {
 		let db = this.db;
+		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.BITS).sortBy("value").take(10).value();
-			let resp = [];
+			let list = db.get(constants.DATABASE_NAMES.BITS).value();
 
-			list.forEach((d)=>{
-				resp.push(d.name + ": " + d.amount)
-			});
-
-			if (resp.length) {
-				resolve(resp.join(", "));
-			} else {
-				resolve("No users");
-			}
+			resolve(utils.getTopUsers(list, "amount", "desc", 10));
 		});
 	}
 
@@ -79,20 +71,12 @@ class BitsQueries {
 	 */
 	getTop5() {
 		let db = this.db;
+		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.BITS).sortBy("value").take(5).value();
-			let resp = [];
-
-			list.forEach((d) => {
-				resp.push(d.name + ": " + d.amount)
-			});
-
-			if(resp.length) {
-				resolve(resp.join(", "));
-			} else {
-				resolve("No users");
-			}
+			let list = db.get(constants.DATABASE_NAMES.BITS).value();
+			
+			resolve(utils.getTopUsers(list, "amount", "desc", 5));
 		});
 	}
 
