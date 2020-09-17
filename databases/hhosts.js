@@ -17,7 +17,7 @@ class HHostsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			resolve(db.get(constants.DATABASE_NAMES.HOSTS).value());
+			resolve(db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).value());
 		});
 	}
 
@@ -28,10 +28,11 @@ class HHostsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			if (db.get(constants.DATABASE_NAMES.HOSTS).find({ name: user }).has("name").value()) {
-				db.get(constants.DATABASE_NAMES.HOSTS).find({ name: user }).assign({ name: user, amount: amount }).write();
+			if (db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).find({ name: user }).has("name").value()) {
+				let newAmount = (db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).find({ name: user }).value().amount * 1) + 1;
+				db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
-				db.get(constants.DATABASE_NAMES.HOSTS).push({ name: user, amount: amount }).write();
+				db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).push({ name: user, amount: 1 }).write();
 			}
 
 			resolve("");
@@ -45,7 +46,7 @@ class HHostsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			db.get(constants.DATABASE_NAMES.HOSTS).remove({ name: user }).write();
+			db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).remove({ name: user }).write();
 
 			resolve("");
 		});
@@ -59,7 +60,7 @@ class HHostsQueries {
 		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.HOSTS).value();
+			let list = db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 10));
 		});
@@ -73,7 +74,7 @@ class HHostsQueries {
 		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.HOSTS).value();
+			let list = db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 5));
 		});
@@ -86,7 +87,7 @@ class HHostsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			let data = db.get(constants.DATABASE_NAMES.HOSTS).find({ name: user }).value();
+			let data = db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).find({ name: user }).value();
 
 			if (data) {
 				resolve(data.amount);

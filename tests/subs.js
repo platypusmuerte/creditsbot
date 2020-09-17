@@ -3,7 +3,7 @@ let expect = require("expect");
 const superagent = require("superagent");
 let userArr;
 let amount = 99;
-let key = "hbits";
+let key = "subs";
 let userKey = "testuser";
 
 function callAddUser(u, b) {
@@ -36,7 +36,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		callAddUser(u, amount);
 	}
 
-	describe("Add 100 " + key + " to " + userKey + "1", function () {
+	describe("Add 1 " + key + " to " + userKey + "1", function () {
 		it("Should return ''", (done) => {
 			superagent.get("http://localhost:3011/add/" + key + "/" + userKey + "1/100").end((e, r) => {
 				if (e) done(e);
@@ -47,10 +47,10 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 	});
 
 	describe("Get " + userKey + "1 " + key, function () {
-		it("Should return 200", (done) => {
+		it("Should return 2", (done) => {
 			superagent.get("http://localhost:3011/get/" + key + "/" + userKey + "1").end((e, r) => {
 				if (e) done(e);
-				assert.equal("200", r.text);
+				assert.equal("2", r.text);
 				done();
 			});
 		});
@@ -74,7 +74,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("1st should be greater than 2nd result", (done) => {
 			let val1 = userArr[0].split(": ")[1] * 1;
 			let val2 = userArr[1].split(": ")[1] * 1;
-			expect(val1).toBeGreaterThan(val2);
+			expect(val1).toBeGreaterThanOrEqual(val2);
 			done();
 		});
 	});
@@ -83,7 +83,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("9th should be greater than 10th result", (done) => {
 			let val1 = userArr[8].split(": ")[1] * 1;
 			let val2 = userArr[9].split(": ")[1] * 1;
-			expect(val1).toBeGreaterThan(val2);
+			expect(val1).toBeGreaterThanOrEqual(val2);
 			done();
 		});
 	});
@@ -106,7 +106,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("1st should be greater than 2nd result", (done) => {
 			let val1 = userArr[0].split(": ")[1] * 1;
 			let val2 = userArr[1].split(": ")[1] * 1;
-			expect(val1).toBeGreaterThan(val2);
+			expect(val1).toBeGreaterThanOrEqual(val2);
 			done();
 		});
 	});
@@ -115,7 +115,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("4th should be greater than 5th result", (done) => {
 			let val1 = userArr[3].split(": ")[1] * 1;
 			let val2 = userArr[4].split(": ")[1] * 1;
-			expect(val1).toBeGreaterThan(val2);
+			expect(val1).toBeGreaterThanOrEqual(val2);
 			done();
 		});
 	});

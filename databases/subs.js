@@ -5,7 +5,6 @@ class SubsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
-		this.lodash = params.lodash;
 
 		const { SubsDBAdapter } = require("../adapters/subs");
 		this.db = new SubsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
@@ -30,10 +29,10 @@ class SubsQueries {
 
 		return new Promise(function (resolve, reject) {
 			if (db.get(constants.DATABASE_NAMES.SUBS).find({ name: user }).has("name").value()) {
-				let newAmount = (this.db.get(constants.DATABASE_NAMES.SUBS).find({ name: user }).value().amount * 1) + amount * 1;
+				let newAmount = (db.get(constants.DATABASE_NAMES.SUBS).find({ name: user }).value().amount * 1) + 1;
 				db.get(constants.DATABASE_NAMES.SUBS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
-				db.get(constants.DATABASE_NAMES.SUBS).push({ name: user, amount: amount }).write();
+				db.get(constants.DATABASE_NAMES.SUBS).push({ name: user, amount: 1 }).write();
 			}
 
 			resolve("");
@@ -57,8 +56,13 @@ class SubsQueries {
 	 * returns string of user:amount,...
 	 */
 	getTop10() {
+		let db = this.db;
+		let utils = this.utils;
+
 		return new Promise(function (resolve, reject) {
-			resolve("");
+			let list = db.get(constants.DATABASE_NAMES.SUBS).value();
+
+			resolve(utils.getTopUsers(list, "amount", "desc", 10));
 		});
 	}
 
@@ -66,8 +70,13 @@ class SubsQueries {
 	 * returns string of user:amount,...
 	 */
 	getTop5() {
+		let db = this.db;
+		let utils = this.utils;
+
 		return new Promise(function (resolve, reject) {
-			resolve("");
+			let list = db.get(constants.DATABASE_NAMES.SUBS).value();
+
+			resolve(utils.getTopUsers(list, "amount", "desc", 5));
 		});
 	}
 
@@ -75,8 +84,16 @@ class SubsQueries {
 	 * returns string user: amount
 	 */
 	getUser(user) {
+		let db = this.db;
+
 		return new Promise(function (resolve, reject) {
-			resolve("");
+			let data = db.get(constants.DATABASE_NAMES.SUBS).find({ name: user }).value();
+
+			if (data) {
+				resolve(data.amount);
+			} else {
+				resolve(user + " not found");
+			}
 		});
 	}
 }

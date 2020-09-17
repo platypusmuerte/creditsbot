@@ -26,10 +26,8 @@ class ModsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			let exists = db.get(constants.DATABASE_NAMES.MODS).includes(user).value();
-
-			if (!exists) {
-				db.get(constants.DATABASE_NAMES.MODS).push(user).write();
+			if (db.get(constants.DATABASE_NAMES.MODS).filter({ name: user }).size().value() * 1 < 1) {
+				db.get(constants.DATABASE_NAMES.MODS).push({ name: user, amount: 1 }).write();
 			}
 
 			resolve("");

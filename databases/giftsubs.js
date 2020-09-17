@@ -62,7 +62,7 @@ class GiftSubsQueries {
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.GIFTSUBS).value();
 
-			resolve(utils.getTopUsers(list, "amount", "desc", 5));
+			resolve(utils.getTopUsers(list, "amount", "desc", 10));
 		});
 	}
 

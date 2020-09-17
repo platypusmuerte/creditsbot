@@ -28,10 +28,8 @@ class BansQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			let exists = db.get(constants.DATABASE_NAMES.BANS).includes(user).value();
-			
-			if (!exists) {
-				db.get(constants.DATABASE_NAMES.BANS).push(user).write();
+			if (db.get(constants.DATABASE_NAMES.BANS).filter({ name: user }).size().value() * 1 < 1) {
+				db.get(constants.DATABASE_NAMES.BANS).push({ name: user, amount: 1 }).write();
 			}
 			
 			resolve("");
@@ -39,7 +37,11 @@ class BansQueries {
 	}
 
 	removeUser() {
+		let db = this.db;
+
 		return new Promise(function (resolve, reject) {
+			db.get(constants.DATABASE_NAMES.BANS).remove({ name: user }).write();
+
 			resolve("");
 		});
 	}

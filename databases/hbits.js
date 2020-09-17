@@ -17,7 +17,7 @@ class HBitsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			resolve(db.get(constants.DATABASE_NAMES.BITS).value());
+			resolve(db.get(constants.DATABASE_NAMES.HISTORIC_BITS).value());
 		});
 	}
 
@@ -28,11 +28,11 @@ class HBitsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			if (db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).has("name").value()) {
-				let newAmount = (db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).value().amount * 1) + amount * 1;
-				db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
+			if (db.get(constants.DATABASE_NAMES.HISTORIC_BITS).find({ name: user }).has("name").value()) {
+				let newAmount = (db.get(constants.DATABASE_NAMES.HISTORIC_BITS).find({ name: user }).value().amount * 1) + amount * 1;
+				db.get(constants.DATABASE_NAMES.HISTORIC_BITS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
-				db.get(constants.DATABASE_NAMES.BITS).push({ name: user, amount: amount }).write();
+				db.get(constants.DATABASE_NAMES.HISTORIC_BITS).push({ name: user, amount: amount }).write();
 			}
 
 			resolve("");
@@ -46,7 +46,7 @@ class HBitsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			db.get(constants.DATABASE_NAMES.BITS).remove({ name: user }).write();
+			db.get(constants.DATABASE_NAMES.HISTORIC_BITS).remove({ name: user }).write();
 
 			resolve("");
 		});
@@ -60,7 +60,7 @@ class HBitsQueries {
 		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.BITS).value();
+			let list = db.get(constants.DATABASE_NAMES.HISTORIC_BITS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 10));
 		});
@@ -74,7 +74,7 @@ class HBitsQueries {
 		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(constants.DATABASE_NAMES.BITS).value();
+			let list = db.get(constants.DATABASE_NAMES.HISTORIC_BITS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 5));
 		});
@@ -87,7 +87,7 @@ class HBitsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			let data = db.get(constants.DATABASE_NAMES.BITS).find({ name: user }).value();
+			let data = db.get(constants.DATABASE_NAMES.HISTORIC_BITS).find({ name: user }).value();
 
 			if (data) {
 				resolve(data.amount);

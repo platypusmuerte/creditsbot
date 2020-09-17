@@ -29,9 +29,10 @@ class RaidsQueries {
 
 		return new Promise(function (resolve, reject) {
 			if (db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).has("name").value()) {
-				db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).assign({ name: user, amount: amount }).write();
+				let newAmount = (db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).value().amount * 1) + 1;
+				db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
-				db.get(constants.DATABASE_NAMES.RAIDS).push({ name: user, amount: amount }).write();
+				db.get(constants.DATABASE_NAMES.RAIDS).push({ name: user, amount: 1 }).write();
 			}
 
 			resolve("");

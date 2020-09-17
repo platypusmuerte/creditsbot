@@ -3,7 +3,7 @@ let expect = require("expect");
 const superagent = require("superagent");
 let userArr;
 let amount = 99;
-let key = "hbits";
+let key = "hchannelpoints";
 let userKey = "testuser";
 
 function callAddUser(u, b) {
@@ -20,8 +20,8 @@ function callAddUser(u, b) {
 
 describe("=========== " + key.toUpperCase() + " ===========", function () {
 	describe("Get " + userKey + " " + key, function () {
-		it("Should return '" + userKey + "1 not found'", (done) => {
-			superagent.get("http://localhost:3011/get/" + key + "/" + userKey + "1").end((e, r) => {
+		it("Should return '" + userKey + "1 not found'", (done)=>{
+			superagent.get("http://localhost:3011/get/" + key + "/" + userKey + "1").end((e,r)=>{
 				if (e) done(e);
 				assert.equal(userKey + "1 not found", r.text);
 				done();
@@ -29,11 +29,11 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		});
 	});
 
-
+	
 	// add to 15 users
-	for (let u = 1; u <= 15; ++u) {
+	for(let u=1;u<=15;++u) {
 		++amount;
-		callAddUser(u, amount);
+		callAddUser(u, amount);		
 	}
 
 	describe("Add 100 " + key + " to " + userKey + "1", function () {
@@ -60,10 +60,10 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("Should return count of 10", (done) => {
 			superagent.get("http://localhost:3011/top10/" + key).end((e, r) => {
 				if (e) done(e);
-
+				
 				let str = r.text;
 				userArr = str.split(", ");
-
+				
 				expect(userArr).toHaveLength(10);
 				done();
 			});
@@ -72,8 +72,8 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 
 	describe("In top 10 " + key, function () {
 		it("1st should be greater than 2nd result", (done) => {
-			let val1 = userArr[0].split(": ")[1] * 1;
-			let val2 = userArr[1].split(": ")[1] * 1;
+			let val1 = userArr[0].split(": ")[1]*1;
+			let val2 = userArr[1].split(": ")[1]*1;
 			expect(val1).toBeGreaterThan(val2);
 			done();
 		});
