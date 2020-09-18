@@ -5,7 +5,7 @@
   "description": "Parse dirs of names, and return html for credits scene.",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js --help",
+    "start": "node main.js",
     "build": "node build.js",
     "test": "mocha tests/*/*"
   },
@@ -15,6 +15,7 @@
     "body-parser": "1.19.0",
     "chalk": "4.1.0",
     "cryptr": "4.0.2",
+    "ini-parser-encoder": "0.0.4",
     "jquery": "3.5.1",
     "lodash": "4.17.20",
     "lowdb": "1.0.0",
