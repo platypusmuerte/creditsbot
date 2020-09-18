@@ -8,8 +8,9 @@ const { header } = require("./header");
 const { cleanup } = require("./cleanup");
 const { Utils } = require("./utils/utils");
 const { Database } = require('./db');
+const { Builder } = require("./builder/main");
 let { Listener } = require("./listener/main");
-let utils, listener, db;
+let utils, listener, db, builder;
 utils = new Utils();
 
 if (!fs.existsSync("./data")) {
@@ -27,6 +28,8 @@ const Cryptr = require('cryptr');
 const cryptr = new Cryptr('platyscreditsbot');
 
 header(utils, constants).then(()=>{
+	builder = new Builder({utils, userArgs});
+}).then(()=>{
 	cleanup(userArgs, path, fs, utils, dataDir).then(() => {
 		userArgs.DEBUG && utils.console(" ");
 		userArgs.DEBUG && utils.console("Starting...");
@@ -34,7 +37,7 @@ header(utils, constants).then(()=>{
 
 		db = new Database({ cryptr, dataDir, utils });
 
-		listener = new Listener({ db, utils, exp, dataDir, userArgs });
+		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder });
 		listener.start();
 	});
 });

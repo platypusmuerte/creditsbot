@@ -27,13 +27,15 @@ exports.constants = {
 	},
 	PATHS: {
 		ADD_USER: "/add/:key/:user/:amount",
+		CREDITS: "/credits",
 		GET_ALL: "/getall/:key",
 		GET_10: "/top10/:key",
 		GET_5: "/top5/:key",
 		GET_USER: "/get/:key/:user",
 		PING: "/ping",
 		REMOVE_USER: "/remove/:user",
-	}
+	},
+	TEMPLATE_DIR: "./templates"
 };
 
 

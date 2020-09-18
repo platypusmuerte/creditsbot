@@ -1,20 +1,19 @@
 const { constants } = require('../constants');
 
-let { EventManager } = require("../managers/events");
-
 class Listener {
 	constructor(params) {
 		this.utils = params.utils;
 		this.exp = params.exp;
 		this.db = params.db;
 		this.dataDir = params.dataDir;
-		this.events = new EventManager({ utils: this.utils});
 		this.userArgs = params.userArgs;
+		this.builder = params.builder;
 	}
 
 	start() {
 		this.exp.listen(this.userArgs.PORT, () => {
 			this.utils.console("Started listening at http://localhost:" + this.userArgs.PORT);
+			this.utils.console(" ");
 			this.setDefaultListeners();
 		});
 	}
@@ -26,6 +25,7 @@ class Listener {
 		this.get_5Of({ path: constants.PATHS.GET_5, callback: this.getTop5.bind(this) });
 		this.get_userOf({ path: constants.PATHS.GET_USER, callback: this.getByUser.bind(this) });
 		this.get_removeUser({ path: constants.PATHS.REMOVE_USER, callback: this.removeUser.bind(this) });
+		this.get_credits({ path: constants.PATHS.CREDITS, callback: ()=>{} });
 
 		this.exp.get(constants.PATHS.PING, (req, res) => {res.send("pong");});
 
@@ -116,6 +116,19 @@ class Listener {
 			} else {
 				res.send("");
 			}
+		});
+	}
+
+	get_credits(data) {
+		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
+
+		this.exp.get(data.path, (req, res) => {
+			//this.builder.getCreditsHTML(this.db)
+			this.builder.assembleTemplates(this.db).then(()=>{
+				res.set('Content-Type', 'text/html')
+				res.send(this.builder.getCreditsHTML());
+			});
+			
 		});
 	}
 

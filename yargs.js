@@ -1,3 +1,12 @@
+/**
+ * INI EXAMPLE
+ * 
+ * [CONFIG]
+	PORT=3333
+	DIRTY=true
+ */
+
+
 const { constants } = require('./constants');
 const { config } = require('./config');
 const { Utils } = require("./utils/utils");
