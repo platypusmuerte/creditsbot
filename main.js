@@ -1,9 +1,8 @@
+let { userArgs } = require("./yargs");
 let express = require("express");
 let exp = express();
-
 const path = require('path');
 const fs = require('fs');
-const { config } = require('./config');
 const { constants } = require('./constants');
 const { header } = require("./header");
 const { cleanup } = require("./cleanup");
@@ -15,27 +14,27 @@ utils = new Utils();
 
 if (!fs.existsSync("./data")) {
 	fs.mkdirSync("./data");
-	config.DEBUG && utils.console("Created ./data");
+	userArgs.DEBUG && utils.console("Created ./data");
 } else {
-	config.DEBUG && utils.console("data folder exists OK to start");
+	userArgs.DEBUG && utils.console("Data folder exists OK to start");
 }
 
-config.DEBUG && utils.console(" ");
-config.DEBUG && utils.console(" ");
+userArgs.DEBUG && utils.console(" ");
+userArgs.DEBUG && utils.console(" ");
 
 const dataDir = path.join("./", "/data");
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('platyscreditsbot');
 
 header(utils, constants).then(()=>{
-	cleanup(config, path, fs, utils, dataDir).then(() => {
-		config.DEBUG && utils.console(" ");
-		config.DEBUG && utils.console("Starting...");
-		config.DEBUG && utils.console(" ");
+	cleanup(userArgs, path, fs, utils, dataDir).then(() => {
+		userArgs.DEBUG && utils.console(" ");
+		userArgs.DEBUG && utils.console("Starting...");
+		userArgs.DEBUG && utils.console(" ");
 
 		db = new Database({ cryptr, dataDir, utils });
 
-		listener = new Listener({ db, utils, exp, dataDir });
+		listener = new Listener({ db, utils, exp, dataDir, userArgs });
 		listener.start();
 	});
 });

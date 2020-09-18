@@ -1,6 +1,6 @@
-exports.cleanup = (config, path, fs, utils, dataDir)=>{
+exports.cleanup = (userArgs, path, fs, utils, dataDir)=>{
 	return new Promise(function (resolve, reject) {
-		if (config.CLEAN_ON_STARTUP) {
+		if (userArgs.CLEAN_ON_STARTUP) {
 			let dir = path.join(dataDir, "");
 
 			fs.readdir(dir, (err, files) => {
@@ -11,7 +11,7 @@ exports.cleanup = (config, path, fs, utils, dataDir)=>{
 					let ext = path.extname(file);
 
 					if (!fs.lstatSync(path.join(dir, file)).isDirectory() && (ext !== ".hdb")) {
-						(config.CLEAN_ON_STARTUP && config.DEBUG) && utils.console("Cleaning " + file);
+						(userArgs.CLEAN_ON_STARTUP && userArgs.DEBUG) && utils.console("Cleaning " + file);
 						fs.unlink(path.join(dir, file), err => {
 							//if (err) throw err;
 						});

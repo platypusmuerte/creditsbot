@@ -1,5 +1,4 @@
 const { constants } = require('../constants');
-const { config } = require('../config');
 
 let { EventManager } = require("../managers/events");
 
@@ -10,11 +9,12 @@ class Listener {
 		this.db = params.db;
 		this.dataDir = params.dataDir;
 		this.events = new EventManager({ utils: this.utils});
+		this.userArgs = params.userArgs;
 	}
 
 	start() {
-		this.exp.listen(constants.PORT, () => {
-			this.utils.console("Started listening at http://localhost:" + constants.PORT);
+		this.exp.listen(this.userArgs.PORT, () => {
+			this.utils.console("Started listening at http://localhost:" + this.userArgs.PORT);
 			this.setDefaultListeners();
 		});
 	}
@@ -33,7 +33,7 @@ class Listener {
 	}
 
 	get_addToUser(data) {
-		config.DEBUG && this.utils.console("Added GET " + data.path);
+		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
 
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
@@ -49,7 +49,7 @@ class Listener {
 	}
 
 	get_allOf(data) {
-		config.DEBUG && this.utils.console("Added GET " + data.path);
+		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
 
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
@@ -63,7 +63,7 @@ class Listener {
 	}
 
 	get_10Of(data) {
-		config.DEBUG && this.utils.console("Added GET " + data.path);
+		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
 
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
@@ -77,7 +77,7 @@ class Listener {
 	}
 
 	get_5Of(data) {
-		config.DEBUG && this.utils.console("Added GET " + data.path);
+		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
 
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
@@ -91,7 +91,7 @@ class Listener {
 	}
 
 	get_userOf(data) {
-		config.DEBUG && this.utils.console("Added GET " + data.path);
+		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
 
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
@@ -106,7 +106,7 @@ class Listener {
 	}
 
 	get_removeUser(data) {
-		config.DEBUG && this.utils.console("Added GET " + data.path);
+		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
 
 		this.exp.get(data.path, (req, res) => {
 			let user = req.params.user || false;
@@ -129,7 +129,7 @@ class Listener {
 
 		Object.entries(dbs).forEach(([k,v])=>{
 			db.databases[v].removeUser(user).then((r) => {
-				config.DEBUG && utils.console("Remove user from : " + v + " " + user);
+				this.userArgs.DEBUG && utils.console("Remove user from : " + v + " " + user);
 			});			
 		});
 
@@ -139,7 +139,7 @@ class Listener {
 	// add to user of
 	addToUser(req, res, key, user, amount) {
 		this.db.databases[key].addUser(user, amount).then((r) => {
-			config.DEBUG && this.utils.console("Add to user: " + key + " " + user + " " + amount);
+			this.userArgs.DEBUG && this.utils.console("Add to user: " + key + " " + user + " " + amount);
 			res.send(r.toString());
 		}).then(()=>{
 			this.historyManager(key, user, amount);
@@ -149,7 +149,7 @@ class Listener {
 	// get all users of
 	getAllUsers(req, res, key) {
 		this.db.databases[key].getAll().then((r) => {
-			config.DEBUG && this.utils.console("Get all users: " + key + " " + JSON.stringify(r));
+			this.userArgs.DEBUG && this.utils.console("Get all users: " + key + " " + JSON.stringify(r));
 			res.send(JSON.stringify(r));
 		});
 	}
@@ -157,7 +157,7 @@ class Listener {
 	// get top 10 of
 	getTop10(req, res, key) {
 		this.db.databases[key].getTop10().then((r) => {
-			config.DEBUG && this.utils.console("Get top 10: " + key + " " + JSON.stringify(r));
+			this.userArgs.DEBUG && this.utils.console("Get top 10: " + key + " " + JSON.stringify(r));
 			res.send(r.toString());
 		});
 	}
@@ -165,7 +165,7 @@ class Listener {
 	// get top 5 of
 	getTop5(req, res, key) {
 		this.db.databases[key].getTop5().then((r) => {
-			config.DEBUG && this.utils.console("Get top 5: " + key + " " + JSON.stringify(r));
+			this.userArgs.DEBUG && this.utils.console("Get top 5: " + key + " " + JSON.stringify(r));
 			res.send(r);
 		});
 	}
@@ -173,7 +173,7 @@ class Listener {
 	// get user of
 	getByUser(req, res, key, user) {
 		this.db.databases[key].getUser(user).then((r) => {
-			config.DEBUG && this.utils.console("Get user: " + key + " " + user);
+			this.userArgs.DEBUG && this.utils.console("Get user: " + key + " " + user);
 			res.send(r.toString());
 		});
 	}
@@ -205,7 +205,7 @@ class Listener {
 	// bits history
 	addToUserHistory(key, user, amount) {
 		this.db.databases["h" + key].addUser(user, amount).then((r) => {
-			config.DEBUG && this.utils.console("Add to user history: " + key + " " + user + " " + amount);
+			this.userArgs.DEBUG && this.utils.console("Add to user history: " + key + " " + user + " " + amount);
 		});
 	}
 }

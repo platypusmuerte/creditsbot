@@ -33,8 +33,7 @@ exports.constants = {
 		GET_USER: "/get/:key/:user",
 		PING: "/ping",
 		REMOVE_USER: "/remove/:user",
-	},
-	PORT: 3011
+	}
 };
 
 
