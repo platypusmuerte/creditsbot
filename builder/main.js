@@ -63,7 +63,7 @@ class Builder {
 			{ file: "_top5H", name: "hraids", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hraidsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5H", name: "hsubs", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hsubsTop5Wrapper">{{{group}}}</div>' }
 		];
-		
+
 		this.prep();
 		this.checkTemplates();
 		this.final();
@@ -134,6 +134,10 @@ class Builder {
 	}
 
 	getCreditsHTML() {
+		this.userArgs.DEBUG && this.utils.console(" ");
+		this.userArgs.DEBUG && this.utils.console("Fetching credits output");
+		this.userArgs.DEBUG && this.utils.console(" ");
+
 		let mainHTML = constants.TEMPLATE_DIR + "/_credits.html";
 		let cssContent = constants.TEMPLATE_DIR + "/_credits.css";
 		let mainTemplate = fs.readFileSync(mainHTML, 'utf8');
@@ -147,6 +151,10 @@ class Builder {
 		});
 
 		let output = Mustache.render(mainTemplate, templateObj);
+
+		this.userArgs.DEBUG && this.utils.console(" ");
+		this.userArgs.DEBUG && this.utils.console("Credits output sent");
+		this.userArgs.DEBUG && this.utils.console(" ");
 
 		return output;
 	}
@@ -231,6 +239,8 @@ class Builder {
 		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
 		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
 
+		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
+
 		return new Promise(function (resolve, reject) {
 			let users = '';
 
@@ -249,6 +259,9 @@ class Builder {
 		let fname = (key === file) ? key : key + file;
 		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
 		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
+
+		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
+
 
 		return new Promise(function (resolve, reject) {
 			db.databases[key].getAll().then((users) => {
@@ -273,6 +286,9 @@ class Builder {
 		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
 		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
 
+		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
+
+
 		return new Promise(function (resolve, reject) {
 			let users = '';
 
@@ -291,6 +307,9 @@ class Builder {
 		let fname = (key === file) ? key : key + file;
 		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
 		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
+
+		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
+
 
 		return new Promise(function (resolve, reject) {
 			let users = '';
