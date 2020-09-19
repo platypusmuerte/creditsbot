@@ -1,6 +1,7 @@
 let assert = require("assert");
 let expect = require("expect");
 const superagent = require("superagent");
+const { config } = require('../../config');
 let userArr;
 let key = "hbits";
 let userKey = "testuser";
@@ -34,7 +35,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("1st should be greater than 2nd result", (done) => {
 			let val1 = userArr[0].split(": ")[1] * 1;
 			let val2 = userArr[1].split(": ")[1] * 1;
-			expect(val1).toBeGreaterThan(val2);
+			expect(val1).toBeGreaterThanOrEqual(val2);
 			done();
 		});
 	});
@@ -43,7 +44,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("9th should be greater than 10th result", (done) => {
 			let val1 = userArr[8].split(": ")[1] * 1;
 			let val2 = userArr[9].split(": ")[1] * 1;
-			expect(val1).toBeGreaterThan(val2);
+			expect(val1).toBeGreaterThanOrEqual(val2);
 			done();
 		});
 	});
@@ -66,7 +67,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("1st should be greater than 2nd result", (done) => {
 			let val1 = userArr[0].split(": ")[1] * 1;
 			let val2 = userArr[1].split(": ")[1] * 1;
-			expect(val1).toBeGreaterThan(val2);
+			expect(val1).toBeGreaterThanOrEqual(val2);
 			done();
 		});
 	});
@@ -75,7 +76,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("4th should be greater than 5th result", (done) => {
 			let val1 = userArr[3].split(": ")[1] * 1;
 			let val2 = userArr[4].split(": ")[1] * 1;
-			expect(val1).toBeGreaterThan(val2);
+			expect(val1).toBeGreaterThanOrEqual(val2);
 			done();
 		});
 	});

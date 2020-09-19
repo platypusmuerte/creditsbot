@@ -1,6 +1,7 @@
 let assert = require("assert");
 let expect = require("expect");
 const superagent = require("superagent");
+const { config } = require('../../config');
 let userArr;
 let key = "mods";
 let userKey = "testuser";
