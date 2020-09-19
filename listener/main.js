@@ -123,7 +123,6 @@ class Listener {
 		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
 
 		this.exp.get(data.path, (req, res) => {
-			//this.builder.getCreditsHTML(this.db)
 			this.builder.assembleTemplates(this.db).then(()=>{
 				res.set('Content-Type', 'text/html')
 				res.send(this.builder.getCreditsHTML());

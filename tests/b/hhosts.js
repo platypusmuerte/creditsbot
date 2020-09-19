@@ -13,7 +13,7 @@ let userKey = "testuser";
 function callAddUser(u, b) {
 	describe("Add " + b + " " + key + " to " + userKey + u, function () {
 		it("Should return empty string", (done) => {
-			superagent.get("http://localhost:3011/add/" + key + "/" + userKey + u + "/" + b).end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/add/" + key + "/" + userKey + u + "/" + b).end((e, r) => {
 				if (e) done(e);
 				assert.equal("", r.text);
 				done();
@@ -50,7 +50,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 
 	describe("Get all " + key, function () {
 		it("Should return count of 15", (done) => {
-			superagent.get("http://localhost:3011/getall/" + key).end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/getall/" + key).end((e, r) => {
 				if (e) done(e);
 				let follows = JSON.parse('{"users":' + r.text + '}');
 
@@ -62,7 +62,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 
 	describe("Get top 10 " + key, function () {
 		it("Should return count of 10", (done) => {
-			superagent.get("http://localhost:3011/top10/" + key).end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/top10/" + key).end((e, r) => {
 				if (e) done(e);
 
 				let str = r.text;

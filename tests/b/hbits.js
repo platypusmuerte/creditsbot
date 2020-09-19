@@ -8,7 +8,7 @@ let userKey = "testuser";
 describe("=========== " + key.toUpperCase() + " ===========", function () {
 	describe("Get " + userKey + " " + key, function () {
 		it("Should return 200", (done) => {
-			superagent.get("http://localhost:3011/get/" + key + "/" + userKey + "1").end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/get/" + key + "/" + userKey + "1").end((e, r) => {
 				if (e) done(e);
 				assert.equal("200", r.text);
 				done();
@@ -18,7 +18,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 
 	describe("Get top 10 " + key, function () {
 		it("Should return count of 10", (done) => {
-			superagent.get("http://localhost:3011/top10/" + key).end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/top10/" + key).end((e, r) => {
 				if (e) done(e);
 
 				let str = r.text;
@@ -50,7 +50,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 
 	describe("Get top 5 " + key, function () {
 		it("Should return count of 5", (done) => {
-			superagent.get("http://localhost:3011/top5/" + key).end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/top5/" + key).end((e, r) => {
 				if (e) done(e);
 
 				let str = r.text;

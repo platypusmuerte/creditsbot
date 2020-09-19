@@ -9,7 +9,7 @@ let userKey = "testuser";
 function callAddUser(u, b) {
 	describe("Add " + b + " " + key + " to " + userKey + u, function () {
 		it("Should return empty string", (done) => {
-			superagent.get("http://localhost:3011/add/" + key + "/" + userKey + u + "/" + b).end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/add/" + key + "/" + userKey + u + "/" + b).end((e, r) => {
 				if (e) done(e);
 				assert.equal("", r.text);
 				done();
@@ -21,7 +21,7 @@ function callAddUser(u, b) {
 describe("=========== " + key.toUpperCase() + " ===========", function () {
 	describe("Get " + userKey + " " + key, function () {
 		it("Should return '" + userKey + "1 not found'", (done) => {
-			superagent.get("http://localhost:3011/get/" + key + "/" + userKey + "1").end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/get/" + key + "/" + userKey + "1").end((e, r) => {
 				if (e) done(e);
 				assert.equal(userKey + "1 not found", r.text);
 				done();
@@ -38,7 +38,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 
 	describe("Add 100 " + key + " to " + userKey + "1", function () {
 		it("Should return ''", (done) => {
-			superagent.get("http://localhost:3011/add/" + key + "/" + userKey + "1/100").end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/add/" + key + "/" + userKey + "1/100").end((e, r) => {
 				if (e) done(e);
 				assert.equal("", r.text);
 				done();
@@ -48,7 +48,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 
 	describe("Get " + userKey + "1 " + key, function () {
 		it("Should return 200", (done) => {
-			superagent.get("http://localhost:3011/get/" + key + "/" + userKey + "1").end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/get/" + key + "/" + userKey + "1").end((e, r) => {
 				if (e) done(e);
 				assert.equal("200", r.text);
 				done();
@@ -58,7 +58,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 
 	describe("Get top 10 " + key, function () {
 		it("Should return count of 10", (done) => {
-			superagent.get("http://localhost:3011/top10/" + key).end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/top10/" + key).end((e, r) => {
 				if (e) done(e);
 
 				let str = r.text;
@@ -90,7 +90,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 
 	describe("Get top 5 " + key, function () {
 		it("Should return count of 5", (done) => {
-			superagent.get("http://localhost:3011/top5/" + key).end((e, r) => {
+			superagent.get("http://localhost:" + config.PORT + "/top5/" + key).end((e, r) => {
 				if (e) done(e);
 
 				let str = r.text;
