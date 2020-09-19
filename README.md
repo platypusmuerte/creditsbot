@@ -8,7 +8,7 @@ Any stream bot can make use of this app. It simply listens for web requests, and
 The output is fully customizable, using HTML templates and tokens.
 
 ## Where To Get Platys Credits Bot
-You can download the app from a link I will provide shortly.
+You can download the app from [here](http://platypusmuerte.com/PlatysCreditsBot_1.0.0.exe).
 
 ## How To Use Platys Credits Bot
 Check out the wiki for all the details.
