@@ -55,28 +55,28 @@ class HHostsQueries {
 	/**
 	 * returns string of user:amount,...
 	 */
-	getTop10() {
+	getTop10(asArray = false) {
 		let db = this.db;
 		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).value();
 
-			resolve(utils.getTopUsers(list, "amount", "desc", 10));
+			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray));
 		});
 	}
 
 	/**
 	 * returns string of user:amount,...
 	 */
-	getTop5() {
+	getTop5(asArray = false) {
 		let db = this.db;
 		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_HOSTS).value();
 
-			resolve(utils.getTopUsers(list, "amount", "desc", 5));
+			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray));
 		});
 	}
 

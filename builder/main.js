@@ -138,12 +138,11 @@ class Builder {
 		this.userArgs.DEBUG && this.utils.console("Fetching credits output");
 		this.userArgs.DEBUG && this.utils.console(" ");
 
-		let mainHTML = constants.TEMPLATE_DIR + "/_credits.html";
-		let cssContent = constants.TEMPLATE_DIR + "/_credits.css";
-		let mainTemplate = fs.readFileSync(mainHTML, 'utf8');
-		let mainCSS = fs.readFileSync(mainHTML, 'utf8');
+		let mainTemplate = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.html", 'utf8');
+		let mainCSS = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.css", 'utf8');
+
 		let templateObj = {
-			css: Mustache.render(mainCSS, cssContent)
+			css: "<style>" + mainCSS + "</style>"
 		};
 
 		this.finalHTML.forEach((s)=>{
@@ -218,7 +217,6 @@ class Builder {
 			/* top 10Hs */
 			this.getTop10("hbits", "_top10H"),
 			this.getTop10("hchannelpoints", "_top10H"),
-			this.getTop10("hchatters", "_top10H"),
 			this.getTop10("hgiftsubs", "_top10H"),
 			this.getTop10("hhosts", "_top10H"),
 			this.getTop10("hraids", "_top10H"),
@@ -227,9 +225,9 @@ class Builder {
 			this.getTop5("hbits", "_top5H"),
 			this.getTop5("hchannelpoints", "_top5H"),
 			this.getTop5("hgiftsubs", "_top5H"),
-			this.getTop5("hosts", "_top5H"),
-			this.getTop5("raids", "_top5H"),
-			this.getTop5("subs", "_top5H")
+			this.getTop5("hhosts", "_top5H"),
+			this.getTop5("hraids", "_top5H"),
+			this.getTop5("hsubs", "_top5H")
 		]);
 	}
 
@@ -249,7 +247,7 @@ class Builder {
 					users += Mustache.render(inner, a);
 				});
 
-				resolve({ key: key, html: Mustache.render(wrapper, { group: users }) });
+				resolve({ key: fname, html: Mustache.render(wrapper, { group: users }) });
 			});
 		});
 	}
@@ -274,7 +272,7 @@ class Builder {
 				});
 
 				Promise.all(p).then((pr) => {
-					resolve({ key: key, html: Mustache.render(wrapper, { group: pr.join('') }) });
+					resolve({ key: fname, html: Mustache.render(wrapper, { group: pr.join('') }) });
 				});
 			});
 		});
@@ -292,12 +290,12 @@ class Builder {
 		return new Promise(function (resolve, reject) {
 			let users = '';
 
-			db.databases[key].getTop10().then((all) => {
+			db.databases[key].getTop10(true).then((all) => {
 				all.forEach((a) => {
 					users += Mustache.render(inner, a);
 				});
 
-				resolve({ key: key, html: Mustache.render(wrapper, { group: users }) });
+				resolve({ key: fname, html: Mustache.render(wrapper, { group: users }) });
 			});
 		});
 	}
@@ -314,12 +312,12 @@ class Builder {
 		return new Promise(function (resolve, reject) {
 			let users = '';
 
-			db.databases[key].getTop5().then((all) => {
+			db.databases[key].getTop5(true).then((all) => {
 				all.forEach((a) => {
 					users += Mustache.render(inner, a);
 				});
 
-				resolve({ key: key, html: Mustache.render(wrapper, { group: users }) });
+				resolve({ key: fname, html: Mustache.render(wrapper, { group: users }) });
 			});
 		});
 	}

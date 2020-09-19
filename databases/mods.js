@@ -50,7 +50,7 @@ class ModsQueries {
 	/**
 	 * returns string
 	 */
-	getTop10() {
+	getTop10(asArray = false) {
 		return new Promise(function (resolve, reject) {
 			resolve("");
 		});
@@ -59,7 +59,7 @@ class ModsQueries {
 	/**
 	 * returns string
 	 */
-	getTop5() {
+	getTop5(asArray = false) {
 		return new Promise(function (resolve, reject) {
 			resolve("");
 		});
