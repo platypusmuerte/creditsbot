@@ -1,3 +1,4 @@
+exports.mainTemplateFile = `
 <html>
 
 <head>
@@ -69,3 +70,5 @@
 </body>
 
 </html>
+`;
+

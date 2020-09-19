@@ -1,4 +1,4 @@
-body, html {
+exports.mainCSS = `body, html {
 	padding: 0;
 	margin: 0;
 }
@@ -254,4 +254,4 @@ body {
 	border-top: 10px solid transparent;
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid #ff9900;
-}
+}`;

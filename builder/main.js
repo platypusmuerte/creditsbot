@@ -1,4 +1,7 @@
 const { constants } = require('../constants');
+let { mainTemplateFile } = require("./main_template");
+let { mainCSS } = require("./main_css");
+let { mainBody } = require("./main_body");
 const path = require('path');
 const fs = require('fs');
 const Mustache = require("mustache");
@@ -112,20 +115,29 @@ class Builder {
 			`;
 		});
 
-		fs.writeFile("./builder/main_body.html", str, () => {
+		mainBody = str;
+
+		this.userArgs.DEBUG && this.utils.console("  Created body template content");
+
+		/*fs.writeFile("./builder/main_body.html", str, () => {
 			this.userArgs.DEBUG && this.utils.console("  Created body template content");
-		});
+		});*/
 	}
 
 	ensureMainHTML() {
 		let mainHTML = constants.TEMPLATE_DIR + "/_credits.html";
 
 		if (!fs.existsSync(mainHTML)) {
-			fs.copyFile('./builder/main_template.html', mainHTML, 0, () => {
+			fs.writeFile(mainHTML, mainTemplateFile, () => {
 				this.userArgs.DEBUG && this.utils.console("  Created _credits.html template");
 
 				this.ensureBodyHTML();
 			});
+			/*fs.copyFile('./builder/main_template.html', mainHTML, 0, () => {
+				this.userArgs.DEBUG && this.utils.console("  Created _credits.html template");
+
+				this.ensureBodyHTML();
+			});*/
 		}
 	}
 
@@ -133,9 +145,12 @@ class Builder {
 		let cssContent = constants.TEMPLATE_DIR + "/_credits.css";
 
 		if (!fs.existsSync(cssContent)) {
-			fs.copyFile('./builder/main_template.css', cssContent, 0, () => { })
+			fs.writeFile(cssContent, mainCSS, () => {
+				this.userArgs.DEBUG && this.utils.console("  Created _credits.css template");
+			});
+			//fs.copyFile('./builder/main_template.css', cssContent, 0, () => { })
 
-			this.userArgs.DEBUG && this.utils.console("  Created _credits.css template");
+			//this.userArgs.DEBUG && this.utils.console("  Created _credits.css template");
 		}
 	}
 
@@ -167,7 +182,7 @@ class Builder {
 		this.userArgs.DEBUG && this.utils.console(" ");
 		let bodyHTML, mainTemplate, mainCSS, templateObj, bodyWithSectionTags, output;
 
-		bodyHTML = fs.readFileSync("./builder/main_body.html", 'utf8');
+		//bodyHTML = fs.readFileSync("./builder/main_body.html", 'utf8');
 		mainTemplate = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.html", 'utf8');
 		mainCSS = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.css", 'utf8');
 		
@@ -175,7 +190,7 @@ class Builder {
 			css: "<style>" + mainCSS + "</style>"
 		};
 
-		bodyWithSectionTags = mainTemplate.replace('{{{body}}}', bodyHTML);
+		bodyWithSectionTags = mainTemplate.replace('{{{body}}}', mainBody);
 
 		this.finalHTML.forEach((s)=>{
 			templateObj[s.key] = s.html;
