@@ -118,10 +118,6 @@ class Builder {
 		mainBody = str;
 
 		this.userArgs.DEBUG && this.utils.console("  Created body template content");
-
-		/*fs.writeFile("./builder/main_body.html", str, () => {
-			this.userArgs.DEBUG && this.utils.console("  Created body template content");
-		});*/
 	}
 
 	ensureMainHTML() {
@@ -133,11 +129,6 @@ class Builder {
 
 				this.ensureBodyHTML();
 			});
-			/*fs.copyFile('./builder/main_template.html', mainHTML, 0, () => {
-				this.userArgs.DEBUG && this.utils.console("  Created _credits.html template");
-
-				this.ensureBodyHTML();
-			});*/
 		}
 	}
 
@@ -148,9 +139,6 @@ class Builder {
 			fs.writeFile(cssContent, mainCSS, () => {
 				this.userArgs.DEBUG && this.utils.console("  Created _credits.css template");
 			});
-			//fs.copyFile('./builder/main_template.css', cssContent, 0, () => { })
-
-			//this.userArgs.DEBUG && this.utils.console("  Created _credits.css template");
 		}
 	}
 
@@ -182,7 +170,6 @@ class Builder {
 		this.userArgs.DEBUG && this.utils.console(" ");
 		let bodyHTML, mainTemplate, mainCSS, templateObj, bodyWithSectionTags, output;
 
-		//bodyHTML = fs.readFileSync("./builder/main_body.html", 'utf8');
 		mainTemplate = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.html", 'utf8');
 		mainCSS = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.css", 'utf8');
 		
