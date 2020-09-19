@@ -124,10 +124,12 @@ class Builder {
 		let mainHTML = constants.TEMPLATE_DIR + "/_credits.html";
 
 		if (!fs.existsSync(mainHTML)) {
-			fs.writeFile(mainHTML, mainTemplateFile, () => {
-				this.userArgs.DEBUG && this.utils.console("  Created _credits.html template");
+			this.ensureBodyHTML();
 
-				this.ensureBodyHTML();
+			let theBody = mainTemplateFile.replace('{{{body}}}', mainBody);
+
+			fs.writeFile(mainHTML, theBody, () => {
+				this.userArgs.DEBUG && this.utils.console("  Created _credits.html template");
 			});
 		}
 	}
