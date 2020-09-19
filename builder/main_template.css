@@ -6,8 +6,17 @@ body {
 	background-color: #333;
 	font-family: 'Kumbh Sans', sans-serif;
 }
+.creditsWrapper {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
 .mainWrapper {
 	display: block;
+	position: absolute;
+	bottom: 0px;
 	width: 100%;
 }
 .titleWrapper {
@@ -37,13 +46,14 @@ body {
 .sectionTitleWrapper {
 	display: block;
 	width: 100%;
-	margin: 10px 0 20px 0;
+	margin: 60px 0 20px 0;
 	text-align: center;
 }
 .sectionTitle {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
+	padding-bottom: 10px;
 	text-align: center;
 	color: #297bd6;
 	font-size: 3vw;

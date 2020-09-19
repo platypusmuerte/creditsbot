@@ -9,59 +9,59 @@ class Builder {
 		this.userArgs = params.userArgs;
 		this.db;
 		this.finalHTML;
+		this.bodyContentForTemplate = ``;
 
 		this.templates = [
-			/* name only */
+			{ file: "_name", name: "mods", user: '<div class="name">{{name}}</div>', wrapper: '<div class="modsWrapper">{{{group}}}</div>' },
+			{ file: "_name", name: "follows", user: '<div class="name">{{name}}</div>', wrapper: '<div class="followsWrapper">{{{group}}}</div>' },
+			{ file: "_name", name: "subs", user: '<div class="name">{{name}}</div>', wrapper: '<div class="subsWrapper">{{{group}}}</div>' },
+			{ file: "_name", name: "giftsubs", user: '<div class="name">{{name}}</div>', wrapper: '<div class="giftsubsWrapper">{{{group}}}</div>' },
+			{ file: "_name", name: "hosts", user: '<div class="name">{{name}}</div>', wrapper: '<div class="hostsWrapper">{{{group}}}</div>' },
+			{ file: "_name", name: "raids", user: '<div class="name">{{name}}</div>', wrapper: '<div class="raidsWrapper">{{{group}}}</div>' },
 			{ file: "_name", name: "bans", user: '<div class="name">{{name}}</div>', wrapper: '<div class="bansWrapper">{{{group}}}</div>' },
 			{ file: "_name", name: "bits", user: '<div class="name">{{name}}</div>', wrapper: '<div class="bitsWrapper">{{{group}}}</div>' },
 			{ file: "_name", name: "channelpoints", user: '<div class="name">{{name}}</div>', wrapper: '<div class="channelpointsWrapper">{{{group}}}</div>' },
 			{ file: "_name", name: "chatters", user: '<div class="name">{{name}}</div>', wrapper: '<div class="chattersWrapper">{{{group}}}</div>' },
-			{ file: "_name", name: "follows", user: '<div class="name">{{name}}</div>', wrapper: '<div class="followsWrapper">{{{group}}}</div>' },
-			{ file: "_name", name: "giftsubs", user: '<div class="name">{{name}}</div>', wrapper: '<div class="giftsubsWrapper">{{{group}}}</div>' },
-			{ file: "_name", name: "hosts", user: '<div class="name">{{name}}</div>', wrapper: '<div class="hostsWrapper">{{{group}}}</div>' },
-			{ file: "_name", name: "mods", user: '<div class="name">{{name}}</div>', wrapper: '<div class="modsWrapper">{{{group}}}</div>' },
-			{ file: "_name", name: "raids", user: '<div class="name">{{name}}</div>', wrapper: '<div class="raidsWrapper">{{{group}}}</div>' },
-			{ file: "_name", name: "subs", user: '<div class="name">{{name}}</div>', wrapper: '<div class="subsWrapper">{{{group}}}</div>' },
-			/* name and amount */
-			{ file: "_name_amount", name: "bits", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="bitsAmountWrapper">{{{group}}}</div>' },
-			{ file: "_name_amount", name: "channelpoints", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsAmountWrapper">{{{group}}}</div>' },
-			{ file: "_name_amount", name: "chatters", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="chattersAmountWrapper">{{{group}}}</div>' },
-			{ file: "_name_amount", name: "giftsubs", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="giftsubsAmountWrapper">{{{group}}}</div>' },
-			/* name and total */
-			{ file: "_name_total", name: "bits", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="bitsTotalWrapper">{{{group}}}</div>' },
-			{ file: "_name_total", name: "channelpoints", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="channelpointsTotalWrapper">{{{group}}}</div>' },
-			{ file: "_name_total", name: "giftsubs", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="giftsubsTotalWrapper">{{{group}}}</div>' },
-			{ file: "_name_total", name: "hosts", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="hostsTotalWrapper">{{{group}}}</div>' },
-			{ file: "_name_total", name: "raids", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="raidsTotalWrapper">{{{group}}}</div>' },
-			{ file: "_name_total", name: "subs", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="subsTotalWrapper">{{{group}}}</div>' },
-			/* name and amount and total */
-			{ file: "_name_amount_total", name: "bits", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="bitsAmountTotalWrapper">{{{group}}}</div>' },
-			{ file: "_name_amount_total", name: "channelpoints", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="channelpointsAmountTotalWrapper">{{{group}}}</div>' },
-			{ file: "_name_amount_total", name: "giftsubs", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="giftsubsAmountTotalWrapper">{{{group}}}</div>' },
-			/* top 10s */
-			{ file: "_top10", name: "bits", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="bitsTop10Wrapper">{{{group}}}</div>' },
-			{ file: "_top10", name: "channelpoints", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsTop10Wrapper">{{{group}}}</div>' },
-			{ file: "_top10", name: "chatters", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="chattersTop10Wrapper">{{{group}}}</div>' },
-			{ file: "_top10", name: "giftsubs", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="giftsubsTop10Wrapper">{{{group}}}</div>' },
-			/* top 5s */
+			
+			{ file: "_top5", name: "giftsubs", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="giftsubsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5", name: "bits", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="bitsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5", name: "channelpoints", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5", name: "chatters", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="chattersTop5Wrapper">{{{group}}}</div>' },
-			{ file: "_top5", name: "giftsubs", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="giftsubsTop5Wrapper">{{{group}}}</div>' },
-			/* top 10s H */
-			{ file: "_top10H", name: "hbits", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hbitsTop10Wrapper">{{{group}}}</div>' },
-			{ file: "_top10H", name: "hchannelpoints", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hchannelpointsTop10Wrapper">{{{group}}}</div>' },
+
+			{ file: "_name_amount", name: "giftsubs", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="giftsubsAmountWrapper">{{{group}}}</div>' },
+			{ file: "_name_amount", name: "bits", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="bitsAmountWrapper">{{{group}}}</div>' },
+			{ file: "_name_amount", name: "channelpoints", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsAmountWrapper">{{{group}}}</div>' },
+			{ file: "_name_amount", name: "chatters", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="chattersAmountWrapper">{{{group}}}</div>' },
+
+			{ file: "_name_total", name: "giftsubs", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="giftsubsTotalWrapper">{{{group}}}</div>' },
+			{ file: "_name_total", name: "subs", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="subsTotalWrapper">{{{group}}}</div>' },
+			{ file: "_name_total", name: "bits", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="bitsTotalWrapper">{{{group}}}</div>' },
+			{ file: "_name_total", name: "channelpoints", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="channelpointsTotalWrapper">{{{group}}}</div>' },
+			{ file: "_name_total", name: "hosts", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="hostsTotalWrapper">{{{group}}}</div>' },
+			{ file: "_name_total", name: "raids", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="raidsTotalWrapper">{{{group}}}</div>' },
+			
+			{ file: "_name_amount_total", name: "bits", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="bitsAmountTotalWrapper">{{{group}}}</div>' },
+			{ file: "_name_amount_total", name: "giftsubs", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="giftsubsAmountTotalWrapper">{{{group}}}</div>' },
+			{ file: "_name_amount_total", name: "channelpoints", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="channelpointsAmountTotalWrapper">{{{group}}}</div>' },
+
+			{ file: "_top10", name: "giftsubs", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="giftsubsTop10Wrapper">{{{group}}}</div>' },
+			{ file: "_top10", name: "bits", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="bitsTop10Wrapper">{{{group}}}</div>' },
+			{ file: "_top10", name: "channelpoints", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsTop10Wrapper">{{{group}}}</div>' },
+			{ file: "_top10", name: "chatters", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="chattersTop10Wrapper">{{{group}}}</div>' },
+			
 			{ file: "_top10H", name: "hgiftsubs", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hgiftsubsTop10Wrapper">{{{group}}}</div>' },
+			{ file: "_top10H", name: "hbits", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hbitsTop10Wrapper">{{{group}}}</div>' },
+			{ file: "_top10H", name: "hsubs", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hsubsTop10Wrapper">{{{group}}}</div>' },
 			{ file: "_top10H", name: "hhosts", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hhostsTop10Wrapper">{{{group}}}</div>' },
 			{ file: "_top10H", name: "hraids", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hraidsTop10Wrapper">{{{group}}}</div>' },
-			{ file: "_top10H", name: "hsubs", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hsubsTop10Wrapper">{{{group}}}</div>' },
-			/* top 5s H */
-			{ file: "_top5H", name: "hbits", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="bitsTop5Wrapper">{{{group}}}</div>' },
-			{ file: "_top5H", name: "hchannelpoints", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsTop5Wrapper">{{{group}}}</div>' },
+			{ file: "_top10H", name: "hchannelpoints", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hchannelpointsTop10Wrapper">{{{group}}}</div>' },
+			
 			{ file: "_top5H", name: "hgiftsubs", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="giftsubsTop5Wrapper">{{{group}}}</div>' },
+			{ file: "_top5H", name: "hbits", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="bitsTop5Wrapper">{{{group}}}</div>' },
+			{ file: "_top5H", name: "hsubs", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hsubsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5H", name: "hhosts", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hhostsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5H", name: "hraids", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hraidsTop5Wrapper">{{{group}}}</div>' },
-			{ file: "_top5H", name: "hsubs", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hsubsTop5Wrapper">{{{group}}}</div>' }
+			{ file: "_top5H", name: "hchannelpoints", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsTop5Wrapper">{{{group}}}</div>' }
 		];
 
 		this.prep();
@@ -83,11 +83,37 @@ class Builder {
 	}
 
 	checkTemplates() {
+		this.ensureMainHTML();
+		this.ensureMainCSS();
+
 		this.templates.forEach((t)=>{
 			this.ensureInnerTemplateFiles(t);
 			this.ensureWrapperTemplateFiles(t);
-			this.ensureMainHTML();
-			this.ensureMainCSS();
+		});
+	}
+
+	ensureBodyHTML() {
+		let str = ``;
+
+		this.templates.forEach((section)=>{
+			let keyName = section.name + section.file;
+			str += `
+			<!-- ` + keyName + ` section -->
+			<div id="section_` + keyName + `" class="creditSection">
+				<div class="sectionTitleWrapper" >
+					<div class="sectionTitle">` + this.userArgs["SECTION_" + keyName.toUpperCase()] + `</div>
+				</div>
+				{{{` + keyName + `}}}
+				<div class="dividerWrapper">
+					<div class="divider"></div>
+				</div>
+			</div>
+			<!-- end ` + keyName + ` section -->
+			`;
+		});
+
+		fs.writeFile("./builder/main_body.html", str, () => {
+			this.userArgs.DEBUG && this.utils.console("  Created body template content");
 		});
 	}
 
@@ -95,9 +121,11 @@ class Builder {
 		let mainHTML = constants.TEMPLATE_DIR + "/_credits.html";
 
 		if (!fs.existsSync(mainHTML)) {
-			fs.copyFile('./builder/main_template.html', mainHTML, 0, ()=>{})
+			fs.copyFile('./builder/main_template.html', mainHTML, 0, () => {
+				this.userArgs.DEBUG && this.utils.console("  Created _credits.html template");
 
-			this.userArgs.DEBUG && this.utils.console("  Created _credits.html template");
+				this.ensureBodyHTML();
+			});
 		}
 	}
 
@@ -137,19 +165,23 @@ class Builder {
 		this.userArgs.DEBUG && this.utils.console(" ");
 		this.userArgs.DEBUG && this.utils.console("Fetching credits output");
 		this.userArgs.DEBUG && this.utils.console(" ");
+		let bodyHTML, mainTemplate, mainCSS, templateObj, bodyWithSectionTags, output;
 
-		let mainTemplate = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.html", 'utf8');
-		let mainCSS = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.css", 'utf8');
-
-		let templateObj = {
+		bodyHTML = fs.readFileSync("./builder/main_body.html", 'utf8');
+		mainTemplate = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.html", 'utf8');
+		mainCSS = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.css", 'utf8');
+		
+		templateObj = {
 			css: "<style>" + mainCSS + "</style>"
 		};
+
+		bodyWithSectionTags = mainTemplate.replace('{{{body}}}', bodyHTML);
 
 		this.finalHTML.forEach((s)=>{
 			templateObj[s.key] = s.html;
 		});
 
-		let output = Mustache.render(mainTemplate, templateObj);
+		output = Mustache.render(bodyWithSectionTags, templateObj);
 
 		this.userArgs.DEBUG && this.utils.console(" ");
 		this.userArgs.DEBUG && this.utils.console("Credits output sent");
