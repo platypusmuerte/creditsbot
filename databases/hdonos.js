@@ -94,7 +94,7 @@ class HDonosQueries {
 			if(data) {
 				resolve(data.amount);
 			} else {
-				resolve(user + " not found");
+				resolve("0");
 			}			
 		});
 	}
