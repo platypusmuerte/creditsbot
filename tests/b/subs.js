@@ -24,7 +24,7 @@ describe("=========== " + key.toUpperCase() + " ===========", function () {
 		it("Should return '" + userKey + "1 not found'", (done) => {
 			superagent.get("http://localhost:" + config.PORT + "/get/" + key + "/" + userKey + "1").end((e, r) => {
 				if (e) done(e);
-				assert.equal(userKey + "1 not found", r.text);
+				assert.equal("0", r.text);
 				done();
 			});
 		});

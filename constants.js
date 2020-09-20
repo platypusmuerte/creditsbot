@@ -18,6 +18,7 @@ exports.constants = {
 		MODS: "mods",
 		PATREONS: "patreons",
 		RAIDS: "raids",
+		STREAMLOOTS: "streamloots",
 		SUBS: "subs",
 		VIPS: "vips",
 
@@ -27,7 +28,8 @@ exports.constants = {
 		HISTORIC_GIFTSUBS: "hgiftsubs",
 		HISTORIC_HOSTS: "hhosts",
 		HISTORIC_RAIDS: "hraids",
-		HISTORIC_SUBS: "hsubs",
+		HISTORIC_STREAMLOOTS: "hstreamloots",
+		HISTORIC_SUBS: "hsubs"
 	},
 	MESSAGES: {
 		BLACKLISTED: "Ignored/blacklisted"
@@ -42,6 +44,7 @@ exports.constants = {
 		PING: "/ping",
 		REMOVE_USER: "/remove/:user",
 	},
+	QUERY_PARAMS: ["card"],
 	TEMPLATE_DIR: "./templates"
 };
 

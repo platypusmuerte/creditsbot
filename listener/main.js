@@ -163,7 +163,7 @@ class Listener {
 
 	// add to user of
 	addToUser(req, res, key, user, amount) {
-		this.db.databases[key].addUser(user, amount).then((r) => {
+		this.db.databases[key].addUser(user, amount,this.utils.getExpectedQueryParams(req.query)).then((r) => {
 			this.userArgs.DEBUG && this.utils.console("Add to user: " + key + " " + user + " " + amount);
 			res.send(r.toString());
 		}).then(()=>{
@@ -181,7 +181,7 @@ class Listener {
 
 	// get top 10 of
 	getTop10(req, res, key) {
-		this.db.databases[key].getTop10().then((r) => {
+		this.db.databases[key].getTop10(false, this.utils.getExpectedQueryParams(req.query)).then((r) => {
 			this.userArgs.DEBUG && this.utils.console("Get top 10: " + key + " " + JSON.stringify(r));
 			res.send(r.toString());
 		});
@@ -189,7 +189,7 @@ class Listener {
 
 	// get top 5 of
 	getTop5(req, res, key) {
-		this.db.databases[key].getTop5().then((r) => {
+		this.db.databases[key].getTop5(false, this.utils.getExpectedQueryParams(req.query)).then((r) => {
 			this.userArgs.DEBUG && this.utils.console("Get top 5: " + key + " " + JSON.stringify(r));
 			res.send(r);
 		});
