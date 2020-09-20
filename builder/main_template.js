@@ -49,6 +49,7 @@ exports.mainTemplateFile = `
 	</script>
 	<link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap" rel="stylesheet">
 	{{{css}}}
+	{{{usercss}}}
 </head>
 
 <body>

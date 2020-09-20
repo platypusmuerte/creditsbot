@@ -77,23 +77,23 @@ body {
 	border-bottom: 1px solid #ff9900;
 	text-transform: uppercase;
 }
-.bansWrapper, .bitsWrapper, .channelpointsWrapper, .chattersWrapper, .followsWrapper, .giftsubsWrapper, 
-.hostsWrapper, .modsWrapper, .raidsWrapper, .subsWrapper, .hbitsWrapper, .hchannelpointsWrapper, .hgiftsubsWrapper, 
+.bansWrapper, .bitsWrapper, .channelpointsWrapper, .chattersWrapper, .donosWrapper, .followsWrapper, .giftsubsWrapper, 
+.hostsWrapper, .modsWrapper, .patreonsWrapper, .raidsWrapper, .subsWrapper, .hbitsWrapper, .hchannelpointsWrapper, .hgiftsubsWrapper, 
 .hhostsWrapper, .hraidsWrapper, .hsubsWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
 	text-align: center;
 }
-.bansWrapper .name, .bitsWrapper .name, .channelpointsWrapper .name, .chattersWrapper .name, .followsWrapper .name, 
-.giftsubsWrapper .name, .hostsWrapper .name, .modsWrapper .name, .raidsWrapper .name, .subsWrapper .name, .hbitsWrapper .name, 
+.bansWrapper .name, .bitsWrapper .name, .channelpointsWrapper .name, .chattersWrapper .name, .donosWrapper .name, .followsWrapper .name, 
+.giftsubsWrapper .name, .hostsWrapper .name, .modsWrapper .name, .patreonsWrapper .name, .raidsWrapper .name, .subsWrapper .name, .hbitsWrapper .name, 
 .hchannelpointsWrapper .name, .hgiftsubsWrapper .name, .hhostsWrapper .name, .hraidsWrapper .name, .hsubsWrapper .name {
 	display: inline-block;
 	padding: 10px;
 	color: #fff;
 	font-size: 2vw;
 }
-.bitsAmountWrapper, .channelpointsAmountWrapper, .chattersAmountWrapper, .giftsubsAmountWrapper {
+.bitsAmountWrapper, .channelpointsAmountWrapper, .chattersAmountWrapper, .giftsubsAmountWrapper, .donosAmountWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -128,7 +128,7 @@ body {
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid #ff9900;
 }
-.bitsTotalWrapper, .channelpointsTotalWrapper, .giftsubsTotalWrapper, .hostsTotalWrapper, .raidsTotalWrapper, .subsTotalWrapper {
+.bitsTotalWrapper, .channelpointsTotalWrapper, .giftsubsTotalWrapper, .hostsTotalWrapper, .raidsTotalWrapper, .subsTotalWrapper, .donosTotalWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -163,7 +163,7 @@ body {
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid #ff9900;
 }
-.bitsAmountTotalWrapper, .channelpointsAmountTotalWrapper, .giftsubsAmountTotalWrapper {
+.bitsAmountTotalWrapper, .channelpointsAmountTotalWrapper, .giftsubsAmountTotalWrapper, .donosAmountTotalWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -219,8 +219,8 @@ body {
 }
 .bitsTop10Wrapper, .channelpointsTop10Wrapper, .chattersTop10Wrapper, .giftsubsTop10Wrapper, .bitsTop5Wrapper, 
 .channelpointsTop5Wrapper, .chattersTop5Wrapper, .giftsubsTop5Wrapper, .hbitsTop10Wrapper, .hchannelpointsTop10Wrapper, .hgiftsubsTop10Wrapper,
-.hhostsTop10Wrapper, .hraidsTop10Wrapper, .hsubsTop10Wrapper, .bitsTop5Wrapper, .channelpointsTop5Wrapper, .giftsubsTop5Wrapper, .hhostsTop5Wrapper,
-.hraidsTop5Wrapper, .hsubsTop5Wrapper {
+.hhostsTop10Wrapper, .hraidsTop10Wrapper, .hsubsTop10Wrapper, .hbitsTop5Wrapper, .hchannelpointsTop5Wrapper, .hgiftsubsTop5Wrapper, .hhostsTop5Wrapper,
+.hraidsTop5Wrapper, .hsubsTop5Wrapper,.donosTop10Wrapper, .donosTop5Wrapper,.hdonosTop10Wrapper, .hdonosTop5Wrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;

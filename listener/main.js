@@ -63,7 +63,7 @@ class Listener {
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
 
-			if (key && user && amount) {
+			if (key) {
 				data.callback(req, res, key);
 			} else {
 				res.send("");
@@ -77,7 +77,7 @@ class Listener {
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
 
-			if (key && user && amount) {
+			if (key) {
 				data.callback(req, res, key);
 			} else {
 				res.send("");
@@ -91,7 +91,7 @@ class Listener {
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
 
-			if (key && user && amount) {
+			if (key) {
 				data.callback(req, res, key);
 			} else {
 				res.send("");
@@ -110,7 +110,7 @@ class Listener {
 			if (this.blacklist.includes(user)) {
 				blacklisted();
 				res.send("");
-			} else if (key && user && amount) {
+			} else if (key && user) {
 				data.callback(req, res, key, user);
 			} else {
 				res.send("");
@@ -222,6 +222,9 @@ class Listener {
 				this.addToUserHistory(key, user, amount);
 				break;
 			case constants.DATABASE_NAMES.SUBS:
+				this.addToUserHistory(key, user, amount);
+				break;
+			case constants.DATABASE_NAMES.DONOS:
 				this.addToUserHistory(key, user, amount);
 				break;
 		}
