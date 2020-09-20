@@ -34,7 +34,7 @@ exports.mainTemplateFile = `
 			let scrollDistance = creditsPlusWrapper + wrapperHeight;
 			let rollupTime = Math.round(wrapperHeight + creditsHeight + creditsPlusWrapper + scrollDistance) * 2 + (SCROLL_SPEED_TWEAK * 1000);
 
-			$("#credits").css("bottom", creditsPlusWrapper * -1).show().animate({ top: "-=" + scrollDistance + "px" }, rollupTime, "linear", () => {
+			$("#credits").css("bottom", (creditsHeight+40) * -1).show().animate({ top: "-=" + scrollDistance + "px" }, rollupTime, "linear", () => {
 				$("#credits").removeAttr("style").hide();
 
 				if (REPLAY) {
