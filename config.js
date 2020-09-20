@@ -15,6 +15,7 @@ exports.config = {
 	SECTION_PATREONS_NAME: "New Patrons",
 	SECTION_RAIDS_NAME: "The Raids",
 	SECTION_SUBS_NAME: "New and Renewing Subs",
+	SECTION_VIPS_NAME: "Todays VIPs",
 	SECTION_BITS_NAME_AMOUNT: "Bits and Who Spent Them",
 	SECTION_CHANNELPOINTS_NAME_AMOUNT: "Channel Points and Who Spent Them",
 	SECTION_CHATTERS_NAME_AMOUNT: "Stream Chat Details",

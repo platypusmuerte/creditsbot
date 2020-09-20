@@ -16,6 +16,7 @@ class Database {
 		const { PatreonsQueries } = require("./databases/patreons");
 		const { RaidsQueries } = require("./databases/raids");
 		const { SubsQueries } = require("./databases/subs");
+		const { VipsQueries } = require("./databases/vips");
 
 		const { HBitsQueries } = require("./databases/hbits");
 		const { HChannelPointsQueries } = require("./databases/hchannelpoints");
@@ -38,6 +39,7 @@ class Database {
 			patreons: new PatreonsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			raids: new RaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			subs: new SubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			vips: new VipsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 
 			hbits: new HBitsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			hchannelpoints: new HChannelPointsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),

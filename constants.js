@@ -19,6 +19,7 @@ exports.constants = {
 		PATREONS: "patreons",
 		RAIDS: "raids",
 		SUBS: "subs",
+		VIPS: "vips",
 
 		HISTORIC_BITS: "hbits",
 		HISTORIC_CHANNELPOINTS: "hchannelpoints",

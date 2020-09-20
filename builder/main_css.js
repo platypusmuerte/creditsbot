@@ -79,7 +79,7 @@ body {
 }
 .bansWrapper, .bitsWrapper, .channelpointsWrapper, .chattersWrapper, .donosWrapper, .followsWrapper, .giftsubsWrapper, 
 .hostsWrapper, .modsWrapper, .patreonsWrapper, .raidsWrapper, .subsWrapper, .hbitsWrapper, .hchannelpointsWrapper, .hgiftsubsWrapper, 
-.hhostsWrapper, .hraidsWrapper, .hsubsWrapper {
+.hhostsWrapper, .hraidsWrapper, .hsubsWrapper, .vipsWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -87,7 +87,7 @@ body {
 }
 .bansWrapper .name, .bitsWrapper .name, .channelpointsWrapper .name, .chattersWrapper .name, .donosWrapper .name, .followsWrapper .name, 
 .giftsubsWrapper .name, .hostsWrapper .name, .modsWrapper .name, .patreonsWrapper .name, .raidsWrapper .name, .subsWrapper .name, .hbitsWrapper .name, 
-.hchannelpointsWrapper .name, .hgiftsubsWrapper .name, .hhostsWrapper .name, .hraidsWrapper .name, .hsubsWrapper .name {
+.hchannelpointsWrapper .name, .hgiftsubsWrapper .name, .hhostsWrapper .name, .hraidsWrapper .name, .hsubsWrapper .name, .vipsWrapper .name {
 	display: inline-block;
 	padding: 10px;
 	color: #fff;

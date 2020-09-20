@@ -16,6 +16,7 @@ class Builder {
 
 		this.templates = [
 			{ file: "_name", name: "mods", user: '<div class="name">{{name}}</div>', wrapper: '<div class="modsWrapper">{{{group}}}</div>' },
+			{ file: "_name", name: "vips", user: '<div class="name">{{name}}</div>', wrapper: '<div class="vipsWrapper">{{{group}}}</div>' },
 			{ file: "_name", name: "follows", user: '<div class="name">{{name}}</div>', wrapper: '<div class="followsWrapper">{{{group}}}</div>' },
 			{ file: "_name", name: "subs", user: '<div class="name">{{name}}</div>', wrapper: '<div class="subsWrapper">{{{group}}}</div>' },
 			{ file: "_name", name: "giftsubs", user: '<div class="name">{{name}}</div>', wrapper: '<div class="giftsubsWrapper">{{{group}}}</div>' },
@@ -248,6 +249,7 @@ class Builder {
 			this.getNameAmount("mods", "_name"),
 			this.getNameAmount("raids", "_name"),
 			this.getNameAmount("subs", "_name"),
+			this.getNameAmount("vips", "_name"),
 			/* name and amount */
 			this.getNameAmount("bits", "_name_amount"),
 			this.getNameAmount("channelpoints", "_name_amount"),
