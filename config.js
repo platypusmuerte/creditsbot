@@ -2,6 +2,7 @@ exports.config = {
 	CLEAN_ON_STARTUP: true,
 	DEBUG: true,
 	PORT: 3022,
+	BLACKLIST: [],
 	SECTION_BANS_NAME: "By Felicias",
 	SECTION_BITS_NAME: "Thanks for the Bits!",
 	SECTION_CHANNELPOINTS_NAME: "Special Interactions Provided By",

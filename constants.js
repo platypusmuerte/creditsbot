@@ -25,6 +25,9 @@ exports.constants = {
 		HISTORIC_RAIDS: "hraids",
 		HISTORIC_SUBS: "hsubs",
 	},
+	MESSAGES: {
+		BLACKLISTED: "Ignored/blacklisted"
+	},
 	PATHS: {
 		ADD_USER: "/add/:key/:user/:amount",
 		CREDITS: "/credits",

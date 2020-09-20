@@ -8,6 +8,7 @@ class Listener {
 		this.dataDir = params.dataDir;
 		this.userArgs = params.userArgs;
 		this.builder = params.builder;
+		this.blacklist = this.userArgs.BLACKLIST;
 	}
 
 	start() {
@@ -32,7 +33,12 @@ class Listener {
 		this.utils.console(" ");
 	}
 
+	blacklisted() {
+		this.userArgs.DEBUG && this.utils.console(constants.MESSAGES.BLACKLISTED);
+	}
+
 	get_addToUser(data) {
+		let blacklisted = this.blacklisted.bind(this);
 		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
 
 		this.exp.get(data.path, (req, res) => {
@@ -40,7 +46,10 @@ class Listener {
 			let user = req.params.user || false;
 			let amount = req.params.amount * 1 || 0;
 
-			if(key && user && amount) {
+			if (this.blacklist.includes(user)) {
+				blacklisted();
+				res.send("");
+			} else if (key && user && amount) {
 				data.callback(req, res, key, user, amount);
 			} else {
 				res.send("");
@@ -54,7 +63,7 @@ class Listener {
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
 
-			if (key) {
+			if (key && user && amount) {
 				data.callback(req, res, key);
 			} else {
 				res.send("");
@@ -68,7 +77,7 @@ class Listener {
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
 
-			if (key) {
+			if (key && user && amount) {
 				data.callback(req, res, key);
 			} else {
 				res.send("");
@@ -82,7 +91,7 @@ class Listener {
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
 
-			if (key) {
+			if (key && user && amount) {
 				data.callback(req, res, key);
 			} else {
 				res.send("");
@@ -91,13 +100,17 @@ class Listener {
 	}
 
 	get_userOf(data) {
+		let blacklisted = this.blacklisted.bind(this);
 		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
 
 		this.exp.get(data.path, (req, res) => {
 			let key = req.params.key || false;
 			let user = req.params.user || false;
 
-			if (key && user) {
+			if (this.blacklist.includes(user)) {
+				blacklisted();
+				res.send("");
+			} else if (key && user && amount) {
 				data.callback(req, res, key, user);
 			} else {
 				res.send("");

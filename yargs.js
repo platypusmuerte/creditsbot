@@ -17,7 +17,8 @@ let userINI = {};
 let userArgs = {};
 let userCustoms = {
 	port: false,
-	dirty: false
+	dirty: false,
+	blacklist: false
 };
 
 if (fs.existsSync("./user.ini")) {
@@ -33,6 +34,11 @@ if (fs.existsSync("./user.ini")) {
 	if (userINI.CONFIG.DIRTY) {
 		userCustoms.dirty = true;
 		userArgs.CLEAN_ON_STARTUP = userINI.CONFIG.DIRTY;
+	}
+
+	if (userINI.CONFIG.BLACKLIST) {
+		userCustoms.blacklist = true;
+		userArgs.BLACKLIST = userINI.CONFIG.BLACKLIST.split(",");
 	}
 }
 
@@ -68,6 +74,10 @@ if (userCustoms.port) {
 
 if (userCustoms.dirty) {
 	config.DEBUG && utils.console("Not cleaning session data this run");
+}
+
+if (userCustoms.blacklist) {
+	config.DEBUG && utils.console("Found a black list. Will ignore requests with " + userINI.CONFIG.BLACKLIST);
 }
 
 config.DEBUG && utils.console(" ");
