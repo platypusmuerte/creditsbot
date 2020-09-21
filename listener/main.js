@@ -9,6 +9,7 @@ class Listener {
 		this.userArgs = params.userArgs;
 		this.builder = params.builder;
 		this.blacklist = this.userArgs.BLACKLIST;
+		this.testData = params.testData;
 	}
 
 	start() {
@@ -28,6 +29,9 @@ class Listener {
 		this.get_removeUser({ path: constants.PATHS.REMOVE_USER, callback: this.removeUser.bind(this) });
 		this.get_credits({ path: constants.PATHS.CREDITS, callback: ()=>{} });
 
+		this.get_addTestData({ path: constants.PATHS.TESTDATA_ADD, callback: this.addTestData.bind(this) });
+		this.get_removeTestData({ path: constants.PATHS.TESTDATA_REMOVE, callback: this.removeTestData.bind(this) });
+
 		this.exp.get(constants.PATHS.PING, (req, res) => {res.send("pong");});
 
 		this.utils.console(" ");
@@ -35,6 +39,22 @@ class Listener {
 
 	blacklisted() {
 		this.userArgs.DEBUG && this.utils.console(constants.MESSAGES.BLACKLISTED);
+	}
+
+	get_addTestData(data) {
+		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
+
+		this.exp.get(data.path, (req, res) => {
+			data.callback(req, res);
+		});
+	}
+
+	get_removeTestData(data) {
+		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
+
+		this.exp.get(data.path, (req, res) => {
+			data.callback(req, res);
+		});
 	}
 
 	get_addToUser(data) {
@@ -203,6 +223,20 @@ class Listener {
 			this.userArgs.DEBUG && this.utils.console("Get user: " + key + " " + user);
 			res.send(r.toString());
 		});
+	}
+
+	// add test data
+	addTestData(req, res) {
+		this.testData.add().then(()=>{
+			res.send("test data is being added, should only take a few seconds");
+		});		
+	}
+
+	// add test data
+	removeTestData(req, res) {
+		this.testData.remove().then(() => {
+			res.send("test data is being removed, should only take a few seconds");
+		});	
 	}
 
 	// history manager

@@ -43,6 +43,8 @@ exports.constants = {
 		GET_USER: "/get/:key/:user",
 		PING: "/ping",
 		REMOVE_USER: "/remove/:user",
+		TESTDATA_ADD: "/testdata/add",
+		TESTDATA_REMOVE: "/testdata/remove"
 	},
 	QUERY_PARAMS: ["card"],
 	TEMPLATE_DIR: "./templates"

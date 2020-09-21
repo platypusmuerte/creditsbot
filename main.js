@@ -10,7 +10,8 @@ const { Utils } = require("./utils/utils");
 const { Database } = require('./db');
 const { Builder } = require("./builder/main");
 let { Listener } = require("./listener/main");
-let utils, listener, db, builder;
+let { TestData } = require("./utils/testdata");
+let utils, listener, db, builder, testData;
 utils = new Utils();
 
 if (!fs.existsSync("./data")) {
@@ -37,7 +38,8 @@ header(utils, constants).then(()=>{
 
 		db = new Database({ cryptr, dataDir, utils });
 
-		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder });
+		testData = new TestData({ userArgs, utils });
+		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData });
 		listener.start();
 	});
 });
