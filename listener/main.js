@@ -163,11 +163,13 @@ class Listener {
 
 	// add to user of
 	addToUser(req, res, key, user, amount) {
-		this.db.databases[key].addUser(user, amount,this.utils.getExpectedQueryParams(req.query)).then((r) => {
+		let expectedQueryParams = this.utils.getExpectedQueryParams(req.query);
+
+		this.db.databases[key].addUser(user, amount, expectedQueryParams).then((r) => {
 			this.userArgs.DEBUG && this.utils.console("Add to user: " + key + " " + user + " " + amount);
 			res.send(r.toString());
 		}).then(()=>{
-			this.historyManager(key, user, amount);
+			this.historyManager(key, user, amount, expectedQueryParams);
 		});
 	}
 
@@ -204,35 +206,38 @@ class Listener {
 	}
 
 	// history manager
-	historyManager(key, user, amount) {
+	historyManager(key, user, amount, expectedQueryParams) {
 		switch(key) {
 			case constants.DATABASE_NAMES.BITS:
-				this.addToUserHistory(key, user, amount);
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
 				break;
 			case constants.DATABASE_NAMES.CHANNELPOINTS:
-				this.addToUserHistory(key, user, amount);
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
 				break;
 			case constants.DATABASE_NAMES.GIFTSUBS:
-				this.addToUserHistory(key, user, amount);
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
 				break;
 			case constants.DATABASE_NAMES.HOSTS:
-				this.addToUserHistory(key, user, amount);
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
 				break;
 			case constants.DATABASE_NAMES.RAIDS:
-				this.addToUserHistory(key, user, amount);
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
 				break;
 			case constants.DATABASE_NAMES.SUBS:
-				this.addToUserHistory(key, user, amount);
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
 				break;
 			case constants.DATABASE_NAMES.DONOS:
-				this.addToUserHistory(key, user, amount);
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
+				break;
+			case constants.DATABASE_NAMES.STREAMLOOTS:
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
 				break;
 		}
 	}
 
 	// bits history
-	addToUserHistory(key, user, amount) {
-		this.db.databases["h" + key].addUser(user, amount).then((r) => {
+	addToUserHistory(key, user, amount, expectedQueryParams) {
+		this.db.databases["h" + key].addUser(user, amount, expectedQueryParams).then((r) => {
 			this.userArgs.DEBUG && this.utils.console("Add to user history: " + key + " " + user + " " + amount);
 		});
 	}

@@ -38,7 +38,7 @@ class Utils {
 					obj["card"] = d.card;
 				}
 
-				resp.push({name: d.name, amount: d.amount});
+				resp.push(obj);
 			} else if(card) {
 				resp.push({ name: d.name, card: d.card, amount: d.amount });
 			} else {

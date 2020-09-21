@@ -79,7 +79,7 @@ body {
 }
 .bansWrapper, .bitsWrapper, .channelpointsWrapper, .chattersWrapper, .donosWrapper, .followsWrapper, .giftsubsWrapper, 
 .hostsWrapper, .modsWrapper, .patreonsWrapper, .raidsWrapper, .subsWrapper, .hbitsWrapper, .hchannelpointsWrapper, .hgiftsubsWrapper, 
-.hhostsWrapper, .hraidsWrapper, .hsubsWrapper, .vipsWrapper {
+.hhostsWrapper, .hraidsWrapper, .hsubsWrapper, .vipsWrapper, .streamLootsWrapper, .hstreamlootsWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -87,13 +87,14 @@ body {
 }
 .bansWrapper .name, .bitsWrapper .name, .channelpointsWrapper .name, .chattersWrapper .name, .donosWrapper .name, .followsWrapper .name, 
 .giftsubsWrapper .name, .hostsWrapper .name, .modsWrapper .name, .patreonsWrapper .name, .raidsWrapper .name, .subsWrapper .name, .hbitsWrapper .name, 
-.hchannelpointsWrapper .name, .hgiftsubsWrapper .name, .hhostsWrapper .name, .hraidsWrapper .name, .hsubsWrapper .name, .vipsWrapper .name {
+.hchannelpointsWrapper .name, .hgiftsubsWrapper .name, .hhostsWrapper .name, .hraidsWrapper .name, .hsubsWrapper .name, .vipsWrapper .name,
+.streamLootsWrapper .name, .hstreamlootsWrapper .name {
 	display: inline-block;
 	padding: 10px;
 	color: #fff;
 	font-size: 2vw;
 }
-.bitsAmountWrapper, .channelpointsAmountWrapper, .chattersAmountWrapper, .giftsubsAmountWrapper, .donosAmountWrapper {
+.bitsAmountWrapper, .channelpointsAmountWrapper, .chattersAmountWrapper, .giftsubsAmountWrapper, .donosAmountWrapper, .streamlootsAmountWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -128,7 +129,7 @@ body {
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid #ff9900;
 }
-.bitsTotalWrapper, .channelpointsTotalWrapper, .giftsubsTotalWrapper, .hostsTotalWrapper, .raidsTotalWrapper, .subsTotalWrapper, .donosTotalWrapper {
+.bitsTotalWrapper, .channelpointsTotalWrapper, .giftsubsTotalWrapper, .hostsTotalWrapper, .raidsTotalWrapper, .subsTotalWrapper, .donosTotalWrapper, .streamlootsTotalWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -163,7 +164,7 @@ body {
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid #ff9900;
 }
-.bitsAmountTotalWrapper, .channelpointsAmountTotalWrapper, .giftsubsAmountTotalWrapper, .donosAmountTotalWrapper {
+.bitsAmountTotalWrapper, .channelpointsAmountTotalWrapper, .giftsubsAmountTotalWrapper, .donosAmountTotalWrapper, .streamlootsAmountTotalWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -220,7 +221,8 @@ body {
 .bitsTop10Wrapper, .channelpointsTop10Wrapper, .chattersTop10Wrapper, .giftsubsTop10Wrapper, .bitsTop5Wrapper, 
 .channelpointsTop5Wrapper, .chattersTop5Wrapper, .giftsubsTop5Wrapper, .hbitsTop10Wrapper, .hchannelpointsTop10Wrapper, .hgiftsubsTop10Wrapper,
 .hhostsTop10Wrapper, .hraidsTop10Wrapper, .hsubsTop10Wrapper, .hbitsTop5Wrapper, .hchannelpointsTop5Wrapper, .hgiftsubsTop5Wrapper, .hhostsTop5Wrapper,
-.hraidsTop5Wrapper, .hsubsTop5Wrapper,.donosTop10Wrapper, .donosTop5Wrapper,.hdonosTop10Wrapper, .hdonosTop5Wrapper {
+.hraidsTop5Wrapper, .hsubsTop5Wrapper,.donosTop10Wrapper, .donosTop5Wrapper, .hdonosTop10Wrapper, .hdonosTop5Wrapper, .streamlootsTop5Wrapper, .streamlootsTop10Wrapper,
+.hstreamlootsTop5Wrapper, .hstreamlootsTop10Wrapper, .streamlootsTop5CardsWrapper, .hstreamlootsTop5CardsWrapper, .streamlootsTop10CardsWrapper, .hstreamlootsTop10CardsWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -254,4 +256,35 @@ body {
 	border-top: 10px solid transparent;
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid #ff9900;
+}
+.nameTop5Cards {
+	display: inline-block;
+}
+.nameTop5Cards .name {
+	display: none;
+}
+.nameTop5Cards .card {
+	display: inline-block;
+	padding: 10px 8px 10px 10px;
+	max-width: 180px;
+	position: relative;
+}
+.nameTop5Cards .card img {
+	width: 100%;
+}
+.nameTop5Cards .card .amount {
+	display: inline-block;
+	position: absolute;
+	font-weight: bold;
+	line-height: 35px;
+	bottom: 0px;
+	left: 0px;
+	width: 30px;
+	height: 30px;
+	background-color: #ff9900;
+	color: #297bd6;
+	font-size: 1vw;
+	border-radius: 50%;
+	text-align: center;
+	border: 1px solid #297bd6;
 }`;
