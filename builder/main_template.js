@@ -26,6 +26,16 @@ exports.mainTemplateFile = `
 				if ($(s).find("div.name").length < 1) {
 					$(s).remove();
 				}
+
+				if($(s).find("div.card").length) {
+					if($(s).find("div.card").find("img").length) {
+						$(s).find("div.card").find("img").each((i,el)=>{
+							if($(el).width() < 5) {
+								$(el).parent().parent().remove();
+							}
+						});
+					}
+				}
 			});
 
 			let creditsHeight = $("#credits").height();

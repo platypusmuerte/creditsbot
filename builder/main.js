@@ -28,14 +28,14 @@ class Builder {
 			{ file: "_name", name: "bits", user: '<div class="name">{{name}}</div>', wrapper: '<div class="bitsWrapper">{{{group}}}</div>' },
 			{ file: "_name", name: "channelpoints", user: '<div class="name">{{name}}</div>', wrapper: '<div class="channelpointsWrapper">{{{group}}}</div>' },
 			{ file: "_name", name: "chatters", user: '<div class="name">{{name}}</div>', wrapper: '<div class="chattersWrapper">{{{group}}}</div>' },
-			{ file: "_name", name: "streamloots", user: '<div class="name">{{name}}</div>', wrapper: '<div class="streamlootsWrapper">{{{group}}}</div>' },
+			/*{ file: "_name", name: "streamloots", user: '<div class="name">{{name}}</div>', wrapper: '<div class="streamlootsWrapper">{{{group}}}</div>' },*/
 			
 			{ file: "_top5", name: "giftsubs", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="giftsubsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5", name: "bits", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="bitsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5", name: "donos", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="donosTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5", name: "channelpoints", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5", name: "chatters", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="chattersTop5Wrapper">{{{group}}}</div>' },
-			{ file: "_top5", name: "streamloots", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="streamlootsTop5Wrapper">{{{group}}}</div>' },
+			/*{ file: "_top5", name: "streamloots", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="streamlootsTop5Wrapper">{{{group}}}</div>' },*/
 			
 			{ file: "_top5_cards", name: "streamloots", user: '<div class="nameTop5Cards"><div class="name"></div><div class="card"><img src="{{card}}" /><div class="amount">{{amount}}</div></div></div>', wrapper: '<div class="streamlootsTop5CardsWrapper">{{{group}}}</div>' },
 			{ file: "_top10_cards", name: "streamloots", user: '<div class="nameTop5Cards"><div class="name"></div><div class="card"><img src="{{card}}" /><div class="amount">{{amount}}</div></div></div>', wrapper: '<div class="streamlootsTop10CardsWrapper">{{{group}}}</div>' },
@@ -47,7 +47,7 @@ class Builder {
 			{ file: "_name_amount", name: "donos", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="donosAmountWrapper">{{{group}}}</div>' },
 			{ file: "_name_amount", name: "channelpoints", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsAmountWrapper">{{{group}}}</div>' },
 			{ file: "_name_amount", name: "chatters", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="chattersAmountWrapper">{{{group}}}</div>' },
-			{ file: "_name_amount", name: "streamloots", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="streamlootsAmountWrapper">{{{group}}}</div>' },
+			/*{ file: "_name_amount", name: "streamloots", user: '<div class="nameAmount"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="streamlootsAmountWrapper">{{{group}}}</div>' },*/
 
 			{ file: "_name_total", name: "giftsubs", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="giftsubsTotalWrapper">{{{group}}}</div>' },
 			{ file: "_name_total", name: "subs", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="subsTotalWrapper">{{{group}}}</div>' },
@@ -56,20 +56,20 @@ class Builder {
 			{ file: "_name_total", name: "channelpoints", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="channelpointsTotalWrapper">{{{group}}}</div>' },
 			{ file: "_name_total", name: "hosts", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="hostsTotalWrapper">{{{group}}}</div>' },
 			{ file: "_name_total", name: "raids", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="raidsTotalWrapper">{{{group}}}</div>' },
-			{ file: "_name_total", name: "streamloots", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="streamlootsTotalWrapper">{{{group}}}</div>' },
+			/*{ file: "_name_total", name: "streamloots", user: '<div class="nameTotal"><div class="name">{{name}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="streamlootsTotalWrapper">{{{group}}}</div>' },*/
 
 			{ file: "_name_amount_total", name: "bits", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="bitsAmountTotalWrapper">{{{group}}}</div>' },
 			{ file: "_name_amount_total", name: "donos", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="donosAmountTotalWrapper">{{{group}}}</div>' },
 			{ file: "_name_amount_total", name: "giftsubs", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="giftsubsAmountTotalWrapper">{{{group}}}</div>' },
 			{ file: "_name_amount_total", name: "channelpoints", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="channelpointsAmountTotalWrapper">{{{group}}}</div>' },
-			{ file: "_name_amount_total", name: "streamloots", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="streamlootsAmountTotalWrapper">{{{group}}}</div>' },
+			/*{ file: "_name_amount_total", name: "streamloots", user: '<div class="nameAmountTotal"><div class="name">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>', wrapper: '<div class="streamlootsAmountTotalWrapper">{{{group}}}</div>' },*/
 
 			{ file: "_top10", name: "giftsubs", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="giftsubsTop10Wrapper">{{{group}}}</div>' },
 			{ file: "_top10", name: "bits", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="bitsTop10Wrapper">{{{group}}}</div>' },
 			{ file: "_top10", name: "donos", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="donosTop10Wrapper">{{{group}}}</div>' },
 			{ file: "_top10", name: "channelpoints", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="channelpointsTop10Wrapper">{{{group}}}</div>' },
 			{ file: "_top10", name: "chatters", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="chattersTop10Wrapper">{{{group}}}</div>' },
-			{ file: "_top10", name: "streamloots", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="streamlootsTop10Wrapper">{{{group}}}</div>' },
+			/*{ file: "_top10", name: "streamloots", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="streamlootsTop10Wrapper">{{{group}}}</div>' },*/
 			
 			{ file: "_top10H", name: "hgiftsubs", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hgiftsubsTop10Wrapper">{{{group}}}</div>' },
 			{ file: "_top10H", name: "hbits", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hbitsTop10Wrapper">{{{group}}}</div>' },
@@ -78,7 +78,7 @@ class Builder {
 			{ file: "_top10H", name: "hhosts", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hhostsTop10Wrapper">{{{group}}}</div>' },
 			{ file: "_top10H", name: "hraids", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hraidsTop10Wrapper">{{{group}}}</div>' },
 			{ file: "_top10H", name: "hchannelpoints", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hchannelpointsTop10Wrapper">{{{group}}}</div>' },
-			{ file: "_top10H", name: "hstreamloots", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hstreamlootsTop10Wrapper">{{{group}}}</div>' },
+			/*{ file: "_top10H", name: "hstreamloots", user: '<div class="nameTop10"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hstreamlootsTop10Wrapper">{{{group}}}</div>' },*/
 
 			{ file: "_top5H", name: "hgiftsubs", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hgiftsubsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5H", name: "hbits", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hbitsTop5Wrapper">{{{group}}}</div>' },
@@ -87,7 +87,7 @@ class Builder {
 			{ file: "_top5H", name: "hhosts", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hhostsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5H", name: "hraids", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hraidsTop5Wrapper">{{{group}}}</div>' },
 			{ file: "_top5H", name: "hchannelpoints", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hchannelpointsTop5Wrapper">{{{group}}}</div>' },
-			{ file: "_top5H", name: "hstreamloots", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hstreamlootsTop5Wrapper">{{{group}}}</div>' }
+			/*{ file: "_top5H", name: "hstreamloots", user: '<div class="nameTop5"><div class="name">{{name}}</div><div class="amount">{{amount}}</div></div>', wrapper: '<div class="hstreamlootsTop5Wrapper">{{{group}}}</div>' }*/
 		];
 
 		this.prep();
@@ -263,14 +263,14 @@ class Builder {
 			this.getNameAmount("raids", "_name"),
 			this.getNameAmount("subs", "_name"),
 			this.getNameAmount("vips", "_name"),
-			this.getNameAmount("streamloots", "_name"),
+			/*this.getNameAmount("streamloots", "_name"),*/
 			/* name and amount */
 			this.getNameAmount("bits", "_name_amount"),
 			this.getNameAmount("channelpoints", "_name_amount"),
 			this.getNameAmount("chatters", "_name_amount"),
 			this.getNameAmount("donos", "_name_amount"),
 			this.getNameAmount("giftsubs", "_name_amount"),
-			this.getNameAmount("streamloots", "_name_amount"),
+			/*this.getNameAmount("streamloots", "_name_amount"),*/
 			/* name and total */
 			this.getNameAmountHistory("bits", "_name_total"),
 			this.getNameAmountHistory("channelpoints", "_name_total"),
@@ -279,27 +279,27 @@ class Builder {
 			this.getNameAmountHistory("hosts", "_name_total"),
 			this.getNameAmountHistory("raids", "_name_total"),
 			this.getNameAmountHistory("subs", "_name_total"),
-			this.getNameAmountHistory("streamloots", "_name_total"),
+			/*this.getNameAmountHistory("streamloots", "_name_total"),*/
 			/* name and amount and total */
 			this.getNameAmountHistory("bits", "_name_amount_total"),
 			this.getNameAmountHistory("channelpoints", "_name_amount_total"),
 			this.getNameAmountHistory("donos", "_name_amount_total"),
 			this.getNameAmountHistory("giftsubs", "_name_amount_total"),
-			this.getNameAmountHistory("streamloots", "_name_amount_total"),
+			/*this.getNameAmountHistory("streamloots", "_name_amount_total"),*/
 			/* top 10s */
 			this.getTop10("bits", "_top10"),
 			this.getTop10("channelpoints", "_top10"),
 			this.getTop10("chatters", "_top10"),
 			this.getTop10("donos", "_top10"),
 			this.getTop10("giftsubs", "_top10"),
-			this.getTop10("streamloots", "_top10"),
+			/*this.getTop10("streamloots", "_top10"),*/
 			/* top 5s */
 			this.getTop5("bits", "_top5"),
 			this.getTop5("channelpoints", "_top5"),
 			this.getTop5("donos", "_top5"),
 			this.getTop5("chatters", "_top5"),
 			this.getTop5("giftsubs", "_top5"),
-			this.getTop5("streamloots", "_top5"),
+			/*this.getTop5("streamloots", "_top5"),*/
 			/* top 10Hs */
 			this.getTop10("hbits", "_top10H"),
 			this.getTop10("hchannelpoints", "_top10H"),
@@ -308,7 +308,7 @@ class Builder {
 			this.getTop10("hhosts", "_top10H"),
 			this.getTop10("hraids", "_top10H"),
 			this.getTop10("hsubs", "_top10H"),
-			this.getTop10("hstreamloots", "_top10H"),
+			/*this.getTop10("hstreamloots", "_top10H"),*/
 			/* top 5Hs */
 			this.getTop5("hbits", "_top5H"),
 			this.getTop5("hchannelpoints", "_top5H"),
@@ -317,7 +317,7 @@ class Builder {
 			this.getTop5("hhosts", "_top5H"),
 			this.getTop5("hraids", "_top5H"),
 			this.getTop5("hsubs", "_top5H"),
-			this.getTop5("hstreamloots", "_top5H"),
+			/*this.getTop5("hstreamloots", "_top5H"),*/
 			/* StreamLoots cards */
 			this.getTop5Cards("streamloots", "_top5_cards"),
 			this.getTop10Cards("streamloots", "_top10_cards"),
