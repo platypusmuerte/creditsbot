@@ -70,7 +70,7 @@ class StreamLootsQueries {
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.STREAMLOOTS).value();
 			
-			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray, card));
+			resolve(utils.getTopCards(list, 10));
 		});
 	}
 
@@ -85,8 +85,8 @@ class StreamLootsQueries {
 
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.STREAMLOOTS).value();
-
-			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray, card));
+			
+			resolve(utils.getTopCards(list, 5));
 		});
 	}
 

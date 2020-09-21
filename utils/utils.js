@@ -54,6 +54,29 @@ class Utils {
 			return "None to show";
 		}
 	}
+
+	getTopCards(list, count) {
+		let sorted, top, flatObj, flatList;
+		flatObj = {};
+		flatList = [];
+
+		list.forEach((data)=>{
+			if(flatObj[data.card]) {
+				flatObj[data.card] += data.amount;
+			} else {
+				flatObj[data.card] = data.amount;
+			}
+		});
+
+		Object.entries(flatObj).forEach(([k,v])=>{
+			flatList.push({name: "someuser", amount: v, card: k});
+		});
+
+		sorted = lodash.orderBy(flatList, "amount", "desc");
+		top = lodash.take(sorted, count);
+
+		return top;
+	}
 }
 
 exports.Utils = Utils;

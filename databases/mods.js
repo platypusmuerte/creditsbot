@@ -41,7 +41,7 @@ class ModsQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			db.get(constants.DATABASE_NAMES.MODS).remove(user).write();
+			db.get(constants.DATABASE_NAMES.MODS).remove({ name: user }).write();
 
 			resolve("");
 		});

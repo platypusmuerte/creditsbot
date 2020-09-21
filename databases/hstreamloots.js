@@ -70,7 +70,7 @@ class HStreamLootsQueries {
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_STREAMLOOTS).value();
 
-			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray, card));
+			resolve(utils.getTopCards(list, 10));
 		});
 	}
 
@@ -86,7 +86,7 @@ class HStreamLootsQueries {
 		return new Promise(function (resolve, reject) {
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_STREAMLOOTS).value();
 
-			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray, card));
+			resolve(utils.getTopCards(list, 10));
 		});
 	}
 
