@@ -2,7 +2,7 @@ exports.constants = {
 	APP: {
 		NAME: "Platys Credits Bot",
 		EXENAME: "PlatysCreditsBot",
-		VERSION: "1.1.0"
+		VERSION: "1.2.0"
 	},
 	DATA_FILE_EXT: ".db",
 	DATA_FILE_HISTORIC_EXT: ".hdb",
