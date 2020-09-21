@@ -1,6 +1,6 @@
 node_modules/
 package-lock.json
-data/*.db
-data/*.hdb
-dist/*
-templates/*
+data/
+dist/
+templates/
+usercontent/

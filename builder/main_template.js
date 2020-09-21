@@ -40,14 +40,14 @@ exports.mainTemplateFile = `
 
 			let creditsHeight = $("#credits").height();
 			let wrapperHeight = $("#creditsWrapper").height();
-			let creditsPlusWrapper = wrapperHeight + creditsHeight;
+			let creditsPlusWrapper = creditsHeight + 100;
 			let scrollDistance = creditsPlusWrapper + wrapperHeight;
 			let rollupTime = Math.round(wrapperHeight + creditsHeight + creditsPlusWrapper + scrollDistance) * 2 + (SCROLL_SPEED_TWEAK * 1000);
 
 			$("#credits").css("bottom", (creditsHeight+40) * -1).show().animate({ top: "-=" + scrollDistance + "px" }, rollupTime, "linear", () => {
-				$("#credits").removeAttr("style").hide();
 
 				if (REPLAY) {
+					$("#credits").removeAttr("style").hide();
 					setTimeout(credits, 3000);
 				}
 			});

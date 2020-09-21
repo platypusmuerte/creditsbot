@@ -10,6 +10,7 @@ class Listener {
 		this.builder = params.builder;
 		this.blacklist = this.userArgs.BLACKLIST;
 		this.testData = params.testData;
+		this.express = params.express;
 	}
 
 	start() {
@@ -33,6 +34,8 @@ class Listener {
 		this.get_removeTestData({ path: constants.PATHS.TESTDATA_REMOVE, callback: this.removeTestData.bind(this) });
 
 		this.exp.get(constants.PATHS.PING, (req, res) => {res.send("pong");});
+
+		this.exp.use('/usercontent', this.express.static(constants.USER_WEB_DIR));
 
 		this.utils.console(" ");
 	}

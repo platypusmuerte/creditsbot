@@ -47,7 +47,8 @@ exports.constants = {
 		TESTDATA_REMOVE: "/testdata/remove"
 	},
 	QUERY_PARAMS: ["card"],
-	TEMPLATE_DIR: "./templates"
+	TEMPLATE_DIR: "./templates",
+	USER_WEB_DIR: "./usercontent"
 };
 
 

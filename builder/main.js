@@ -102,6 +102,13 @@ class Builder {
 		} else {
 			this.userArgs.DEBUG && this.utils.console("Found template dir");
 		}
+
+		if (!fs.existsSync(constants.USER_WEB_DIR)) {
+			fs.mkdirSync(constants.USER_WEB_DIR);
+			this.userArgs.DEBUG && this.utils.console("Created user content dir");
+		} else {
+			this.userArgs.DEBUG && this.utils.console("Found user content dir");
+		}
 	}
 
 	final() {
@@ -148,25 +155,19 @@ class Builder {
 		let mainHTML = constants.TEMPLATE_DIR + "/_credits.html";
 		let defaultHTML = constants.TEMPLATE_DIR + "/_default.html";
 
+		this.ensureBodyHTML();
+
+		let theBody = mainTemplateFile.replace('{{{body}}}', mainBody);		
+
 		if (!fs.existsSync(mainHTML)) {
-			this.ensureBodyHTML();
-
-			let theBody = mainTemplateFile.replace('{{{body}}}', mainBody);
-
 			fs.writeFile(mainHTML, theBody, () => {
 				this.userArgs.DEBUG && this.utils.console("  Created _credits.html template");
 			});
 		}
 
-		//if (!fs.existsSync(defaultHTML)) {
-			this.ensureBodyHTML();
-
-			let theBody = mainTemplateFile.replace('{{{body}}}', mainBody);
-
-			fs.writeFile(defaultHTML, theBody, () => {
-				this.userArgs.DEBUG && this.utils.console("  Created _default.html template");
-			});
-		//}
+		fs.writeFile(defaultHTML, theBody, () => {
+			this.userArgs.DEBUG && this.utils.console("  Created _default.html template");
+		});
 	}
 
 	ensureMainCSS() {

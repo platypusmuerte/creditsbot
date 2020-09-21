@@ -39,7 +39,7 @@ header(utils, constants).then(()=>{
 		db = new Database({ cryptr, dataDir, utils });
 
 		testData = new TestData({ userArgs, utils });
-		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData });
+		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express });
 		listener.start();
 	});
 });
