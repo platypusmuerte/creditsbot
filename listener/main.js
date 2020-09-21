@@ -35,7 +35,7 @@ class Listener {
 
 		this.exp.get(constants.PATHS.PING, (req, res) => {res.send("pong");});
 
-		this.exp.use('/usercontent', this.express.static(constants.USER_WEB_DIR));
+		this.exp.use('/usercontent', this.express.static(constants.TEMPLATE_DIRS.STATIC));
 
 		this.utils.console(" ");
 	}

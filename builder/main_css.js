@@ -287,4 +287,18 @@ body {
 	border-radius: 50%;
 	text-align: center;
 	border: 1px solid #297bd6;
+}
+.footerWrapper {
+	display: block;
+	width: 80%;
+	height: 1px;
+	margin: 0 auto;
+	text-align: center;
+	position: relative;
+}
+.footer {
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 1000px;
 }`;

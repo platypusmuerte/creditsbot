@@ -96,15 +96,15 @@ class Builder {
 	}
 
 	prep() {
-		if (!fs.existsSync(constants.TEMPLATE_DIR)) {
-			fs.mkdirSync(constants.TEMPLATE_DIR);
+		if (!fs.existsSync(constants.TEMPLATE_DIRS.BASE)) {
+			fs.mkdirSync(constants.TEMPLATE_DIRS.BASE);
 			this.userArgs.DEBUG && this.utils.console("Created template dir");
 		} else {
 			this.userArgs.DEBUG && this.utils.console("Found template dir");
 		}
 
-		if (!fs.existsSync(constants.USER_WEB_DIR)) {
-			fs.mkdirSync(constants.USER_WEB_DIR);
+		if (!fs.existsSync(constants.TEMPLATE_DIRS.STATIC)) {
+			fs.mkdirSync(constants.TEMPLATE_DIRS.STATIC);
 			this.userArgs.DEBUG && this.utils.console("Created user content dir");
 		} else {
 			this.userArgs.DEBUG && this.utils.console("Found user content dir");
@@ -116,9 +116,9 @@ class Builder {
 	}
 
 	checkTemplates() {
-		this.ensureMainHTML();
-		this.ensureMainCSS();
-		this.ensureUserCSS();
+		this.ensureDefaultFiles();
+		//this.ensureMainCSS();
+		//this.ensureUserCSS();
 
 		this.templates.forEach((t)=>{
 			this.ensureInnerTemplateFiles(t);
@@ -151,13 +151,46 @@ class Builder {
 		this.userArgs.DEBUG && this.utils.console("  Created body template content");
 	}
 
-	ensureMainHTML() {
-		let mainHTML = constants.TEMPLATE_DIR + "/_credits.html";
-		let defaultHTML = constants.TEMPLATE_DIR + "/_default.html";
+	ensureDefaultFiles() {
+		let defaultHTMLName = constants.TEMPLATE_DIRS.BASE + "/" + constants.TEMPLATE_FILES.DEFAULT_HTML;
+		let defaultCSSName = constants.TEMPLATE_DIRS.BASE + "/" + constants.TEMPLATE_FILES.DEFAULT_CSS;
+		let userHTMLName = constants.TEMPLATE_DIRS.BASE + "/" + constants.TEMPLATE_FILES.USER_HTML;
+		let userCSSName = constants.TEMPLATE_DIRS.BASE + "/" + constants.TEMPLATE_FILES.USER_CSS;
+		let theBody;
 
 		this.ensureBodyHTML();
 
-		let theBody = mainTemplateFile.replace('{{{body}}}', mainBody);		
+		theBody = mainTemplateFile.replace('{{{body}}}', mainBody);
+
+		// write our current defaults each time
+		fs.writeFile(defaultHTMLName, theBody, () => {
+			this.userArgs.DEBUG && this.utils.console("  Created " + constants.TEMPLATE_FILES.DEFAULT_HTML + " template");
+		});
+
+		fs.writeFile(defaultCSSName, mainCSS, () => {
+			this.userArgs.DEBUG && this.utils.console("  Created " + constants.TEMPLATE_FILES.DEFAULT_CSS + " template");
+		});
+
+		// write users files if not exists
+		if (!fs.existsSync(userHTMLName)) {
+			fs.writeFile(userHTMLName, theBody, () => {
+				this.userArgs.DEBUG && this.utils.console("  Created " + constants.TEMPLATE_FILES.USER_HTML + " template");
+			});
+		}
+
+		if (!fs.existsSync(userCSSName)) {
+			fs.writeFile(userCSSName, "/* Place custom CSS in this file to overwrite the _credits.css avoiding update issues */", () => {
+				this.userArgs.DEBUG && this.utils.console("  Created " + constants.TEMPLATE_FILES.USER_CSS + " template");
+			});
+		}
+
+
+		/*let mainHTML = constants.TEMPLATE_DIRS.BASE + "/_credits.html";
+		let defaultHTML = constants.TEMPLATE_DIRS.BASE + "/_default.html";
+
+		this.ensureBodyHTML();
+
+		let theBody = mainTemplateFile.replace('{{{body}}}', mainBody);
 
 		if (!fs.existsSync(mainHTML)) {
 			fs.writeFile(mainHTML, theBody, () => {
@@ -167,21 +200,21 @@ class Builder {
 
 		fs.writeFile(defaultHTML, theBody, () => {
 			this.userArgs.DEBUG && this.utils.console("  Created _default.html template");
-		});
+		});*/
 	}
 
 	ensureMainCSS() {
-		let cssContent = constants.TEMPLATE_DIR + "/_credits.css";
+		/*let cssContent = constants.TEMPLATE_DIRS.BASE + "/_credits.css";
 
 		if (!fs.existsSync(cssContent)) {
 			fs.writeFile(cssContent, mainCSS, () => {
 				this.userArgs.DEBUG && this.utils.console("  Created _credits.css template");
 			});
-		}
+		}*/
 	}
 
 	ensureUserCSS() {
-		let cssContent = constants.TEMPLATE_DIR + "/_user.css";
+		let cssContent = constants.TEMPLATE_DIRS.BASE + "/_user.css";
 
 		if (!fs.existsSync(cssContent)) {
 			fs.writeFile(cssContent, "/* Place custom CSS in this file to overwrite the _credits.css avoiding update issues */", () => {
@@ -192,7 +225,7 @@ class Builder {
 
 	ensureInnerTemplateFiles(t) {
 		let fname = (t.name === t.file) ? t.name : t.name + t.file;
-		let inner = constants.TEMPLATE_DIR + "/" + fname + ".html";
+		let inner = constants.TEMPLATE_DIRS.BASE + "/" + fname + ".html";
 
 		if (!fs.existsSync(inner)) {
 			fs.writeFile(inner, t.user, () => { });
@@ -203,7 +236,7 @@ class Builder {
 
 	ensureWrapperTemplateFiles(t) {
 		let fname = (t.name === t.file) ? t.name : t.name + t.file;
-		let wrapper = constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html";
+		let wrapper = constants.TEMPLATE_DIRS.BASE + "/" + fname + "_wrapper.html";
 
 		if (!fs.existsSync(wrapper)) {
 			fs.writeFile(wrapper, t.wrapper, () => { });
@@ -218,22 +251,22 @@ class Builder {
 		this.userArgs.DEBUG && this.utils.console(" ");
 		let mainTemplate, mainCSS, templateObj, bodyWithSectionTags, output, userCSS;
 
-		mainTemplate = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.html", 'utf8');
-		mainCSS = fs.readFileSync(constants.TEMPLATE_DIR + "/_credits.css", 'utf8');
-		userCSS = fs.readFileSync(constants.TEMPLATE_DIR + "/_user.css", 'utf8');
+		mainTemplate = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + constants.TEMPLATE_FILES.USER_HTML, 'utf8');
+		mainCSS = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + constants.TEMPLATE_FILES.DEFAULT_CSS, 'utf8');
+		userCSS = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + constants.TEMPLATE_FILES.USER_CSS, 'utf8');
 		
 		templateObj = {
 			css: "<style>" + mainCSS + "</style>",
 			usercss: "<style>" + userCSS + "</style>"
 		};
 
-		bodyWithSectionTags = mainTemplate.replace('{{{body}}}', mainBody);
+		//bodyWithSectionTags = mainTemplate.replace('{{{body}}}', mainBody);
 
 		this.finalHTML.forEach((s)=>{
 			templateObj[s.key] = s.html;
 		});
 
-		output = Mustache.render(bodyWithSectionTags, templateObj);
+		output = Mustache.render(mainTemplate, templateObj);
 
 		this.userArgs.DEBUG && this.utils.console(" ");
 		this.userArgs.DEBUG && this.utils.console("Credits output sent");
@@ -341,8 +374,8 @@ class Builder {
 	getNameAmount(key,file) {
 		let db = this.db;
 		let fname = (key === file) ? key : key + file;
-		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
-		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
+		let inner = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + ".html", 'utf8');
+		let wrapper = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + "_wrapper.html", 'utf8');
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
 
@@ -362,8 +395,8 @@ class Builder {
 	getNameAmountHistory(key, file) {
 		let db = this.db;
 		let fname = (key === file) ? key : key + file;
-		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
-		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
+		let inner = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + ".html", 'utf8');
+		let wrapper = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + "_wrapper.html", 'utf8');
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
 
@@ -388,8 +421,8 @@ class Builder {
 	getTop10(key, file) {
 		let db = this.db;
 		let fname = (key === file) ? key : key + file;
-		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
-		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
+		let inner = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + ".html", 'utf8');
+		let wrapper = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + "_wrapper.html", 'utf8');
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
 
@@ -410,8 +443,8 @@ class Builder {
 	getTop10Cards(key, file) {
 		let db = this.db;
 		let fname = (key === file) ? key : key + file;
-		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
-		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
+		let inner = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + ".html", 'utf8');
+		let wrapper = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + "_wrapper.html", 'utf8');
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
 
@@ -432,8 +465,8 @@ class Builder {
 	getTop5(key, file) {
 		let db = this.db;
 		let fname = (key === file) ? key : key + file;
-		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
-		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
+		let inner = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + ".html", 'utf8');
+		let wrapper = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + "_wrapper.html", 'utf8');
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
 
@@ -454,8 +487,8 @@ class Builder {
 	getTop5Cards(key, file) {
 		let db = this.db;
 		let fname = (key === file) ? key : key + file;
-		let inner = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + ".html", 'utf8');
-		let wrapper = fs.readFileSync(constants.TEMPLATE_DIR + "/" + fname + "_wrapper.html", 'utf8');
+		let inner = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + ".html", 'utf8');
+		let wrapper = fs.readFileSync(constants.TEMPLATE_DIRS.BASE + "/" + fname + "_wrapper.html", 'utf8');
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + fname);
 

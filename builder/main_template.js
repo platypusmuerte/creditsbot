@@ -76,6 +76,12 @@ exports.mainTemplateFile = `
 
 			{{{body}}}
 
+			<div class="footerWrapper">
+				<div class="footer">
+					<!-- THIS DIV IS POSITIONED BELOW THE CREDITS, AND WILL SHOW ON SCREEN AFTER ROLLUP/NOT BE HIDDEN -->
+				</div>
+			</div>
+
 		</div>
 	</div>
 </body>
