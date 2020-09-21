@@ -146,6 +146,7 @@ class Builder {
 
 	ensureMainHTML() {
 		let mainHTML = constants.TEMPLATE_DIR + "/_credits.html";
+		let defaultHTML = constants.TEMPLATE_DIR + "/_default.html";
 
 		if (!fs.existsSync(mainHTML)) {
 			this.ensureBodyHTML();
@@ -156,6 +157,16 @@ class Builder {
 				this.userArgs.DEBUG && this.utils.console("  Created _credits.html template");
 			});
 		}
+
+		//if (!fs.existsSync(defaultHTML)) {
+			this.ensureBodyHTML();
+
+			let theBody = mainTemplateFile.replace('{{{body}}}', mainBody);
+
+			fs.writeFile(defaultHTML, theBody, () => {
+				this.userArgs.DEBUG && this.utils.console("  Created _default.html template");
+			});
+		//}
 	}
 
 	ensureMainCSS() {
