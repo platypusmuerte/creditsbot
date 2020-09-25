@@ -28,6 +28,11 @@ class Database {
 		const { HStreamLootsQueries } = require("./databases/hstreamloots");
 		const { HSubsQueries } = require("./databases/hsubs");
 
+		const { TemplateIncludesQueries } = require("./databases/templateincludes");
+		const { TemplateColorsQueries } = require("./databases/templatecolors");
+		const { TemplateSettingsQueries } = require("./databases/templatesettings");
+		const { TemplateCustomCSSQueries } = require("./databases/templatecustomcss");
+
 		this.databases = {
 			bans: new BansQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			bits: new BitsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
@@ -51,7 +56,12 @@ class Database {
 			hhosts: new HHostsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			hraids: new HRaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			hstreamloots: new HStreamLootsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hsubs: new HSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
+			hsubs: new HSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+
+			templateincludes: new TemplateIncludesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			templatecolors: new TemplateColorsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			templatesettings: new TemplateSettingsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			templatecustomcss: new TemplateCustomCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
 		};
 	}
 }

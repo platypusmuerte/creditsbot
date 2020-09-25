@@ -1,6 +1,7 @@
 let { userArgs } = require("./yargs");
 let express = require("express");
 let exp = express();
+exp.use(express.json());
 const path = require('path');
 const fs = require('fs');
 const { constants } = require('./constants');
@@ -11,7 +12,8 @@ const { Database } = require('./db');
 const { Builder } = require("./builder/main");
 let { Listener } = require("./listener/main");
 let { TestData } = require("./utils/testdata");
-let utils, listener, db, builder, testData;
+let { GUI } = require("./gui/main");
+let utils, listener, db, builder, testData, gui;
 utils = new Utils();
 
 if (!fs.existsSync("./data")) {
@@ -39,7 +41,8 @@ header(utils, constants).then(()=>{
 		db = new Database({ cryptr, dataDir, utils });
 
 		testData = new TestData({ userArgs, utils });
-		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express });
+		gui = new GUI({db, utils, dataDir, userArgs});
+		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui });
 		listener.start();
 	});
 });

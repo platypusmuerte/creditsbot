@@ -2,10 +2,17 @@ exports.constants = {
 	APP: {
 		NAME: "Platys Credits Bot",
 		EXENAME: "PlatysCreditsBot",
-		VERSION: "1.2.5"
+		VERSION: "1.8.0",
+		DEFAULTS: {
+			BLACKLIST: [],
+			CLEAN_ON_STARTUP: true,
+			DEBUG: true,
+			PORT: 3022
+		}
 	},
 	DATA_FILE_EXT: ".db",
 	DATA_FILE_HISTORIC_EXT: ".hdb",
+	DATA_FILE_SETTINGS: ".sdb",
 	DATABASE_NAMES: {
 		BANS: "bans",
 		BITS: "bits",
@@ -31,6 +38,10 @@ exports.constants = {
 		HISTORIC_STREAMLOOTS: "hstreamloots",
 		HISTORIC_SUBS: "hsubs"
 	},
+	GUI_DIRS: {
+		BASE: "./gui",
+		BASE_WEB_PATH: "/ui/"
+	},
 	MESSAGES: {
 		BLACKLISTED: "Ignored/blacklisted"
 	},
@@ -44,9 +55,19 @@ exports.constants = {
 		PING: "/ping",
 		REMOVE_USER: "/remove/:user",
 		TESTDATA_ADD: "/testdata/add",
-		TESTDATA_REMOVE: "/testdata/remove"
+		TESTDATA_REMOVE: "/testdata/remove",
+
+		UI_PAGE_HOME: "/ui/*",
+		UI_SET_DATA: "/uiset/:task",
+		UI_BASE_API: "/uiset/"
 	},
 	QUERY_PARAMS: ["card"],
+	SETTINGS_DATABASE_NAMES: {
+		TEMPLATE_COLORS: "templatecolors",
+		TEMPLATE_CUSTOMCSS: "templatecustomcss",
+		TEMPLATE_INCLUDES: "templateincludes",
+		TEMPLATE_SETTINGS: "templatesettings"
+	},
 	TEMPLATE_DIRS: {
 		BASE: "./templates",
 		STATIC: "./usercontent"
