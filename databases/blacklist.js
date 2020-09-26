@@ -23,13 +23,13 @@ class BlacklistQueries {
 	}
 
 	/**
-	 * returns array of json
+	 * array of usernames
 	 */
 	getAll() {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			resolve(db.value());
+			resolve(db.get(constants.SETTINGS_DATABASE_NAMES.TEMPLATE_BLACKLIST).value());
 		});		
 	}
 

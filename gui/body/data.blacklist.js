@@ -26,7 +26,7 @@ class DataBlacklist extends BodyBase {
 			<form>
 				<div class="form-group">
 					<label class="formLabel" for="blacklist">Blacklisted Names</label>
-					<textarea class="form-control tabbable" id="blacklist" rows="8">${this.toEachLine(this.data.blacklist)}</textarea>
+					<textarea class="form-control tabbable" id="blacklist" rows="8">${this.toEachLine(this.data)}</textarea>
 				</div>
 				<button id="formsub" type="button" class="btn btn-primary">Submit</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
 			</form>
