@@ -15,6 +15,9 @@ body {
 .titleVersion {
 	
 }
+.queryRow {
+	margin-bottom: 30px;
+}
 .versionText {
 	font-size: 1vw;
 }
@@ -45,6 +48,9 @@ body {
 }
 .numberInput {
 	width: 100px;
+}
+.textInput {
+	width: 250px;
 }
 .formSuccess {
 	margin-left: 20px;

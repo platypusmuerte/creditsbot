@@ -49,8 +49,6 @@ class TemplateSettings extends BodyBase {
 					looping: $("#creditLoop").is(":checked"),
 					speed: $("#speedAdjust").val()
 				};
-
-				console.log(payload);
 				
 				$.ajax({
 					type: "POST",

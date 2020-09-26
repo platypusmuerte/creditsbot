@@ -23,6 +23,7 @@ class PageBody {
 		const { DataBlacklist } = require("./body/data.blacklist");
 		const { DataExport} = require("./body/data.export");
 		const { DataBackup } = require("./body/data.backup");
+		const { DataManual } = require("./body/data.manual");
 
 		this.body = {
 			home: new BodyHome({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
@@ -33,7 +34,8 @@ class PageBody {
 			data_test: new DataTest({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
 			data_export: new DataExport({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
 			data_backup: new DataBackup({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
-			data_blacklist: new DataBlacklist({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page })
+			data_blacklist: new DataBlacklist({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
+			data_manual: new DataManual({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page })
 		};
 
 		this.pageStr = this.page + ((this.subPage) ? "_" + this.subPage : "");

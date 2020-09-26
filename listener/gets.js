@@ -98,7 +98,7 @@ class GetHandler {
 	}
 
 	getUser() {
-		let path = constants.PATHS.GET_10;
+		let path = constants.PATHS.GET_USER;
 		let blackList = this.blackList;
 		let processor = this.processor;
 		let blacklisted = this.blacklisted.bind(this);
@@ -111,7 +111,7 @@ class GetHandler {
 				if (bl.includes(user)) {
 					blacklisted();
 					res.send("");
-				} else if (key && user && amount) {
+				} else if (key && user) {
 					processor.getUser(req, res, key, user);
 				} else {
 					res.send("");
