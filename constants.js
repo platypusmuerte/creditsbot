@@ -67,7 +67,8 @@ exports.constants = {
 		TEMPLATE_COLORS: "templatecolors",
 		TEMPLATE_CUSTOMCSS: "templatecustomcss",
 		TEMPLATE_INCLUDES: "templateincludes",
-		TEMPLATE_SETTINGS: "templatesettings"
+		TEMPLATE_SETTINGS: "templatesettings",
+		TEMPLATE_CREDITS: "credittemplates"
 	},
 	TEMPLATE_DIRS: {
 		BASE: "./templates",

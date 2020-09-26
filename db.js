@@ -34,6 +34,8 @@ class Database {
 		const { TemplateCustomCSSQueries } = require("./databases/templatecustomcss");
 		const { BlacklistQueries } = require("./databases/blacklist");
 
+		const { CreditTemplatesQueries } = require("./databases/credittemplates");
+
 		this.databases = {
 			bans: new BansQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			bits: new BitsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
@@ -63,7 +65,9 @@ class Database {
 			templatecolors: new TemplateColorsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			templatesettings: new TemplateSettingsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			templatecustomcss: new TemplateCustomCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			blacklist: new BlacklistQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
+			blacklist: new BlacklistQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+
+			blacklist: new CreditTemplatesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
 		};
 	}
 }
