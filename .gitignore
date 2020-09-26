@@ -4,3 +4,5 @@ data/
 dist/
 templates/
 usercontent/
+backups/*
+exports/*

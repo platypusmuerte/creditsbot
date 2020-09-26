@@ -33,6 +33,8 @@ class DataTest extends BodyBase {
 		return `
 		function init_data_test() {
 			$("#testadd").on("click",(e)=>{
+				e.preventDefault();
+
 				$("#testremove").addClass("disabled");
 				$.ajax({
 					type: "GET",
@@ -48,6 +50,8 @@ class DataTest extends BodyBase {
 			});
 
 			$("#testremove").on("click",(e)=>{
+				e.preventDefault();
+				
 				$("#testadd").addClass("disabled");
 				$.ajax({
 					type: "GET",

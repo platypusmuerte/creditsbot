@@ -10,6 +10,17 @@ class ChannelPointsQueries {
 		this.db = new ChannelPointsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
 	}
 
+	/**
+	 * get full state of DB
+	 */
+	getState() {
+		let db = this.db;
+
+		return new Promise(function (resolve, reject) {
+			resolve(db.value());
+		});
+	}
+
 	getAll() {
 		let db = this.db;
 

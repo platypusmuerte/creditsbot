@@ -1,4 +1,3 @@
-const fs = require("fs");
 const { constants } = require('../constants');
 const chalk = require("chalk");
 const lodash = require("lodash");

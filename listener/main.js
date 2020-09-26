@@ -12,6 +12,8 @@ class Listener {
 		this.testData = params.testData;
 		this.express = params.express;
 		this.gui = params.gui;
+		this.backup = params.backup;
+		this.exportdata = params.exportdata;
 	}
 
 	start() {
@@ -34,17 +36,6 @@ class Listener {
 		this.get_addTestData({ path: constants.PATHS.TESTDATA_ADD, callback: this.addTestData.bind(this) });
 		this.get_removeTestData({ path: constants.PATHS.TESTDATA_REMOVE, callback: this.removeTestData.bind(this) });
 
-		//this.get_allUserSettings({ path: constants.PATHS.UI_GET_USER_SETTINGS, callback: this.getAllUserSettings.bind(this) });
-
-		//this.get_userSettingsSetPort({ path: constants.PATHS.UI_SET_PORT, callback: this.userSettingsSetPort.bind(this) });
-		//this.get_userSettingsGetPort({ path: constants.PATHS.UI_GET_PORT, callback: this.userSettingsGetPort.bind(this) });
-
-		//this.get_userSettingsSetDebug({ path: constants.PATHS.UI_SET_DEBUG, callback: this.userSettingsSetDebug.bind(this) });
-		//this.get_userSettingsGetDebug({ path: constants.PATHS.UI_GET_DEBUG, callback: this.userSettingsGetDebug.bind(this) });
-
-		//this.get_userSettingsSetCleanStart({ path: constants.PATHS.UI_SET_START_CLEAN, callback: this.userSettingsSetCleanStart.bind(this) });
-		//this.get_userSettingsGetCleanStart({ path: constants.PATHS.UI_GET_START_CLEAN, callback: this.userSettingsGetCleanStart.bind(this) });
-
 		// UI handler
 		this.get_ui({ path: constants.PATHS.UI_PAGE_HOME, callback: this.uiPage.bind(this) });
 		this.post_ui({ path: constants.PATHS.UI_SET_DATA, callback: this.uiSetData.bind(this) });
@@ -52,7 +43,6 @@ class Listener {
 		this.exp.get(constants.PATHS.PING, (req, res) => {res.send("pong");});
 
 		this.exp.use('/usercontent', this.express.static(constants.TEMPLATE_DIRS.STATIC));
-		//this.exp.use('/gui', this.express.static(constants.GUI_DIRS.BASE));
 
 		this.utils.console(" ");
 	}
@@ -72,68 +62,6 @@ class Listener {
 			data.callback(req, res);
 		});
 	}
-
-	/*get_allUserSettings(data) {
-		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
-
-		this.exp.get(data.path, (req, res) => {
-			data.callback(req, res);
-		});
-	}
-
-	get_userSettingsSetPort(data) {
-		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
-
-		this.exp.get(data.path, (req, res) => {
-			let port = req.params.port || constants.APP.DEFAULTS.PORT;
-
-			data.callback(req, res, port);
-		});
-	}
-
-	get_userSettingsGetPort(data) {
-		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
-
-		this.exp.get(data.path, (req, res) => {
-			data.callback(req, res);
-		});
-	}
-
-	get_userSettingsSetDebug(data) {
-		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
-
-		this.exp.get(data.path, (req, res) => {
-			let debug = (req.params.debug === "true");
-
-			data.callback(req, res, debug);
-		});
-	}
-
-	get_userSettingsGetDebug(data) {
-		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
-
-		this.exp.get(data.path, (req, res) => {
-			data.callback(req, res);
-		});
-	}
-
-	get_userSettingsSetCleanStart(data) {
-		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
-
-		this.exp.get(data.path, (req, res) => {
-			let cleanstart = (req.params.cleanstart === "true");
-
-			data.callback(req, res, cleanstart);
-		});
-	}
-
-	get_userSettingsGetCleanStart(data) {
-		this.userArgs.DEBUG && this.utils.console("Added GET " + data.path);
-
-		this.exp.get(data.path, (req, res) => {
-			data.callback(req, res);
-		});
-	}*/
 
 	blacklisted() {
 		this.userArgs.DEBUG && this.utils.console(constants.MESSAGES.BLACKLISTED);
@@ -289,6 +217,12 @@ class Listener {
 			case "settemplatecustomcss":
 				this.uiSetTemplateCustomCSS(req, res);
 				break;
+			case "backup":
+				this.uiRunBackup(req, res);
+				break;
+			case "export":
+				this.uiRunExport(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -340,6 +274,18 @@ class Listener {
 		};
 
 		this.db.databases.templatecustomcss.setData(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	uiRunBackup(req, res) {
+		this.backup.create().then(()=>{
+			res.json({ "success": true });
+		});
+	}
+
+	uiRunExport(req, res) {
+		this.exportdata.create().then(() => {
 			res.json({ "success": true });
 		});
 	}
@@ -401,62 +347,6 @@ class Listener {
 			res.send(r.toString());
 		});
 	}
-
-	// get all settings
-	/*getAllUserSettings(req, res) {
-		this.db.databases.usersettings.getAll().then((r) => {
-			this.userArgs.DEBUG && this.utils.console("Get all settings");
-			res.send(JSON.stringify(r));
-		});
-	}*/
-
-	/* set port */
-	/*userSettingsSetPort(req, res, port) {
-		this.db.databases.usersettings.setPort(port).then((r) => {
-			this.userArgs.DEBUG && this.utils.console("Set port");
-			res.send(r.toString());
-		});
-	}*/
-
-	/* get port */
-	/*userSettingsGetPort(req, res) {
-		this.db.databases.usersettings.getPort().then((r) => {
-			this.userArgs.DEBUG && this.utils.console("Get port");
-			res.send(r.toString());
-		});
-	}*/
-
-	/* set debug */
-	/*userSettingsSetDebug(req, res, debug) {
-		this.db.databases.usersettings.setDebug(debug).then((r) => {
-			this.userArgs.DEBUG && this.utils.console("Set debug");
-			res.send(r.toString());
-		});
-	}*/
-
-	/* get debug */
-	/*userSettingsGetDebug(req, res) {
-		this.db.databases.usersettings.getDebug().then((r) => {
-			this.userArgs.DEBUG && this.utils.console("Get debug");
-			res.send(r.toString());
-		});
-	}*/
-
-	/* set cleanstart */
-	/*userSettingsSetCleanStart(req, res, cleanstart) {
-		this.db.databases.usersettings.setCleanStart(cleanstart).then((r) => {
-			this.userArgs.DEBUG && this.utils.console("Set cleanstart");
-			res.send(r.toString());
-		});
-	}*/
-
-	/* get cleanstart */
-	/*userSettingsGetCleanStart(req, res) {
-		this.db.databases.usersettings.getCleanStart().then((r) => {
-			this.userArgs.DEBUG && this.utils.console("Get cleanstart");
-			res.send(r.toString());
-		});
-	}*/
 
 	// add test data
 	addTestData(req, res) {

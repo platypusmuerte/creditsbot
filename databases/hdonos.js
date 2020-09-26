@@ -11,6 +11,17 @@ class HDonosQueries {
 	}
 
 	/**
+	 * get full state of DB
+	 */
+	getState() {
+		let db = this.db;
+
+		return new Promise(function (resolve, reject) {
+			resolve(db.value());
+		});
+	}
+
+	/**
 	 * returns array of json
 	 */
 	getAll() {
