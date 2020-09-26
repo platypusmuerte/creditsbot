@@ -20,6 +20,7 @@ class PageBody {
 		const { TemplateSettings } = require("./body/template.settings"); 
 		const { TemplateCustomCSS } = require("./body/template.customcss");
 		const { DataTest } = require("./body/data.test");
+		const { DataBlacklist } = require("./body/data.blacklist");
 		const { DataExport} = require("./body/data.export");
 		const { DataBackup } = require("./body/data.backup");
 
@@ -31,7 +32,8 @@ class PageBody {
 			template_customcss: new TemplateCustomCSS({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
 			data_test: new DataTest({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
 			data_export: new DataExport({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
-			data_backup: new DataBackup({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page })
+			data_backup: new DataBackup({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
+			data_blacklist: new DataBlacklist({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page })
 		};
 
 		this.pageStr = this.page + ((this.subPage) ? "_" + this.subPage : "");
@@ -68,6 +70,11 @@ class PageBody {
 					break;
 				case "template_customcss":
 					db.databases.templatecustomcss.getAll().then((dbr) => {
+						resolve(dbr);
+					});
+					break;
+				case "data_blacklist":
+					db.databases.blacklist.getAll().then((dbr) => {
 						resolve(dbr);
 					});
 					break;

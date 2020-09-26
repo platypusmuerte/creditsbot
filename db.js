@@ -32,6 +32,7 @@ class Database {
 		const { TemplateColorsQueries } = require("./databases/templatecolors");
 		const { TemplateSettingsQueries } = require("./databases/templatesettings");
 		const { TemplateCustomCSSQueries } = require("./databases/templatecustomcss");
+		const { BlacklistQueries } = require("./databases/blacklist");
 
 		this.databases = {
 			bans: new BansQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
@@ -61,7 +62,8 @@ class Database {
 			templateincludes: new TemplateIncludesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			templatecolors: new TemplateColorsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			templatesettings: new TemplateSettingsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			templatecustomcss: new TemplateCustomCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
+			templatecustomcss: new TemplateCustomCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			blacklist: new BlacklistQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
 		};
 	}
 }

@@ -48,6 +48,7 @@ class PageMenu {
       				<div class="card-body">
         				<nav class="nav flex-column subMenu">
 							<a class="nav-link ` + this.isActive("data", "test") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/test">Test Data</a>
+							<a class="nav-link ` + this.isActive("data", "blacklist") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/blacklist">Blacklist</a>
 							<a class="nav-link ` + this.isActive("data", "manual") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/manual">Manual</a>
 							<a class="nav-link ` + this.isActive("data", "export") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/export">Export</a>
 							<a class="nav-link ` + this.isActive("data", "backup") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/backup">Backup</a>

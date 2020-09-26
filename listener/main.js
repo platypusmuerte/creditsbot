@@ -223,6 +223,9 @@ class Listener {
 			case "export":
 				this.uiRunExport(req, res);
 				break;
+			case "setblacklist":
+				this.uiSetBlacklist(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -274,6 +277,16 @@ class Listener {
 		};
 
 		this.db.databases.templatecustomcss.setData(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	uiSetBlacklist(req, res) {
+		let data = {
+			blacklist: req.body.blacklist
+		};
+
+		this.db.databases.blacklist.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	}

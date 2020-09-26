@@ -63,6 +63,7 @@ exports.constants = {
 	},
 	QUERY_PARAMS: ["card"],
 	SETTINGS_DATABASE_NAMES: {
+		TEMPLATE_BLACKLIST: "blacklist",
 		TEMPLATE_COLORS: "templatecolors",
 		TEMPLATE_CUSTOMCSS: "templatecustomcss",
 		TEMPLATE_INCLUDES: "templateincludes",
