@@ -33,6 +33,28 @@ class CreditTemplatesQueries {
 			resolve(db.value());
 		});		
 	}
+
+	getIDsByType() {
+		let db = this.db;
+
+		return new Promise(function (resolve, reject) {
+			let data = db.sortBy("id").value();
+
+			let filtered = data.map((ct)=>{
+				return {id: ct.id, type: ct.type, enabled: ct.enabled};
+			});
+
+			resolve(filtered);
+		});
+	}
+
+	getTemplateByID(id) {
+		let db = this.db;
+
+		return new Promise(function (resolve, reject) {
+			resolve(db.find({ id: id }).value());
+		});
+	}
 }
 
 exports.CreditTemplatesQueries = CreditTemplatesQueries;

@@ -67,7 +67,7 @@ class Database {
 			templatecustomcss: new TemplateCustomCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			blacklist: new BlacklistQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 
-			blacklist: new CreditTemplatesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
+			credittemplates: new CreditTemplatesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
 		};
 	}
 }

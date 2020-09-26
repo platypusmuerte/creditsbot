@@ -38,6 +38,9 @@ class PostProcessor {
 			case "setblacklist":
 				this.uiSetBlacklist(req, res);
 				break;
+			case "gettemplatebyid":
+				this.uiGetTemplateByID(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -112,6 +115,14 @@ class PostProcessor {
 	uiRunExport(req, res) {
 		this.exportdata.create().then(() => {
 			res.json({ "success": true });
+		});
+	}
+
+	uiGetTemplateByID(req, res) {
+		let id = req.body.id;
+
+		this.db.databases.credittemplates.getTemplateByID(id).then((data) => {
+			res.json({ "success": true, "data": data });
 		});
 	}
 }

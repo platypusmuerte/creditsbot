@@ -36,8 +36,8 @@ class PageMenu {
 				<div id="menuTwo" class="collapse${this.isOpenMenu("sections")}" aria-labelledby="headingOne" data-parent="#accordionExample">
       				<div class="card-body">
         				<nav class="nav flex-column subMenu">
-							<a class="nav-link ` + this.isActive("sections", "dynamic") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}sections/dynamic">Dynamic</a>
-							<a class="nav-link ` + this.isActive("sections", "static") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}sections/static">Static</a>
+							<a class="nav-link ` + this.isActive("sections", "edit") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}sections/edit">Edit</a>
+							<a class="nav-link ` + this.isActive("sections", "sort") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}sections/sort">Sort</a>
 						</nav>
       				</div>
 				</div>

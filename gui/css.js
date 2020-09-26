@@ -55,4 +55,7 @@ body {
 .formSuccess {
 	margin-left: 20px;
 }
+.templateDD option {
+	text-transform: capitalize;
+}
 `;

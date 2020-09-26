@@ -24,6 +24,7 @@ class PageBody {
 		const { DataExport} = require("./body/data.export");
 		const { DataBackup } = require("./body/data.backup");
 		const { DataManual } = require("./body/data.manual");
+		const { SectionsEdit } = require("./body/sections.edit");
 
 		this.body = {
 			home: new BodyHome({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
@@ -35,7 +36,8 @@ class PageBody {
 			data_export: new DataExport({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
 			data_backup: new DataBackup({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
 			data_blacklist: new DataBlacklist({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
-			data_manual: new DataManual({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page })
+			data_manual: new DataManual({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page }),
+			sections_edit: new SectionsEdit({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page })
 		};
 
 		this.pageStr = this.page + ((this.subPage) ? "_" + this.subPage : "");
@@ -77,6 +79,11 @@ class PageBody {
 					break;
 				case "data_blacklist":
 					db.databases.blacklist.getAll().then((dbr) => {
+						resolve(dbr);
+					});
+					break;
+				case "sections_edit":
+					db.databases.credittemplates.getIDsByType().then((dbr) => {
 						resolve(dbr);
 					});
 					break;
