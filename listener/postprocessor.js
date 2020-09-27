@@ -47,6 +47,9 @@ class PostProcessor {
 			case "setsectionsortorder": 
 				this.uiSetTemplateSort(req, res);
 				break;
+			case "removeseectionbyid":
+				this.uiRemoveTemplateByID(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -126,9 +129,16 @@ class PostProcessor {
 
 	uiSetTemplateByID(req, res) {
 		let data = req.body;
+		let db = this.db;
 
-		this.db.databases.credittemplates.setTemplateByID(data).then(() => {
-			res.json({ "success": true });
+		db.databases.credittemplates.setTemplateByID(data).then((dbid) => {
+			if(data.id === "addnew") {
+				db.databases.templatesort.addNew(dbid).then(() => {
+					res.json({ "success": true, id: dbid});
+				});
+			} else {
+				res.json({ "success": true, id: dbid });
+			}			
 		});
 	}
 
@@ -136,6 +146,14 @@ class PostProcessor {
 		let data = req.body;
 
 		this.db.databases.templatesort.setData(data).then(() => {
+			res.json({ "success": true });
+		});
+	} 
+
+	uiRemoveTemplateByID(req, res) {
+		let data = req.body;
+
+		this.db.databases.credittemplates.removeTemplateByID(data).then(() => {
 			res.json({ "success": true });
 		});
 	}

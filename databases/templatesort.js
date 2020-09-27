@@ -43,6 +43,16 @@ class TemplateSortQueries {
 			resolve("");
 		});		
 	}
+
+	addNew(data) {
+		let db = this.db;
+
+		return new Promise(function (resolve, reject) {
+			db.push(data).write();
+
+			resolve("");
+		});	
+	}
 }
 
 exports.TemplateSortQueries = TemplateSortQueries;

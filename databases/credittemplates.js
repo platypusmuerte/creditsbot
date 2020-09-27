@@ -55,8 +55,9 @@ class CreditTemplatesQueries {
 		return new Promise(function (resolve, reject) {
 			sortArr.forEach((sort)=>{
 				let t = db.find({ id: sort }).value();
-
-				sortedTemplateData[sort] = t;
+				if(t) {
+					sortedTemplateData[sort] = t;
+				}				
 			});
 
 			resolve(sortedTemplateData);
@@ -73,13 +74,44 @@ class CreditTemplatesQueries {
 
 	setTemplateByID(data) {
 		let db = this.db;
+		let dbID = false;
+
+		if (data.id === "addnew") {
+			let count = db.filter({ type: "custom" }).size().value();
+			dbID = "custom_" + (count + 1);
+		}
 
 		return new Promise(function (resolve, reject) {
+			if (data.id !== "addnew") {
+				db.find({ id: data.id }).assign(data).write();
+			} else {
+				db.push({
+					enabled: data.enabled,
+					id: dbID,
+					type: "custom",
+					key: false,
+					title: data.title,
+					template: data.template,
+					wrapper: ``,
+					inner: ``
+				}).write();
+			}
 
-			db.find({ id: data.id }).assign(data).write();
+			resolve(dbID);				
+		});
+	}
+	
+	removeTemplateByID(data) {
+		let db = this.db;
+
+		return new Promise(function (resolve, reject) {
+			db.remove({ id: data.id }).write();
+
 			resolve("");
 		});
 	}
 }
 
 exports.CreditTemplatesQueries = CreditTemplatesQueries;
+
+

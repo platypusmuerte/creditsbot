@@ -19,9 +19,11 @@ class SectionsEdit extends BodyBase {
 		let dynOpts = '';
 		let contentOpts = '';
 		let staticOpts = '';
+		let customOpts = '';
 		let dividerDyn = '<option value="---" disabled>Dynamic Sections</option>';
 		let dividerStatic = '<option value="---" disabled>Static Sections</option>';
 		let dividerContent = '<option value="---" disabled>Content Sections</option>';
+		let dividerCustom = '<option value="---" disabled>Custom Sections</option>';
 		
 		this.data.forEach((ct)=>{
 			let css = (ct.enabled) ? '':' class="templateDisabled"';
@@ -31,10 +33,13 @@ class SectionsEdit extends BodyBase {
 				contentOpts += '<option' + css + ' data-type="' + ct.type + '" value="' + ct.id + '">&nbsp;&nbsp;&nbsp;' + ct.id.replace(/_/g, " ") + '</option>';
 			} else if(ct.type === "static") {
 				staticOpts += '<option' + css + ' data-type="' + ct.type + '" value="' + ct.id + '">&nbsp;&nbsp;&nbsp;' + ct.id.replace(/_/g, " ") + '</option>';
+			} else if (ct.type === "custom") {
+				customOpts += '<option' + css + ' data-type="' + ct.type + '" value="' + ct.id + '">&nbsp;&nbsp;&nbsp;' + ct.id.replace(/_/g, " ") + '</option>';
 			}
 		});
 
-		let allOpts = '<option value="---">Choose Template</option>' + dividerStatic + staticOpts + dividerContent + contentOpts + dividerDyn + dynOpts;
+		let customOptStr = (customOpts.length) ? dividerCustom + customOpts:'';
+		let allOpts = '<option value="---">Choose Template</option><option value="addnew">New Template</option>' + customOptStr + dividerStatic + staticOpts + dividerContent + contentOpts + dividerDyn + dynOpts;
 
 		return `
 		<script>${this.js()}</script>
@@ -90,7 +95,8 @@ class SectionsEdit extends BodyBase {
 					<textarea class="form-control" id="innerTemplate" rows="5"></textarea>
 				</div>
 			</div>
-			<button id="formsub" type="button" class="btn btn-primary">Update Template</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
+			<button id="formsub" type="button" class="btn btn-primary">Submit Template</button>
+			<button id="delete" type="button" class="btn btn-danger invisible">Delete Template</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
 		</div>
 		`;
 	}
@@ -100,48 +106,69 @@ class SectionsEdit extends BodyBase {
 
 		return `
 		let fd;
+
 		function init_sections_edit() {
+			fd = {type: "custom"};
+
 			$("#templates").on("change",()=>{
-				get({templateid:$("#templates").val()}, "gettemplatebyid", (res)=>{
-					console.log(res);
-					let data = res.data;
+				$("#delete").removeClass("visible").addClass("invisible");
+				$("#sectionTitleText").val("");
+				$("#mainTemplate").val("");
+				$("#wrapperTemplate").val("");
+				$("#innerTemplate").val("");
 
-					fd = data;
+				if($("#templates").val() !== "addnew") {
+					get({templateid:$("#templates").val()}, "gettemplatebyid", (res)=>{						
+						let data = res.data;
+						let noTitle = (data.type === "static" || data.type === "content");
+						let singleTemplate = (data.type != "dynamic");
 
-					switch(data.type) {
-						case "content":
+						if(data.type === "custom") {
+							$("#delete").removeClass("invisible").addClass("visible");
+						}
 
-							break;
-					}
+						fd = data;
 
-					$("#wrapperTemplate").prop("disabled",(data.type != "dynamic"));
-					$("#innerTemplate").prop("disabled",(data.type != "dynamic"));
-					$("#sectionTitleText").prop("disabled",(data.type != "dynamic"));
+						$("#wrapperTemplate").prop("disabled",singleTemplate);
+						$("#innerTemplate").prop("disabled",singleTemplate);
+						$("#sectionTitleText").prop("disabled",noTitle);
 
-					$("#sectionTitleText").val(data.title);
-					$("#sectionEnabled").prop("checked",data.enabled);
-					$("#mainTemplate").val(data.template);
-					$("#wrapperTemplate").val(data.wrapper);
-					$("#innerTemplate").val(data.inner);
+						$("#sectionTitleText").val(data.title);
+						$("#sectionEnabled").prop("checked",data.enabled);
+						$("#mainTemplate").val(data.template);
+						$("#wrapperTemplate").val(data.wrapper);
+						$("#innerTemplate").val(data.inner);
 
-					if(data.type !== "dynamic") {
-						$("#wrapperTemplate").val("Not used for this template type");
-						$("#innerTemplate").val("Not used for this template type");
-						$("#sectionTitleText").val("Not used for this template type");
-					}
-				});
+						if(noTitle) {							
+							$("#sectionTitleText").val("Not used for this template type");
+						}
+
+						if(singleTemplate) {
+							$("#wrapperTemplate").val("Not used for this template type");
+							$("#innerTemplate").val("Not used for this template type");
+						}
+					});
+				} else {
+					$("#wrapperTemplate").prop("disabled",true);
+					$("#innerTemplate").prop("disabled",true);
+					$("#wrapperTemplate").val("Not used for this template type");
+					$("#innerTemplate").val("Not used for this template type");
+				}
 			});
 
 			${loadEdit}
 
 			$("#formsub").on("click",(e)=>{
+				let noTitle = (fd.type === "static" || fd.type === "content");
+				let singleTemplate = (fd.type != "dynamic");
+
 				let payload = {
 					enabled: $("#sectionEnabled").is(":checked"),
 					id: $("#templates").val(),
-					title: (fd.type !== "dynamic") ? '':$("#sectionTitleText").val(),
+					title: (noTitle) ? '':$("#sectionTitleText").val(),
 					template: $("#mainTemplate").val(),
-					wrapper: (fd.type !== "dynamic") ? '':$("#wrapperTemplate").val(),
-					inner: (fd.type !== "dynamic") ? '':$("#innerTemplate").val()
+					wrapper: (singleTemplate) ? '':$("#wrapperTemplate").val(),
+					inner: (singleTemplate) ? '':$("#innerTemplate").val()
 				};
 
 				$.ajax({
@@ -155,6 +182,27 @@ class SectionsEdit extends BodyBase {
 					setTimeout(()=>{
 						$("#subsuccess").removeClass("visible").addClass("invisible");
 					},3000);
+					
+					if($("#templates").val() === "addnew") {
+						location.href = "/ui/sections/edit?edit=" + data.id;
+					}
+				});
+			});
+
+			$("#delete").on("click",(e)=>{
+				$.ajax({
+					type: "POST",
+					url: "${constants.PATHS.UI_BASE_API}removeseectionbyid",
+					data: JSON.stringify({id: $("#templates").val()}),
+					contentType: "application/json",
+					dataType: "json"
+				}).done((data)=>{
+					$("#subsuccess").removeClass("invisible").addClass("visible");
+					setTimeout(()=>{
+						$("#subsuccess").removeClass("visible").addClass("invisible");
+					},3000);
+
+					location.href = "/ui/sections/edit";
 				});
 			});
 		}
