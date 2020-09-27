@@ -6,7 +6,7 @@ function init() {
 			if(e.keyCode == TABKEY) {
 				let v = $(el).val() + "    ";
 				$(el).val(v);
-				console.log($(el).val());
+				
 				if(e.preventDefault) {
 					e.preventDefault();
 				}

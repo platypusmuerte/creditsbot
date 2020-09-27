@@ -1,4 +1,6 @@
 exports.sectionOrder = [
+	"titleWrapper",
+	"subtitleWrapper",
 	"mods_name",
 	"vips_name",
 	"follows_name",
@@ -55,5 +57,6 @@ exports.sectionOrder = [
 	"hsubs_top5H",
 	"hhosts_top5H",
 	"hraids_top5H",
-	"hchannelpoints_top5H"
+	"hchannelpoints_top5H",
+	"footerWrapper"
 ];

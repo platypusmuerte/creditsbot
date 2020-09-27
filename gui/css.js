@@ -6,7 +6,7 @@ body {
 .nav-link {
 	color: #fff
 }
-.activeMenu, h1, h2, h3, h4, .versionText, .formLabel {
+.activeMenu, h1, h2, h3, h4, .versionText, .formLabel, .dragSectionTitle {
 	color: #ff9900;
 }
 .titleText {
@@ -57,5 +57,33 @@ body {
 }
 .templateDD option {
 	text-transform: capitalize;
+}
+.dragSectionIcon {
+	display: inline-block;
+	width: 30px;
+	vertical-align: top;
+	padding-top: 10px;
+	color: #ff9900;
+}
+.dragSectionBody {
+	display: inline-block;
+}
+.sectionEnabledLabel {
+	color: #0ddb44;
+}
+.sectionDisabledLabel {
+	color: #db0d0d;
+}
+.sectionDBLabel, .sectionKey {
+	margin-left: 30px;
+	text-transform: capitalize;
+}
+.sectionDragEdit {
+	font-size: .8em;
+	margin-left: 30px;
+	visibility: hidden;
+}
+.sectionDraggable:hover .sectionDragEdit {
+	visibility: visible;
 }
 `;

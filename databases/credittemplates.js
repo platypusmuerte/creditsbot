@@ -48,6 +48,21 @@ class CreditTemplatesQueries {
 		});
 	}
 
+	getTemplateDataForSorting(sortArr) {
+		let db = this.db;
+		let sortedTemplateData = {};
+
+		return new Promise(function (resolve, reject) {
+			sortArr.forEach((sort)=>{
+				let t = db.find({ id: sort }).value();
+
+				sortedTemplateData[sort] = t;
+			});
+
+			resolve(sortedTemplateData);
+		});
+	}
+
 	getTemplateByID(id) {
 		let db = this.db;
 
@@ -59,11 +74,7 @@ class CreditTemplatesQueries {
 	setTemplateByID(data) {
 		let db = this.db;
 
-		console.log(data);
-
 		return new Promise(function (resolve, reject) {
-
-			console.log(db.find({ id: data.id }).value());
 
 			db.find({ id: data.id }).assign(data).write();
 			resolve("");

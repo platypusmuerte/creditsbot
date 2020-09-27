@@ -41,6 +41,12 @@ class PostProcessor {
 			case "settemplatebyid":
 				this.uiSetTemplateByID(req, res);
 				break;
+			case "settemplatesort": 
+				this.uiSetTemplateSort(req, res);
+				break;
+			case "setsectionsortorder": 
+				this.uiSetTemplateSort(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -122,6 +128,14 @@ class PostProcessor {
 		let data = req.body;
 
 		this.db.databases.credittemplates.setTemplateByID(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	uiSetTemplateSort(req, res) {
+		let data = req.body;
+
+		this.db.databases.templatesort.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	}

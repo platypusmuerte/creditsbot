@@ -11,6 +11,7 @@ class SectionsEdit extends BodyBase {
 		this.page = params.page;
 		this.subPage = params.subpage;
 		this.data;
+		this.query = params.query;
 	}
 
 	render(qData) {
@@ -95,6 +96,8 @@ class SectionsEdit extends BodyBase {
 	}
 
 	js() {
+		let loadEdit = (this.query.edit) ? `$("#templates").val("${this.query.edit}").change();` : false;
+
 		return `
 		let fd;
 		function init_sections_edit() {
@@ -129,6 +132,8 @@ class SectionsEdit extends BodyBase {
 				});
 			});
 
+			${loadEdit}
+
 			$("#formsub").on("click",(e)=>{
 				let payload = {
 					enabled: $("#sectionEnabled").is(":checked"),
@@ -138,8 +143,6 @@ class SectionsEdit extends BodyBase {
 					wrapper: (fd.type !== "dynamic") ? '':$("#wrapperTemplate").val(),
 					inner: (fd.type !== "dynamic") ? '':$("#innerTemplate").val()
 				};
-
-				console.log(payload);
 
 				$.ajax({
 					type: "POST",

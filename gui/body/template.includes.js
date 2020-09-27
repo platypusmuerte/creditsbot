@@ -23,12 +23,13 @@ class TemplateIncludes extends BodyBase {
 			<p class="lead">Include 3rd party files, like Google Fonts, CSS files, etc</p>
 			<hr class="my-4">
 			<p>The JS includes are loaded after the default JS content, <strong>JQuery is already included</strong></p>
-			<p>The CSS includes are loaded after the default CSS content. Place font includes here.</p>
+			
 			<form>
 				<div class="form-group">
 					<label class="formLabel" for="templateCSSIncludes">CSS Include URL (1 per line)</label>
 					<textarea class="form-control" id="templateCSSIncludes" rows="3">${this.toEachLine(this.data.css)}</textarea>
 				</div>
+				<p>The CSS includes are loaded after the default CSS content. Place font includes here.</p>
 				<div class="form-group">
 					<label class="formLabel" for="templateJSIncludes">JS Include URL (1 per line)</label>
 					<textarea class="form-control" id="templateJSIncludes" rows="3">${this.toEachLine(this.data.js)}</textarea>

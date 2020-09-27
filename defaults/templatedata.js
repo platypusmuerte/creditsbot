@@ -4,7 +4,7 @@ exports.templatedata = [
 		id: "titleWrapper",
 		type: "static",
 		key: false,
-		title: ``,
+		title: `Main Title`,
 		template: `<div class="titleWrapper">
 	<div class="title">Thanks for watching!</div>
 </div>`,
@@ -15,7 +15,7 @@ exports.templatedata = [
 		id: "subtitleWrapper",
 		type: "static",
 		key: false,
-		title: ``,
+		title: `Main Subtitle`,
 		template: `<div class="subtitleWrapper">
 	<div class="subtitle">See ya next time!</div>
 </div>`,
@@ -113,7 +113,7 @@ exports.templatedata = [
 		id: "footerWrapper",
 		type: "static",
 		key: false,
-		title: ``,
+		title: `Footer Wrapper`,
 		template: `<div class="footerWrapper">
 	<div class="footer">
 		<!-- THIS DIV IS POSITIONED BELOW THE CREDITS, AND WILL SHOW ON SCREEN AFTER ROLLUP/NOT BE HIDDEN -->

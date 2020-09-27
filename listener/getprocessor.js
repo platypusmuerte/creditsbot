@@ -125,6 +125,9 @@ class GetProcessor {
 			case "gettemplatebyid":
 				this.uiGetTemplateByID(req, res);
 				break;
+			case "gettemplatesort":
+				this.uiGetTemplateSort(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -136,6 +139,12 @@ class GetProcessor {
 		let templateid = expectedQueryParams.templateid||false;
 
 		this.db.databases.credittemplates.getTemplateByID(templateid).then((data) => {
+			res.json({ "success": true, "data": data });
+		});
+	}
+
+	uiGetTemplateSort(req, res) {
+		this.db.databases.templatesort.getAll().then((data) => {
 			res.json({ "success": true, "data": data });
 		});
 	}
