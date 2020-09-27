@@ -58,10 +58,12 @@ exports.constants = {
 		TESTDATA_REMOVE: "/testdata/remove",
 
 		UI_PAGE_HOME: "/ui/*",
+		UI_GET_DATA: "/uiget/:task",
 		UI_SET_DATA: "/uiset/:task",
-		UI_BASE_API: "/uiset/"
+		UI_BASE_API: "/uiset/",
+		UI_BASE_API_GET: "/uiget/"
 	},
-	QUERY_PARAMS: ["card"],
+	QUERY_PARAMS: ["card","templateid"],
 	SETTINGS_DATABASE_NAMES: {
 		TEMPLATE_BLACKLIST: "blacklist",
 		TEMPLATE_COLORS: "templatecolors",

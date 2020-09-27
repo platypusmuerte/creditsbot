@@ -55,6 +55,20 @@ class CreditTemplatesQueries {
 			resolve(db.find({ id: id }).value());
 		});
 	}
+
+	setTemplateByID(data) {
+		let db = this.db;
+
+		console.log(data);
+
+		return new Promise(function (resolve, reject) {
+
+			console.log(db.find({ id: data.id }).value());
+
+			db.find({ id: data.id }).assign(data).write();
+			resolve("");
+		});
+	}
 }
 
 exports.CreditTemplatesQueries = CreditTemplatesQueries;

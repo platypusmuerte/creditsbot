@@ -115,6 +115,30 @@ class GetProcessor {
 			res.send(page);
 		});
 	}
+
+	uiGetData(req, res) {
+		let task = req.params.task;
+
+		this.userArgs.DEBUG && this.utils.console("Handling task " + task);
+
+		switch (task) {
+			case "gettemplatebyid":
+				this.uiGetTemplateByID(req, res);
+				break;
+			default:
+				res.json({ "success": false });
+				break;
+		}
+	}
+
+	uiGetTemplateByID(req, res) {
+		let expectedQueryParams = this.utils.getExpectedQueryParams(req.query);
+		let templateid = expectedQueryParams.templateid||false;
+
+		this.db.databases.credittemplates.getTemplateByID(templateid).then((data) => {
+			res.json({ "success": true, "data": data });
+		});
+	}
 }
 
 exports.GetProcessor = GetProcessor;

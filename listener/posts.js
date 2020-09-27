@@ -23,7 +23,7 @@ class PostHandler {
 			processor.uiSetData(req, res);
 		});
 
-		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
+		this.userArgs.DEBUG && this.utils.console("Added POST " + path);
 	}
 }
 

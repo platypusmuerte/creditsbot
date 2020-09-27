@@ -69,7 +69,7 @@ class SectionsEdit extends BodyBase {
 			<label class="formLabel">Main Template</label>
 
 			<div class="row justify-content-start queryRow">
-				<div class="col-4">
+				<div class="col-10">
 					<textarea class="form-control" id="mainTemplate" rows="8"></textarea>
 				</div>
 			</div>
@@ -77,7 +77,7 @@ class SectionsEdit extends BodyBase {
 			<label class="formLabel">Wrapper Template</label>
 
 			<div class="row justify-content-start queryRow">
-				<div class="col-4">
+				<div class="col-10">
 					<textarea class="form-control" id="wrapperTemplate" rows="2"></textarea>
 				</div>
 			</div>
@@ -85,35 +85,82 @@ class SectionsEdit extends BodyBase {
 			<label class="formLabel">Inner Template</label>
 
 			<div class="row justify-content-start queryRow">
-				<div class="col-4">
+				<div class="col-10">
 					<textarea class="form-control" id="innerTemplate" rows="5"></textarea>
 				</div>
 			</div>
+			<button id="formsub" type="button" class="btn btn-primary">Update Template</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
 		</div>
 		`;
 	}
 
 	js() {
 		return `
+		let fd;
 		function init_sections_edit() {
 			$("#templates").on("change",()=>{
-				call({"id": $("#templates").val()}, "gettemplatebyid", (res)=>{
+				get({templateid:$("#templates").val()}, "gettemplatebyid", (res)=>{
+					console.log(res);
 					let data = res.data;
+
+					fd = data;
+
+					switch(data.type) {
+						case "content":
+
+							break;
+					}
+
+					$("#wrapperTemplate").prop("disabled",(data.type != "dynamic"));
+					$("#innerTemplate").prop("disabled",(data.type != "dynamic"));
+					$("#sectionTitleText").prop("disabled",(data.type != "dynamic"));
 
 					$("#sectionTitleText").val(data.title);
 					$("#sectionEnabled").prop("checked",data.enabled);
 					$("#mainTemplate").val(data.template);
 					$("#wrapperTemplate").val(data.wrapper);
 					$("#innerTemplate").val(data.inner);
+
+					if(data.type !== "dynamic") {
+						$("#wrapperTemplate").val("Not used for this template type");
+						$("#innerTemplate").val("Not used for this template type");
+						$("#sectionTitleText").val("Not used for this template type");
+					}
+				});
+			});
+
+			$("#formsub").on("click",(e)=>{
+				let payload = {
+					enabled: $("#sectionEnabled").is(":checked"),
+					id: $("#templates").val(),
+					title: (fd.type !== "dynamic") ? '':$("#sectionTitleText").val(),
+					template: $("#mainTemplate").val(),
+					wrapper: (fd.type !== "dynamic") ? '':$("#wrapperTemplate").val(),
+					inner: (fd.type !== "dynamic") ? '':$("#innerTemplate").val()
+				};
+
+				console.log(payload);
+
+				$.ajax({
+					type: "POST",
+					url: "${constants.PATHS.UI_BASE_API}settemplatebyid",
+					data: JSON.stringify(payload),
+					contentType: "application/json",
+					dataType: "json"
+				}).done((data)=>{
+					$("#subsuccess").removeClass("invisible").addClass("visible");
+					setTimeout(()=>{
+						$("#subsuccess").removeClass("visible").addClass("invisible");
+					},3000);
 				});
 			});
 		}
 
-		function call(payload, url, cb) {
+		function get(payload, url, cb) {
 			$.ajax({
-				type: "POST",
-				url: "${constants.PATHS.UI_BASE_API}" + url,
-				data: JSON.stringify(payload),
+				type: "GET",
+				url: "${constants.PATHS.UI_BASE_API_GET}" + url,
+				data: payload,
 				contentType: "application/json",
 				dataType: "json"
 			}).done((data)=>{

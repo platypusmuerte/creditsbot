@@ -36,6 +36,8 @@ class Listener {
 		this.routeHandler.routes.gets.addTestData();
 		this.routeHandler.routes.gets.removeTestData();
 		this.routeHandler.routes.gets.getUI();
+		this.routeHandler.routes.gets.getCredits();
+		this.routeHandler.routes.gets.uiGetData();
 
 		this.routeHandler.routes.posts.uiSetData();
 

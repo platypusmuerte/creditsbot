@@ -140,12 +140,14 @@ class GetHandler {
 	}
 
 	getCredits() {
+		let db = this.db;
 		let path = constants.PATHS.CREDITS;
+		let builder = this.builder;
 
 		this.exp.get(path, (req, res) => {
-			this.builder.assembleTemplates(this.db).then(() => {
+			builder.assembleTemplates(db).then(() => {
 				res.set('Content-Type', 'text/html')
-				res.send(this.builder.getCreditsHTML());
+				res.send(builder.getCreditsHTML());
 			});
 		});
 
@@ -180,6 +182,17 @@ class GetHandler {
 
 		this.exp.get(path, (req, res) => {
 			processor.getUI(req, res);
+		});
+
+		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
+	}
+
+	uiGetData() {
+		let path = constants.PATHS.UI_GET_DATA;
+		let processor = this.processor;
+
+		this.exp.get(path, (req, res) => {
+			processor.uiGetData(req, res);
 		});
 
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
