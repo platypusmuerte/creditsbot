@@ -27,17 +27,8 @@ class PageMenu {
 							<a class="nav-link ` + this.isActive("template", "colors") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/colors">Colors</a>
 							<a class="nav-link ` + this.isActive("template", "settings") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/settings">Settings</a>
 							<a class="nav-link ` + this.isActive("template", "customcss") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/customcss">Custom CSS</a>
-						</nav>
-      				</div>
-				</div>
-
-				<a class="nav-link ` + this.isActive("sections") + `" href="#" data-toggle="collapse" data-target="#menuTwo" aria-expanded="true" aria-controls="menuTwo">Sections</a>
-
-				<div id="menuTwo" class="collapse${this.isOpenMenu("sections")}" aria-labelledby="headingOne" data-parent="#accordionExample">
-      				<div class="card-body">
-        				<nav class="nav flex-column subMenu">
-							<a class="nav-link ` + this.isActive("sections", "edit") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}sections/edit">Edit</a>
-							<a class="nav-link ` + this.isActive("sections", "sort") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}sections/sort">Sort</a>
+							<a class="nav-link ` + this.isActive("template", "edit") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/edit">Edit</a>
+							<a class="nav-link ` + this.isActive("template", "sort") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/sort">Sort</a>
 						</nav>
       				</div>
 				</div>

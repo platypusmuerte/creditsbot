@@ -1,7 +1,7 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
 
-class SectionsSort extends BodyBase {
+class TemplateSort extends BodyBase {
 	constructor(params) {
 		super();
 		this.utils = params.utils;
@@ -22,7 +22,7 @@ class SectionsSort extends BodyBase {
 			let enabled = (t.enabled) ? '<span class="sectionEnabledLabel">Enabled</span>' :'<span class="sectionDisabledLabel">Disabled</span>';
 			let db = (t.key) ? '<span class="sectionDBLabel">Database: ' + t.key + '</span>':'';
 			let sectionKey = '<span class="sectionKey">Template: ' + t.id.replace(/_/g, " ") + '</span>';
-			let editLink = `<span class="sectionDragEdit"><a href="${constants.GUI_DIRS.BASE_WEB_PATH}sections/edit?edit=${t.id}">edit</a></span>`;
+			let editLink = `<span class="sectionDragEdit"><a href="${constants.GUI_DIRS.BASE_WEB_PATH}template/edit?edit=${t.id}">edit</a></span>`;
 
 			list += `<li class="list-group-item sectionDraggable" data-sectionkey="${t.id}">
 				<div class="dragSectionIcon"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span></div>
@@ -59,7 +59,7 @@ class SectionsSort extends BodyBase {
 	js() {
 		return `
 		let fd;
-		function init_sections_sort() {
+		function init_template_sort() {
 			$("#sortList").sortable({
 				axis: "y"
 			});
@@ -91,10 +91,10 @@ class SectionsSort extends BodyBase {
 		}
 
 		$(document).ready(() => {
-			init_sections_sort();
+			init_template_sort();
 		});
 		`;
 	}
 }
 
-exports.SectionsSort = SectionsSort;
+exports.TemplateSort = TemplateSort;

@@ -1,7 +1,7 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
 
-class SectionsEdit extends BodyBase {
+class TemplateEdit extends BodyBase {
 	constructor(params) {
 		super();
 		this.utils = params.utils;
@@ -107,7 +107,7 @@ class SectionsEdit extends BodyBase {
 		return `
 		let fd;
 
-		function init_sections_edit() {
+		function init_template_edit() {
 			fd = {type: "custom"};
 
 			$("#templates").on("change",()=>{
@@ -184,7 +184,7 @@ class SectionsEdit extends BodyBase {
 					},3000);
 					
 					if($("#templates").val() === "addnew") {
-						location.href = "/ui/sections/edit?edit=" + data.id;
+						location.href = "/ui/template/edit?edit=" + data.id;
 					}
 				});
 			});
@@ -202,7 +202,7 @@ class SectionsEdit extends BodyBase {
 						$("#subsuccess").removeClass("visible").addClass("invisible");
 					},3000);
 
-					location.href = "/ui/sections/edit";
+					location.href = "/ui/template/edit";
 				});
 			});
 		}
@@ -220,10 +220,10 @@ class SectionsEdit extends BodyBase {
 		}
 
 		$(document).ready(() => {
-			init_sections_edit();
+			init_template_edit();
 		});
 		`;
 	}
 }
 
-exports.SectionsEdit = SectionsEdit;
+exports.TemplateEdit = TemplateEdit;

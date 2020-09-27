@@ -25,8 +25,8 @@ class PageBody {
 		const { DataExport} = require("./body/data.export");
 		const { DataBackup } = require("./body/data.backup");
 		const { DataManual } = require("./body/data.manual");
-		const { SectionsEdit } = require("./body/sections.edit");
-		const { SectionsSort } = require("./body/sections.sort");
+		const { TemplateEdit } = require("./body/template.edit");
+		const { TemplateSort } = require("./body/template.sort");
 
 		this.body = {
 			home: new BodyHome({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
@@ -39,8 +39,8 @@ class PageBody {
 			data_backup: new DataBackup({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			data_blacklist: new DataBlacklist({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			data_manual: new DataManual({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
-			sections_edit: new SectionsEdit({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
-			sections_sort: new SectionsSort({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
+			template_edit: new TemplateEdit({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
+			template_sort: new TemplateSort({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
 		};
 
 		this.pageStr = this.page + ((this.subPage) ? "_" + this.subPage : "");
@@ -85,12 +85,12 @@ class PageBody {
 						resolve(dbr);
 					});
 					break;
-				case "sections_edit":
+				case "template_edit":
 					db.databases.credittemplates.getIDsByType().then((dbr) => {
 						resolve(dbr);
 					});
 					break;
-				case "sections_sort":
+				case "template_sort":
 					db.databases.templatesort.getAll().then((sortArr) => {
 						db.databases.credittemplates.getTemplateDataForSorting(sortArr).then((templates)=>{
 							resolve({sort: sortArr, templates: templates});
