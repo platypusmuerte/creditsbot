@@ -145,10 +145,13 @@ class GetHandler {
 		let builder = this.builder;
 
 		this.exp.get(path, (req, res) => {
-			builder.assembleTemplates(db).then(() => {
+			//builder.assembleTemplates(db).then(() => {
 				res.set('Content-Type', 'text/html')
-				res.send(builder.getCreditsHTML());
-			});
+				//res.send(builder.getCreditsHTML());
+				builder.getCreditsOutput(db).then((htmlpage)=>{
+					res.send(htmlpage);
+				});
+			//});
 		});
 
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);

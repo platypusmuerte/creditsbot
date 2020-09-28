@@ -43,17 +43,6 @@ class TemplateIncludesQueries {
 			resolve("");
 		});		
 	}
-
-	/* Set port */
-	/*setPort(port) {
-		let db = this.db;
-
-		return new Promise(function (resolve, reject) {
-			db.assign({ port: port*1 }).write();
-
-			resolve("");
-		});		
-	}*/
 }
 
 exports.TemplateIncludesQueries = TemplateIncludesQueries;

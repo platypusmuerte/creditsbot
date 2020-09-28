@@ -151,6 +151,7 @@ class TemplateEdit extends BodyBase {
 				} else {
 					$("#wrapperTemplate").prop("disabled",true);
 					$("#innerTemplate").prop("disabled",true);
+					$("#sectionTitleText").prop("disabled",false);
 					$("#wrapperTemplate").val("Not used for this template type");
 					$("#innerTemplate").val("Not used for this template type");
 				}
