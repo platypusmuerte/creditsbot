@@ -166,11 +166,14 @@ class TemplateEdit extends BodyBase {
 				let payload = {
 					enabled: $("#sectionEnabled").is(":checked"),
 					id: $("#templates").val(),
-					title: (noTitle) ? '':$("#sectionTitleText").val(),
 					template: $("#mainTemplate").val(),
 					wrapper: (singleTemplate) ? '':$("#wrapperTemplate").val(),
 					inner: (singleTemplate) ? '':$("#innerTemplate").val()
 				};
+
+				if(!noTitle) {
+					payload["title"] = $("#sectionTitleText").val();
+				}
 
 				$.ajax({
 					type: "POST",

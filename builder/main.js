@@ -11,24 +11,9 @@ class Builder {
 		this.utils = params.utils;
 		this.userArgs = params.userArgs;
 		this.db;
-		this.finalHTML;
-		this.bodyContentForTemplate = ``;
+		this.rawData;
 
-		
-
-		this.rawData = {
-			mainHTML: null,
-			jsIncludes: null,
-			cssIncludes: null,
-			defaultCSS: '<style>' + mainCSS + '</style>',
-			customCSS: null,
-			colors: null,
-			scrollSpeed: null,
-			looping: null,
-			sections: [],
-			contentTitle: null,
-			contentDivider: null
-		};
+		this.initRawData();
 
 		this.sectionBuilders = {
 			custom: this.getSection_Custom_Or_Static.bind(this),
@@ -48,6 +33,22 @@ class Builder {
 		};
 	}
 
+	initRawData() {
+		this.rawData = {
+			mainHTML: null,
+			jsIncludes: null,
+			cssIncludes: null,
+			defaultCSS: '<style>' + mainCSS + '</style>',
+			customCSS: null,
+			colors: null,
+			scrollSpeed: null,
+			looping: null,
+			sections: [],
+			contentTitle: null,
+			contentDivider: null
+		};
+	}
+
 	getRawData() {
 		return this.rawData;
 	}
@@ -58,6 +59,12 @@ class Builder {
 		} else {
 			this.rawData[key] = data;
 		}		
+	}
+
+	injectTypeAttrib(str, type, db) {
+		let dbAttr = (db) ? db:'none';
+
+		return str.replace('">', '" data-sectiontype="' + type + '"  data-db="' + dbAttr + '">');
 	}
 
 	getContentTitle() {
@@ -210,7 +217,7 @@ class Builder {
 	getSection_Custom_Or_Static(t) {
 		let inner = t.inner;
 		let wrapper = t.wrapper;
-		let mainHTML = t.template;
+		let mainHTML = this.injectTypeAttrib(t.template, t.type, t.key);
 		let rawTitle = this.rawData.contentTitle.template;
 		let rawFooter = this.rawData.contentDivider.template;
 		let setRawData = this.setRawData.bind(this);
@@ -238,7 +245,7 @@ class Builder {
 		let db = this.db;
 		let inner = t.inner;
 		let wrapper = t.wrapper;
-		let mainHTML = t.template;
+		let mainHTML = this.injectTypeAttrib(t.template, t.type, t.key);
 		let rawTitle = this.rawData.contentTitle.template;
 		let rawFooter = this.rawData.contentDivider.template;
 		let setRawData = this.setRawData.bind(this);
@@ -274,7 +281,7 @@ class Builder {
 		let db = this.db;
 		let inner = t.inner;
 		let wrapper = t.wrapper;
-		let mainHTML = t.template;
+		let mainHTML = this.injectTypeAttrib(t.template, t.type, t.key);
 		let rawTitle = this.rawData.contentTitle.template;
 		let rawFooter = this.rawData.contentDivider.template;
 		let setRawData = this.setRawData.bind(this);
@@ -315,7 +322,7 @@ class Builder {
 		let db = this.db;
 		let inner = t.inner;
 		let wrapper = t.wrapper;
-		let mainHTML = t.template;
+		let mainHTML = this.injectTypeAttrib(t.template, t.type, t.key);
 		let rawTitle = this.rawData.contentTitle.template;
 		let rawFooter = this.rawData.contentDivider.template;
 		let setRawData = this.setRawData.bind(this);
@@ -352,7 +359,7 @@ class Builder {
 		let db = this.db;
 		let inner = t.inner;
 		let wrapper = t.wrapper;
-		let mainHTML = t.template;
+		let mainHTML = this.injectTypeAttrib(t.template, t.type, t.key);
 		let rawTitle = this.rawData.contentTitle.template;
 		let rawFooter = this.rawData.contentDivider.template;
 		let setRawData = this.setRawData.bind(this);
@@ -388,7 +395,7 @@ class Builder {
 		let db = this.db;
 		let inner = t.inner;
 		let wrapper = t.wrapper;
-		let mainHTML = t.template;
+		let mainHTML = this.injectTypeAttrib(t.template, t.type, t.key);
 		let rawTitle = this.rawData.contentTitle.template;
 		let rawFooter = this.rawData.contentDivider.template;
 		let setRawData = this.setRawData.bind(this);
@@ -424,7 +431,7 @@ class Builder {
 		let db = this.db;
 		let inner = t.inner;
 		let wrapper = t.wrapper;
-		let mainHTML = t.template;
+		let mainHTML = this.injectTypeAttrib(t.template, t.type, t.key);
 		let rawTitle = this.rawData.contentTitle.template;
 		let rawFooter = this.rawData.contentDivider.template;
 		let setRawData = this.setRawData.bind(this);
@@ -458,6 +465,7 @@ class Builder {
 
 	getCreditsOutput(db) {
 		this.db = db;
+		this.initRawData();
 		let assembleSections = this.assembleSections.bind(this);
 
 		return new Promise(function (resolve, reject) {
@@ -496,7 +504,7 @@ class Builder {
 					looping: rawData.looping.toString(),
 					css_includes: rawData.cssIncludes,
 					default_CSS: rawData.defaultCSS,
-					custom_CSS: rawData.customCSS,
+					custom_CSS: rawData.colors + rawData.customCSS,
 					sections: rawData.sections.join("")
 				}));
 			});
