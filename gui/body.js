@@ -27,6 +27,7 @@ class PageBody {
 		const { DataManual } = require("./body/data.manual");
 		const { TemplateEdit } = require("./body/template.edit");
 		const { TemplateSort } = require("./body/template.sort");
+		const { TemplatePage } = require("./body/template.page");
 
 		this.body = {
 			home: new BodyHome({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
@@ -40,7 +41,8 @@ class PageBody {
 			data_blacklist: new DataBlacklist({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			data_manual: new DataManual({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			template_edit: new TemplateEdit({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
-			template_sort: new TemplateSort({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
+			template_sort: new TemplateSort({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
+			template_page: new TemplatePage({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
 		};
 
 		this.pageStr = this.page + ((this.subPage) ? "_" + this.subPage : "");

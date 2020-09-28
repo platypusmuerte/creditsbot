@@ -50,8 +50,6 @@ class TemplateSort extends BodyBase {
 					
 				</div>
 			</div>
-
-			<button id="formsub" type="button" class="btn btn-primary">Update Template</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
 		</div>
 		`;
 	}
@@ -61,33 +59,38 @@ class TemplateSort extends BodyBase {
 		let fd;
 		function init_template_sort() {
 			$("#sortList").sortable({
-				axis: "y"
+				axis: "y",
+				stop: (event, ui)=>{
+					let sortOrder = [];
+					$(".sectionDraggable").each((i,el)=>{
+						sortOrder.push($(el).attr("data-sectionkey"));
+					});
+
+					$.ajax({
+						type: "POST",
+						url: "${constants.PATHS.UI_BASE_API}setsectionsortorder",
+						data: JSON.stringify(sortOrder),
+						contentType: "application/json",
+						dataType: "json"
+					}).done((data)=>{
+						ui.item.css("backgroundColor","#0ddb44");
+						setTimeout(()=>{
+							ui.item.css("backgroundColor","#fff");
+						},300);
+						
+
+						/*$("#subsuccess").removeClass("invisible").addClass("visible");
+						setTimeout(()=>{
+							$("#subsuccess").removeClass("visible").addClass("invisible");
+						},3000);*/
+					});
+				}
 			});
     		$("#sortList").disableSelection();
-
-			$("#formsub").on("click",(e)=>{
-				let sortOrder = [];
-				$(".sectionDraggable").each((i,el)=>{
-					sortOrder.push($(el).attr("data-sectionkey"));
-				});
-
-				post(sortOrder);
-			});
 		}
 
 		function post(payload) {
-			$.ajax({
-					type: "POST",
-					url: "${constants.PATHS.UI_BASE_API}setsectionsortorder",
-					data: JSON.stringify(payload),
-					contentType: "application/json",
-					dataType: "json"
-				}).done((data)=>{
-					$("#subsuccess").removeClass("invisible").addClass("visible");
-					setTimeout(()=>{
-						$("#subsuccess").removeClass("visible").addClass("invisible");
-					},3000);
-				});
+			
 		}
 
 		$(document).ready(() => {

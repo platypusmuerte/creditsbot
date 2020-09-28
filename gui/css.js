@@ -83,6 +83,9 @@ body {
 	margin-left: 30px;
 	visibility: hidden;
 }
+.sectionDraggable {
+	transition: background-color .3s linear;
+}
 .sectionDraggable:hover .sectionDragEdit {
 	visibility: visible;
 }
