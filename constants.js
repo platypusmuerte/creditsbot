@@ -2,7 +2,7 @@ exports.constants = {
 	APP: {
 		NAME: "Platys Credits Bot",
 		EXENAME: "PlatysCreditsBot",
-		VERSION: "1.8.0",
+		VERSION: "2.0.0",
 		DEFAULTS: {
 			BLACKLIST: [],
 			CLEAN_ON_STARTUP: true,
