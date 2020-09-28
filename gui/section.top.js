@@ -22,7 +22,7 @@ class PageTopSection {
 				</div>
 				<div class="col col-4">
 					<div id="valert" class="alert alert-warning fade show alertBanner invisible" role="alert">
-						<strong>New Version Available </strong> Version <span id="version"></span> is now <a href="https://github.com/platypusmuerte/creditsbot/wiki">available</a>.
+						<strong>New Version Available </strong> Version <span id="version"></span> is now <a target="_creditwiki" href="https://github.com/platypusmuerte/creditsbot/wiki">available</a>.
 					</div>
 				</div>
 				<div class="col col-3 d-flex align-items-center">
