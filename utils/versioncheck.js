@@ -5,14 +5,15 @@ class VersionCheck {
 	constructor(params) {
 		this.utils = params.utils;
 		this.userArgs = params.userArgs;
-		this.versionCheckFile = "https://github.com/platypusmuerte/creditsbot/blob/master/constants.js";
+		this.versionCheckFile = "https://raw.githubusercontent.com/platypusmuerte/creditsbot/master/version.txt";
 	}
 
 	run() {
 		let notifyCLI = this.notifyCLI.bind(this);
+		let versionCheckFile = this.versionCheckFile;
 
 		return new Promise(function (resolve, reject) {
-			superagent.get("http://platypusmuerte.com/platybot_version.txt").end((e, r) => {
+			superagent.get(versionCheckFile).end((e, r) => {
 				
 				if (r.text.replace(/\./g, '') * 1 > constants.APP.VERSION.replace(/\./g, '')*1) {
 					notifyCLI(r.text);
@@ -23,8 +24,10 @@ class VersionCheck {
 	}
 
 	get() {
+		let versionCheckFile = this.versionCheckFile;
+
 		return new Promise(function (resolve, reject) {
-			superagent.get("http://platypusmuerte.com/platybot_version.txt").end((e, r) => {
+			superagent.get(versionCheckFile).end((e, r) => {
 				let resp = {update: false};
 				
 				if (r.text.replace(/\./g, '') * 1 > constants.APP.VERSION.replace(/\./g, '') * 1) {
