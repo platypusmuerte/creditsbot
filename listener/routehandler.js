@@ -12,13 +12,33 @@ class RouteHandler {
 		this.gui = params.gui;
 		this.backup = params.backup;
 		this.exportdata = params.exportdata;
+		this.versioncheck = params.versioncheck;
 
 		const { GetHandler } = require("./gets");
 		const { PostHandler } = require("./posts");
 
 		this.routes = {
-			gets: new GetHandler({ dataDir: this.dataDir, utils: this.utils, db: this.db, userArgs: this.userArgs, exp: this.exp, builder: this.builder, testData: this.testData, gui: this.gui }),
-			posts: new PostHandler({ dataDir: this.dataDir, utils: this.utils, db: this.db, userArgs: this.userArgs, exp: this.exp, backup: this.backup, exportdata: this.exportdata, gui: this.gui })
+			gets: new GetHandler({ 
+				dataDir: this.dataDir, 
+				utils: this.utils, 
+				db: this.db, 
+				userArgs: this.userArgs, 
+				exp: this.exp, 
+				builder: this.builder, 
+				testData: this.testData, 
+				gui: this.gui,
+				versioncheck: this.versioncheck
+			}),
+			posts: new PostHandler({ 
+				dataDir: this.dataDir, 
+				utils: this.utils, 
+				db: this.db, 
+				userArgs: this.userArgs, 
+				exp: this.exp, 
+				backup: this.backup, 
+				exportdata: this.exportdata, 
+				gui: this.gui 
+			})
 		};
 	}
 }

@@ -11,6 +11,10 @@ class Utils {
 		console.log(chalk.hex("#ff9900")("[CREDITSBOT] ") + chalk.hex("#297bd6")(msg));
 	}
 
+	notice(msg) {
+		console.log(chalk.hex("#ff9900")("[CREDITSBOT] ") + chalk.hex("#ff0000")(msg));
+	}
+
 	getExpectedQueryParams(q) {
 		let expectedParams = {};
 

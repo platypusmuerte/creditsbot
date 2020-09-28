@@ -11,11 +11,19 @@ class PageTopSection {
 	}
 
 	render() {
+		let v = '';
+
 		return `
+		<script>${this.js()}</script>
 		<div class="container-fluid topSectionContainer">
 			<div class="row">
 				<div class="col titleText">
-					${constants.APP.NAME}
+					${constants.APP.NAME}					
+				</div>
+				<div class="col col-4">
+					<div id="valert" class="alert alert-warning fade show alertBanner invisible" role="alert">
+						<strong>New Version Available </strong> Version <span id="version"></span> is now <a href="https://github.com/platypusmuerte/creditsbot/wiki">available</a>.
+					</div>
 				</div>
 				<div class="col col-3 d-flex align-items-center">
 					<div class="versionText">
@@ -27,6 +35,34 @@ class PageTopSection {
 				</div>
 			</div>
 		</div>`;
+	}
+
+	js() {
+		return `
+		function init_topsection() {
+			setInterval(check,120000);
+		}
+
+		function check() {
+			$.ajax({
+				type: "GET",
+				url: "${constants.PATHS.UI_BASE_API_GET}getversioncheck",
+				data: {},
+				contentType: "application/json",
+				dataType: "json"
+			}).done((data)=>{
+				if(data.update) {
+					$("#valert").removeClass("invisible");
+					$("#version").html(data.update);
+				}
+			});
+		}
+
+		$(document).ready(() => {
+			init_topsection();
+			check();
+		});
+		`;
 	}
 
 }

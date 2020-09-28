@@ -3,7 +3,6 @@ let express = require("express");
 let exp = express();
 exp.use(express.json());
 const path = require('path');
-//const fs = require('fs');
 const fs = require('fs-extra');
 const { constants } = require('./constants');
 const { header } = require("./header");
@@ -16,6 +15,7 @@ let { TestData } = require("./utils/testdata");
 let { Backup } = require("./utils/backup");
 let { ExportData } = require("./utils/exportdata");
 let { GUI } = require("./gui/main");
+let { VersionCheck } = require("./utils/versioncheck");
 let utils, listener, db, builder, testData, gui;
 utils = new Utils();
 
@@ -42,12 +42,15 @@ header(utils, constants).then(()=>{
 		userArgs.DEBUG && utils.console(" ");
 
 		db = new Database({ cryptr, dataDir, utils });
+		let versioncheck = new VersionCheck({ utils, userArgs });
+
+		versioncheck.run();
 
 		testData = new TestData({ userArgs, utils });
 		gui = new GUI({ db, utils, dataDir, userArgs });
 		backup = new Backup({ fs, path, utils, dataDir, userArgs });
 		exportdata = new ExportData({ db, fs, path, utils, dataDir, userArgs });
-		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata });
+		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck });
 		listener.start();
 	});
 });

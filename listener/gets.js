@@ -12,8 +12,9 @@ class GetHandler {
 		this.blackList = this.db.databases.blacklist;
 		this.testData = params.testData;
 		this.gui = params.gui;
+		this.versioncheck = params.versioncheck;
 
-		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui });
+		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck });
 	}
 
 	blacklisted() {

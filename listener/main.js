@@ -14,8 +14,21 @@ class Listener {
 		this.gui = params.gui;
 		this.backup = params.backup;
 		this.exportdata = params.exportdata;
+		this.versioncheck = params.versioncheck;
 
-		this.routeHandler = new RouteHandler({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, exp: this.exp, builder: this.builder, testData: this.testData, gui: this.gui, backup: this.backup, exportdata: this.exportdata });
+		this.routeHandler = new RouteHandler({ 
+			utils: this.utils, 
+			db: this.db, 
+			dataDir: this.dataDir, 
+			userArgs: this.userArgs, 
+			exp: this.exp, 
+			builder: this.builder, 
+			testData: this.testData, 
+			gui: this.gui, 
+			backup: this.backup, 
+			exportdata: this.exportdata,
+			versioncheck: this.versioncheck
+		});
 	}
 
 	start() {

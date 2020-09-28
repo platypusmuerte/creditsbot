@@ -8,6 +8,7 @@ class GetProcessor {
 		this.userArgs = params.userArgs;
 		this.testData = params.testData;
 		this.gui = params.gui;
+		this.versioncheck = params.versioncheck;
 	}
 
 	addToUser(req, res, key, user, amount) {
@@ -128,6 +129,9 @@ class GetProcessor {
 			case "gettemplatesort":
 				this.uiGetTemplateSort(req, res);
 				break;
+			case "getversioncheck":
+				this.uiGetVersionCheck(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -146,6 +150,12 @@ class GetProcessor {
 	uiGetTemplateSort(req, res) {
 		this.db.databases.templatesort.getAll().then((data) => {
 			res.json({ "success": true, "data": data });
+		});
+	}
+
+	uiGetVersionCheck(req, res) {
+		this.versioncheck.get().then((vc)=>{
+			res.json(vc);
 		});
 	}
 }
