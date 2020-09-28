@@ -167,6 +167,9 @@ class Builder {
 				.sectionBorderColor {
 					border-bottom-color: ${dbr.sectionborder}
 				}
+				.screen::before {
+					background-color: ${dbr.background};
+				}
 				</style>`;
 				
 				setRawData("colors", colors);

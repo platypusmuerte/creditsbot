@@ -76,7 +76,7 @@ class TemplateEdit extends BodyBase {
 
 			<div class="row justify-content-start queryRow">
 				<div class="col-10">
-					<textarea class="form-control" id="mainTemplate" rows="8"></textarea>
+					<textarea class="form-control tabbable" id="mainTemplate" rows="8"></textarea>
 				</div>
 			</div>
 
@@ -84,7 +84,7 @@ class TemplateEdit extends BodyBase {
 
 			<div class="row justify-content-start queryRow">
 				<div class="col-10">
-					<textarea class="form-control" id="wrapperTemplate" rows="2"></textarea>
+					<textarea class="form-control tabbable" id="wrapperTemplate" rows="2"></textarea>
 				</div>
 			</div>
 
@@ -92,7 +92,7 @@ class TemplateEdit extends BodyBase {
 
 			<div class="row justify-content-start queryRow">
 				<div class="col-10">
-					<textarea class="form-control" id="innerTemplate" rows="5"></textarea>
+					<textarea class="form-control tabbable" id="innerTemplate" rows="5"></textarea>
 				</div>
 			</div>
 			<button id="formsub" type="button" class="btn btn-primary">Submit Template</button>
