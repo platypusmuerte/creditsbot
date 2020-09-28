@@ -256,22 +256,27 @@ class Builder {
 			let users = '';
 
 			db.databases[t.key].getAll().then((all) => {
-				all.forEach((a) => {
-					users += Mustache.render(inner, a);
-				});
+				if (all.length) {
+					all.forEach((a) => {
+						users += Mustache.render(inner, a);
+					});
 
-				let contentSection = Mustache.render(wrapper, { group: users });
-				let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
-				let contentDivider = Mustache.render(rawFooter, { nodata: "" });
+					let contentSection = Mustache.render(wrapper, { group: users });
+					let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
+					let contentDivider = Mustache.render(rawFooter, { nodata: "" });
 
-				let replacement = {
-					contentTitle: contentTitle,
-					contentDivider: contentDivider
-				};
+					let replacement = {
+						contentTitle: contentTitle,
+						contentDivider: contentDivider
+					};
 
-				replacement[t.id] = contentSection;
+					replacement[t.id] = contentSection;
 
-				setRawData("sections", Mustache.render(mainHTML, replacement));
+					setRawData("sections", Mustache.render(mainHTML, replacement));
+				} else {
+					//setRawData("sections", "");
+				}
+				
 				resolve();
 			});
 		});
@@ -291,29 +296,35 @@ class Builder {
 
 		return new Promise(function (resolve, reject) {
 			db.databases[t.key].getAll().then((users) => {
-				let p = users.map((u) => {
-					return db.databases["h" + t.key].getUser(u.name).then((hamount) => {
-						let userWithHist = Object.assign({}, u, { total: hamount });
-						return Mustache.render(inner, userWithHist)
+				if(users.length) {
+					let p = users.map((u) => {
+						return db.databases["h" + t.key].getUser(u.name).then((hamount) => {
+							let userWithHist = Object.assign({}, u, { total: hamount });
+							return Mustache.render(inner, userWithHist)
 
+						});
 					});
-				});
 
-				Promise.all(p).then((pr) => {
-					let contentSection = Mustache.render(wrapper, { group: pr.join('') });
-					let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
-					let contentDivider = Mustache.render(rawFooter, { nodata: "" });
+					Promise.all(p).then((pr) => {
+						let contentSection = Mustache.render(wrapper, { group: pr.join('') });
+						let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
+						let contentDivider = Mustache.render(rawFooter, { nodata: "" });
 
-					let replacement = {
-						contentTitle: contentTitle,
-						contentDivider: contentDivider
-					};
+						let replacement = {
+							contentTitle: contentTitle,
+							contentDivider: contentDivider
+						};
 
-					replacement[t.id] = contentSection;
+						replacement[t.id] = contentSection;
 
-					setRawData("sections", Mustache.render(mainHTML, replacement));
-					resolve();
-				});
+						setRawData("sections", Mustache.render(mainHTML, replacement));
+						
+					});
+				} else {
+					//setRawData("sections", "");
+				}
+
+				resolve();
 			});
 		});
 	}
@@ -334,22 +345,27 @@ class Builder {
 			let users = '';
 
 			db.databases[t.key].getTop5(true, {}).then((all) => {
-				all.forEach((a) => {
-					users += Mustache.render(inner, a);
-				});
+				if(all.length) {
+					all.forEach((a) => {
+						users += Mustache.render(inner, a);
+					});
 
-				let contentSection = Mustache.render(wrapper, { group: users });
-				let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
-				let contentDivider = Mustache.render(rawFooter, { nodata: "" });
+					let contentSection = Mustache.render(wrapper, { group: users });
+					let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
+					let contentDivider = Mustache.render(rawFooter, { nodata: "" });
 
-				let replacement = {
-					contentTitle: contentTitle,
-					contentDivider: contentDivider
-				};
+					let replacement = {
+						contentTitle: contentTitle,
+						contentDivider: contentDivider
+					};
 
-				replacement[t.id] = contentSection;
+					replacement[t.id] = contentSection;
 
-				setRawData("sections", Mustache.render(mainHTML, replacement));
+					setRawData("sections", Mustache.render(mainHTML, replacement));
+				} else {
+					//setRawData("sections", "");
+				}
+				
 				resolve();
 			});
 		});
@@ -370,22 +386,27 @@ class Builder {
 			let users = '';
 
 			db.databases[t.key].getTop10(true, {}).then((all) => {
-				all.forEach((a) => {
-					users += Mustache.render(inner, a);
-				});
+				if(all.length) {
+					all.forEach((a) => {
+						users += Mustache.render(inner, a);
+					});
 
-				let contentSection = Mustache.render(wrapper, { group: users });
-				let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
-				let contentDivider = Mustache.render(rawFooter, { nodata: "" });
+					let contentSection = Mustache.render(wrapper, { group: users });
+					let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
+					let contentDivider = Mustache.render(rawFooter, { nodata: "" });
 
-				let replacement = {
-					contentTitle: contentTitle,
-					contentDivider: contentDivider
-				};
+					let replacement = {
+						contentTitle: contentTitle,
+						contentDivider: contentDivider
+					};
 
-				replacement[t.id] = contentSection;
+					replacement[t.id] = contentSection;
 
-				setRawData("sections", Mustache.render(mainHTML, replacement));
+					setRawData("sections", Mustache.render(mainHTML, replacement));
+				} else {
+					//setRawData("sections", "");
+				}
+				
 				resolve();
 			});
 		});
@@ -406,22 +427,27 @@ class Builder {
 			let users = '';
 
 			db.databases[t.key].getTop5(true, { card: 1 }).then((all) => {
-				all.forEach((a) => {
-					users += Mustache.render(inner, a);
-				});
+				if(all.length) {
+					all.forEach((a) => {
+						users += Mustache.render(inner, a);
+					});
 
-				let contentSection = Mustache.render(wrapper, { group: users });
-				let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
-				let contentDivider = Mustache.render(rawFooter, { nodata: "" });
+					let contentSection = Mustache.render(wrapper, { group: users });
+					let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
+					let contentDivider = Mustache.render(rawFooter, { nodata: "" });
 
-				let replacement = {
-					contentTitle: contentTitle,
-					contentDivider: contentDivider
-				};
+					let replacement = {
+						contentTitle: contentTitle,
+						contentDivider: contentDivider
+					};
 
-				replacement[t.id] = contentSection;
+					replacement[t.id] = contentSection;
 
-				setRawData("sections", Mustache.render(mainHTML, replacement));
+					setRawData("sections", Mustache.render(mainHTML, replacement));
+				} else {
+					//setRawData("sections", "");
+				}
+				
 				resolve();
 			});
 		});
@@ -442,22 +468,27 @@ class Builder {
 			let users = '';
 
 			db.databases[t.key].getTop10(true, { card: 1 }).then((all) => {
-				all.forEach((a) => {
-					users += Mustache.render(inner, a);
-				});
+				if(all.length) {
+					all.forEach((a) => {
+						users += Mustache.render(inner, a);
+					});
 
-				let contentSection = Mustache.render(wrapper, { group: users });
-				let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
-				let contentDivider = Mustache.render(rawFooter, { nodata: "" });
+					let contentSection = Mustache.render(wrapper, { group: users });
+					let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
+					let contentDivider = Mustache.render(rawFooter, { nodata: "" });
 
-				let replacement = {
-					contentTitle: contentTitle,
-					contentDivider: contentDivider
-				};
+					let replacement = {
+						contentTitle: contentTitle,
+						contentDivider: contentDivider
+					};
 
-				replacement[t.id] = contentSection;
+					replacement[t.id] = contentSection;
 
-				setRawData("sections", Mustache.render(mainHTML, replacement));
+					setRawData("sections", Mustache.render(mainHTML, replacement));
+				} else {
+					//setRawData("sections", "");
+				}
+				
 				resolve();
 			});
 		});

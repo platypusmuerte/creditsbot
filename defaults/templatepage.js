@@ -23,10 +23,6 @@ exports.templatepage = {
 
 		function credits() {
 			$(".creditSection").each((i, s) => {
-				if ($(s).find("div.name").length < 1) {
-					$(s).remove();
-				}
-
 				if($(s).find("div.card").length) {
 					if($(s).find("div.card").find("img").length) {
 						$(s).find("div.card").find("img").each((i,el)=>{
