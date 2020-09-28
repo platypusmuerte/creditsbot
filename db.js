@@ -36,6 +36,7 @@ class Database {
 
 		const { CreditTemplatesQueries } = require("./databases/credittemplates");
 		const { TemplateSortQueries } = require("./databases/templatesort");
+		const { TemplatePageQueries } = require("./databases/templatepage");
 
 		this.databases = {
 			bans: new BansQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
@@ -69,7 +70,8 @@ class Database {
 			blacklist: new BlacklistQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 
 			credittemplates: new CreditTemplatesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			templatesort: new TemplateSortQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
+			templatesort: new TemplateSortQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			templatepage: new TemplatePageQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
 		};
 	}
 }

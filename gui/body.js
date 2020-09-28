@@ -99,6 +99,11 @@ class PageBody {
 						});						
 					});
 					break;
+				case "template_page":
+					db.databases.templatepage.getAll().then((page) => {
+						resolve(page);
+					});
+					break;
 				default:
 					resolve({});
 			}

@@ -50,6 +50,9 @@ class PostProcessor {
 			case "removeseectionbyid":
 				this.uiRemoveTemplateByID(req, res);
 				break;
+			case "setmainpagetemplate":
+				this.uiSetMainPageTemplate(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -154,6 +157,14 @@ class PostProcessor {
 		let data = req.body;
 
 		this.db.databases.credittemplates.removeTemplateByID(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	uiSetMainPageTemplate(req, res) {
+		let data = req.body;
+
+		this.db.databases.templatepage.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	}

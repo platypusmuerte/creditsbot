@@ -26,7 +26,7 @@ class TemplatePage extends BodyBase {
 			<form>
 				<div class="form-group">
 					<label class="formLabel" for="templatePage">Main HTML Page</label>
-					<textarea class="form-control tabbable" id="templatePage" rows="25"></textarea>
+					<textarea class="form-control tabbable" id="templatePage" rows="25">${this.data.page}</textarea>
 				</div>
 				<button id="formsub" type="button" class="btn btn-primary">Submit</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
 			</form>
@@ -38,7 +38,22 @@ class TemplatePage extends BodyBase {
 		return `
 		function init_template_page() {
 			$("#formsub").on("click",(e)=>{
-				
+				let payload = {
+					page: $("#templatePage").val()
+				};
+
+				$.ajax({
+					type: "POST",
+					url: "${constants.PATHS.UI_BASE_API}setmainpagetemplate",
+					data: JSON.stringify(payload),
+					contentType: "application/json",
+					dataType: "json"
+				}).done((data)=>{
+					$("#subsuccess").removeClass("invisible").addClass("visible");
+					setTimeout(()=>{
+						$("#subsuccess").removeClass("visible").addClass("invisible");
+					},3000);
+				});
 			});
 		}
 

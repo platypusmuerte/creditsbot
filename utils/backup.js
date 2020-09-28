@@ -14,13 +14,13 @@ class Backup {
 		let ensureMainBackupFolder = this.ensureMainBackupFolder.bind(this);
 		let createNewBackupFolder = this.createNewBackupFolder.bind(this);
 		let backupData = this.backupData.bind(this);
-		let backupTemplates = this.backupTemplates.bind(this);
+		//let backupTemplates = this.backupTemplates.bind(this);
 
 		return new Promise(function (resolve, reject) {
 			ensureMainBackupFolder().then(()=>{
 				createNewBackupFolder().then(()=>{
 					backupData();
-					backupTemplates();
+					//backupTemplates();
 				});
 			});
 		});
@@ -75,7 +75,7 @@ class Backup {
 		});
 	}
 
-	backupTemplates() {
+	/*backupTemplates() {
 		let fs = this.fs;
 		let userArgs = this.userArgs;
 		let utils = this.utils;
@@ -87,7 +87,7 @@ class Backup {
 				resolve();
 			});
 		});
-	}
+	}*/
 }
 
 exports.Backup = Backup;

@@ -71,7 +71,8 @@ exports.constants = {
 		TEMPLATE_INCLUDES: "templateincludes",
 		TEMPLATE_SETTINGS: "templatesettings",
 		TEMPLATE_CREDITS: "credittemplates",
-		TEMPLATE_SORT: "templatesort"
+		TEMPLATE_SORT: "templatesort",
+		TEMPLATE_PAGE: "templatepage"
 	},
 	TEMPLATE_DIRS: {
 		BASE: "./templates",
