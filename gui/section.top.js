@@ -20,9 +20,9 @@ class PageTopSection {
 				<div class="col col-3 d-flex align-items-center">
 					<div class="versionText">
 						v${constants.APP.VERSION}
-						<a class="btn btn-primary btn-sm" href="/credits" target="_creditbot" role="button">View Credits</a>
-						<a class="btn btn-primary btn-sm" href="https://github.com/platypusmuerte/creditsbot/wiki" target="_creditbot" role="button">View Wiki</a>
-						<a class="btn btn-primary btn-sm" href="https://discord.gg/MJfvjXb" target="_creditbot" role="button">Discord</a>
+						<a class="btn btn-primary btn-sm" href="/credits" target="_credits" role="button">View Credits</a>
+						<a class="btn btn-primary btn-sm" href="https://github.com/platypusmuerte/creditsbot/wiki" target="_creditwiki" role="button">View Wiki</a>
+						<a class="btn btn-primary btn-sm" href="https://discord.gg/MJfvjXb" target="_creditbotdiscord" role="button">Discord</a>
 					</div>
 				</div>
 			</div>
