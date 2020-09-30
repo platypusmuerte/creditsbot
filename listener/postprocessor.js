@@ -29,6 +29,9 @@ class PostProcessor {
 			case "settemplatecustomcss":
 				this.uiSetTemplateCustomCSS(req, res);
 				break;
+			case "settemplatedefaultcss":
+				this.uiSetTemplateDefaultCSS(req, res);
+				break;
 			case "backup":
 				this.uiRunBackup(req, res);
 				break;
@@ -104,6 +107,16 @@ class PostProcessor {
 		};
 
 		this.db.databases.templatecustomcss.setData(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	uiSetTemplateDefaultCSS(req, res) {
+		let data = {
+			css: req.body.css
+		};
+
+		this.db.databases.templatedefaultcss.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	}

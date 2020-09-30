@@ -39,8 +39,9 @@ class PageTopSection {
 
 	js() {
 		return `
+		let minutes = 15 * 60000;
 		function init_topsection() {
-			setInterval(check,120000);
+			setInterval(check,minutes);
 		}
 
 		function check() {

@@ -1,7 +1,7 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
 
-class TemplatePage extends BodyBase {
+class TemplateDefaultCSS extends BodyBase {
 	constructor(params) {
 		super();
 		this.utils = params.utils;
@@ -19,17 +19,16 @@ class TemplatePage extends BodyBase {
 		return `
 		<script>${this.js()}</script>
 		<div class="jumbotron homeBanner">
-			<h1 class="display-4">Credits HTML Page</h1>
-			<p class="lead">This is the main HTML page for the credits.</p>
+			<h1 class="display-4">Template Default CSS</h1>
+			<p class="lead">The default CSS</p>
 			<hr class="my-4">
-			<p>Changes made to this content <strong>may be overwritten</strong> in updates. It is mainly for reference purposes, or a total customization.</p>
-			<p>Any breaking changes will be outlined in patch notes, especially if it is not a minor change to this file.</p>
+			<p>Please edit Custom CSS instead of this. The content on this page will be overwritten with updates. <strong>This is for reference only</strong></p>
 			<form>
 				<div class="form-group">
-					<label class="formLabel" for="templatePage">Main HTML Page</label>
-					<textarea class="form-control tabbable" id="templatePage" rows="25">${this.data.page}</textarea>
+					<label class="formLabel" for="templateDefaultCSS">Custom CSS Definitions</label>
+					<textarea class="form-control tabbable" id="templateDefaultCSS" rows="25">${this.data.css}</textarea>
 				</div>
-				<button id="formsub" type="button" class="btn btn-primary">Submit</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
+				<button id="formsub" type="button" class="btn btn-primary">Submit</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Success</span>
 			</form>
 		</div>
 		`;
@@ -37,15 +36,15 @@ class TemplatePage extends BodyBase {
 
 	js() {
 		return `
-		function init_template_page() {
+		function init_template_defaultcss() {
 			$("#formsub").on("click",(e)=>{
 				let payload = {
-					page: $("#templatePage").val()
+					css: $("#templateDefaultCSS").val()
 				};
-
+				
 				$.ajax({
 					type: "POST",
-					url: "${constants.PATHS.UI_BASE_API}setmainpagetemplate",
+					url: "${constants.PATHS.UI_BASE_API}settemplatedefaultcss",
 					data: JSON.stringify(payload),
 					contentType: "application/json",
 					dataType: "json"
@@ -59,11 +58,11 @@ class TemplatePage extends BodyBase {
 		}
 
 		$(document).ready(() => {
-			init_template_page();
+			init_template_defaultcss();
 		});
 		`;
 	}
 
 }
 
-exports.TemplatePage = TemplatePage;
+exports.TemplateDefaultCSS = TemplateDefaultCSS;

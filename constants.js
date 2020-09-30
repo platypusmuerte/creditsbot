@@ -67,12 +67,13 @@ exports.constants = {
 	SETTINGS_DATABASE_NAMES: {
 		TEMPLATE_BLACKLIST: "blacklist",
 		TEMPLATE_COLORS: "templatecolors",
-		TEMPLATE_CUSTOMCSS: "templatecustomcss",
-		TEMPLATE_INCLUDES: "templateincludes",
-		TEMPLATE_SETTINGS: "templatesettings",
 		TEMPLATE_CREDITS: "credittemplates",
-		TEMPLATE_SORT: "templatesort",
-		TEMPLATE_PAGE: "templatepage"
+		TEMPLATE_CUSTOMCSS: "templatecustomcss",
+		TEMPLATE_DEFAULTCSS: "templatedefaultcss",
+		TEMPLATE_INCLUDES: "templateincludes",
+		TEMPLATE_PAGE: "templatepage",
+		TEMPLATE_SETTINGS: "templatesettings",
+		TEMPLATE_SORT: "templatesort"
 	},
 	TEMPLATE_DIRS: {
 		BASE: "./templates",

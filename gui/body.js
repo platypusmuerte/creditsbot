@@ -28,6 +28,7 @@ class PageBody {
 		const { TemplateEdit } = require("./body/template.edit");
 		const { TemplateSort } = require("./body/template.sort");
 		const { TemplatePage } = require("./body/template.page");
+		const { TemplateDefaultCSS } = require("./body/template.defaultcss");
 
 		this.body = {
 			home: new BodyHome({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
@@ -42,7 +43,8 @@ class PageBody {
 			data_manual: new DataManual({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			template_edit: new TemplateEdit({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			template_sort: new TemplateSort({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
-			template_page: new TemplatePage({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
+			template_page: new TemplatePage({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
+			template_defaultcss: new TemplateDefaultCSS({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
 		};
 
 		this.pageStr = this.page + ((this.subPage) ? "_" + this.subPage : "");
@@ -79,6 +81,11 @@ class PageBody {
 					break;
 				case "template_customcss":
 					db.databases.templatecustomcss.getAll().then((dbr) => {
+						resolve(dbr);
+					});
+					break;
+				case "template_defaultcss":
+					db.databases.templatedefaultcss.getAll().then((dbr) => {
 						resolve(dbr);
 					});
 					break;

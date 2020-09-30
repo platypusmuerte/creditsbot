@@ -40,6 +40,7 @@ class PageMenu {
         				<nav class="nav flex-column subMenu">
 							<a class="nav-link ` + this.isActive("template", "colors") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/colors">Colors</a>
 							<a class="nav-link ` + this.isActive("template", "customcss") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/customcss">Custom CSS</a>
+							<a class="nav-link ` + this.isActive("template", "defaultcss") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/defaultcss">Default CSS</a>
 							<a class="nav-link ` + this.isActive("template", "includes") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/includes">Includes</a>
 							<a class="nav-link ` + this.isActive("template", "page") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/page">Page</a>
 							<a class="nav-link ` + this.isActive("template", "edit") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/edit">Sections</a>
