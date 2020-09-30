@@ -16,6 +16,7 @@ class Database {
 		const { PatreonsQueries } = require("./databases/patreons");
 		const { RaidsQueries } = require("./databases/raids");
 		const { StreamLootsQueries } = require("./databases/streamloots");
+		const { StreamLootsPurchaseQueries } = require("./databases/streamlootspurchase");
 		const { SubsQueries } = require("./databases/subs");
 		const { VipsQueries } = require("./databases/vips");
 
@@ -26,6 +27,7 @@ class Database {
 		const { HHostsQueries } = require("./databases/hhosts");
 		const { HRaidsQueries } = require("./databases/hraids");
 		const { HStreamLootsQueries } = require("./databases/hstreamloots");
+		const { HStreamLootsPurchaseQueries } = require("./databases/hstreamlootspurchase");
 		const { HSubsQueries } = require("./databases/hsubs");
 
 		const { TemplateIncludesQueries } = require("./databases/templateincludes");
@@ -52,6 +54,7 @@ class Database {
 			patreons: new PatreonsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			raids: new RaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			streamloots: new StreamLootsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			streamlootspurchase: new StreamLootsPurchaseQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			subs: new SubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			vips: new VipsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 
@@ -62,6 +65,7 @@ class Database {
 			hhosts: new HHostsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			hraids: new HRaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			hstreamloots: new HStreamLootsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			hstreamlootspurchase: new HStreamLootsPurchaseQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 			hsubs: new HSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
 
 			templateincludes: new TemplateIncludesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),

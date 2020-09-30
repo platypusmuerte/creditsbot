@@ -26,6 +26,7 @@ exports.constants = {
 		PATREONS: "patreons",
 		RAIDS: "raids",
 		STREAMLOOTS: "streamloots",
+		STREAMLOOTSPURCHASE: "streamlootspurchase",
 		SUBS: "subs",
 		VIPS: "vips",
 
@@ -36,6 +37,7 @@ exports.constants = {
 		HISTORIC_HOSTS: "hhosts",
 		HISTORIC_RAIDS: "hraids",
 		HISTORIC_STREAMLOOTS: "hstreamloots",
+		HISTORIC_STREAMLOOTSPURCHASE: "hstreamlootspurchase",
 		HISTORIC_SUBS: "hsubs"
 	},
 	GUI_DIRS: {
