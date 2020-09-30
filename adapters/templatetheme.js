@@ -3,7 +3,7 @@ const { constants } = require('../constants');
 /**
  * DB Adapter
  */
-class RaidsDBAdapter {
+class TemplateThemeDBAdapter {
 	/**
 	 *
 	 * @param {package}	path		path
@@ -22,14 +22,11 @@ class RaidsDBAdapter {
 		this.low = require('lowdb');
 		this.FileSync = require('lowdb/adapters/FileSync');
 
-		this.dataFile = this.path.join(this.dataDir, constants.DATABASE_NAMES.RAIDS + constants.DATA_FILE_EXT);
+		this.dataFile = this.path.join(this.dataDir, constants.SETTINGS_DATABASE_NAMES.TEMPLATE_THEME + constants.DATA_FILE_SETTINGS);
 	}
 
 	getDefaults() {
-		let obj = {};
-		obj[constants.DATABASE_NAMES.RAIDS] = [];
-
-		return obj;
+		return [{name: "Default", id: "default"}];
 	}
 
 	deserialize(str) {
@@ -55,4 +52,4 @@ class RaidsDBAdapter {
 	}
 }
 
-exports.RaidsDBAdapter = RaidsDBAdapter;
+exports.TemplateThemeDBAdapter = TemplateThemeDBAdapter;

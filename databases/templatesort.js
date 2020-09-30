@@ -5,11 +5,12 @@ class TemplateSortQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.DBNAME = constants.SETTINGS_DATABASE_NAMES.TEMPLATE_SORT;
 		this.DBKEY = "templatesort";
 
 		const { TemplateSortDBAdapter } = require("../adapters/templatesort");
-		this.db = new TemplateSortDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new TemplateSortDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

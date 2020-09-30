@@ -5,9 +5,10 @@ class DonosQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { DonosDBAdapter } = require("../adapters/donos");
-		this.db = new DonosDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new DonosDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

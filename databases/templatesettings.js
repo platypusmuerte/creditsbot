@@ -5,11 +5,12 @@ class TemplateSettingsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.DBNAME = constants.SETTINGS_DATABASE_NAMES.TEMPLATE_SETTINGS;
 		this.DBKEY = "templatesettings";
 
 		const { TemplateSettingsDBAdapter } = require("../adapters/templatesettings");
-		this.db = new TemplateSettingsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new TemplateSettingsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

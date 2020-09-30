@@ -5,11 +5,12 @@ class TemplatePageQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.DBNAME = constants.SETTINGS_DATABASE_NAMES.TEMPLATE_PAGE;
 		this.DBKEY = "templatepage";
 
 		const { TemplatePageDBAdapter } = require("../adapters/templatepage");
-		this.db = new TemplatePageDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new TemplatePageDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

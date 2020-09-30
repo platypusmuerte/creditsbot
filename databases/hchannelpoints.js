@@ -5,9 +5,10 @@ class HChannelPointsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { HChannelPointsDBAdapter } = require("../adapters/hchannelpoints");
-		this.db = new HChannelPointsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new HChannelPointsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

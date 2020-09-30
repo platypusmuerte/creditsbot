@@ -5,11 +5,12 @@ class TemplateColorsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.DBNAME = constants.SETTINGS_DATABASE_NAMES.TEMPLATE_COLORS;
 		this.DBKEY = "templatecolors";
 
 		const { TemplateColorsDBAdapter } = require("../adapters/templatecolors");
-		this.db = new TemplateColorsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new TemplateColorsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

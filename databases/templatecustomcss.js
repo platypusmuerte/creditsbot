@@ -5,11 +5,12 @@ class TemplateCustomCSSQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.DBNAME = constants.SETTINGS_DATABASE_NAMES.TEMPLATE_CUSTOMCSS;
 		this.DBKEY = "templatecustomcss";
 
 		const { TemplateCustomCSSDBAdapter } = require("../adapters/templatecustomcss");
-		this.db = new TemplateCustomCSSDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new TemplateCustomCSSDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

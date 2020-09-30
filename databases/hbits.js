@@ -5,9 +5,10 @@ class HBitsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { HBitsDBAdapter } = require("../adapters/hbits");
-		this.db = new HBitsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new HBitsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

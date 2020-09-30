@@ -5,11 +5,12 @@ class TemplateIncludesQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.DBNAME = constants.SETTINGS_DATABASE_NAMES.TEMPLATE_INCLUDES;
 		this.DBKEY = "templateincludes";
 
 		const { TemplateIncludesDBAdapter } = require("../adapters/templateincludes");
-		this.db = new TemplateIncludesDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new TemplateIncludesDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

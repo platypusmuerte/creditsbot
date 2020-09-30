@@ -1,55 +1,116 @@
-const { patch } = require('superagent');
 const { constants } = require('../constants');
 
+/**
+ * Patch script run at startup.
+ * 
+ * Update databases and things when running a newer version.
+ * 
+ * Exports Patcher{}
+ */
 class Patcher {
+	/**
+	 * 
+	 * @param {object}	utils		Utils
+	 * @param {object}	db			Database
+	 * @param {string}	dataDir		Data storage dir
+	 * @param {object}	userArgs	Merged settings from CLI opts into config file
+	 * @param {package}	fs			FS/FS-Extra
+	 * @param {package}	path		Path
+	 * 
+	 * @property {bool}			patchOnNoVersion	try to patch if no version file found
+	 * @property {string}		versionFile			path to text file containing a version
+	 * @property {number}		currentVersion		version as number, without .'s abc
+	 * @property {string}		currentVersionStr	version string "a.b.c"
+	 * @property {number}		prevVersion			value from version file, without .'s abc
+	 * @property {string}		prevVersionStr		value from version file as is "a.b.c"
+	 * @property {object}		patches				map patch string to method
+	 * @property {object}		patchMap			map prev version to next version for calling patches methods
+	 */
 	constructor(params) {
 		this.utils = params.utils;
-		this.exp = params.exp;
 		this.db = params.db;
 		this.dataDir = params.dataDir;
 		this.userArgs = params.userArgs;
+		this.fs = params.fs;
+		this.path = params.path;
 
 		this.patchOnNoVersion = true;
-		this.versionFile = "../version.txt";
+		this.versionFile = "./version.txt";
+		this.currentVersionStr = constants.APP.VERSION;
+		this.currentVersion = constants.APP.VERSION.replace(/\./g, '') * 1;
+		this.prevVersion = 0;
+		this.prevVersionStr = '';
 		
 		this.patches = {
 			"2.0.1": this.patch_201.bind(this)
 		};
 		this.patchMap = {
 			"2.0.0":"2.0.1"
-		};		
+		};
+
+		this.getVersionFile();
 	}
 
+	/**
+	 * Run any patches in order if no version, or version is > previous version
+	 */
 	patch() {
-		if(true) {
-			
+		if (this.prevVersion < this.currentVersion) {
+			this.userArgs.DEBUG && this.utils.console("Checking for any available patches");
+
+			if (this.patchMap[this.prevVersionStr] && this.patchMap[this.prevVersionStr]) {
+				this.userArgs.DEBUG && this.utils.console("    Patching " + this.prevVersionStr + "->" + this.patchMap[this.prevVersionStr]);
+				this.patches[this.patchMap[this.prevVersionStr]]();
+			}
 		} else {
 			// noopsiedoopsie
 		}
 	}
 
+	/**
+	 * Read value from file
+	 */
 	getVersionFile() {
-
+		if (this.fs.existsSync(this.versionFile)) {
+			let v = this.fs.readFileSync(this.versionFile, 'utf8');
+			this.prevVersionStr = v;
+			this.prevVersion = v.replace(/\./g, '') * 1;
+		}
 	}
 
+	/**
+	 * Write value to file for next update
+	 */
 	writeVersionFile() {
-
+		this.fs.writeFile(this.versionFile, constants.APP.VERSION, () => {
+			this.userArgs.DEBUG && this.utils.console("Updated version file");
+		});
 	}
 
-	patch_201() {
+	/**
+	 * Notify patching complete
+	 */
+	patchComplete() {
+		this.userArgs.DEBUG && this.utils.console("    Patch completed");
+	}
 
+	/**
+	 * See if theres another patch available. Called at the end of each patch
+	 */
+	checkAgain() {
+		this.prevVersionStr = this.patchMap[this.prevVersionStr];
+		this.prevVersion = this.prevVersionStr.replace(/\./g, '') * 1
+		
+		this.patch();
+	}
+
+	/**
+	 * Patch 2.0.0 to 2.0.1
+	 */
+	patch_201() {
+		// add new template to sorting, if not present
+		this.checkAgain();
 	}
 }
 
 exports.Patcher = Patcher;
-
-
-/*
-notes
-	if version file
-		if file val < current val
-			run update for current val
-	not
-		run update for current val
-
-*/

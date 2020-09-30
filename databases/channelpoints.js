@@ -5,9 +5,10 @@ class ChannelPointsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { ChannelPointsDBAdapter } = require("../adapters/channelpoints");
-		this.db = new ChannelPointsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new ChannelPointsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

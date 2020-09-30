@@ -3,6 +3,7 @@ class Database {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { BansQueries } = require("./databases/bans");
 		const { BitsQueries } = require("./databases/bits");
@@ -40,44 +41,46 @@ class Database {
 		const { TemplateSortQueries } = require("./databases/templatesort");
 		const { TemplatePageQueries } = require("./databases/templatepage");
 		const { TemplateDefaultCSSQueries } = require("./databases/templatedefaultcss");
+		const { TemplateThemeQueries } = require("./databases/templatetheme");
 
 		this.databases = {
-			bans: new BansQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			bits: new BitsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			channelpoints: new ChannelPointsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			chatters: new ChattersQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			donos: new DonosQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			follows: new FollowsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			giftsubs: new GiftSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hosts: new HostsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			mods: new ModsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			patreons: new PatreonsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			raids: new RaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			streamloots: new StreamLootsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			streamlootspurchase: new StreamLootsPurchaseQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			subs: new SubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			vips: new VipsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			bans: new BansQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			bits: new BitsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			channelpoints: new ChannelPointsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			chatters: new ChattersQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			donos: new DonosQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			follows: new FollowsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			giftsubs: new GiftSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			hosts: new HostsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			mods: new ModsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			patreons: new PatreonsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			raids: new RaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			streamloots: new StreamLootsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			streamlootspurchase: new StreamLootsPurchaseQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			subs: new SubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			vips: new VipsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
 
-			hbits: new HBitsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hchannelpoints: new HChannelPointsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hdonos: new HDonosQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hgiftsubs: new HGiftSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hhosts: new HHostsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hraids: new HRaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hstreamloots: new HStreamLootsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hstreamlootspurchase: new HStreamLootsPurchaseQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			hsubs: new HSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			hbits: new HBitsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			hchannelpoints: new HChannelPointsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			hdonos: new HDonosQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			hgiftsubs: new HGiftSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			hhosts: new HHostsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			hraids: new HRaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			hstreamloots: new HStreamLootsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			hstreamlootspurchase: new HStreamLootsPurchaseQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			hsubs: new HSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
 
-			templateincludes: new TemplateIncludesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			templatecolors: new TemplateColorsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			templatesettings: new TemplateSettingsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			templatecustomcss: new TemplateCustomCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			blacklist: new BlacklistQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
+			templateincludes: new TemplateIncludesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			templatecolors: new TemplateColorsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			templatesettings: new TemplateSettingsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			templatecustomcss: new TemplateCustomCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			blacklist: new BlacklistQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
 
-			credittemplates: new CreditTemplatesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			templatesort: new TemplateSortQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			templatepage: new TemplatePageQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils }),
-			templatedefaultcss: new TemplateDefaultCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils })
+			credittemplates: new CreditTemplatesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			templatesort: new TemplateSortQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			templatepage: new TemplatePageQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			templatedefaultcss: new TemplateDefaultCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+			templatetheme: new TemplateThemeQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path })
 		};
 	}
 }

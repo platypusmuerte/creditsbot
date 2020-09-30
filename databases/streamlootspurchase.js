@@ -1,14 +1,31 @@
 const { constants } = require('../constants');
 
+/**
+ * Template Queries
+ *
+ * Queries for streamloots purchases
+ *
+ * Exports StreamLootsPurchaseQueries{}
+ */
 class StreamLootsPurchaseQueries {
+	/**
+	 *
+	 * @param {package}	cryptr		cryptr
+	 * @param {string}	dataDir		Data storage dir
+	 * @param {class}	utils		Utils
+	 *
+	 * @property {class}		StreamLootsPurchaseDBAdapter
+	 * @property {object}		db			database adapter
+	 */
 	constructor(params) {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.DBNAME = constants.DATABASE_NAMES.STREAMLOOTSPURCHASE;
 
 		const { StreamLootsPurchaseDBAdapter } = require("../adapters/streamlootspurchase");
-		this.db = new StreamLootsPurchaseDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new StreamLootsPurchaseDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**
@@ -16,10 +33,10 @@ class StreamLootsPurchaseQueries {
 	 */
 	getAll() {
 		let db = this.db;
-		let dbName = this.DBNAME;
+		let DBNAME = this.DBNAME;
 
 		return new Promise(function (resolve, reject) {
-			resolve(db.get(dbName).value());
+			resolve(db.get(DBNAME).value());
 		});
 	}
 
@@ -28,14 +45,14 @@ class StreamLootsPurchaseQueries {
 	 */
 	addUser(user, amount, expectedParams) {
 		let db = this.db;
-		let dbName = this.DBNAME;
+		let DBNAME = this.DBNAME;
 
 		return new Promise(function (resolve, reject) {
-			if (db.get(dbName).find({ name: user }).has("name").value()) {
-				let newAmount = (db.get(dbName).find({ name: user }).value().amount * 1) + 1;
-				db.get(dbName).find({ name: user }).assign({ name: user, amount: newAmount }).write();
+			if (db.get(DBNAME).find({ name: user }).has("name").value()) {
+				let newAmount = (db.get(DBNAME).find({ name: user }).value().amount * 1) + 1;
+				db.get(DBNAME).find({ name: user }).assign({ name: user, amount: newAmount }).write();
 			} else {
-				db.get(dbName).push({ name: user, amount: amount }).write();
+				db.get(DBNAME).push({ name: user, amount: amount }).write();
 			}
 
 			resolve("");			
@@ -47,10 +64,10 @@ class StreamLootsPurchaseQueries {
 	 */
 	removeUser(user) {
 		let db = this.db;
-		let dbName = this.DBNAME;
+		let DBNAME = this.DBNAME;
 
 		return new Promise(function (resolve, reject) {
-			db.get(dbNameS).remove({ name: user }).write();
+			db.get(DBNAME).remove({ name: user }).write();
 
 			resolve("");
 		});
@@ -61,7 +78,6 @@ class StreamLootsPurchaseQueries {
 	 */
 	getState() {
 		let db = this.db;
-		let dbName = this.DBNAME;
 
 		return new Promise(function (resolve, reject) {
 			resolve(db.value());
@@ -74,11 +90,11 @@ class StreamLootsPurchaseQueries {
 	 */
 	getTop10(asArray = false, expectedParams) {
 		let db = this.db;
-		let dbName = this.DBNAME;
+		let DBNAME = this.DBNAME;
 		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(dbName).value();
+			let list = db.get(DBNAME).value();
 			
 			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray));
 		});
@@ -90,11 +106,11 @@ class StreamLootsPurchaseQueries {
 	 */
 	getTop5(asArray = false, expectedParams) {
 		let db = this.db;
-		let dbName = this.DBNAME;
+		let DBNAME = this.DBNAME;
 		let utils = this.utils;
 
 		return new Promise(function (resolve, reject) {
-			let list = db.get(dbName).value();
+			let list = db.get(DBNAME).value();
 			
 			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray));
 		});
@@ -105,10 +121,10 @@ class StreamLootsPurchaseQueries {
 	 */
 	getUser(user) {
 		let db = this.db;
-		let dbName = this.DBNAME;
+		let DBNAME = this.DBNAME;
 
 		return new Promise(function (resolve, reject) {
-			let data = db.get(dbName).find({ name: user }).value();
+			let data = db.get(DBNAME).find({ name: user }).value();
 
 			if(data) {
 				resolve(data.amount);

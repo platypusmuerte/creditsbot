@@ -5,9 +5,10 @@ class RaidsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { RaidsDBAdapter } = require("../adapters/raids");
-		this.db = new RaidsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new RaidsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

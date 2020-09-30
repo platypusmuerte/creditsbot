@@ -5,6 +5,7 @@ class TemplateEdit extends BodyBase {
 	constructor(params) {
 		super();
 		this.utils = params.utils;
+		this.path = params.path;
 		this.db = params.db;
 		this.dataDir = params.dataDir;
 		this.userArgs = params.userArgs;

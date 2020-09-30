@@ -5,9 +5,10 @@ class BansQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { BansDBAdapter } = require("../adapters/bans");
-		this.db = new BansDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new BansDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

@@ -1,7 +1,7 @@
 {
   "name": "PlatysCREDITSBOT",
   "productName": "platysCREDITSBOT",
-  "version": "1.8.0",
+  "version": "2.0.2",
   "description": "Parse dirs of names, and return html for credits scene.",
   "main": "main.js",
   "scripts": {

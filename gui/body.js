@@ -3,6 +3,7 @@ const { constants } = require('../constants');
 class PageBody {
 	constructor(params) {
 		this.utils = params.utils;
+		this.path = params.path;
 		this.db = params.db;
 		this.dataDir = params.dataDir;
 		this.userArgs = params.userArgs;

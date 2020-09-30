@@ -5,9 +5,10 @@ class HDonosQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { HDonosDBAdapter } = require("../adapters/hdonos");
-		this.db = new HDonosDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new HDonosDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

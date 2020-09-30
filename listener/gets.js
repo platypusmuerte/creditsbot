@@ -5,6 +5,7 @@ class GetHandler {
 	constructor(params) {
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.db = params.db;
 		this.userArgs = params.userArgs;
 		this.exp = params.exp;
@@ -146,13 +147,10 @@ class GetHandler {
 		let builder = this.builder;
 
 		this.exp.get(path, (req, res) => {
-			//builder.assembleTemplates(db).then(() => {
-				res.set('Content-Type', 'text/html')
-				//res.send(builder.getCreditsHTML());
-				builder.getCreditsOutput(db).then((htmlpage)=>{
-					res.send(htmlpage);
-				});
-			//});
+			res.set('Content-Type', 'text/html')
+			builder.getCreditsOutput(db).then((htmlpage)=>{
+				res.send(htmlpage);
+			});
 		});
 
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);

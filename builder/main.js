@@ -1,14 +1,23 @@
 const { constants } = require('../constants');
-let { mainTemplateFile } = require("./main_template");
 let { mainCSS } = require("./main_css");
-let { mainBody } = require("./main_body");
-const path = require('path');
-const fs = require('fs');
 const Mustache = require("mustache");
 
+/**
+ * Build the output html for credits
+ */
 class Builder {
+	/**
+	 * @param {object}	utils		Utils
+	 * @param {object}	userArgs	Merged settings from CLI opts into config file
+	 * @param {object}	db			Database
+	 *
+	 * @property {object}	db					database adapter
+	 * @property {object}	rawData				map of html page parts to add to final output
+	 * @property {object}	sectionBuilders		map of data components to methods that build them
+	 */
 	constructor(params) {
 		this.utils = params.utils;
+		this.path = params.path;
 		this.userArgs = params.userArgs;
 		this.db;
 		this.rawData;
@@ -33,6 +42,10 @@ class Builder {
 		};
 	}
 
+	/**
+	 * Initialize or reset the rawData
+	 * @TODO:	mainCSS moved to DB, stop using the file
+	 */
 	initRawData() {
 		this.rawData = {
 			mainHTML: null,
@@ -48,11 +61,17 @@ class Builder {
 			contentDivider: null
 		};
 	}
-
+	
 	getRawData() {
 		return this.rawData;
 	}
 
+	/**
+	 * update rawData object
+	 * 
+	 * @param {string} key
+	 * @param {*} data 
+	 */
 	setRawData(key, data) {
 		if(key === "sections") {
 			this.rawData.sections.push(data);
@@ -61,12 +80,22 @@ class Builder {
 		}		
 	}
 
+	/**
+	 * Inject an html attribute on a element for parsing later
+	 * 
+	 * @param {string} str html element part
+	 * @param {string} type the secetion type
+	 * @param {string} db which database this relates to
+	 */
 	injectTypeAttrib(str, type, db) {
 		let dbAttr = (db) ? db:'none';
 
 		return str.replace('">', '" data-sectiontype="' + type + '"  data-db="' + dbAttr + '">');
 	}
 
+	/**
+	 * Fetch template from db
+	 */
 	getContentTitle() {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
@@ -79,6 +108,9 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Fetch template from db
+	 */
 	getContentDivider() {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
@@ -91,6 +123,9 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Fetch template from db
+	 */
 	getMainHTML() {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
@@ -103,6 +138,9 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Build css and js include sections and put into rawData object
+	 */
 	getCssJsIncludes() {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
@@ -124,6 +162,9 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Fetch template from db
+	 */
 	getCustomCSS() {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
@@ -136,6 +177,9 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Get user settings for credits
+	 */
 	getTemplateSettings() {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
@@ -149,6 +193,9 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Get color settings from db, build style section, add to rawData object
+	 */
 	getColors() {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
@@ -185,6 +232,9 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Fetch all sections in order, and build them out, adding each to rawData along the way
+	 */
 	getSections() {
 		let db = this.db;
 		let sectionBuilders = this.sectionBuilders;
@@ -214,6 +264,10 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Add built section after parsing tokens to rawData.sections
+	 * @param {object} t tempalte object
+	 */
 	getSection_Custom_Or_Static(t) {
 		let inner = t.inner;
 		let wrapper = t.wrapper;
@@ -241,6 +295,10 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Add built section after parsing tokens to rawData.sections, (skip if no users so no emtpy section rendered)
+	 * @param {object} t tempalte object
+	 */
 	getSection_Name_Amount(t) {
 		let db = this.db;
 		let inner = t.inner;
@@ -282,6 +340,10 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Add built section after parsing tokens to rawData.sections, (skip if no users so no emtpy section rendered)
+	 * @param {object} t tempalte object
+	 */
 	getSection_Name_Total(t) {
 		let db = this.db;
 		let inner = t.inner;
@@ -329,6 +391,10 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Add built section after parsing tokens to rawData.sections, (skip if no users so no emtpy section rendered)
+	 * @param {object} t tempalte object
+	 */
 	getSection_Top5(t) {
 		let db = this.db;
 		let inner = t.inner;
@@ -339,7 +405,6 @@ class Builder {
 		let setRawData = this.setRawData.bind(this);
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
-
 
 		return new Promise(function (resolve, reject) {
 			let users = '';
@@ -371,6 +436,10 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Add built section after parsing tokens to rawData.sections, (skip if no users so no emtpy section rendered)
+	 * @param {object} t tempalte object
+	 */
 	getSection_Top10(t) {
 		let db = this.db;
 		let inner = t.inner;
@@ -412,6 +481,10 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Add built section after parsing tokens to rawData.sections, (skip if no users so no emtpy section rendered)
+	 * @param {object} t tempalte object
+	 */
 	getSection_Top5_Cards(t) {
 		let db = this.db;
 		let inner = t.inner;
@@ -453,6 +526,10 @@ class Builder {
 		});
 	}
 
+	/**
+	 * Add built section after parsing tokens to rawData.sections, (skip if no users so no emtpy section rendered)
+	 * @param {object} t tempalte object
+	 */
 	getSection_Top10_Cards(t) {
 		let db = this.db;
 		let inner = t.inner;
@@ -493,7 +570,12 @@ class Builder {
 			});
 		});
 	}
-
+	
+	/**
+	 * Entry point for class
+	 * Set db at build time, run through all sections, build the html page, return as massive string for express response
+	 * @param {dbadapter} db 
+	 */
 	getCreditsOutput(db) {
 		this.db = db;
 		this.initRawData();
@@ -506,7 +588,10 @@ class Builder {
 		});
 	}
 
-	assembleSections(db) {
+	/**
+	 * Build each section as promise, once complete parse the templates w Mustache and resolve 
+	 */
+	assembleSections() {
 		let getContentTitle = this.getContentTitle.bind(this);
 		let getContentDivider = this.getContentDivider.bind(this);
 		let getMainHTML = this.getMainHTML.bind(this);

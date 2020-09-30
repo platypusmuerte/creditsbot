@@ -5,9 +5,10 @@ class HGiftSubsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { HGiftSubsDBAdapter } = require("../adapters/hgiftsubs");
-		this.db = new HGiftSubsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new HGiftSubsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

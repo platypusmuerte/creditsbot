@@ -5,9 +5,10 @@ class HostsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { HostsDBAdapter } = require("../adapters/hosts");
-		this.db = new HostsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new HostsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

@@ -1,16 +1,15 @@
 const { constants } = require('../constants');
 
-class TemplateDefaultCSSQueries {
+class TemplateThemeQueries {
 	constructor(params) {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
 		this.path = params.path;
-		this.DBNAME = constants.SETTINGS_DATABASE_NAMES.TEMPLATE_DEFAULTCSS;
-		this.DBKEY = "templatedefaultcss";
+		this.DBNAME = constants.SETTINGS_DATABASE_NAMES.TEMPLATE_THEME;
 
-		const { TemplateDefaultCSSDBAdapter } = require("../adapters/templatedefaultcss");
-		this.db = new TemplateDefaultCSSDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
+		const { TemplateThemeDBAdapter } = require("../adapters/templatetheme");
+		this.db = new TemplateThemeDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**
@@ -35,6 +34,23 @@ class TemplateDefaultCSSQueries {
 		});		
 	}
 
+	/**
+	 * Add new template.
+	 * @param theme		object		{name: str, id: str}
+	 */
+	addNew(theme) {
+		let db = this.db;
+		let DBNAME = this.DBNAME;
+
+		return new Promise(function (resolve, reject) {
+			if (db.filter({ id: theme.id }).size().value() * 1 < 1) {
+				db.push(theme).write();
+			}
+
+			resolve("");
+		});
+	}
+
 	setData(data) {
 		let db = this.db;
 
@@ -48,4 +64,4 @@ class TemplateDefaultCSSQueries {
 	}
 }
 
-exports.TemplateDefaultCSSQueries = TemplateDefaultCSSQueries;
+exports.TemplateThemeQueries = TemplateThemeQueries;

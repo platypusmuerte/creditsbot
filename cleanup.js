@@ -1,3 +1,12 @@
+/**
+ * Remove database files on startup (if allowed)
+ * 		DOES NOT DELETE HISTORY DATABASE FILES OR SETTINGS (hdb, sdb)
+ * @param {object} userArgs 
+ * @param {object} path 
+ * @param {object} fs 
+ * @param {object} utils 
+ * @param {string} dataDir 
+ */
 exports.cleanup = (userArgs, path, fs, utils, dataDir)=>{
 	return new Promise(function (resolve, reject) {
 		if (userArgs.CLEAN_ON_STARTUP) {

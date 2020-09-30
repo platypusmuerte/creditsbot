@@ -5,9 +5,10 @@ class BitsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { BitsDBAdapter } = require("../adapters/bits");
-		this.db = new BitsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new BitsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

@@ -5,9 +5,10 @@ class StreamLootsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { StreamLootsDBAdapter } = require("../adapters/streamloots");
-		this.db = new StreamLootsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new StreamLootsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

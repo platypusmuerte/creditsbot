@@ -4,6 +4,7 @@ class GetProcessor {
 	constructor(params) {
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.db = params.db;
 		this.userArgs = params.userArgs;
 		this.testData = params.testData;

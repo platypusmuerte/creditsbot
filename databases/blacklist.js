@@ -5,10 +5,11 @@ class BlacklistQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 		this.DBNAME = constants.SETTINGS_DATABASE_NAMES.TEMPLATE_BLACKLIST;
 
 		const { BlacklistDBAdapter } = require("../adapters/blacklist");
-		this.db = new BlacklistDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new BlacklistDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

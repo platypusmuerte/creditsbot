@@ -1,24 +1,37 @@
 const { constants } = require('../constants');
 
+/**
+ * DB Adapter
+ */
 class BansDBAdapter {
+	/**
+	 *
+	 * @param {package}	path		path
+	 * @param {package}	cryptr		cryptr
+	 * @param {string}	dataDir		User data directory
+	 *
+	 * @property {package}		low			lowdb
+	 * @property {package}		FileSync	lowdb
+	 * @property {database}		dataFile	the lowdb database
+	 */
 	constructor(params) {
-		const path = require('path');
+		this.path = params.path;
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 
 		this.low = require('lowdb');
 		this.FileSync = require('lowdb/adapters/FileSync');
 
-		this.dataFile = path.join(this.dataDir, constants.DATABASE_NAMES.BANS + constants.DATA_FILE_EXT);
+		this.dataFile = this.path.join(this.dataDir, constants.DATABASE_NAMES.BANS + constants.DATA_FILE_EXT);
 	}
-
+	
 	getDefaults() {
 		let obj = {};
 		obj[constants.DATABASE_NAMES.BANS] = [];
 
 		return obj;
 	}
-
+	
 	deserialize(str) {
 		let decrypted = this.cryptr.decrypt(str);
 		let obj = JSON.parse(decrypted);

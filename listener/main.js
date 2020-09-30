@@ -4,6 +4,7 @@ let { RouteHandler } = require("./routehandler");
 class Listener {
 	constructor(params) {
 		this.utils = params.utils;
+		this.path = params.path;
 		this.exp = params.exp;
 		this.db = params.db;
 		this.dataDir = params.dataDir;
@@ -32,11 +33,19 @@ class Listener {
 	}
 
 	start() {
-		this.exp.listen(this.userArgs.PORT, () => {
-			this.utils.console("Started listening at http://localhost:" + this.userArgs.PORT);
-			this.utils.console(" ");
-			this.setDefaultListeners();
-		});
+		let exp = this.exp;
+		let utils = this.utils;
+		let userArgs = this.userArgs;
+		let setDefaultListeners = this.setDefaultListeners.bind(this);
+
+		return new Promise(function (resolve, reject) {
+			exp.listen(userArgs.PORT, () => {
+				utils.console("Started listening at http://localhost:" + userArgs.PORT);
+				utils.console(" ");
+				setDefaultListeners();
+				resolve();
+			});
+		});		
 	}
 
 	setDefaultListeners() {

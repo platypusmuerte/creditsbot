@@ -2,7 +2,7 @@ exports.constants = {
 	APP: {
 		NAME: "Platys Credits Bot",
 		EXENAME: "PlatysCreditsBot",
-		VERSION: "2.0.0",
+		VERSION: "2.0.2",
 		DEFAULTS: {
 			BLACKLIST: [],
 			CLEAN_ON_STARTUP: true,
@@ -75,7 +75,8 @@ exports.constants = {
 		TEMPLATE_INCLUDES: "templateincludes",
 		TEMPLATE_PAGE: "templatepage",
 		TEMPLATE_SETTINGS: "templatesettings",
-		TEMPLATE_SORT: "templatesort"
+		TEMPLATE_SORT: "templatesort",
+		TEMPLATE_THEME: "templatetheme"
 	},
 	TEMPLATE_DIRS: {
 		BASE: "./templates",

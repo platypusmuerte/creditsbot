@@ -5,9 +5,10 @@ class GiftSubsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { GiftSubsDBAdapter } = require("../adapters/giftsubs");
-		this.db = new GiftSubsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new GiftSubsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

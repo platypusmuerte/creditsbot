@@ -5,9 +5,10 @@ class PatreonsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { PatreonsDBAdapter } = require("../adapters/patreons");
-		this.db = new PatreonsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new PatreonsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

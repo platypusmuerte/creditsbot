@@ -5,9 +5,10 @@ class VipsQueries {
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.path = params.path;
 
 		const { VipsDBAdapter } = require("../adapters/vips");
-		this.db = new VipsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir }).get();
+		this.db = new VipsDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();
 	}
 
 	/**

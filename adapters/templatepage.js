@@ -1,16 +1,29 @@
 const { constants } = require('../constants');
 const { templatepage } = require("../defaults/templatepage");
 
+/**
+ * DB Adapter
+ */
 class TemplatePageDBAdapter {
+	/**
+	 *
+	 * @param {package}	path		path
+	 * @param {package}	cryptr		cryptr
+	 * @param {string}	dataDir		User data directory
+	 *
+	 * @property {package}		low			lowdb
+	 * @property {package}		FileSync	lowdb
+	 * @property {database}		dataFile	the lowdb database
+	 */
 	constructor(params) {
-		const path = require('path');
+		this.path = params.path;
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 
 		this.low = require('lowdb');
 		this.FileSync = require('lowdb/adapters/FileSync');
 
-		this.dataFile = path.join(this.dataDir, constants.SETTINGS_DATABASE_NAMES.TEMPLATE_PAGE + constants.DATA_FILE_SETTINGS);
+		this.dataFile = this.path.join(this.dataDir, constants.SETTINGS_DATABASE_NAMES.TEMPLATE_PAGE + constants.DATA_FILE_SETTINGS);
 	}
 
 	getDefaults() {
