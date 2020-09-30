@@ -7,6 +7,10 @@ const { constants } = require('../constants');
  *
  * Exports StreamLootsPurchaseQueries{}
  */
+
+/**
+ * DB Queries
+ */
 class StreamLootsPurchaseQueries {
 	/**
 	 *

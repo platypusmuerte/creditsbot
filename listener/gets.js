@@ -1,7 +1,26 @@
 const { constants } = require('../constants');
 let { GetProcessor } = require("./getprocessor");
 
+/**
+ * Handle the gets only and pass off to the processor
+ * 		NOTE addToUser is technically a post, I know, but since its coming from web requests of stream bots..... its a get
+ */
 class GetHandler {
+	/**
+	 *
+	 * @param {string}	dataDir			path to user data dir
+	 * @param {object} 	utils 			Utils class
+	 * @param {object} 	path 			
+	 * @param {objecet} db 				db adapter
+	 * @param {object} 	userArgs 		merged user settings
+	 * @param {object} 	exp 			express
+	 * @param {objecet} builder 		credits builder class
+	 * @param {object} 	blacklist 		the blacklist database (@TODO: we have db here, why am I doin it like this?)
+	 * @param {object} 	testData 		TestData class
+	 * @param {object} 	versioncheck 	VersionChecker class
+	 * 
+	 * @property {object}	processor	GetProcessor class
+	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
@@ -18,10 +37,16 @@ class GetHandler {
 		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck });
 	}
 
+	/**
+	 * Tell CLI that we didnt do anything, because blacklist
+	 */
 	blacklisted() {
 		this.userArgs.DEBUG && this.utils.console(constants.MESSAGES.BLACKLISTED);
 	}
 
+	/**
+	 * Handle the request, and if not a blacklisted name, call proper database add event
+	 */
 	addToUser() {
 		let path = constants.PATHS.ADD_USER;
 		let blackList = this.blackList;
@@ -99,6 +124,9 @@ class GetHandler {
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
 	}
 
+	/**
+	 * If not blacklisted, get a user
+	 */
 	getUser() {
 		let path = constants.PATHS.GET_USER;
 		let blackList = this.blackList;
@@ -124,6 +152,9 @@ class GetHandler {
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
 	}
 
+	/**
+	 * This results in user being removed from all databases
+	 */
 	removeUser() {
 		let path = constants.PATHS.REMOVE_USER;
 		let processor = this.processor;
@@ -141,6 +172,9 @@ class GetHandler {
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
 	}
 
+	/**
+	 * Call the builder, and return full html page for browser
+	 */
 	getCredits() {
 		let db = this.db;
 		let path = constants.PATHS.CREDITS;
@@ -178,6 +212,9 @@ class GetHandler {
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
 	}
 
+	/**
+	 * Get the UI, and return to browser
+	 */
 	getUI() {		
 		let path = constants.PATHS.UI_PAGE_HOME;
 		let processor = this.processor;
@@ -189,6 +226,9 @@ class GetHandler {
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
 	}
 
+	/**
+	 * Handle gets for UI
+	 */
 	uiGetData() {
 		let path = constants.PATHS.UI_GET_DATA;
 		let processor = this.processor;

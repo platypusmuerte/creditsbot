@@ -1,6 +1,20 @@
 const { constants } = require('../constants');
 
+/**
+ * Process post requests
+ */
 class PostProcessor {
+	/**
+	 *
+	 * @param {string} dataDir			path to user data dir
+	 * @param {object} utils			Utils class
+	 * @param {object} path
+	 * @param {object} db				db adapter
+	 * @param {object} userArgs			merged user settings
+	 * @param {object} backup			Backup class
+	 * @param {object} exportdata		Export class
+	 * @param {object} gui				GUI class
+	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
@@ -12,6 +26,11 @@ class PostProcessor {
 		this.gui = params.gui;
 	}
 
+	/**
+	 * Pass request off to method for each task
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetData(req, res) {
 		let task = req.params.task;
 
@@ -63,6 +82,11 @@ class PostProcessor {
 		}
 	}
 
+	/**
+	 * Update template includes from UI
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetTemplateIncludes(req, res) {
 		if (req.body.css && req.body.js) {
 			let data = {
@@ -76,6 +100,11 @@ class PostProcessor {
 		}
 	}
 
+	/**
+	 * Set colors from UI
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetTemplateColors(req, res) {
 		let data = {
 			title: req.body.title,
@@ -91,6 +120,11 @@ class PostProcessor {
 		});
 	}
 
+	/**
+	 * Update settings data for template from UI
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetTemplateSettings(req, res) {
 		let data = {
 			looping: req.body.looping,
@@ -102,6 +136,11 @@ class PostProcessor {
 		});
 	}
 
+	/**
+	 * Update css for credits from UI
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetTemplateCustomCSS(req, res) {
 		let data = {
 			css: req.body.css
@@ -112,6 +151,11 @@ class PostProcessor {
 		});
 	}
 
+	/**
+	 * Update default css from UI
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetTemplateDefaultCSS(req, res) {
 		let data = {
 			css: req.body.css
@@ -122,6 +166,11 @@ class PostProcessor {
 		});
 	}
 
+	/**
+	 * Update the blacklist
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetBlacklist(req, res) {
 		let data = {
 			blacklist: req.body.blacklist
@@ -132,18 +181,33 @@ class PostProcessor {
 		});
 	}
 
+	/**
+	 * Start a backup
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiRunBackup(req, res) {
 		this.backup.create().then(() => {
 			res.json({ "success": true });
 		});
 	}
 
+	/**
+	 * Start an export
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiRunExport(req, res) {
 		this.exportdata.create().then(() => {
 			res.json({ "success": true });
 		});
 	}
 
+	/**
+	 * Set individual template data
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetTemplateByID(req, res) {
 		let data = req.body;
 		let db = this.db;
@@ -159,6 +223,11 @@ class PostProcessor {
 		});
 	}
 
+	/**
+	 * Update the sorting
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetTemplateSort(req, res) {
 		let data = req.body;
 
@@ -167,6 +236,11 @@ class PostProcessor {
 		});
 	} 
 
+	/**
+	 * Remove a template by its id
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiRemoveTemplateByID(req, res) {
 		let data = req.body;
 
@@ -175,6 +249,11 @@ class PostProcessor {
 		});
 	}
 
+	/**
+	 * Update the main html page template
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
 	uiSetMainPageTemplate(req, res) {
 		let data = req.body;
 

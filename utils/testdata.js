@@ -1,5 +1,7 @@
 const superagent = require("superagent");
-
+/**
+ * Write a bunch of data for testing the credits layouts
+ */
 class TestData {
 	constructor(params) {
 		this.userArgs = params.userArgs;
@@ -19,6 +21,10 @@ class TestData {
 		];
 	}
 
+	/**
+	 * Call the add for each database
+	 * This uses the express app, so is used as a test also
+	 */
 	add() {
 		let data = this.data;
 		let keys = this.keys;
@@ -48,6 +54,9 @@ class TestData {
 		
 	}
 
+	/**
+	 * Cleanup the test data, only removing our test names
+	 */
 	remove() {
 		let testUserPrefix = this.testUserPrefix;
 		let userArgs = this.userArgs;

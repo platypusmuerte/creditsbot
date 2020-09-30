@@ -1,5 +1,8 @@
 const { constants } = require('../constants');
 
+/**
+ * Pass handling the route off to a get or set processor
+ */
 class RouteHandler {
 	constructor(params) {
 		this.utils = params.utils;

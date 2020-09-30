@@ -1,7 +1,29 @@
 const { constants } = require('../constants');
 let { RouteHandler } = require("./routehandler");
 
+/**
+ * The expressjs listener. Sets what paths are listened to/for
+ * The router handler then calls the proper get/set which calls its processor
+ */
 class Listener {
+	/**
+	 * 
+	 * @param {object} utils		Utils class
+	 * @param {object} path			
+	 * @param {object} exp			express class
+	 * @param {object} db			db adapter
+	 * @param {string} dataDir		path to users data dir
+	 * @param {object} userArgs		merged user settings
+	 * @param {object} builder		credits builder class
+	 * @param {object} testData		TestData class
+	 * @param {object} express		express method reference (not same as exp)
+	 * @param {object} gui			GUI class
+	 * @param {object} backup		Backup class
+	 * @param {object} exportdata	Export class
+	 * @param {object} versioncheck	Version checker class
+	 * 
+	 * @property {object} routeHandler RouteHandler class
+	 */
 	constructor(params) {
 		this.utils = params.utils;
 		this.path = params.path;
@@ -32,6 +54,9 @@ class Listener {
 		});
 	}
 
+	/**
+	 * Tell express to listen on localhost, set the listeners and hand them their processors
+	 */
 	start() {
 		let exp = this.exp;
 		let utils = this.utils;
@@ -64,6 +89,7 @@ class Listener {
 		this.routeHandler.routes.posts.uiSetData();
 
 		this.exp.get(constants.PATHS.PING, (req, res) => { res.send("pong"); });
+		// Files in here can be referenced in users templates
 		this.exp.use('/usercontent', this.express.static(constants.TEMPLATE_DIRS.STATIC));
 
 		this.utils.console(" ");

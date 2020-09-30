@@ -1,5 +1,9 @@
 const { constants } = require('../constants');
 
+
+/**
+ * DB Queries
+ */
 class BlacklistQueries {
 	constructor(params) {
 		this.cryptr = params.cryptr;

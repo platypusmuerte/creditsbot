@@ -7,6 +7,10 @@ const { constants } = require('../constants');
  *
  * Exports CreditTemplatesQueries{}
  */
+
+/**
+ * DB Queries
+ */
 class CreditTemplatesQueries {
 	/**
 	 *

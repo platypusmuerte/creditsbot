@@ -1,5 +1,9 @@
 const { constants } = require('../constants');
 
+
+/**
+ * DB Queries
+ */
 class HHostsQueries {
 	constructor(params) {
 		this.cryptr = params.cryptr;

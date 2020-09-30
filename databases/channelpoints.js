@@ -1,5 +1,9 @@
 const { constants } = require('../constants');
 
+
+/**
+ * DB Queries
+ */
 class ChannelPointsQueries {
 	constructor(params) {
 		this.cryptr = params.cryptr;

@@ -1,5 +1,9 @@
 const { constants } = require('../constants');
 
+
+/**
+ * DB Queries
+ */
 class VipsQueries {
 	constructor(params) {
 		this.cryptr = params.cryptr;

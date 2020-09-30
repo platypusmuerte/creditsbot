@@ -1,6 +1,18 @@
 const { constants } = require('../constants');
 
+/**
+ * Create backups of data dir
+ */
 class Backup {
+	/**
+	 * 
+	 * @param {object}	fs
+	 * @param {object}	path
+	 * @param {objecet}	utils		Utils class
+	 * @param {string}	userArgs 	combined user settings
+	 * 
+	 * @property {string}	backupPath	built when called, time stamped directory path
+	 */
 	constructor(params) {
 		this.fs = params.fs;
 		this.path = params.path;
@@ -10,6 +22,9 @@ class Backup {
 		this.backupPath = "";
 	}
 
+	/**
+	 * Create a backup
+	 */
 	create() {
 		let ensureMainBackupFolder = this.ensureMainBackupFolder.bind(this);
 		let createNewBackupFolder = this.createNewBackupFolder.bind(this);
@@ -24,6 +39,9 @@ class Backup {
 		});
 	}
 
+	/**
+	 * Make sure backups folder exists
+	 */
 	ensureMainBackupFolder() {
 		let fs = this.fs;
 		let userArgs = this.userArgs;
@@ -40,6 +58,9 @@ class Backup {
 		});
 	}
 
+	/**
+	 * Create a new folder for this backup. Folder name is timestamp
+	 */
 	createNewBackupFolder() {
 		let folder = Date.now();
 		let fs = this.fs;
@@ -59,6 +80,9 @@ class Backup {
 		});
 	}
 
+	/**
+	 * Copy the data dir to the new folder just created
+	 */
 	backupData() {
 		let fs = this.fs;
 		let userArgs = this.userArgs;

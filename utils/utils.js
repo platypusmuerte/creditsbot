@@ -2,19 +2,34 @@ const { constants } = require('../constants');
 const chalk = require("chalk");
 const lodash = require("lodash");
 
+/**
+ * Utilities
+ */
 class Utils {
 	constructor(params) {
 		
 	}
 
+	/**
+	 * Send colored/formatted message to CLI
+	 * @param {string} msg message to send to cli
+	 */
 	console(msg) {
 		console.log(chalk.hex("#ff9900")("[CREDITSBOT] ") + chalk.hex("#297bd6")(msg));
 	}
 
+	/**
+	 * Send different colored message to cli
+	 * @param {string} msg message to send to cli
+	 */
 	notice(msg) {
 		console.log(chalk.hex("#ff9900")("[CREDITSBOT] ") + chalk.hex("#ff0000")(msg));
 	}
 
+	/**
+	 * Only return object of params were expecting
+	 * @param {object} q express query string object
+	 */
 	getExpectedQueryParams(q) {
 		let expectedParams = {};
 
@@ -27,6 +42,15 @@ class Utils {
 		return expectedParams;
 	}
 
+	/**
+	 * Get top N in a direction, by a key
+	 * @param {array} list result from db query
+	 * @param {string} key sort key
+	 * @param {string} dir direction
+	 * @param {number} count how many to return
+	 * @param {boolean} asArray well, def not as a string.....
+	 * @param {string} card URL of streamloots card
+	 */
 	getTopUsers(list, key, dir, count, asArray, card) {
 		let sorted = lodash.orderBy(list, key, dir);
 
@@ -58,6 +82,11 @@ class Utils {
 		}
 	}
 
+	/**
+	 * Get card obects tops
+	 * @param {array} list result from db query
+	 * @param {number} count how many to return
+	 */
 	getTopCards(list, count) {
 		let sorted, top, flatObj, flatList;
 		flatObj = {};

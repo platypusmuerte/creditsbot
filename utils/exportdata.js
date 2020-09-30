@@ -1,6 +1,19 @@
 const { constants } = require('../constants');
-
+/**
+ * Export all viewer data as single json file
+ */
 class ExportData {
+	/**
+	 * 
+	 * @param {object} 	fs
+	 * @param {object} 	path
+	 * @param {object}	utils 		Utils class
+	 * @param {string}	dataDir		User data folder
+	 * @param {object}	userArgs	Merged user settings
+	 * @param {object}	db			db adapter
+	 * 
+	 * @property {string} exportPath	Path where export is saved
+	 */
 	constructor(params) {
 		this.fs = params.fs;
 		this.path = params.path;
@@ -11,6 +24,9 @@ class ExportData {
 		this.exportPath = "";
 	}
 
+	/**
+	 * Create the export
+	 */
 	create() {
 		let ensureMainExportFolder = this.ensureMainExportFolder.bind(this);
 		let createNewExportFolder = this.createNewExportFolder.bind(this);
@@ -31,6 +47,10 @@ class ExportData {
 		});
 	}
 
+	/**
+	 * Write the JSON object to a file
+	 * @param {object} allData all of the view data in one object
+	 */
 	writeExport(allData) {
 		let fs = this.fs;
 		let userArgs = this.userArgs;
@@ -45,6 +65,9 @@ class ExportData {
 		});
 	}
 
+	/**
+	 * Loop through all db names, add to an array, the promise them all
+	 */
 	runExports() {
 		let db = this.db;
 		let pArr = [];
@@ -57,6 +80,9 @@ class ExportData {
 		return Promise.all(pArr);
 	}
 
+	/**
+	 * Make sure export folder exists
+	 */
 	ensureMainExportFolder() {
 		let fs = this.fs;
 		let userArgs = this.userArgs;
@@ -73,6 +99,9 @@ class ExportData {
 		});
 	}
 
+	/**
+	 * Create new timestamped folder for this export
+	 */
 	createNewExportFolder() {
 		let folder = Date.now();
 		let fs = this.fs;

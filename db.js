@@ -1,3 +1,6 @@
+/**
+ * DB Queries
+ */
 class Database {
 	constructor(params) {
 		this.cryptr = params.cryptr;

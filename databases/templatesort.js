@@ -1,5 +1,9 @@
 const { constants } = require('../constants');
 
+
+/**
+ * DB Queries
+ */
 class TemplateSortQueries {
 	constructor(params) {
 		this.cryptr = params.cryptr;

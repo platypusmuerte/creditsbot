@@ -1,5 +1,9 @@
 const { constants } = require('../constants');
 
+
+/**
+ * DB Queries
+ */
 class ModsQueries {
 	constructor(params) {
 		this.cryptr = params.cryptr;
