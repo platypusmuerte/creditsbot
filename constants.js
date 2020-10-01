@@ -1,8 +1,10 @@
+let packagejson = require("./package.json");
+
 exports.constants = {
 	APP: {
 		NAME: "Platys Credits Bot",
 		EXENAME: "PlatysCreditsBot",
-		VERSION: "2.0.2",
+		VERSION: packagejson.version,
 		DEFAULTS: {
 			BLACKLIST: [],
 			CLEAN_ON_STARTUP: true,
