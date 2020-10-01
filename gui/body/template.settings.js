@@ -1,7 +1,23 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
 
+/**
+ * Settings page
+ */
 class TemplateSettings extends BodyBase {
+	/**
+	* @param {object} utils		Utils class
+	* @param {object} path
+	* @param {object} db			Db adapter
+	* @param {string} dataDir		path to user data dir
+	* @param {object} userArgs		merged user settings
+	* @param {string} page 		current main page/path/folder
+	* @param {string} subPage		current sub page/path/folder
+	* @param {object} query		express query string object
+	*
+	* @property {object} 	super		parent class ref
+	* @property {mixed} 	data		data sent from the main body class data fetch (mostly db queries)
+	*/
 	constructor(params) {
 		super();
 		this.utils = params.utils;
@@ -11,9 +27,14 @@ class TemplateSettings extends BodyBase {
 		this.userArgs = params.userArgs;
 		this.page = params.page;
 		this.subPage = params.subpage;
+		this.query = params.query;
 		this.data;
 	}
 
+	/**
+	* Create the page body
+	* @param {mixed} qData db query data
+	*/
 	render(qData) {
 		this.data = qData;
 
@@ -42,6 +63,10 @@ class TemplateSettings extends BodyBase {
 		`;
 	}
 
+	/**
+	* Page js
+	* 		sends data to db for settings on submit
+	*/
 	js() {
 		return `
 		function init_template_settings() {
