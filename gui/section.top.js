@@ -1,6 +1,19 @@
 const { constants } = require('../constants');
 
+/**
+ * Build the top header section of the GUI templatea
+ */
 class PageTopSection {
+	/**
+	 * 
+	 * @param {object} utils 		Utils class
+	 * @param {object} path 
+	 * @param {object} db 			db adapter
+	 * @param {string} dataDir		path to user data dir
+	 * @param {object} userArgs 	merged user settings
+	 * @param {string} page 		current main page/path/folder
+	 * @param {string} subPage		current sub page/path/folder
+	 */
 	constructor(params) {
 		this.utils = params.utils;
 		this.path = params.path;
@@ -11,6 +24,10 @@ class PageTopSection {
 		this.subPage = params.subpage;
 	}
 
+	/**
+	 * Build the html for the top header section
+	 * script section holds any js for managing the header areas
+	 */
 	render() {
 		let v = '';
 
@@ -38,6 +55,12 @@ class PageTopSection {
 		</div>`;
 	}
 
+	/**
+	 * Content for the script section
+	 * 		- sets an interval to check for updates (minutes * (1 minute as millis))
+	 * 		- If there is an update available, shows message in header
+	 * 		- this polls utils/versioncheck.js, which polls github version.txt file
+	 */
 	js() {
 		return `
 		let minutes = 15 * 60000;

@@ -1,3 +1,8 @@
+/**
+ * Any JS for the GUI pages
+ * 		- makes textareas tabbable
+ */
+
 exports.js = `
 function init() {
 	$(".tabbable").each((i, el) => {

@@ -6,7 +6,23 @@ const { PageTopSection } = require("./section.top");
 const { PageMenu } = require("./menu");
 const { PageBody } = require("./body");
 
+/**
+ * Main GUI class to build the interface
+ */
 class GUI {
+	/**
+	 * 
+	 * @param {object} utils		Utils class
+	 * @param {object} path
+	 * @param {object} db			Db adapter
+	 * @param {string} dataDir		path to user data dir
+	 * @param {object} userArgs		merged user settings
+	 * 
+	 * @property {string} defaultPage			page to fall back on - used to map to a class and highlight menus
+	 * @property {bool|string} defaultSubPage	sub page to fall back to - used to map to a class and highlight menus
+	 * @property {string} page					the current page requested (path reference mapped to class ref)
+	 * @property {string} subPage				the current sub page requested (path ref mapped to class ref)
+	 */
 	constructor(params) {
 		this.utils = params.utils;
 		this.path = params.path;
@@ -20,6 +36,12 @@ class GUI {
 		this.subPage = this.defaultSubPage;
 	}
 
+	/**
+	 * Determine path vars, and query string, start building the page
+	 * @param {object} req express request object
+	 * 
+	 * @returns {promise}	string of entire html page for browser
+	 */
 	loadPage(req) {
 		let buildPage = this.buildPage.bind(this);
 		let params = req.params[0].split("/");
@@ -33,6 +55,12 @@ class GUI {
 		});;
 	}
 
+	/**
+	 * Get the page headers, menu, body, footer
+	 * @param {object} query express query string object
+	 * 
+	 * @returns {promise}	string of page sections for rendering
+	 */
 	buildPage(query) {
 		let getBody = this.getBody.bind(this);
 		let htmlPreStr = this.getHtmlOpen() + this.getHead() + this.getBodyOpen();
@@ -49,6 +77,14 @@ class GUI {
 		return `<body>`;
 	}
 
+	/**
+	 * Take the path/page data and query string, and wrap it all with the main page template
+	 * 		- hand of data to the sub classes to assemble parts based of page/path/query vars
+	 * 		- dumps it all into an array, then joins as a string
+	 * @param {object} query express query string object
+	 * 
+	 * @returns {promise} string of top, menu, and body content
+	 */
 	getBody(query) {
 		let body = [];
 
@@ -80,6 +116,9 @@ class GUI {
 		return `</body>`;
 	}
 
+	/**
+	 * Builds the head section for the GUI page and returns as a string
+	 */
 	getHead() {
 		return `<head>
 		<meta charset="utf-8">
@@ -95,6 +134,9 @@ class GUI {
 		</head>`;
 	}
 
+	/**
+	 * Builds footer includes and returns as a string
+	 */
 	getFooterIncludes() {
 		return `
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

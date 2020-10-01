@@ -1,17 +1,38 @@
 const { constants } = require('../constants');
 
+/**
+ * Main class to build each page body
+ */
 class PageBody {
+	/**
+	 *
+	 * @param {object} utils 		Utils class
+	 * @param {object} path
+	 * @param {object} db 			db adapter
+	 * @param {string} dataDir		path to user data dir
+	 * @param {object} userArgs 	merged user settings
+	 * @param {string} page 		current main page/path/folder
+	 * @param {string} subPage		current sub page/path/folder
+	 * @param {object} query		express query string object
+	 * 
+	 * @property {string} 		defaultPage			page to fall back on - used to map to a class and highlight menus
+	 * @property {bool|string} 	defaultSubPage		sub page to fall back to - used to map to a class and highlight menus
+	 * @property {array}		errors				story any errors to walk through and draw alerts for
+	 * @property {object}		body				map of paths to builder classes
+	 */
 	constructor(params) {
 		this.utils = params.utils;
 		this.path = params.path;
 		this.db = params.db;
 		this.dataDir = params.dataDir;
 		this.userArgs = params.userArgs;
-		this.defaultPage = "home";
-		this.defaultSubPage = false;
 		this.page = params.page;
 		this.subPage = params.subpage;
 		this.query = params.query;
+
+
+		this.defaultPage = "home";
+		this.defaultSubPage = false;
 		this.errors = {
 			notfound: false
 		};	
@@ -50,6 +71,8 @@ class PageBody {
 
 		this.pageStr = this.page + ((this.subPage) ? "_" + this.subPage : "");
 
+		// If cant map to a builder class then its a bad request, so add an error, and set paths to home
+		// home page is loaded and used as the 404 page
 		if (!this.body[this.pageStr]) {
 			this.errors.notfound = this.page + "/" + this.subPage;
 			this.page = this.defaultPage;
@@ -58,6 +81,9 @@ class PageBody {
 		}
 	}
 
+	/**
+	 * Fetch any data that the current page will need before building itself, and pass it along
+	 */
 	fetchData() {
 		let page = this.page;
 		let subPage = this.subPage;
@@ -118,6 +144,10 @@ class PageBody {
 		});		
 	}
 
+	/**
+	 * Render the html for a page after fetching any of its data
+	 * 	- appends any errors or alerts to the html
+	 */
 	render() {
 		let fetchData = this.fetchData.bind(this);
 		let dismissableAlerts = this.getDismissableAlerts();
@@ -131,10 +161,16 @@ class PageBody {
 		});
 	}
 
+	/**
+	 * Currently just a single alert, but will be an array, that returns any active alerts currently matching
+	 */
 	getDismissableAlerts() {
 		return this.get404();
 	}
 
+	/**
+	 * Return an alert html if true
+	 */
 	get404() {
 		return (this.errors.notfound) ? `
 			<div class="alert alert-warning alert-dismissible fade show alertBanner" role="alert">

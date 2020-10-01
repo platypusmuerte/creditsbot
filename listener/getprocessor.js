@@ -170,10 +170,7 @@ class GetProcessor {
 	}
 
 	/**
-	 * Call the TestData /**
- * DB Queries
- */
-class add
+	 * Call the TestData
 	 * @param {objecet} req express request object
 	 * @param {object} res express response object
 	 */
@@ -184,10 +181,7 @@ class add
 	}
 
 	/**
-	 * Call the TestData /**
- * DB Queries
- */
-class remove
+	 * Call the TestData
 	 * @param {objecet} req express request object
 	 * @param {object} res express response object
 	 */

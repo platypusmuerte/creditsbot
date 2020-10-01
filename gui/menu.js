@@ -1,6 +1,19 @@
 const { constants } = require('../constants');
 
+/**
+ * Build the html menu section
+ */
 class PageMenu {
+	/**
+	 *
+	 * @param {object} utils 		Utils class
+	 * @param {object} path
+	 * @param {object} db 			db adapter
+	 * @param {string} dataDir		path to user data dir
+	 * @param {object} userArgs 	merged user settings
+	 * @param {string} page 		current main page/path/folder
+	 * @param {string} subPage		current sub page/path/folder
+	 */
 	constructor(params) {
 		this.utils = params.utils;
 		this.path = params.path;
@@ -11,6 +24,10 @@ class PageMenu {
 		this.subPage = params.subpage;
 	}
 
+	/**
+	 * HTML for the left menu
+	 * 		- menu highlights and open/close logic is driven by the page/subpage vars matching current page
+	 */
 	render() {
 		return `
 		<nav class="nav flex-column">
@@ -54,6 +71,12 @@ class PageMenu {
 		</div>`;
 	}
 
+	/**
+	 * Determine which sections are highlighted
+	 * 
+	 * @param {string} page the main page/folder of the menu item
+	 * @param {string} subPage the sub page/folder of the menu item
+	 */
 	isActive(page, subPage) {
 		if(subPage) {
 			return ((this.page === page) && (this.subPage === subPage)) ? 'active activeMenu' : '';
@@ -62,6 +85,11 @@ class PageMenu {
 		}		
 	}
 
+	/**
+	 * Determine which section is open or closed
+	 * 
+	 * @param {string} page the page to compare with
+	 */
 	isOpenMenu(page) {
 		return (this.page === page) ? ' show' : '';
 	}

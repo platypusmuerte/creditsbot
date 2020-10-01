@@ -11,8 +11,8 @@ class TemplateEdit extends BodyBase {
 		this.userArgs = params.userArgs;
 		this.page = params.page;
 		this.subPage = params.subpage;
-		this.data;
 		this.query = params.query;
+		this.data;
 	}
 
 	render(qData) {
