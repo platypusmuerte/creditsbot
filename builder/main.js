@@ -229,7 +229,7 @@ class Builder {
 				.sectionTitleColor {
 					color: ${dbr.sectiontitle};
 				}
-				.textColor {
+				div.name.textColor {
 					color: ${dbr.textcolor};
 				}
 				.sectionBorderColor {
