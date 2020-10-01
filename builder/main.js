@@ -1,5 +1,4 @@
 const { constants } = require('../constants');
-let { mainCSS } = require("./main_css");
 const Mustache = require("mustache");
 
 /**
@@ -51,7 +50,7 @@ class Builder {
 			mainHTML: null,
 			jsIncludes: null,
 			cssIncludes: null,
-			defaultCSS: '<style>' + mainCSS + '</style>',
+			defaultCSS: null,
 			customCSS: null,
 			colors: null,
 			scrollSpeed: null,
@@ -157,6 +156,21 @@ class Builder {
 
 				setRawData("jsIncludes", js.join(""));
 				setRawData("cssIncludes", css.join(""));
+				resolve();
+			});
+		});
+	}
+
+	/**
+	 * Fetch default css from db
+	 */
+	getDefaultCSS() {
+		let db = this.db;
+		let setRawData = this.setRawData.bind(this);
+
+		return new Promise(function (resolve, reject) {
+			db.databases.templatedefaultcss.getAll().then((dbr) => {
+				setRawData("defaultCSS", '<style>' + dbr.css + '</style>');
 				resolve();
 			});
 		});
@@ -596,6 +610,7 @@ class Builder {
 		let getContentDivider = this.getContentDivider.bind(this);
 		let getMainHTML = this.getMainHTML.bind(this);
 		let getCssJsIncludes = this.getCssJsIncludes.bind(this);
+		let getDefaultCSS = this.getDefaultCSS.bind(this);
 		let getCustomCSS = this.getCustomCSS.bind(this);
 		let getTemplateSettings = this.getTemplateSettings.bind(this);
 		let getColors = this.getColors.bind(this);
@@ -608,6 +623,7 @@ class Builder {
 				getContentDivider(),
 				getMainHTML(),
 				getCssJsIncludes(),
+				getDefaultCSS(),
 				getCustomCSS(),
 				getTemplateSettings(),
 				getColors(),

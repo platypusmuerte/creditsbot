@@ -60,7 +60,7 @@ header(utils, constants).then(()=>{
 		gui = new GUI({ db, utils, dataDir, userArgs });
 		backup = new Backup({ fs, path, utils, dataDir, userArgs });
 		exportdata = new ExportData({ db, fs, path, utils, dataDir, userArgs });
-		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck });
+		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs });
 		
 		// start listening to gets/posts and then run patch check
 		listener.start().then(()=>{

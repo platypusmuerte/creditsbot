@@ -10,6 +10,7 @@ class Listener {
 	 * 
 	 * @param {object} utils		Utils class
 	 * @param {object} path			
+	 * @param {object} fs
 	 * @param {object} exp			express class
 	 * @param {object} db			db adapter
 	 * @param {string} dataDir		path to users data dir
@@ -38,6 +39,7 @@ class Listener {
 		this.backup = params.backup;
 		this.exportdata = params.exportdata;
 		this.versioncheck = params.versioncheck;
+		this.fs = params.fs;
 
 		this.routeHandler = new RouteHandler({ 
 			utils: this.utils, 
@@ -74,6 +76,8 @@ class Listener {
 	}
 
 	setDefaultListeners() {
+		this.ensureUserContentDirExists();
+
 		this.routeHandler.routes.gets.addToUser();
 		this.routeHandler.routes.gets.getAllOf();
 		this.routeHandler.routes.gets.getTop5();
@@ -93,6 +97,14 @@ class Listener {
 		this.exp.use('/usercontent', this.express.static(constants.TEMPLATE_DIRS.STATIC));
 
 		this.utils.console(" ");
+	}
+
+	ensureUserContentDirExists() {
+		// make sure the data dir always exists
+		if (!this.fs.existsSync(constants.TEMPLATE_DIRS.STATIC)) {
+			this.fs.mkdirSync(constants.TEMPLATE_DIRS.STATIC);
+			this.userArgs.DEBUG && this.utils.console("Created " + constants.TEMPLATE_DIRS.STATIC);
+		}
 	}
 }
 
