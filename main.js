@@ -57,7 +57,7 @@ header(utils, constants).then(()=>{
 		patcher = new Patcher({ fs, path, utils, dataDir, userArgs, db });
 
 		testData = new TestData({ userArgs, utils });
-		gui = new GUI({ db, utils, dataDir, userArgs });
+		gui = new GUI({ db, utils, dataDir, userArgs, fs });
 		backup = new Backup({ fs, path, utils, dataDir, userArgs });
 		exportdata = new ExportData({ db, fs, path, utils, dataDir, userArgs });
 		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs });

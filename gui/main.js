@@ -1,6 +1,7 @@
 const { constants } = require('../constants');
 const { css } = require("./css");
 const { js } = require("./js");
+//const { mytinycolor } = require("./libs/spectrum-colorpicker2/mytinycolor");
 
 const { PageTopSection } = require("./section.top");
 const { PageMenu } = require("./menu");
@@ -14,6 +15,7 @@ class GUI {
 	 * 
 	 * @param {object} utils		Utils class
 	 * @param {object} path
+	 * @param {object} fs
 	 * @param {object} db			Db adapter
 	 * @param {string} dataDir		path to user data dir
 	 * @param {object} userArgs		merged user settings
@@ -26,6 +28,7 @@ class GUI {
 	constructor(params) {
 		this.utils = params.utils;
 		this.path = params.path;
+		this.fs = params.fs;
 		this.db = params.db;
 		this.dataDir = params.dataDir;
 		this.userArgs = params.userArgs;
@@ -120,6 +123,8 @@ class GUI {
 	 * Builds the head section for the GUI page and returns as a string
 	 */
 	getHead() {
+		let myTinyColor = this.fs.readFileSync('./gui/libs/spectrum-colorpicker2/mytinycolor.js');
+
 		return `<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -129,8 +134,11 @@ class GUI {
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+		<script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>		
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
 		<script>` + js + `</script>
 		<style>` + css + `</style>
+		<script>` + myTinyColor + `</script>
 		</head>`;
 	}
 

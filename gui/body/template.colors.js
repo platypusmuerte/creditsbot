@@ -45,33 +45,59 @@ class TemplateColors extends BodyBase {
 			<p class="lead">Colors for text, headings, dividers, etc</p>
 			<hr class="my-4">
 			<p>These can be overridden in the custom CSS section</p>
-			<form>
-				<div class="form-group">
-					<label class="formLabel" for="titleColor">Title</label>
-					<input type="color" class="form-control colorPicker" id="titleColor" value="${this.data.title}">
+
+			<label class="formLabel">Text Colors</label>
+
+			<div class="row justify-content-start queryRow">
+
+				<div class="col-auto">
+					<label class="colorPickerLabel">Title</label>
+					<input type="text" class="form-control colorPickerInput" value="${this.data.title}" data-setting="title"><p class="colorValueLabel">${this.data.title}</p>
 				</div>
-				<div class="form-group">
-					<label class="formLabel" for="subTitleColor">Sub Title</label>
-					<input type="color" class="form-control colorPicker" id="subTitleColor" value="${this.data.subtitle}">
+
+				<div class="col-auto">
+					<label class="colorPickerLabel">Sub Title</label>
+					<input type="text" class="form-control colorPickerInput" value="${this.data.subtitle}" data-setting="subtitle"><p class="colorValueLabel">${this.data.subtitle}</p>
+				</div>	
+
+				<div class="col-auto">
+					<label class="colorPickerLabel">Section Titles</label>
+					<input type="text" class="form-control colorPickerInput" value="${this.data.sectiontitle}" data-setting="sectiontitle"><p class="colorValueLabel">${this.data.sectiontitle}</p>
+				</div>			
+
+				<div class="col-auto">
+					<label class="colorPickerLabel">Text Color</label>
+					<input type="text" class="form-control colorPickerInput" value="${this.data.textcolor}" data-setting="textcolor"><p class="colorValueLabel">${this.data.textcolor}</p>
+				</div>			
+
+				<div class="col-auto">
+					<label class="colorPickerLabel">Amount Text Color</label>
+					<input type="text" class="form-control colorPickerInput" value="${this.data.amountcolor}" data-setting="amountcolor"><p class="colorValueLabel">${this.data.amountcolor}</p>
+				</div>			
+
+				<div class="col-auto">
+					<label class="colorPickerLabel">Total Text Color</label>
+					<input type="text" class="form-control colorPickerInput" value="${this.data.totalcolor}" data-setting="totalcolor"><p class="colorValueLabel">${this.data.totalcolor}</p>
 				</div>
-				<div class="form-group">
-					<label class="formLabel" for="pageBG">Page Background</label>
-					<input type="color" class="form-control colorPicker" id="pageBG" value="${this.data.background}">
+			</div>
+
+			<label class="formLabel">Border Colors</label>
+
+			<div class="row justify-content-start queryRow">
+				<div class="col-auto">
+					<label class="colorPickerLabel">Section Border Color</label>
+					<input type="text" class="form-control colorPickerInput" value="${this.data.sectionborder}" data-setting="sectionborder"><p class="colorValueLabel">${this.data.sectionborder}</p>
 				</div>
-				<div class="form-group">
-					<label class="formLabel" for="sectionTitle">Section Titles</label>
-					<input type="color" class="form-control colorPicker" id="sectionTitle" value="${this.data.sectiontitle}">
+			</div>
+
+			<label class="formLabel">Background Colors</label>
+
+			<div class="row justify-content-start queryRow">
+				<div class="col-auto">
+					<label class="colorPickerLabel">Page Background</label>
+					<input type="text" class="form-control colorPickerInput" value="${this.data.background}" data-setting="background"><p class="colorValueLabel">${this.data.background}</p>
 				</div>
-				<div class="form-group">
-					<label class="formLabel" for="sectionBorderColor">Section Border Color</label>
-					<input type="color" class="form-control colorPicker" id="sectionBorderColor" value="${this.data.sectionborder}">
-				</div>
-				<div class="form-group">
-					<label class="formLabel" for="textColor">Text Color</label>
-					<input type="color" class="form-control colorPicker" id="textColor" value="${this.data.textcolor}">
-				</div>
-				<button id="formsub" type="button" class="btn btn-primary">Submit</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Success</span>
-			</form>
+			</div>	
 		</div>
 		`;
 	}
@@ -83,28 +109,42 @@ class TemplateColors extends BodyBase {
 	js() {
 		return `
 		function init_template_colors() {
-			$("#formsub").on("click",(e)=>{
-				let payload = {
-					title: $("#titleColor").val(),
-					subtitle: $("#subTitleColor").val(),
-					background: $("#pageBG").val(),
-					sectiontitle: $("#sectionTitle").val(),
-					textcolor: $("#textColor").val(),
-					sectionborder: $("#sectionBorderColor").val()
-				};
+			$(".colorPickerInput").each((i,el)=>{
+				makeSpectrum(el);
+			});
+		}
+
+		function makeSpectrum(el) {
+			$(el).spectrum({
+				type: "color",
+				showPalette: false,
+				showInput: true,
+				showAlpha: true,
+				showButtons: false,
+				allowEmpty: false,
+				preferredFormat: "hex8",
+				move: (color)=>{
+					$(el).siblings(".colorValueLabel").html(color.toHex8String());
+				},
+				change: setColors
+			  });
+		}
+
+		function setColors() {
+			let payload = {};
+			
+			$(".colorPickerInput").each((i,el)=>{
+				payload[$(el).attr("data-setting")] = $(el).val();
+			});
+
+			$.ajax({
+				type: "POST",
+				url: "${constants.PATHS.UI_BASE_API}settemplatecolors",
+				data: JSON.stringify(payload),
+				contentType: "application/json",
+				dataType: "json"
+			}).done((data)=>{
 				
-				$.ajax({
-					type: "POST",
-					url: "${constants.PATHS.UI_BASE_API}settemplatecolors",
-					data: JSON.stringify(payload),
-					contentType: "application/json",
-					dataType: "json"
-				}).done((data)=>{
-					$("#subsuccess").removeClass("invisible").addClass("visible");
-					setTimeout(()=>{
-						$("#subsuccess").removeClass("visible").addClass("invisible");
-					},3000);
-				});
 			});
 		}
 

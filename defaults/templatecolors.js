@@ -4,5 +4,7 @@ exports.templatecolors = {
 	background: "#333333",
 	sectiontitle: "#297bd6",
 	textcolor: "#ffffff",
+	amountcolor: "#ffffff",
+	totalcolor: "#ffffff",
 	sectionborder: "#ff9900"
 };

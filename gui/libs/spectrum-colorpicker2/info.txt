@@ -1,0 +1,8 @@
+https://github.com/seballot/spectrum
+
+https://github.com/bgrins/TinyColor
+
+
+IMPORTANT
+
+do to this issue https://github.com/seballot/spectrum/issues/6 I include the latest tinycolor file, and overwrite spectrums tinycolor, to solve the hex8 alpha bug until he updates his libs included lib....

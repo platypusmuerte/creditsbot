@@ -232,11 +232,17 @@ class Builder {
 				div.name.textColor {
 					color: ${dbr.textcolor};
 				}
-				.sectionBorderColor {
-					border-bottom-color: ${dbr.sectionborder}
+				div.amount.amountColor {
+					color: ${dbr.amountcolor};
 				}
-				.screen::before {
-					background-color: ${dbr.background};
+				div.total.totalColor {
+					color: ${dbr.totalcolor};
+				}
+				.sectionBorderColor {
+					border-bottom-color: ${dbr.sectionborder};
+				}
+				.screen {
+					background: ${dbr.background};
 				}
 				</style>`;
 				

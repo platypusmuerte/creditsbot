@@ -108,7 +108,46 @@ class Patcher {
 	 * Patch 2.0.0 to 2.0.1
 	 */
 	patch_201() {
+		let db = this.db;
 		// add new template to sorting, if not present
+
+		// add amount color and total color to colors db
+		const { templatecolors } = require("../defaults/templatecolors");
+
+		db.databases.templatecolors.getAll().then((colors)=>{
+			db.databases.templatecolors.setData({
+				title: colors.title,
+				subtitle: colors.subtitle,
+				background: colors.background,
+				sectiontitle: colors.sectiontitle,
+				textcolor: colors.textcolor,
+				amountcolor: templatecolors.amountcolor,
+				totalcolor: templatecolors.totalcolor,
+				sectionborder: colors.sectionborder
+			});
+		});
+
+		// update templates with amountColor and totalColor
+		db.databases.credittemplates.getAll().then((allTemplates)=>{
+			allTemplates.forEach((t)=>{
+				db.databases.credittemplates.getTemplateByID(t.id).then((thisTemplate)=>{
+					let str = thisTemplate.inner;
+
+					if(str.indexOf("amountColor") === -1) {
+						str = thisTemplate.inner.replace('class="amount','class="amount amountColor');
+					}
+
+					if(str.indexOf("totalColor") === -1) {
+						str = str.replace('class="total','class="total totalColor');
+					}
+
+					thisTemplate.inner = str;
+
+					db.databases.credittemplates.setTemplateByID(thisTemplate);
+				});
+			});
+		});
+
 		this.checkAgain();
 	}
 }

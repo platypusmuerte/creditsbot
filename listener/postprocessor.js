@@ -112,6 +112,8 @@ class PostProcessor {
 			background: req.body.background,
 			sectiontitle: req.body.sectiontitle,
 			textcolor: req.body.textcolor,
+			amountcolor: req.body.amountcolor,
+			totalcolor: req.body.totalcolor,
 			sectionborder: req.body.sectionborder
 		};
 

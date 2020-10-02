@@ -41,10 +41,14 @@ body {
 	background-color: #297bd6;
 	border: 1px solid #ff9900;
 }
-.colorPicker {
+.colorPickerLabel {
+	display: block;
+}
+.colorPickerInput {
 	width: 100px;
-	padding: 0px;
-	background-color: transparent !important;
+}
+.colorValueLabel {
+	padding-top: 3px;
 }
 .numberInput {
 	width: 100px;

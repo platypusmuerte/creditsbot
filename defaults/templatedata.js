@@ -133,7 +133,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hchannelpointsTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "patreons_name",
@@ -250,7 +250,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="giftsubsTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "bits_top5",
@@ -263,7 +263,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="bitsTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "donos_top5",
@@ -276,7 +276,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="donosTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "channelpoints_top5",
@@ -289,7 +289,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="channelpointsTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "chatters_top5",
@@ -302,7 +302,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="chattersTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "streamloots_top5_cards",
@@ -315,7 +315,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="streamlootsTop5CardsWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5Cards"><div class="name textColor"></div><div class="card"><img src="{{card}}" /><div class="amount">{{amount}}</div></div></div>`
+		inner: `<div class="nameTop5Cards"><div class="name textColor"></div><div class="card"><img src="{{card}}" /><div class="amount amountColor">{{amount}}</div></div></div>`
 	}, {
 		enabled: true,
 		id: "streamloots_top10_cards",
@@ -328,7 +328,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="streamlootsTop10CardsWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5Cards"><div class="name textColor"></div><div class="card"><img src="{{card}}" /><div class="amount">{{amount}}</div></div></div>`
+		inner: `<div class="nameTop5Cards"><div class="name textColor"></div><div class="card"><img src="{{card}}" /><div class="amount amountColor">{{amount}}</div></div></div>`
 	}, {
 		enabled: true,
 		id: "hstreamloots_top5H_cards",
@@ -341,7 +341,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hstreamlootsTop5CardsWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5Cards"><div class="name textColor"></div><div class="card"><img src="{{card}}" /><div class="amount">{{amount}}</div></div></div>`
+		inner: `<div class="nameTop5Cards"><div class="name textColor"></div><div class="card"><img src="{{card}}" /><div class="amount amountColor">{{amount}}</div></div></div>`
 	}, {
 		enabled: true,
 		id: "hstreamloots_top10H_cards",
@@ -354,7 +354,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hstreamlootsTop5CardsWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5Cards"><div class="name textColor"></div><div class="card"><img src="{{card}}" /><div class="amount">{{amount}}</div></div></div>`
+		inner: `<div class="nameTop5Cards"><div class="name textColor"></div><div class="card"><img src="{{card}}" /><div class="amount amountColor">{{amount}}</div></div></div>`
 	}, {
 		enabled: true,
 		id: "giftsubs_name_amount",
@@ -367,7 +367,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="giftsubsAmountWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "bits_name_amount",
@@ -380,7 +380,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="bitsAmountWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "donos_name_amount",
@@ -393,7 +393,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="donosAmountWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "channelpoints_name_amount",
@@ -406,7 +406,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="channelpointsAmountWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "chatters_name_amount",
@@ -419,7 +419,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="chattersAmountWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "giftsubs_name_total",
@@ -432,7 +432,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="giftsubsTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "subs_name_total",
@@ -445,7 +445,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="subsTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "bits_name_total",
@@ -458,7 +458,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="bitsTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "donos_name_total",
@@ -471,7 +471,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="donosTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "channelpoints_name_total",
@@ -484,7 +484,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="channelpointsTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hosts_name_total",
@@ -497,7 +497,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hostsTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "raids_name_total",
@@ -510,7 +510,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="raidsTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "bits_name_amount_total",
@@ -523,7 +523,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="bitsAmountTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameAmountTotal"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameAmountTotal"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "donos_name_amount_total",
@@ -536,7 +536,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="donosAmountTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameAmountTotal"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameAmountTotal"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "giftsubs_name_amount_total",
@@ -549,7 +549,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="giftsubsAmountTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameAmountTotal"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameAmountTotal"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "channelpoints_name_amount_total",
@@ -562,7 +562,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="channelpointsAmountTotalWrapper">{{{group}}}</div>`,
-		inner: `<div class="nameAmountTotal"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div><div class="total">{{total}}</div></div>`
+		inner: `<div class="nameAmountTotal"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div><div class="total totalColor">{{total}}</div></div>`
 	}, {
 		enabled: true,
 		id: "giftsubs_top10",
@@ -575,7 +575,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="giftsubsTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "bits_top10",
@@ -588,7 +588,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="bitsTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "donos_top10",
@@ -601,7 +601,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="donosTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "channelpoints_top10",
@@ -614,7 +614,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="channelpointsTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "chatters_top10",
@@ -627,7 +627,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="chattersTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hgiftsubs_top10H",
@@ -640,7 +640,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hgiftsubsTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hbits_top10H",
@@ -653,7 +653,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hbitsTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hdonos_top10H",
@@ -666,7 +666,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hdonosTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hsubs_top10H",
@@ -679,7 +679,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hsubsTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hhosts_top10H",
@@ -692,7 +692,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hhostsTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hraids_top10H",
@@ -705,7 +705,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hraidsTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hchannelpoints_top10H",
@@ -718,7 +718,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hchannelpointsTop10Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hgiftsubs_top5H",
@@ -731,7 +731,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hgiftsubsTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hbits_top5H",
@@ -744,7 +744,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hbitsTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hdonos_top5H",
@@ -757,7 +757,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hdonosTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hsubs_top5H",
@@ -770,7 +770,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hsubsTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hhosts_top5H",
@@ -783,7 +783,7 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hhostsTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}, {
 		enabled: true,
 		id: "hraids_top5H",
@@ -796,6 +796,6 @@ exports.templatedata = [
 	{{{contentDivider}}}
 </div>`,
 		wrapper: `<div class="hraidsTop5Wrapper">{{{group}}}</div>`,
-		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount">{{amount}}</div></div>`
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}
 ];

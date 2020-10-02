@@ -49,6 +49,8 @@ class TemplateColorsQueries {
 				background: data.background,
 				sectiontitle: data.sectiontitle,
 				textcolor: data.textcolor,
+				amountcolor: data.amountcolor,
+				totalcolor: data.totalcolor,
 				sectionborder: data.sectionborder
 			}).write();
 
