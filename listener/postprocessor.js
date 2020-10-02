@@ -76,6 +76,9 @@ class PostProcessor {
 			case "setmainpagetemplate":
 				this.uiSetMainPageTemplate(req, res);
 				break;
+			case "setsectionenabled":
+				this.uiSetSectionEnabled(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -260,6 +263,19 @@ class PostProcessor {
 		let data = req.body;
 
 		this.db.databases.templatepage.setData(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	/**
+	 * Toggle a section on or off
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	uiSetSectionEnabled(req, res) {
+		let data = req.body;
+
+		this.db.databases.credittemplates.toggleSectionByID(data.enabled, data.id).then(() => {
 			res.json({ "success": true });
 		});
 	}

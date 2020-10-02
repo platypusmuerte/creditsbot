@@ -1,4 +1,6 @@
+const { template } = require('lodash');
 const { constants } = require('../constants');
+const { templatedata } = require("../defaults/templatedata");
 
 /**
  * Template Queries
@@ -98,7 +100,9 @@ class CreditTemplatesQueries {
 		let db = this.db;
 
 		return new Promise(function (resolve, reject) {
-			resolve(db.find({ id: id }).value());
+			let resObj = db.find({ id: id }).value();
+			resObj["defaults"] = templatedata.filter(td => td.id === id)[0];
+			resolve(resObj);
 		});
 	}
 
@@ -135,6 +139,19 @@ class CreditTemplatesQueries {
 			}
 
 			resolve(dbID);				
+		});
+	}
+
+	/**
+	 * Enable or disable a section
+	 * @param {boolean} 	enabled is section enabled 
+	 * @param {number} 		id 		template id
+	 */
+	toggleSectionByID(enabled, id) {
+		let db = this.db;
+		
+		return new Promise(function (resolve, reject) {
+			db.find({ id: id }).assign({enabled: enabled}).write();
 		});
 	}
 	

@@ -6,7 +6,7 @@ body {
 .nav-link {
 	color: #fff
 }
-.activeMenu, h1, h2, h3, h4, .versionText, .formLabel, .dragSectionTitle {
+.activeMenu, h1, h2, h3, h4, .versionText, .formLabel, .dragSectionTitle, .modal-title {
 	color: #ff9900;
 }
 .titleText {
@@ -37,7 +37,7 @@ body {
 .homeBanner, .alertBanner {
 	margin: 10px;
 }
-.jumbotron {
+.jumbotron, .modalBody {
 	background-color: #297bd6;
 	border: 1px solid #ff9900;
 }
@@ -72,11 +72,14 @@ body {
 .dragSectionBody {
 	display: inline-block;
 }
-.sectionEnabledLabel {
+.sectionEnabledLabel, .sectionToggleIsOn {
 	color: #0ddb44;
 }
-.sectionDisabledLabel {
+.sectionDisabledLabel, .sectionToggleIsOff {
 	color: #db0d0d;
+}
+.sectionToggleIsOn, .sectionToggleIsOff {
+	cursor: pointer;
 }
 .sectionDBLabel, .sectionKey {
 	margin-left: 30px;
@@ -90,7 +93,13 @@ body {
 .sectionDraggable {
 	transition: background-color .3s linear;
 }
-.sectionDraggable:hover .sectionDragEdit {
+.sectionToggle {
+	visibility: hidden;
+}
+.sectionDraggable:hover .sectionDragEdit, .sectionDraggable:hover .sectionToggle {
 	visibility: visible;
+}
+.modalDialogLg {
+	max-width: 800px;
 }
 `;

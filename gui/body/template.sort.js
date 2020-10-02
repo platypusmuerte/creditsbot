@@ -40,17 +40,23 @@ class TemplateSort extends BodyBase {
 		let list = '';
 		
 		Object.entries(this.data.templates).forEach(([k,t])=>{
-			let title = t.title;//(t.type === "dynamic") ? t.title : t.id.replace(/_/g, " ");
+			let title = t.title;
 			let enabled = (t.enabled) ? '<span class="sectionEnabledLabel">Enabled</span>' :'<span class="sectionDisabledLabel">Disabled</span>';
 			let db = (t.key) ? '<span class="sectionDBLabel">Database: ' + t.key + '</span>':'';
 			let sectionKey = '<span class="sectionKey">Template: ' + t.id.replace(/_/g, " ") + '</span>';
-			let editLink = `<span class="sectionDragEdit"><a href="${constants.GUI_DIRS.BASE_WEB_PATH}template/edit?edit=${t.id}">edit</a></span>`;
+			let editLink = `<span class="sectionDragEdit"><a href="${constants.GUI_DIRS.BASE_WEB_PATH}template/edit?edit=${t.id}"><i class="material-icons">settings</i></a></span>`;
+
+			let off = (t.enabled) ? ` style="display: none;"`:``;
+			let on = (t.enabled) ? ``:` style="display: none;"`;
+
+			let toggleLink = `<span class="sectionToggle sectionToggleIsOff"${off}><i class="material-icons">toggle_off</i></span><span class="sectionToggle sectionToggleIsOn"${on}><i class="material-icons">toggle_on</i></span>`;
+			
 
 			list += `<li class="list-group-item sectionDraggable" data-sectionkey="${t.id}">
 				<div class="dragSectionIcon"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span></div>
 				<div class="dragSectionBody">
 					<h5 class="dragSectionTitle">${title}</h5>
-					<h6 class="card-subtitle mb-2 text-muted">${enabled}${sectionKey}${db}${editLink}</h6>
+					<h6 class="card-subtitle mb-2 text-muted">${enabled}${sectionKey}${db}${editLink}${toggleLink}</h6>
 				</div>
 			</li>`;
 		});
@@ -78,12 +84,43 @@ class TemplateSort extends BodyBase {
 
 	/**
 	* Page js
-	* 		creates a sortable and sends an array of the full sort when sort completes
+	* 		- creates a sortable and sends an array of the full sort when sort completes
+			- toggles enabled state
+			- links to edit view
 	*/
 	js() {
 		return `
 		let fd;
 		function init_template_sort() {
+			$(".sectionToggle").on("click",(e)=>{
+				let target = ($(e.target).hasClass("material-icons")) ? $(e.target).parent():$(e.target);
+				let enabled = false;
+
+				if(target.hasClass("sectionToggleIsOn")) {
+					enabled = false;
+					target.parents(".card-subtitle").find(".sectionToggleIsOff").show();
+					target.hide();
+					target.parents(".card-subtitle").find(".sectionEnabledLabel").addClass("sectionDisabledLabel").removeClass("sectionEnabledLabel").html("Disabled");
+				} else {
+					enabled = true;
+					target.parents(".card-subtitle").find(".sectionToggleIsOn").show();
+					target.hide();
+					target.parents(".card-subtitle").find(".sectionDisabledLabel").addClass("sectionEnabledLabel").removeClass("sectionDisabledLabel").html("Enabled");
+				}
+
+				let sectionKey = target.parents("li").attr("data-sectionkey");
+
+				$.ajax({
+					type: "POST",
+					url: "${constants.PATHS.UI_BASE_API}setsectionenabled",
+					data: JSON.stringify({id: sectionKey, enabled: enabled}),
+					contentType: "application/json",
+					dataType: "json"
+				}).done((data)=>{
+					
+				});
+			});
+
 			$("#sortList").sortable({
 				axis: "y",
 				stop: (event, ui)=>{
@@ -103,20 +140,10 @@ class TemplateSort extends BodyBase {
 						setTimeout(()=>{
 							ui.item.css("backgroundColor","#fff");
 						},300);
-						
-
-						/*$("#subsuccess").removeClass("invisible").addClass("visible");
-						setTimeout(()=>{
-							$("#subsuccess").removeClass("visible").addClass("invisible");
-						},3000);*/
 					});
 				}
 			});
     		$("#sortList").disableSelection();
-		}
-
-		function post(payload) {
-			
 		}
 
 		$(document).ready(() => {

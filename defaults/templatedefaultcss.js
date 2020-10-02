@@ -14,14 +14,6 @@ body {
 	top: 0px;
 	left: 0px;
 	border: 1px solid;
-	opacity: .9;
-}
-.screen::before {
-	content:'';
-	display: block;
-	background-color: #333;
-	width: 100%;
-	height: 100%;
 }
 .creditsWrapper {
 	display: block;

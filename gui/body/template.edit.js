@@ -118,7 +118,57 @@ class TemplateEdit extends BodyBase {
 				</div>
 			</div>
 			<button id="formsub" type="button" class="btn btn-primary">Submit Template</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#defaultDataModal">View Defaults</button>
 			<button id="delete" type="button" class="btn btn-danger invisible">Delete Template</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
+
+			<!-- Modal -->
+			<div class="modal fade" id="defaultDataModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modalDialogLg">
+					<div class="modal-content modalBody">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Default Values</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row justify-content-start queryRow">
+								<div class="col-5">
+									<label class="formLabel" for="sectionTitleText">Section Title Text</label>
+									<input type="text" class="form-control" id="dsectionTitleText" value="">
+								</div>
+							</div>
+
+							<label class="formLabel">Main Template</label>
+
+							<div class="row justify-content-start queryRow">
+								<div class="col-10">
+									<textarea class="form-control tabbable" id="dmainTemplate" rows="8"></textarea>
+								</div>
+							</div>
+
+							<label class="formLabel">Wrapper Template</label>
+
+							<div class="row justify-content-start queryRow">
+								<div class="col-10">
+									<textarea class="form-control tabbable" id="dwrapperTemplate" rows="2"></textarea>
+								</div>
+							</div>
+
+							<label class="formLabel">Inner Template</label>
+
+							<div class="row justify-content-start queryRow">
+								<div class="col-10">
+									<textarea class="form-control tabbable" id="dinnerTemplate" rows="5"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		`;
 	}
@@ -160,10 +210,14 @@ class TemplateEdit extends BodyBase {
 						$("#sectionTitleText").prop("disabled",noTitle);
 
 						$("#sectionTitleText").val(data.title);
+						$("#dsectionTitleText").val(data.defaults.title);
 						$("#sectionEnabled").prop("checked",data.enabled);
 						$("#mainTemplate").val(data.template);
+						$("#dmainTemplate").val(data.defaults.template);
 						$("#wrapperTemplate").val(data.wrapper);
+						$("#dwrapperTemplate").val(data.defaults.wrapper);
 						$("#innerTemplate").val(data.inner);
+						$("#dinnerTemplate").val(data.defaults.inner);
 
 						if(noTitle) {							
 							$("#sectionTitleText").val("Not used for this template type");
