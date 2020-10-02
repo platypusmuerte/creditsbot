@@ -118,7 +118,7 @@ class TemplateEdit extends BodyBase {
 				</div>
 			</div>
 			<button id="formsub" type="button" class="btn btn-primary">Submit Template</button>
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#defaultDataModal">View Defaults</button>
+			<button id="viewdefaults" type="button" class="btn btn-primary" data-toggle="modal" data-target="#defaultDataModal">View Defaults</button>
 			<button id="delete" type="button" class="btn btn-danger invisible">Delete Template</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
 
 			<!-- Modal -->
@@ -210,14 +210,10 @@ class TemplateEdit extends BodyBase {
 						$("#sectionTitleText").prop("disabled",noTitle);
 
 						$("#sectionTitleText").val(data.title);
-						$("#dsectionTitleText").val(data.defaults.title);
 						$("#sectionEnabled").prop("checked",data.enabled);
 						$("#mainTemplate").val(data.template);
-						$("#dmainTemplate").val(data.defaults.template);
 						$("#wrapperTemplate").val(data.wrapper);
-						$("#dwrapperTemplate").val(data.defaults.wrapper);
 						$("#innerTemplate").val(data.inner);
-						$("#dinnerTemplate").val(data.defaults.inner);
 
 						if(noTitle) {							
 							$("#sectionTitleText").val("Not used for this template type");
@@ -226,6 +222,16 @@ class TemplateEdit extends BodyBase {
 						if(singleTemplate) {
 							$("#wrapperTemplate").val("Not used for this template type");
 							$("#innerTemplate").val("Not used for this template type");
+						}
+
+						if(data.type !== "custom") {
+							$("#viewdefaults").prop("disabled",false);
+							$("#dsectionTitleText").val(data.defaults.title);
+							$("#dmainTemplate").val(data.defaults.template);
+							$("#dwrapperTemplate").val(data.defaults.wrapper);
+							$("#dinnerTemplate").val(data.defaults.inner);
+						} else {							
+							$("#viewdefaults").prop("disabled",true);
 						}
 					});
 				} else {
