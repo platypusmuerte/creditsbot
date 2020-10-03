@@ -13,17 +13,17 @@ const { PageBody } = require("./body");
 class GUI {
 	/**
 	 * 
-	 * @param {object} utils		Utils class
+	 * @param {object} utils			Utils class
 	 * @param {object} path
 	 * @param {object} fs
-	 * @param {object} db			Db adapter
-	 * @param {string} dataDir		path to user data dir
-	 * @param {object} userArgs		merged user settings
+	 * @param {object} db				Db adapter
+	 * @param {string} dataDir			path to user data dir
+	 * @param {object} userArgs			merged user settings
 	 * 
-	 * @property {string} defaultPage			page to fall back on - used to map to a class and highlight menus
-	 * @property {bool|string} defaultSubPage	sub page to fall back to - used to map to a class and highlight menus
-	 * @property {string} page					the current page requested (path reference mapped to class ref)
-	 * @property {string} subPage				the current sub page requested (path ref mapped to class ref)
+	 * @property {string} 		defaultPage			page to fall back on - used to map to a class and highlight menus
+	 * @property {bool|string} 	defaultSubPage		sub page to fall back to - used to map to a class and highlight menus
+	 * @property {string} 		page				the current page requested (path reference mapped to class ref)
+	 * @property {string} 		subPage				the current sub page requested (path ref mapped to class ref)
 	 */
 	constructor(params) {
 		this.utils = params.utils;

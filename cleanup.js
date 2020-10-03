@@ -6,8 +6,9 @@
  * @param {object} fs 
  * @param {object} utils 
  * @param {string} dataDir 
+ * @param {string} defaultThemeDir
  */
-exports.cleanup = (userArgs, path, fs, utils, dataDir)=>{
+exports.cleanup = (userArgs, path, fs, utils, dataDir, themeDir, defaultThemeDir)=>{
 	return new Promise(function (resolve, reject) {
 		if (userArgs.CLEAN_ON_STARTUP) {
 			let dir = path.join(dataDir, "");

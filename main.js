@@ -20,54 +20,61 @@ let { ExportData } = require("./utils/exportdata");
 let { GUI } = require("./gui/main");
 let { VersionCheck } = require("./utils/versioncheck");
 let { Patcher } = require("./patcher/main");
+let { RequiredFiles } = require("./utils/requiredfiles");
 
 let utils, listener, db, builder, testData, gui, patcher;
 utils = new Utils();
 
-// make sure the data dir always exists
-if (!fs.existsSync("./data")) {
-	fs.mkdirSync("./data");
-	userArgs.DEBUG && utils.console("Created ./data");
-}
+// make sure folders and files exist as early as possible
+new RequiredFiles({ fs, utils, userArgs });
 
 userArgs.DEBUG && utils.console(" ");
 userArgs.DEBUG && utils.console(" ");
 
 const dataDir = path.join("./", "/data");
+const themeDir = path.join(dataDir,"/themes");
+const defaultThemeDir = path.join(themeDir,"/default");
+
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('platyscreditsbot');
 
-header(utils, constants).then(()=>{
-	// Just some output for the cli
-	builder = new Builder({utils, userArgs});
-}).then(()=>{
-	// handle cleaning up databases etc on startup
-	cleanup(userArgs, path, fs, utils, dataDir).then(() => {
-		userArgs.DEBUG && utils.console(" ");
-		userArgs.DEBUG && utils.console("Starting...");
-		userArgs.DEBUG && utils.console(" ");
+// create the patcher to run after listener is done
+patcher = new Patcher({ fs, path, utils, dataDir, userArgs });
+patcher.prePatch().then(()=>{
+	header(utils, constants).then(()=>{
+		// Just some output for the cli
+		builder = new Builder({utils, userArgs});
+	}).then(()=>{
+		// handle cleaning up databases etc on startup
+		cleanup(userArgs, path, fs, utils, dataDir, themeDir, defaultThemeDir).then(() => {
+			userArgs.DEBUG && utils.console(" ");
+			userArgs.DEBUG && utils.console("Starting...");
+			userArgs.DEBUG && utils.console(" ");
 
-		db = new Database({ cryptr, dataDir, utils, path });
-		let versioncheck = new VersionCheck({ utils, userArgs });
+			db = new Database({ fs, cryptr, dataDir, utils, path, defaultThemeDir, themeDir, userArgs });
 
-		// run checker now, for cli notification. GUI has its own calls
-		versioncheck.run();
+			db.ready().then(()=>{
+				let versioncheck = new VersionCheck({ utils, userArgs });
 
-		// create the patcher to run after listener is done
-		patcher = new Patcher({ fs, path, utils, dataDir, userArgs, db });
+				// run checker now, for cli notification. GUI has its own calls
+				versioncheck.run();
 
-		testData = new TestData({ userArgs, utils });
-		gui = new GUI({ db, utils, dataDir, userArgs, fs });
-		backup = new Backup({ fs, path, utils, dataDir, userArgs });
-		exportdata = new ExportData({ db, fs, path, utils, dataDir, userArgs });
-		listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs });
-		
-		// start listening to gets/posts and then run patch check
-		listener.start().then(()=>{
-			patcher.patch();
-		});		
+				testData = new TestData({ userArgs, utils });
+				gui = new GUI({ db, utils, dataDir, userArgs, fs });
+				backup = new Backup({ fs, path, utils, dataDir, userArgs });
+				exportdata = new ExportData({ db, fs, path, utils, dataDir, userArgs });
+				listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs });
+				
+				// start listening to gets/posts and then run patch check
+				listener.start().then(()=>{
+					patcher.patch(db);
+				});	
+			});			
+		});
 	});
 });
+
+
 
 
 

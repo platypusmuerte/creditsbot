@@ -100,7 +100,7 @@ class Builder {
 		let setRawData = this.setRawData.bind(this);
 
 		return new Promise(function (resolve, reject) {
-			db.databases.credittemplates.getTemplateByID("contentTitle").then((dbr) => {
+			db.theme().credittemplates.getTemplateByID("contentTitle").then((dbr) => {
 				setRawData("contentTitle", dbr);
 				resolve();
 			});
@@ -115,7 +115,7 @@ class Builder {
 		let setRawData = this.setRawData.bind(this);
 
 		return new Promise(function (resolve, reject) {
-			db.databases.credittemplates.getTemplateByID("contentDivider").then((dbr) => {
+			db.theme().credittemplates.getTemplateByID("contentDivider").then((dbr) => {
 				setRawData("contentDivider", dbr);
 				resolve();
 			});
@@ -130,7 +130,7 @@ class Builder {
 		let setRawData = this.setRawData.bind(this);
 
 		return new Promise(function (resolve, reject) {
-			db.databases.templatepage.getAll().then((dbr)=>{
+			db.theme().templatepage.getAll().then((dbr)=>{
 				setRawData("mainHTML", dbr.page);
 				resolve();
 			});
@@ -145,7 +145,7 @@ class Builder {
 		let setRawData = this.setRawData.bind(this);
 
 		return new Promise(function (resolve, reject) {
-			db.databases.templateincludes.getAll().then((dbr) => {
+			db.theme().templateincludes.getAll().then((dbr) => {
 				let js = dbr.js.map((url)=>{
 					return `<script src="${url}"></script>`;
 				});
@@ -169,7 +169,7 @@ class Builder {
 		let setRawData = this.setRawData.bind(this);
 
 		return new Promise(function (resolve, reject) {
-			db.databases.templatedefaultcss.getAll().then((dbr) => {
+			db.theme().templatedefaultcss.getAll().then((dbr) => {
 				setRawData("defaultCSS", '<style>' + dbr.css + '</style>');
 				resolve();
 			});
@@ -184,7 +184,7 @@ class Builder {
 		let setRawData = this.setRawData.bind(this);
 
 		return new Promise(function (resolve, reject) {
-			db.databases.templatecustomcss.getAll().then((dbr) => {
+			db.theme().templatecustomcss.getAll().then((dbr) => {
 				setRawData("customCSS", '<style>' + dbr.css + '</style>');
 				resolve();
 			});
@@ -199,7 +199,7 @@ class Builder {
 		let setRawData = this.setRawData.bind(this);
 
 		return new Promise(function (resolve, reject) {
-			db.databases.templatesettings.getAll().then((dbr) => {
+			db.theme().templatesettings.getAll().then((dbr) => {
 				setRawData("scrollSpeed", dbr.speed);
 				setRawData("looping", dbr.looping);
 				resolve();
@@ -215,7 +215,7 @@ class Builder {
 		let setRawData = this.setRawData.bind(this);
 
 		return new Promise(function (resolve, reject) {
-			db.databases.templatecolors.getAll().then((dbr) => {
+			db.theme().templatecolors.getAll().then((dbr) => {
 				let colors = `<style>
 				.titleColor {
 					color: ${dbr.title};
@@ -260,8 +260,8 @@ class Builder {
 		let sectionBuilders = this.sectionBuilders;
 
 		return new Promise(function (resolve, reject) {
-			db.databases.templatesort.getAll().then((sortArr) => {
-				db.databases.credittemplates.getTemplateDataForSorting(sortArr).then((templates) => {
+			db.theme().templatesort.getAll().then((sortArr) => {
+				db.theme().credittemplates.getTemplateDataForSorting(sortArr).then((templates) => {
 					let promises = [];
 
 					Object.entries(templates).forEach(([k,t])=>{

@@ -92,27 +92,27 @@ class PageBody {
 		return new Promise(function (resolve, reject) {
 			switch (page + "_" + subPage) {
 				case "template_includes":
-					db.databases.templateincludes.getAll().then((dbr)=>{
+					db.theme().templateincludes.getAll().then((dbr)=>{
 						resolve(dbr);
 					});	
 					break;
 				case "template_colors":
-					db.databases.templatecolors.getAll().then((dbr) => {
+					db.theme().templatecolors.getAll().then((dbr) => {
 						resolve(dbr);
 					});
 					break;
 				case "template_settings":
-					db.databases.templatesettings.getAll().then((dbr) => {
+					db.theme().templatesettings.getAll().then((dbr) => {
 						resolve(dbr);
 					});
 					break;
 				case "template_customcss":
-					db.databases.templatecustomcss.getAll().then((dbr) => {
+					db.theme().templatecustomcss.getAll().then((dbr) => {
 						resolve(dbr);
 					});
 					break;
 				case "template_defaultcss":
-					db.databases.templatedefaultcss.getAll().then((dbr) => {
+					db.theme().templatedefaultcss.getAll().then((dbr) => {
 						resolve(dbr);
 					});
 					break;
@@ -122,19 +122,19 @@ class PageBody {
 					});
 					break;
 				case "template_edit":
-					db.databases.credittemplates.getIDsByType().then((dbr) => {
+					db.theme().credittemplates.getIDsByType().then((dbr) => {
 						resolve(dbr);
 					});
 					break;
 				case "template_sort":
-					db.databases.templatesort.getAll().then((sortArr) => {
-						db.databases.credittemplates.getTemplateDataForSorting(sortArr).then((templates)=>{
+					db.theme().templatesort.getAll().then((sortArr) => {
+						db.theme().credittemplates.getTemplateDataForSorting(sortArr).then((templates)=>{
 							resolve({sort: sortArr, templates: templates});
 						});						
 					});
 					break;
 				case "template_page":
-					db.databases.templatepage.getAll().then((page) => {
+					db.theme().templatepage.getAll().then((page) => {
 						resolve(page);
 					});
 					break;

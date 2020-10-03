@@ -97,7 +97,7 @@ class PostProcessor {
 				js: (Array.isArray(req.body.js)) ? req.body.js : []
 			};
 
-			this.db.databases.templateincludes.setData(data).then(() => {
+			this.db.theme().templateincludes.setData(data).then(() => {
 				res.json({ "success": true });
 			});
 		}
@@ -120,7 +120,7 @@ class PostProcessor {
 			sectionborder: req.body.sectionborder
 		};
 
-		this.db.databases.templatecolors.setData(data).then(() => {
+		this.db.theme().templatecolors.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	}
@@ -136,7 +136,7 @@ class PostProcessor {
 			speed: req.body.speed
 		};
 
-		this.db.databases.templatesettings.setData(data).then(() => {
+		this.db.theme().templatesettings.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	}
@@ -151,7 +151,7 @@ class PostProcessor {
 			css: req.body.css
 		};
 
-		this.db.databases.templatecustomcss.setData(data).then(() => {
+		this.db.theme().templatecustomcss.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	}
@@ -166,7 +166,7 @@ class PostProcessor {
 			css: req.body.css
 		};
 
-		this.db.databases.templatedefaultcss.setData(data).then(() => {
+		this.db.theme().templatedefaultcss.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	}
@@ -217,9 +217,9 @@ class PostProcessor {
 		let data = req.body;
 		let db = this.db;
 
-		db.databases.credittemplates.setTemplateByID(data).then((dbid) => {
+		db.theme().credittemplates.setTemplateByID(data).then((dbid) => {
 			if(data.id === "addnew") {
-				db.databases.templatesort.addNew(dbid).then(() => {
+				db.theme().templatesort.addNew(dbid).then(() => {
 					res.json({ "success": true, id: dbid});
 				});
 			} else {
@@ -236,7 +236,7 @@ class PostProcessor {
 	uiSetTemplateSort(req, res) {
 		let data = req.body;
 
-		this.db.databases.templatesort.setData(data).then(() => {
+		this.db.theme().templatesort.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	} 
@@ -249,7 +249,7 @@ class PostProcessor {
 	uiRemoveTemplateByID(req, res) {
 		let data = req.body;
 
-		this.db.databases.credittemplates.removeTemplateByID(data).then(() => {
+		this.db.theme().credittemplates.removeTemplateByID(data).then(() => {
 			res.json({ "success": true });
 		});
 	}
@@ -262,7 +262,7 @@ class PostProcessor {
 	uiSetMainPageTemplate(req, res) {
 		let data = req.body;
 
-		this.db.databases.templatepage.setData(data).then(() => {
+		this.db.theme().templatepage.setData(data).then(() => {
 			res.json({ "success": true });
 		});
 	}
@@ -275,7 +275,7 @@ class PostProcessor {
 	uiSetSectionEnabled(req, res) {
 		let data = req.body;
 
-		this.db.databases.credittemplates.toggleSectionByID(data.enabled, data.id).then(() => {
+		this.db.theme().credittemplates.toggleSectionByID(data.enabled, data.id).then(() => {
 			res.json({ "success": true });
 		});
 	}

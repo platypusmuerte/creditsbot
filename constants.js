@@ -42,6 +42,7 @@ exports.constants = {
 		HISTORIC_STREAMLOOTSPURCHASE: "hstreamlootspurchase",
 		HISTORIC_SUBS: "hsubs"
 	},
+	DEFAULT_DB_THEME: "default",
 	GUI_DIRS: {
 		BASE: "./gui",
 		BASE_WEB_PATH: "/ui/"

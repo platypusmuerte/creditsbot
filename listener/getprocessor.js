@@ -237,7 +237,7 @@ class GetProcessor {
 		let expectedQueryParams = this.utils.getExpectedQueryParams(req.query);
 		let templateid = expectedQueryParams.templateid||false;
 
-		this.db.databases.credittemplates.getTemplateByID(templateid).then((data) => {
+		this.db.theme().credittemplates.getTemplateByID(templateid).then((data) => {
 			res.json({ "success": true, "data": data });
 		});
 	}
@@ -248,7 +248,7 @@ class GetProcessor {
 	 * @param {object} res express response object
 	 */
 	uiGetTemplateSort(req, res) {
-		this.db.databases.templatesort.getAll().then((data) => {
+		this.db.theme().templatesort.getAll().then((data) => {
 			res.json({ "success": true, "data": data });
 		});
 	}

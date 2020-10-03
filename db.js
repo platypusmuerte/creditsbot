@@ -1,13 +1,114 @@
+const { constants } = require ("./constants");
+
 /**
  * DB Queries
  */
 class Database {
 	constructor(params) {
+		this.fs = params.fs;
 		this.cryptr = params.cryptr;
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
+		this.userArgs = params.userArgs;
 		this.path = params.path;
+		this.themeDir = params.themeDir;
+		this.defaultThemeDir = params.defaultThemeDir;
 
+		this.currentTheme = constants.DEFAULT_DB_THEME;
+
+		this.themes = {};
+		this.databases = {};	
+	}
+
+	ready() {
+		let buildThemes = this.buildThemes.bind(this);
+		let buildDataBases = this.buildDataBases.bind(this);
+
+		return new Promise(function (resolve, reject) {
+			buildThemes().then(()=>{
+				buildDataBases().then(()=>{
+					resolve();
+				});
+			});
+		});
+	}
+
+	/**
+	 * returns reference to set of dbs (data/themes/THEME)
+	 */
+	theme() {
+		return this.themes[this.currentTheme];
+	}
+
+	setTheme(str) {
+		this.currentTheme = str;
+	}
+
+	/**
+	 * create or refresh dbs for each folder in data/themes
+	 */
+	buildThemes() {
+		let themeDir = this.themeDir;
+		let fs = this.fs;
+		let path = this.path;
+		let utils = this.utils;
+		let userArgs = this.userArgs;
+		let addToThemes = this.addToThemes.bind(this);
+
+		return new Promise(function (resolve, reject) {
+			let dir = path.join(themeDir, "");
+			
+			fs.readdir(dir, (err, files) => {
+				if (err) throw err;
+
+				for (const file of files) {
+					if(fs.lstatSync(path.join(dir, file)).isDirectory()) {
+						let name = path.parse(file).name;
+
+						userArgs.DEBUG && utils.console("Created theme " + name);
+
+						addToThemes(name);
+					}
+				}
+			});
+
+			resolve();
+		});
+	}
+
+	/**
+	 * map folder to set of dbs (theme)
+	 * @param {string} themeDir folder name
+	 */
+	addToThemes(themeDir) {
+		let utils = this.utils;
+		let userArgs = this.userArgs;
+		let themePath = this.dataDir + "/themes/" + themeDir;
+
+		const { TemplateIncludesQueries } = require("./databases/templateincludes");
+		const { TemplateColorsQueries } = require("./databases/templatecolors");
+		const { TemplateSettingsQueries } = require("./databases/templatesettings");
+		const { TemplateCustomCSSQueries } = require("./databases/templatecustomcss");
+		const { CreditTemplatesQueries } = require("./databases/credittemplates");
+		const { TemplateSortQueries } = require("./databases/templatesort");
+		const { TemplatePageQueries } = require("./databases/templatepage");
+		const { TemplateDefaultCSSQueries } = require("./databases/templatedefaultcss");
+
+		this.themes[themeDir] = {
+			templateincludes: new TemplateIncludesQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			templatecolors: new TemplateColorsQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			templatesettings: new TemplateSettingsQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			templatecustomcss: new TemplateCustomCSSQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			credittemplates: new CreditTemplatesQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			templatesort: new TemplateSortQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			templatepage: new TemplatePageQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			templatedefaultcss: new TemplateDefaultCSSQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path })
+		};
+
+		userArgs.DEBUG && utils.console("DBs created for theme " + themeDir);
+	}
+
+	buildDataBases() {
 		const { BansQueries } = require("./databases/bans");
 		const { BitsQueries } = require("./databases/bits");
 		const { ChannelPointsQueries } = require("./databases/channelpoints");
@@ -33,58 +134,48 @@ class Database {
 		const { HStreamLootsQueries } = require("./databases/hstreamloots");
 		const { HStreamLootsPurchaseQueries } = require("./databases/hstreamlootspurchase");
 		const { HSubsQueries } = require("./databases/hsubs");
-
-		const { TemplateIncludesQueries } = require("./databases/templateincludes");
-		const { TemplateColorsQueries } = require("./databases/templatecolors");
-		const { TemplateSettingsQueries } = require("./databases/templatesettings");
-		const { TemplateCustomCSSQueries } = require("./databases/templatecustomcss");
-		const { BlacklistQueries } = require("./databases/blacklist");
-
-		const { CreditTemplatesQueries } = require("./databases/credittemplates");
-		const { TemplateSortQueries } = require("./databases/templatesort");
-		const { TemplatePageQueries } = require("./databases/templatepage");
-		const { TemplateDefaultCSSQueries } = require("./databases/templatedefaultcss");
+		
+		const { BlacklistQueries } = require("./databases/blacklist");		
 		const { TemplateThemeQueries } = require("./databases/templatetheme");
 
-		this.databases = {
-			bans: new BansQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			bits: new BitsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			channelpoints: new ChannelPointsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			chatters: new ChattersQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			donos: new DonosQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			follows: new FollowsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			giftsubs: new GiftSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			hosts: new HostsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			mods: new ModsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			patreons: new PatreonsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			raids: new RaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			streamloots: new StreamLootsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			streamlootspurchase: new StreamLootsPurchaseQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			subs: new SubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			vips: new VipsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+		let addDatabase = this.addDatabase.bind(this);
 
-			hbits: new HBitsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			hchannelpoints: new HChannelPointsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			hdonos: new HDonosQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			hgiftsubs: new HGiftSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			hhosts: new HHostsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			hraids: new HRaidsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			hstreamloots: new HStreamLootsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			hstreamlootspurchase: new HStreamLootsPurchaseQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			hsubs: new HSubsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
+		return new Promise(function (resolve, reject) {			
+			addDatabase("bans", BansQueries);
+			addDatabase("bits", BitsQueries);
+			addDatabase("channelpoints", ChannelPointsQueries);
+			addDatabase("chatters", ChattersQueries);
+			addDatabase("donos", DonosQueries);
+			addDatabase("follows", FollowsQueries);
+			addDatabase("giftsubs", GiftSubsQueries);
+			addDatabase("hosts", HostsQueries);
+			addDatabase("mods", ModsQueries);
+			addDatabase("patreons", PatreonsQueries);
+			addDatabase("raids", RaidsQueries);
+			addDatabase("streamloots", StreamLootsQueries);
+			addDatabase("streamlootspurchase", StreamLootsPurchaseQueries);
+			addDatabase("subs", SubsQueries);
+			addDatabase("vips", VipsQueries);
+	
+			addDatabase("hbits", HBitsQueries);
+			addDatabase("hchannelpoints", HChannelPointsQueries);
+			addDatabase("hdonos", HDonosQueries);
+			addDatabase("hgiftsubs", HGiftSubsQueries);
+			addDatabase("hhosts", HHostsQueries);
+			addDatabase("hraids", HRaidsQueries);
+			addDatabase("hstreamloots", HStreamLootsQueries);
+			addDatabase("hstreamlootspurchase", HStreamLootsPurchaseQueries);
+			addDatabase("hsubs", HSubsQueries);
+	
+			addDatabase("blacklist", BlacklistQueries);
+			addDatabase("templatetheme", TemplateThemeQueries);
+			
+			resolve();
+		});
+	}
 
-			templateincludes: new TemplateIncludesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			templatecolors: new TemplateColorsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			templatesettings: new TemplateSettingsQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			templatecustomcss: new TemplateCustomCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			blacklist: new BlacklistQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-
-			credittemplates: new CreditTemplatesQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			templatesort: new TemplateSortQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			templatepage: new TemplatePageQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			templatedefaultcss: new TemplateDefaultCSSQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path }),
-			templatetheme: new TemplateThemeQueries({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path })
-		};
+	addDatabase(key, db) {
+		this.databases[key] = new db({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path });
 	}
 }
 
