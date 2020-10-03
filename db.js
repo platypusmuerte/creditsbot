@@ -70,9 +70,10 @@ class Database {
 						addToThemes(name);
 					}
 				}
+				
+				resolve();
 			});
-
-			resolve();
+			
 		});
 	}
 

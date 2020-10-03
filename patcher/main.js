@@ -89,12 +89,10 @@ class Patcher {
 	patch(db) {
 		this.db = db;
 
-		return;
-
 		if (this.prevVersion < this.currentVersion) {
 			this.userArgs.DEBUG && this.utils.console("Checking for any available patches");
 
-			if (this.patchMap[this.prevVersionStr]) {
+			if (this.patchMap[this.prevVersionStr] && this.patches[this.patchMap[this.prevVersionStr]]) {
 				this.userArgs.DEBUG && this.utils.console("    Patching " + this.prevVersionStr + "->" + this.patchMap[this.prevVersionStr]);
 				this.patches[this.patchMap[this.prevVersionStr]]();
 			}
@@ -172,7 +170,7 @@ class Patcher {
 						//userArgs.DEBUG && utils.console("skipped file " + name);
 					}
 				}
-				
+
 				if(delay) {
 					userArgs.DEBUG && utils.console("Prepatch done.... waiting " + delay/1000 + " seconds");
 				}
@@ -180,9 +178,7 @@ class Patcher {
 				setTimeout(()=>{
 					
 					resolve();
-				},delay);
-
-				
+				},delay);				
 			});
 
 			
@@ -191,8 +187,7 @@ class Patcher {
 	}
 
 	/**
-	 * Patch 2.0.0 to 2.0.1
-	 * 		- copy users DB over top of new theme default dir
+	 * Patch 2.0.0 to 2.0.1	 * 		
 	 * 		- need to add all tempaltes for streamloots purchases
 	 * 		- migrate current templates to default template dir
 	 * 		- update colors db in default
@@ -202,10 +197,7 @@ class Patcher {
 	patch_201() {
 		let db = this.db;
 		let path = this.path;
-		let fs = this.fs;		
-
-		// add new template to sorting, if not present
-		// @TODO: add all the templates for new template on patch
+		let fs = this.fs;
 
 		// add amount color and total color to colors db
 		const { templatecolors } = require("../defaults/templatecolors");
@@ -242,23 +234,7 @@ class Patcher {
 					});
 				});
 			}).then(()=>{
-				// move existing user settings to theme default dir (prep for themes)
-				let dir = path.join("./data", "");
-
-				fs.readdir(dir, (err, files) => {
-					if (err) throw err;
-
-					for (const file of files) {
-						let ext = path.extname(file);
-						let name = path.parse(file).name;
-
-						if (!fs.lstatSync(path.join(dir, file)).isDirectory() && (ext === ".sdb") && name !== "templatetheme" && name !== "blacklist") {
-							fs.move(path.join(dir, file),"./data/themes/default/" + file, err => {
-								//if (err) throw err;
-							});
-						}
-					}
-				});
+				
 
 				this.checkAgain();
 			});
