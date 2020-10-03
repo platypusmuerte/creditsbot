@@ -1,5 +1,7 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
+const { codemirrorincludes } = require("../libs/codemirror/includes");
+const { modal_editor_single_lg } = require("../modals/editor.single.lg");
 
 /**
  * Main page ... page lol
@@ -39,21 +41,24 @@ class TemplatePage extends BodyBase {
 		this.data = qData;
 
 		return `
+		${codemirrorincludes}
 		<script>${this.js()}</script>
 		<div class="jumbotron homeBanner">
 			<h1 class="display-4">Credits HTML Page</h1>
 			<p class="lead">This is the main HTML page for the credits.</p>
 			<hr class="my-4">
-			<p>Changes made to this content <strong>may be overwritten</strong> in updates. It is mainly for reference purposes, or a total customization.</p>
-			<p>Any breaking changes will be outlined in patch notes, especially if it is not a minor change to this file.</p>
+			<p>Be careful making changes here</p>
 			<form>
-				<div class="form-group">
+				<div class="form-group cmEditorLG">
 					<label class="formLabel" for="templatePage">Main HTML Page</label>
-					<textarea class="form-control tabbable" id="templatePage" rows="25">${this.data.page}</textarea>
+					<textarea class="form-control" id="templatePage" rows="25">${this.data.page}</textarea>
 				</div>
-				<button id="formsub" type="button" class="btn btn-primary">Submit</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
+				<button id="formsub" type="button" class="btn btn-primary">Submit</button>
+				<button id="viewdefaults" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_editor_single_lg">View Default</button>
+				<span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
 			</form>
 		</div>
+		${modal_editor_single_lg({textarea: this.data.page})}
 		`;
 	}
 
@@ -64,6 +69,9 @@ class TemplatePage extends BodyBase {
 	js() {
 		return `
 		function init_template_page() {
+			initCodeMirror({textarea: $("#templatePage")[0], mode: "htmlmixed"});
+			initCodeMirror({textarea: $("#modal_editor_single_lgTextArea")[0], mode: "htmlmixed", refresh: true});
+
 			$("#formsub").on("click",(e)=>{
 				let payload = {
 					page: $("#templatePage").val()

@@ -4,6 +4,29 @@
  */
 
 exports.js = `
+function initCodeMirror(params) {
+	let refresh = (params.refresh);
+
+	let thisCM = CodeMirror.fromTextArea(params.textarea,{
+		theme: "monokai",
+		mode: params.mode,
+		lineNumbers: true,
+		extraKeys: {"Ctrl-Space": "autocomplete"},
+		value: $(params.textarea).val(),
+		indentWithTabs: true,
+		smartIndent: true,
+		indentUnit: 4,
+		matchBrackets: true,
+		autoRefresh: refresh
+	});
+
+	thisCM.on("change",()=>{
+		thisCM.save();
+	});
+
+	return thisCM;
+}
+
 function init() {
 	$(".tabbable").each((i, el) => {
 		$(el).on("keydown",(e)=>{

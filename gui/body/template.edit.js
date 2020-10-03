@@ -1,5 +1,7 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
+const { codemirrorincludes } = require("../libs/codemirror/includes");
+const { modal_editor_triple_md_sm_sm } = require("../modals/editor.triple.md.sm.sm");
 
 /**
  * Edit templates page
@@ -64,6 +66,7 @@ class TemplateEdit extends BodyBase {
 		let allOpts = '<option value="---">Choose Template</option><option value="addnew">New Template</option>' + customOptStr + dividerStatic + staticOpts + dividerContent + contentOpts + dividerDyn + dynOpts;
 
 		return `
+		${codemirrorincludes}
 		<script>${this.js()}</script>
 		<div class="jumbotron homeBanner">
 			<h1 class="display-4">Edit and Manage Sections</h1>
@@ -97,79 +100,31 @@ class TemplateEdit extends BodyBase {
 			<label class="formLabel">Main Template</label>
 
 			<div class="row justify-content-start queryRow">
-				<div class="col-10">
-					<textarea class="form-control tabbable" id="mainTemplate" rows="8"></textarea>
+				<div class="col-10 cmEditorVSM">
+					<textarea class="form-control" id="mainTemplate" rows="8"></textarea>
 				</div>
 			</div>
 
 			<label class="formLabel">Wrapper Template</label>
 
 			<div class="row justify-content-start queryRow">
-				<div class="col-10">
-					<textarea class="form-control tabbable" id="wrapperTemplate" rows="2"></textarea>
+				<div class="col-10 cmEditorXSM">
+					<textarea class="form-control" id="wrapperTemplate" rows="2"></textarea>
 				</div>
 			</div>
 
 			<label class="formLabel">Inner Template</label>
 
 			<div class="row justify-content-start queryRow">
-				<div class="col-10">
-					<textarea class="form-control tabbable" id="innerTemplate" rows="5"></textarea>
+				<div class="col-10 cmEditorXSM">
+					<textarea class="form-control" id="innerTemplate" rows="5"></textarea>
 				</div>
 			</div>
 			<button id="formsub" type="button" class="btn btn-primary">Submit Template</button>
-			<button id="viewdefaults" type="button" class="btn btn-primary" data-toggle="modal" data-target="#defaultDataModal">View Defaults</button>
+			<button id="viewdefaults" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_editor_triple_md_sm_sm">View Defaults</button>
 			<button id="delete" type="button" class="btn btn-danger invisible">Delete Template</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
-
-			<!-- Modal -->
-			<div class="modal fade" id="defaultDataModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modalDialogLg">
-					<div class="modal-content modalBody">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Default Values</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="row justify-content-start queryRow">
-								<div class="col-5">
-									<label class="formLabel" for="sectionTitleText">Section Title Text</label>
-									<input type="text" class="form-control" id="dsectionTitleText" value="">
-								</div>
-							</div>
-
-							<label class="formLabel">Main Template</label>
-
-							<div class="row justify-content-start queryRow">
-								<div class="col-10">
-									<textarea class="form-control tabbable" id="dmainTemplate" rows="8"></textarea>
-								</div>
-							</div>
-
-							<label class="formLabel">Wrapper Template</label>
-
-							<div class="row justify-content-start queryRow">
-								<div class="col-10">
-									<textarea class="form-control tabbable" id="dwrapperTemplate" rows="2"></textarea>
-								</div>
-							</div>
-
-							<label class="formLabel">Inner Template</label>
-
-							<div class="row justify-content-start queryRow">
-								<div class="col-10">
-									<textarea class="form-control tabbable" id="dinnerTemplate" rows="5"></textarea>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
+		${modal_editor_triple_md_sm_sm({input1: "", textarea1: "", textarea2: "", textarea3: ""})}
 		`;
 	}
 
@@ -181,9 +136,19 @@ class TemplateEdit extends BodyBase {
 		let loadEdit = (this.query.edit) ? `$("#templates").val("${this.query.edit}").change();` : false;
 
 		return `
+		// form data obj
 		let fd;
+		let notUsedStr = "Not used for this template type";
 
 		function init_template_edit() {
+			let cmMain = initCodeMirror({textarea: $("#mainTemplate")[0], mode: "htmlmixed"});
+			let cmWrapper = initCodeMirror({textarea: $("#wrapperTemplate")[0], mode: "htmlmixed"});
+			let cmInner = initCodeMirror({textarea: $("#innerTemplate")[0], mode: "htmlmixed"});
+
+			let cmMaind = initCodeMirror({textarea: $("#modal_editor_single_lgTextArea1")[0], mode: "htmlmixed", refresh: true});
+			let cmWrapperd = initCodeMirror({textarea: $("#modal_editor_single_lgTextArea2")[0], mode: "htmlmixed", refresh: true});
+			let cmInnerd = initCodeMirror({textarea: $("#modal_editor_single_lgTextArea3")[0], mode: "htmlmixed", refresh: true});
+
 			fd = {type: "custom"};
 
 			$("#templates").on("change",()=>{
@@ -194,8 +159,12 @@ class TemplateEdit extends BodyBase {
 				$("#innerTemplate").val("");
 
 				if($("#templates").val() !== "addnew") {
+					// not adding new - fetch the tempalte data
+					// enable/disable fields if they are used for this template type
+
 					get({templateid:$("#templates").val()}, "gettemplatebyid", (res)=>{						
 						let data = res.data;
+						
 						let noTitle = (data.type === "static" || data.type === "content");
 						let singleTemplate = (data.type != "dynamic");
 
@@ -203,44 +172,79 @@ class TemplateEdit extends BodyBase {
 							$("#delete").removeClass("invisible").addClass("visible");
 						}
 
+						// update obj w all data
 						fd = data;
 
 						$("#wrapperTemplate").prop("disabled",singleTemplate);
+						cmWrapper.setOption("readOnly", singleTemplate);
+
 						$("#innerTemplate").prop("disabled",singleTemplate);
+						cmInner.setOption("readOnly", singleTemplate);
+
 						$("#sectionTitleText").prop("disabled",noTitle);
 
 						$("#sectionTitleText").val(data.title);
 						$("#sectionEnabled").prop("checked",data.enabled);
+
 						$("#mainTemplate").val(data.template);
+						cmMain.setValue(data.template);
+
 						$("#wrapperTemplate").val(data.wrapper);
+						cmWrapper.setValue(data.wrapper);
+
 						$("#innerTemplate").val(data.inner);
+						cmInner.setValue(data.inner);
 
 						if(noTitle) {							
-							$("#sectionTitleText").val("Not used for this template type");
+							$("#sectionTitleText").val(notUsedStr);
 						}
 
 						if(singleTemplate) {
-							$("#wrapperTemplate").val("Not used for this template type");
-							$("#innerTemplate").val("Not used for this template type");
+							$("#wrapperTemplate").val(notUsedStr);
+							cmWrapper.setValue(notUsedStr);
+
+							$("#innerTemplate").val(notUsedStr);
+							cmInner.setValue(notUsedStr);
 						}
 
 						if(data.type !== "custom") {
 							$("#viewdefaults").prop("disabled",false);
-							$("#dsectionTitleText").val(data.defaults.title);
-							$("#dmainTemplate").val(data.defaults.template);
-							$("#dwrapperTemplate").val(data.defaults.wrapper);
-							$("#dinnerTemplate").val(data.defaults.inner);
+							$("#modal_input1").val(data.defaults.title);
+							
+							$("#modal_editor_single_lgTextArea1").val(data.defaults.template);
+							cmMaind.setValue(data.defaults.template);
+
+							$("#modal_editor_single_lgTextArea2").val(data.defaults.wrapper);
+							cmWrapperd.setValue(data.defaults.wrapper);
+
+							$("#modal_editor_single_lgTextArea3").val(data.defaults.inner);
+							cmInnerd.setValue(data.defaults.inner);
 						} else {							
 							$("#viewdefaults").prop("disabled",true);
-						}
+							cmMaind.setValue("");
+							cmWrapperd.setValue("");
+							cmInnerd.setValue("");
+						}						
 					});
 				} else {
+					$("#viewdefaults").prop("disabled",true);
+					
 					$("#wrapperTemplate").prop("disabled",true);
 					$("#innerTemplate").prop("disabled",true);
 					$("#sectionTitleText").prop("disabled",false);
-					$("#wrapperTemplate").val("Not used for this template type");
-					$("#innerTemplate").val("Not used for this template type");
+					$("#wrapperTemplate").val(notUsedStr);
+					$("#innerTemplate").val(notUsedStr);
+
+					cmMain.setValue("");
+					cmWrapper.setValue(notUsedStr);
+					cmInner.setValue(notUsedStr);
+
+					cmMaind.setValue("");
+					cmWrapperd.setValue("");
+					cmInnerd.setValue("");
 				}
+
+				
 			});
 
 			${loadEdit}

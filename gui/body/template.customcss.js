@@ -1,5 +1,6 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
+const { codemirrorincludes } = require("../libs/codemirror/includes");
 
 /**
  * Custom css page
@@ -39,16 +40,17 @@ class TemplateCustomCSS extends BodyBase {
 		this.data = qData;
 
 		return `
+		${codemirrorincludes}
 		<script>${this.js()}</script>
 		<div class="jumbotron homeBanner">
 			<h1 class="display-4">Template Custom CSS</h1>
 			<p class="lead">Add some custom CSS that is loaded after the default CSS</p>
 			<hr class="my-4">
-			<p>Use this to override any other styles. This is loaded last.</p>
+			<p>This is your custom CSS file. It overrides the default CSS content, so your changes aren't affected by updates.</p>
 			<form>
-				<div class="form-group">
+				<div class="form-group cmEditorLG">
 					<label class="formLabel" for="templateCustomCSS">Custom CSS Definitions</label>
-					<textarea class="form-control tabbable" id="templateCustomCSS" rows="25">${this.data.css}</textarea>
+					<textarea class="form-control" id="templateCustomCSS" rows="25">${this.data.css}</textarea>
 				</div>
 				<button id="formsub" type="button" class="btn btn-primary">Submit</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Success</span>
 			</form>
@@ -63,6 +65,8 @@ class TemplateCustomCSS extends BodyBase {
 	js() {
 		return `
 		function init_template_customcss() {
+			initCodeMirror({textarea: $("#templateCustomCSS")[0], mode: "css"});
+
 			$("#formsub").on("click",(e)=>{
 				let payload = {
 					css: $("#templateCustomCSS").val()

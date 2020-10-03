@@ -1,5 +1,6 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
+const { codemirrorincludes } = require("../libs/codemirror/includes");
 
 /**
  * Default css page
@@ -39,16 +40,17 @@ class TemplateDefaultCSS extends BodyBase {
 		this.data = qData;
 
 		return `
+		${codemirrorincludes}
 		<script>${this.js()}</script>
 		<div class="jumbotron homeBanner">
 			<h1 class="display-4">Template Default CSS</h1>
 			<p class="lead">The default CSS</p>
 			<hr class="my-4">
-			<p>Please edit Custom CSS instead of this. The content on this page will be overwritten with updates. <strong>This is for reference only</strong></p>
+			<p>Edits should be made in the Custom CSS file, not here. This file may be overwritten with updates.<strong> This is for reference only</strong></p>
 			<form>
-				<div class="form-group">
+				<div class="form-group cmEditorLG">
 					<label class="formLabel" for="templateDefaultCSS">Custom CSS Definitions</label>
-					<textarea class="form-control tabbable" id="templateDefaultCSS" rows="25">${this.data.css}</textarea>
+					<textarea class="form-control" id="templateDefaultCSS" rows="25">${this.data.css}</textarea>
 				</div>
 				<button id="formsub" type="button" class="btn btn-primary">Submit</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Success</span>
 			</form>
@@ -63,6 +65,8 @@ class TemplateDefaultCSS extends BodyBase {
 	js() {
 		return `
 		function init_template_defaultcss() {
+			initCodeMirror({textarea: $("#templateDefaultCSS")[0], mode: "css"});
+
 			$("#formsub").on("click",(e)=>{
 				let payload = {
 					css: $("#templateDefaultCSS").val()

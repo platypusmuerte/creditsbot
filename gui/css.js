@@ -102,4 +102,26 @@ body {
 .modalDialogLg {
 	max-width: 800px;
 }
+.CodeMirror {
+	border-radius: 5px;
+}
+.cmEditorXSM .CodeMirror {
+	height: 100px;
+}
+.cmEditorVSM .CodeMirror {
+	height: 200px;
+}
+.cmEditorSM .CodeMirror {
+	height: 300px;
+}
+.cmEditorMD .CodeMirror {
+	height: 450px;
+}
+.cmEditorLG .CodeMirror {
+	height: 600px;
+}
+.cmEditorVLG .CodeMirror {
+	height: 800px;
+}
+
 `;
