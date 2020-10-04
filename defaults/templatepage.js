@@ -36,11 +36,11 @@ exports.templatepage = {
 
 			let creditsHeight = $("#credits").height();
 			let wrapperHeight = $("#creditsWrapper").height();
-			let creditsPlusWrapper = creditsHeight + 100;
+			let creditsPlusWrapper = creditsHeight;
 			let scrollDistance = creditsPlusWrapper + wrapperHeight;
 			let rollupTime = Math.round(wrapperHeight + creditsHeight + creditsPlusWrapper + scrollDistance) * 2 + (SCROLL_SPEED_TWEAK * 1000);
 
-			$("#credits").css("bottom", (creditsHeight+40) * -1).show().animate({ top: "-=" + scrollDistance + "px" }, rollupTime, "linear", () => {
+			$("#credits").css("bottom", (creditsHeight) * -1).show().animate({ top: "-=" + scrollDistance + "px" }, rollupTime, "linear", () => {
 
 				if (REPLAY) {
 					$("#credits").removeAttr("style").hide();

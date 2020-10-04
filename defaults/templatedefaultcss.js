@@ -293,6 +293,6 @@ body {
 	display: block;
 	position: absolute;
 	width: 100%;
-	height: 1000px;
+	height: 100vh;
 }`
 };

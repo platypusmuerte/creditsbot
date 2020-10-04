@@ -55,7 +55,7 @@ class HStreamLootsPurchaseQueries {
 		let dbName = this.DBNAME;
 
 		return new Promise((resolve, reject)=>{
-			db.get(dbNameS).remove({ name: user }).write();
+			db.get(dbName).remove({ name: user }).write();
 
 			resolve("");
 		});

@@ -31,7 +31,7 @@ class TestData {
 		let userArgs = this.userArgs;
 		let utils = this.utils;
 
-		for (let u = 1; u <= 15; ++u) {
+		for (let u = 1; u <= 3; ++u) {
 			let card = Math.floor(Math.random() * Math.floor(this.testCards.length));
 			
 			data.push({ name: this.testUserPrefix + u, amount: Math.floor(Math.random(1) * Math.floor(100)), card: this.testCards[card] });
@@ -63,7 +63,7 @@ class TestData {
 		let utils = this.utils;
 
 		return new Promise((resolve, reject)=>{
-			for (let u = 1; u <= 15; ++u) {
+			for (let u = 1; u <= 3; ++u) {
 				superagent.get("http://localhost:" + userArgs.PORT + "/remove/" + testUserPrefix + u).end((e, r) => {
 					if (e) done(e);
 					userArgs.DEBUG && utils.console("Removed test data for " + testUserPrefix + u);
