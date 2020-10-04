@@ -36,5 +36,8 @@ async.series([
 		console.log("dist added");
 		cb();
 	},
-	(cb)=>exec('pkg -t host --output ./dist/' + constants.APP.EXENAME + '_' + constants.APP.VERSION + '.exe main.js')
+	(cb)=>{
+		exec('pkg -t host --output ./dist/' + constants.APP.EXENAME + '_' + constants.APP.VERSION + '.exe main.js')
+		cb();
+	}
 ]);

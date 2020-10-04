@@ -1,5 +1,6 @@
 const { constants } = require('../constants');
 const Mustache = require("mustache");
+let async  = require("async");
 
 /**
  * Build the output html for credits
@@ -267,17 +268,31 @@ class Builder {
 					Object.entries(templates).forEach(([k,t])=>{
 						let builderKey = t.id.replace(t.key + "_","");
 						if(t.type === "dynamic" && t.enabled) {
-							promises.push(sectionBuilders[builderKey](t));							
+							promises.push((cb)=>{
+								sectionBuilders[builderKey](t).then(()=>{
+									cb();
+								});									
+							});							
 						} else if (t.type === "custom" && t.enabled) {
-							promises.push(sectionBuilders[t.type](t));	
+							promises.push((cb)=>{
+								sectionBuilders[t.type](t).then(()=>{
+									cb();
+								});
+							});	
 						} else if (t.type === "static" && t.enabled) {
-							promises.push(sectionBuilders[t.type](t));
+							promises.push((cb)=>{
+								sectionBuilders[t.type](t).then(()=>{
+									cb();
+								});
+							});
 						}
 					});
 
-					Promise.all(promises).then(()=>{
+					promises.push(()=>{
 						resolve();
 					});
+
+					async.series(promises);
 					
 				});
 			});
