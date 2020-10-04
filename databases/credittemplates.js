@@ -118,7 +118,7 @@ class CreditTemplatesQueries {
 		return new Promise((resolve, reject)=>{
 			let resObj = db.find({ id: id }).value();
 			let newObj = Object.assign({},resObj,{defaults: templatedata.filter(td => td.id === id)[0]});
-			//resObj["defaults"] = templatedata.filter(td => td.id === id)[0];
+			
 			resolve(newObj);
 		});
 	}

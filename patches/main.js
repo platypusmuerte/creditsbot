@@ -41,10 +41,10 @@ class Patches {
 	 * Get list of patches ready
 	 */
 	prep() {
-		let fromVersion = this.fromVersion;
 		let requiredMinVersion = this.requiredMinVersion;
 		let utils = this.utils;
 		let userArgs = this.userArgs;
+		let fromVersion = this.fromVersion;
 		let toVersion = this.toVersion;
 
 		return new Promise((resolve, reject)=>{
@@ -66,11 +66,17 @@ class Patches {
 	 */
 	prePatches() {
 		let patchFile = this.patchFile;
+		let fromVersion = this.fromVersion;
+		let toVersion = this.toVersion;
 
-		return new Promise((resolve, reject)=>{	
-			patchFile.pre().then(()=>{
+		return new Promise((resolve, reject)=>{
+			if(fromVersion === toVersion) {
 				resolve();
-			});
+			} else {
+				patchFile.pre().then(()=>{
+					resolve();
+				});
+			}			
 		});
 	}
 
@@ -79,11 +85,19 @@ class Patches {
 	 */
 	postPatches(db) {
 		let patchFile = this.patchFile;
+		let fromVersion = this.fromVersion;
+		let toVersion = this.toVersion;
+		let writeVersion = this.writeVersion.bind(this);
 
 		return new Promise((resolve, reject)=>{	
-			patchFile.post(db).then(()=>{
+			if(fromVersion === toVersion) {
 				resolve();
-			});			
+			} else {
+				patchFile.post(db).then(()=>{
+					writeVersion();
+					resolve();
+				});
+			}
 		});
 	}
 
@@ -92,7 +106,7 @@ class Patches {
 	 */
 	getFromVersion() {
 		if (this.fs.existsSync(this.versionFile)) {
-			this.fromVersion = this.versionNumber(this.fs.readFileSync(this.versionFile, 'utf8'));
+			return this.versionNumber(this.fs.readFileSync(this.versionFile, 'utf8'));
 		} else {
 			return 0;
 		}
@@ -104,6 +118,22 @@ class Patches {
 	 */
 	versionNumber(v) {
 		return v.replace(/\./g, '') * 1;
+	}
+
+	/**
+	 * update or write the version file for next run
+	 */
+	writeVersion() {
+		let fs = this.fs;
+		let utils = this.utils;
+		let userArgs = this.userArgs;
+		let versionFile = this.versionFile;
+
+		return new Promise((resolve, reject)=>{
+			fs.writeFile(versionFile, constants.APP.VERSION, () => {
+				resolve();
+			});	
+		});
 	}
 }
 

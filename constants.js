@@ -51,7 +51,7 @@ exports.constants = {
 		BLACKLISTED: "Ignored/blacklisted"
 	},
 	PATCHES: {
-		VERSION_FILE: "./patches/verstion.txt",
+		VERSION_FILE: "./patch.info",
 		FOLDER: "./patches"
 	},
 	PATHS: {
