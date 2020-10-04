@@ -21,7 +21,7 @@ class StreamLootsQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.DATABASE_NAMES.STREAMLOOTS).value());
 		});
 	}
@@ -33,7 +33,7 @@ class StreamLootsQueries {
 		let db = this.db;
 		let card = expectedParams.card||false;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (!card) {
 				resolve("");
 			} else {
@@ -56,7 +56,7 @@ class StreamLootsQueries {
 	removeUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(constants.DATABASE_NAMES.STREAMLOOTS).remove({ name: user }).write();
 
 			resolve("");
@@ -69,7 +69,7 @@ class StreamLootsQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -83,7 +83,7 @@ class StreamLootsQueries {
 		let utils = this.utils;
 		let card = expectedParams.card || false;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.STREAMLOOTS).value();
 			
 			resolve(utils.getTopCards(list, 10));
@@ -99,7 +99,7 @@ class StreamLootsQueries {
 		let utils = this.utils;
 		let card = expectedParams.card || false;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.STREAMLOOTS).value();
 			
 			resolve(utils.getTopCards(list, 5));
@@ -112,7 +112,7 @@ class StreamLootsQueries {
 	getUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let data = db.get(constants.DATABASE_NAMES.STREAMLOOTS).find({ name: user }).value();
 
 			if(data) {

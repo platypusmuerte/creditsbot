@@ -26,7 +26,7 @@ class TemplateThemeDBAdapter {
 	}
 
 	getDefaults() {
-		return [{name: "Default", id: "default"}];
+		return [{name: "Default", id: "default", active: true}];
 	}
 
 	deserialize(str) {

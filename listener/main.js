@@ -65,7 +65,7 @@ class Listener {
 		let userArgs = this.userArgs;
 		let setDefaultListeners = this.setDefaultListeners.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			exp.listen(userArgs.PORT, () => {
 				utils.console("Started listening at http://localhost:" + userArgs.PORT);
 				utils.console(" ");

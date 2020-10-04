@@ -21,7 +21,7 @@ class RaidsQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -32,7 +32,7 @@ class RaidsQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.DATABASE_NAMES.RAIDS).value());
 		});
 	}
@@ -43,7 +43,7 @@ class RaidsQueries {
 	addUser(user, amount) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).has("name").value()) {
 				let newAmount = (db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).value().amount * 1) + 1;
 				db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
@@ -61,7 +61,7 @@ class RaidsQueries {
 	removeUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(constants.DATABASE_NAMES.RAIDS).remove({ name: user }).write();
 
 			resolve("");
@@ -75,7 +75,7 @@ class RaidsQueries {
 		let db = this.db;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.RAIDS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray));
@@ -89,7 +89,7 @@ class RaidsQueries {
 		let db = this.db;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.RAIDS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray));
@@ -102,7 +102,7 @@ class RaidsQueries {
 	getUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let data = db.get(constants.DATABASE_NAMES.RAIDS).find({ name: user }).value();
 
 			if (data) {

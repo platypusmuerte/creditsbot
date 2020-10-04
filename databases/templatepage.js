@@ -23,7 +23,7 @@ class TemplatePageQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -34,7 +34,7 @@ class TemplatePageQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});		
 	}
@@ -42,7 +42,7 @@ class TemplatePageQueries {
 	setData(data) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.assign({
 				page: data.page
 			}).write();

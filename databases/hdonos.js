@@ -21,7 +21,7 @@ class HDonosQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -32,7 +32,7 @@ class HDonosQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.DATABASE_NAMES.HISTORIC_DONOS).value());
 		});
 	}
@@ -43,7 +43,7 @@ class HDonosQueries {
 	addUser(user, amount) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (db.get(constants.DATABASE_NAMES.HISTORIC_DONOS).find({ name: user }).has("name").value()) {
 				let newAmount = (db.get(constants.DATABASE_NAMES.HISTORIC_DONOS).find({ name: user }).value().amount * 1) + amount * 1;
 				db.get(constants.DATABASE_NAMES.HISTORIC_DONOS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
@@ -61,7 +61,7 @@ class HDonosQueries {
 	removeUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(constants.DATABASE_NAMES.HISTORIC_DONOS).remove({ name: user }).write();
 
 			resolve("");
@@ -76,7 +76,7 @@ class HDonosQueries {
 		let db = this.db;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_DONOS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray));
@@ -91,7 +91,7 @@ class HDonosQueries {
 		let db = this.db;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_DONOS).value();
 			
 			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray));
@@ -104,7 +104,7 @@ class HDonosQueries {
 	getUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let data = db.get(constants.DATABASE_NAMES.HISTORIC_DONOS).find({ name: user }).value();
 
 			if(data) {

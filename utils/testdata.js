@@ -37,7 +37,7 @@ class TestData {
 			data.push({ name: this.testUserPrefix + u, amount: Math.floor(Math.random(1) * Math.floor(100)), card: this.testCards[card] });
 		}
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			data.forEach((d) => {
 				
 				keys.forEach((k) => {
@@ -62,7 +62,7 @@ class TestData {
 		let userArgs = this.userArgs;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			for (let u = 1; u <= 15; ++u) {
 				superagent.get("http://localhost:" + userArgs.PORT + "/remove/" + testUserPrefix + u).end((e, r) => {
 					if (e) done(e);

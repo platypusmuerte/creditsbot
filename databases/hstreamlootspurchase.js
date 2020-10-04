@@ -23,7 +23,7 @@ class HStreamLootsPurchaseQueries {
 		let db = this.db;
 		let dbName = this.DBNAME;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(dbName).value());
 		});
 	}
@@ -35,7 +35,7 @@ class HStreamLootsPurchaseQueries {
 		let db = this.db;
 		let dbName = this.DBNAME;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (db.get(dbName).find({ name: user }).has("name").value()) {
 				let newAmount = (db.get(dbName).find({ name: user }).value().amount * 1) + 1;
 				db.get(dbName).find({ name: user }).assign({ name: user, amount: newAmount }).write();
@@ -54,7 +54,7 @@ class HStreamLootsPurchaseQueries {
 		let db = this.db;
 		let dbName = this.DBNAME;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(dbNameS).remove({ name: user }).write();
 
 			resolve("");
@@ -68,7 +68,7 @@ class HStreamLootsPurchaseQueries {
 		let db = this.db;
 		let dbName = this.DBNAME;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -82,7 +82,7 @@ class HStreamLootsPurchaseQueries {
 		let dbName = this.DBNAME;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(dbName).value();
 			
 			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray));
@@ -98,7 +98,7 @@ class HStreamLootsPurchaseQueries {
 		let dbName = this.DBNAME;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(dbName).value();
 			
 			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray));
@@ -112,7 +112,7 @@ class HStreamLootsPurchaseQueries {
 		let db = this.db;
 		let dbName = this.DBNAME;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let data = db.get(dbName).find({ name: user }).value();
 
 			if(data) {

@@ -21,7 +21,7 @@ class VipsQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -32,7 +32,7 @@ class VipsQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.DATABASE_NAMES.VIPS).value());
 		});
 	}
@@ -43,7 +43,7 @@ class VipsQueries {
 	addUser(user, amount) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (db.get(constants.DATABASE_NAMES.VIPS).filter({ name: user }).size().value()*1 < 1) {
 				db.get(constants.DATABASE_NAMES.VIPS).push({ name: user, amount: 1 }).write();
 			}
@@ -58,7 +58,7 @@ class VipsQueries {
 	removeUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(constants.DATABASE_NAMES.VIPS).remove({ name: user }).write();
 
 			resolve("");
@@ -69,7 +69,7 @@ class VipsQueries {
 	 * returns string
 	 */
 	getTop10(asArray = false) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve("");
 		});
 	}
@@ -78,7 +78,7 @@ class VipsQueries {
 	 * returns string
 	 */
 	getTop5(asArray = false) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve("");
 		});
 	}
@@ -87,7 +87,7 @@ class VipsQueries {
 	 * returns string
 	 */
 	getUser(user) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve("");
 		});
 	}

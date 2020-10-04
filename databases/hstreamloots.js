@@ -21,7 +21,7 @@ class HStreamLootsQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -32,7 +32,7 @@ class HStreamLootsQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.DATABASE_NAMES.HISTORIC_STREAMLOOTS).value());
 		});
 	}
@@ -44,7 +44,7 @@ class HStreamLootsQueries {
 		let db = this.db;
 		let card = expectedParams.card||false;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (!card) {
 				resolve("");
 			} else {
@@ -67,7 +67,7 @@ class HStreamLootsQueries {
 	removeUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(constants.DATABASE_NAMES.HISTORIC_STREAMLOOTS).remove({ name: user }).write();
 
 			resolve("");
@@ -83,7 +83,7 @@ class HStreamLootsQueries {
 		let utils = this.utils;
 		let card = expectedParams.card || false;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_STREAMLOOTS).value();
 
 			resolve(utils.getTopCards(list, 10));
@@ -99,7 +99,7 @@ class HStreamLootsQueries {
 		let utils = this.utils;
 		let card = expectedParams.card || false;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_STREAMLOOTS).value();
 
 			resolve(utils.getTopCards(list, 10));
@@ -112,7 +112,7 @@ class HStreamLootsQueries {
 	getUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let data = db.get(constants.DATABASE_NAMES.HISTORIC_STREAMLOOTS).find({ name: user }).value();
 
 			if(data) {

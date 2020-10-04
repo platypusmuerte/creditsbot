@@ -51,6 +51,7 @@ class PageBody {
 		const { TemplateSort } = require("./body/template.sort");
 		const { TemplatePage } = require("./body/template.page");
 		const { TemplateDefaultCSS } = require("./body/template.defaultcss");
+		const { TemplateTheme } = require("./body/template.theme");
 
 		this.body = {
 			home: new BodyHome({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
@@ -66,7 +67,8 @@ class PageBody {
 			template_edit: new TemplateEdit({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			template_sort: new TemplateSort({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			template_page: new TemplatePage({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
-			template_defaultcss: new TemplateDefaultCSS({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
+			template_defaultcss: new TemplateDefaultCSS({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
+			template_theme: new TemplateTheme({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
 		};
 
 		this.pageStr = this.page + ((this.subPage) ? "_" + this.subPage : "");
@@ -89,7 +91,7 @@ class PageBody {
 		let subPage = this.subPage;
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			switch (page + "_" + subPage) {
 				case "template_includes":
 					db.theme().templateincludes.getAll().then((dbr)=>{
@@ -138,6 +140,11 @@ class PageBody {
 						resolve(page);
 					});
 					break;
+				case "template_theme":
+					db.databases.templatetheme.getAll().then((themes) => {
+						resolve(themes);
+					});
+					break;
 				default:
 					resolve({});
 			}
@@ -154,7 +161,7 @@ class PageBody {
 		let body = this.body;
 		let pageStr = this.pageStr;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			fetchData().then((qData) => {
 				resolve(dismissableAlerts + body[pageStr].render(qData));
 			});

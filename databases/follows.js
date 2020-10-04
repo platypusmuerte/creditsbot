@@ -21,7 +21,7 @@ class FollowsQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -32,7 +32,7 @@ class FollowsQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.DATABASE_NAMES.FOLLOWS).value());
 		});
 	}
@@ -43,7 +43,7 @@ class FollowsQueries {
 	addUser(user, amount) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (db.get(constants.DATABASE_NAMES.FOLLOWS).filter({ name: user }).size().value()*1 < 1) {
 				db.get(constants.DATABASE_NAMES.FOLLOWS).push({ name: user, amount: 1 }).write();
 			}
@@ -58,7 +58,7 @@ class FollowsQueries {
 	removeUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(constants.DATABASE_NAMES.FOLLOWS).remove({ name: user }).write();
 
 			resolve("");
@@ -69,7 +69,7 @@ class FollowsQueries {
 	 * returns string
 	 */
 	getTop10(asArray = false) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve("");
 		});
 	}
@@ -78,7 +78,7 @@ class FollowsQueries {
 	 * returns string
 	 */
 	getTop5(asArray = false) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve("");
 		});
 	}
@@ -87,7 +87,7 @@ class FollowsQueries {
 	 * returns string
 	 */
 	getUser(user) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve("");
 		});
 	}

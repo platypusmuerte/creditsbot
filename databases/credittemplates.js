@@ -39,7 +39,7 @@ class CreditTemplatesQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -50,9 +50,25 @@ class CreditTemplatesQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});		
+	}
+
+	/**
+	 * Add new template (usually via patching)
+	 */
+	addNew(template) {
+		let db = this.db;
+
+		return new Promise((resolve, reject)=>{
+			if (db.find({ id: template.id }).has("id").value()) {
+				resolve(false);
+			} else {
+				db.push(template).write();
+				resolve(true);
+			}
+		});
 	}
 
 	/**
@@ -61,7 +77,7 @@ class CreditTemplatesQueries {
 	getIDsByType() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let data = db.sortBy("id").value();
 
 			let filtered = data.map((ct)=>{
@@ -80,7 +96,7 @@ class CreditTemplatesQueries {
 		let db = this.db;
 		let sortedTemplateData = {};
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			sortArr.forEach((sort)=>{
 				let t = db.find({ id: sort }).value();
 				if(t) {
@@ -99,10 +115,11 @@ class CreditTemplatesQueries {
 	getTemplateByID(id) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let resObj = db.find({ id: id }).value();
-			resObj["defaults"] = templatedata.filter(td => td.id === id)[0];
-			resolve(resObj);
+			let newObj = Object.assign({},resObj,{defaults: templatedata.filter(td => td.id === id)[0]});
+			//resObj["defaults"] = templatedata.filter(td => td.id === id)[0];
+			resolve(newObj);
 		});
 	}
 
@@ -120,7 +137,7 @@ class CreditTemplatesQueries {
 			dbID = "custom_" + (count + 1);
 		}
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if(isNew) {
 				db.push(data).write();
 			} else if (data.id !== "addnew") {
@@ -135,10 +152,10 @@ class CreditTemplatesQueries {
 					template: data.template,
 					wrapper: ``,
 					inner: ``
-				}).write();
-			}
-
-			resolve(dbID);				
+				}).write();				
+			}		
+			
+			resolve(dbID);
 		});
 	}
 
@@ -150,7 +167,7 @@ class CreditTemplatesQueries {
 	toggleSectionByID(enabled, id) {
 		let db = this.db;
 		
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.find({ id: id }).assign({enabled: enabled}).write();
 		});
 	}
@@ -162,7 +179,7 @@ class CreditTemplatesQueries {
 	removeTemplateByID(data) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.remove({ id: data.id }).write();
 
 			resolve("");

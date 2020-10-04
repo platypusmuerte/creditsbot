@@ -797,5 +797,109 @@ exports.templatedata = [
 </div>`,
 		wrapper: `<div class="hraidsTop5Wrapper">{{{group}}}</div>`,
 		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
+	},{
+		enabled: true,
+		id: "streamlootspurchase_name",
+		type: "dynamic",
+		key: "streamlootspurchase",
+		title: `Thanks for Supporting With StreamLoots!`,
+		template: `<div id="section_streamlootspurchase_name" class="creditSection">
+	{{{contentTitle}}}
+	{{{streamlootspurchase_name}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="streamlootspurchaseWrapper">{{{group}}}</div>`,
+		inner: `<div class="name textColor">{{name}}</div>`
+	},{
+		enabled: true,
+		id: "streamlootspurchase_top5",
+		type: "dynamic",
+		key: "streamlootspurchase",
+		title: `Top 5 StreamLoots Today`,
+		template: `<div id="section_streamlootspurchase_top5" class="creditSection">
+	{{{contentTitle}}}
+	{{{streamlootspurchase_top5}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="streamlootspurchaseTop5Wrapper">{{{group}}}</div>`,
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
+	},{
+		enabled: true,
+		id: "streamlootspurchase_name_amount",
+		type: "dynamic",
+		key: "streamlootspurchase",
+		title: `StreamLoots and Who Bought Them`,
+		template: `<div id="section_streamlootspurchase_name_amount" class="creditSection">
+	{{{contentTitle}}}
+	{{{streamlootspurchase_name_amount}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="streamlootspurchaseAmountWrapper">{{{group}}}</div>`,
+		inner: `<div class="nameAmount"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
+	},{
+		enabled: true,
+		id: "streamlootspurchase_name_total",
+		type: "dynamic",
+		key: "streamlootspurchase",
+		title: `Total StreamLoots Purchases By Viewers`,
+		template: `<div id="section_streamlootspurchase_name_total" class="creditSection">
+	{{{contentTitle}}}
+	{{{streamlootspurchase_name_total}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="streamlootspurchaseTotalWrapper">{{{group}}}</div>`,
+		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total totalColor">{{total}}</div></div>`
+	},{
+		enabled: true,
+		id: "streamlootspurchase_name_amount_total",
+		type: "dynamic",
+		key: "streamlootspurchase",
+		title: `StreamLoots Purchases: Today and Total By Viewers`,
+		template: `<div id="section_streamlootspurchase_name_amount_total" class="creditSection">
+	{{{contentTitle}}}
+	{{{streamlootspurchase_name_amount_total}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="streamlootspurchaseAmountTotalWrapper">{{{group}}}</div>`,
+		inner: `<div class="nameAmountTotal"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div><div class="total totalColor">{{total}}</div></div>`
+	},{
+		enabled: true,
+		id: "streamlootspurchase_top10",
+		type: "dynamic",
+		key: "streamlootspurchase",
+		title: `Top 10 StreamLoots Purchases Today`,
+		template: `<div id="section_streamlootspurchase_top10" class="creditSection">
+	{{{contentTitle}}}
+	{{{streamlootspurchase_top10}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="streamlootspurchaseTop10Wrapper">{{{group}}}</div>`,
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
+	},{
+		enabled: true,
+		id: "hstreamlootspurchase_top10H",
+		type: "dynamic",
+		key: "hstreamlootspurchase",
+		title: `Overall Top 10 StreamLoots Purchases`,
+		template: `<div id="section_hstreamlootspurchase_top10H" class="creditSection">
+	{{{contentTitle}}}
+	{{{hstreamlootspurchase_top10H}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="hstreamlootspurchaseTop10Wrapper">{{{group}}}</div>`,
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
+	},{
+		enabled: true,
+		id: "hstreamlootspurchase_top5H",
+		type: "dynamic",
+		key: "hstreamlootspurchase",
+		title: `Overall Top 5 StreamLoots Purchases`,
+		template: `<div id="section_hstreamlootspurchase_top5H" class="creditSection">
+	{{{contentTitle}}}
+	{{{hstreamlootspurchase_top5H}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="hstreamlootspurchaseTop5Wrapper">{{{group}}}</div>`,
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}
 ];

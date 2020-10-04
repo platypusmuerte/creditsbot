@@ -22,7 +22,7 @@ class BlacklistQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -33,7 +33,7 @@ class BlacklistQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.SETTINGS_DATABASE_NAMES.TEMPLATE_BLACKLIST).value());
 		});		
 	}
@@ -41,7 +41,7 @@ class BlacklistQueries {
 	setData(data) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.assign(data).write();
 
 			resolve("");

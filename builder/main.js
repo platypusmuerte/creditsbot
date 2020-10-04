@@ -99,7 +99,7 @@ class Builder {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.theme().credittemplates.getTemplateByID("contentTitle").then((dbr) => {
 				setRawData("contentTitle", dbr);
 				resolve();
@@ -114,7 +114,7 @@ class Builder {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.theme().credittemplates.getTemplateByID("contentDivider").then((dbr) => {
 				setRawData("contentDivider", dbr);
 				resolve();
@@ -129,7 +129,7 @@ class Builder {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.theme().templatepage.getAll().then((dbr)=>{
 				setRawData("mainHTML", dbr.page);
 				resolve();
@@ -144,7 +144,7 @@ class Builder {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.theme().templateincludes.getAll().then((dbr) => {
 				let js = dbr.js.map((url)=>{
 					return `<script src="${url}"></script>`;
@@ -168,7 +168,7 @@ class Builder {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.theme().templatedefaultcss.getAll().then((dbr) => {
 				setRawData("defaultCSS", '<style>' + dbr.css + '</style>');
 				resolve();
@@ -183,7 +183,7 @@ class Builder {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.theme().templatecustomcss.getAll().then((dbr) => {
 				setRawData("customCSS", '<style>' + dbr.css + '</style>');
 				resolve();
@@ -198,7 +198,7 @@ class Builder {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.theme().templatesettings.getAll().then((dbr) => {
 				setRawData("scrollSpeed", dbr.speed);
 				setRawData("looping", dbr.looping);
@@ -214,7 +214,7 @@ class Builder {
 		let db = this.db;
 		let setRawData = this.setRawData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.theme().templatecolors.getAll().then((dbr) => {
 				let colors = `<style>
 				.titleColor {
@@ -259,7 +259,7 @@ class Builder {
 		let db = this.db;
 		let sectionBuilders = this.sectionBuilders;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.theme().templatesort.getAll().then((sortArr) => {
 				db.theme().credittemplates.getTemplateDataForSorting(sortArr).then((templates) => {
 					let promises = [];
@@ -298,7 +298,7 @@ class Builder {
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let contentSection = Mustache.render(wrapper, { nodata: "" });
 			let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
 			let contentDivider = Mustache.render(rawFooter, { nodata: "" });
@@ -330,7 +330,7 @@ class Builder {
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let users = '';
 
 			db.databases[t.key].getAll().then((all) => {
@@ -376,7 +376,7 @@ class Builder {
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
 
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.databases[t.key].getAll().then((users) => {
 				if(users.length) {
 					let p = users.map((u) => {
@@ -426,7 +426,7 @@ class Builder {
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let users = '';
 
 			db.databases[t.key].getTop5(true, {}).then((all) => {
@@ -471,7 +471,7 @@ class Builder {
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let users = '';
 
 			db.databases[t.key].getTop10(true, {}).then((all) => {
@@ -516,7 +516,7 @@ class Builder {
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let users = '';
 
 			db.databases[t.key].getTop5(true, { card: 1 }).then((all) => {
@@ -561,7 +561,7 @@ class Builder {
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let users = '';
 
 			db.databases[t.key].getTop10(true, { card: 1 }).then((all) => {
@@ -601,7 +601,7 @@ class Builder {
 		this.initRawData();
 		let assembleSections = this.assembleSections.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			assembleSections().then((htmlpage)=>{
 				resolve(htmlpage);
 			});
@@ -623,7 +623,7 @@ class Builder {
 		let getSections = this.getSections.bind(this);
 		let getRawData = this.getRawData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			Promise.all([
 				getContentTitle(),
 				getContentDivider(),

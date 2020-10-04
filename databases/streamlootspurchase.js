@@ -39,7 +39,7 @@ class StreamLootsPurchaseQueries {
 		let db = this.db;
 		let DBNAME = this.DBNAME;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(DBNAME).value());
 		});
 	}
@@ -51,7 +51,7 @@ class StreamLootsPurchaseQueries {
 		let db = this.db;
 		let DBNAME = this.DBNAME;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (db.get(DBNAME).find({ name: user }).has("name").value()) {
 				let newAmount = (db.get(DBNAME).find({ name: user }).value().amount * 1) + 1;
 				db.get(DBNAME).find({ name: user }).assign({ name: user, amount: newAmount }).write();
@@ -70,7 +70,7 @@ class StreamLootsPurchaseQueries {
 		let db = this.db;
 		let DBNAME = this.DBNAME;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(DBNAME).remove({ name: user }).write();
 
 			resolve("");
@@ -83,7 +83,7 @@ class StreamLootsPurchaseQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -97,7 +97,7 @@ class StreamLootsPurchaseQueries {
 		let DBNAME = this.DBNAME;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(DBNAME).value();
 			
 			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray));
@@ -113,7 +113,7 @@ class StreamLootsPurchaseQueries {
 		let DBNAME = this.DBNAME;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(DBNAME).value();
 			
 			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray));
@@ -127,7 +127,7 @@ class StreamLootsPurchaseQueries {
 		let db = this.db;
 		let DBNAME = this.DBNAME;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let data = db.get(DBNAME).find({ name: user }).value();
 
 			if(data) {

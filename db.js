@@ -24,7 +24,7 @@ class Database {
 		let buildThemes = this.buildThemes.bind(this);
 		let buildDataBases = this.buildDataBases.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			buildThemes().then(()=>{
 				buildDataBases().then(()=>{
 					resolve();
@@ -55,7 +55,7 @@ class Database {
 		let userArgs = this.userArgs;
 		let addToThemes = this.addToThemes.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let dir = path.join(themeDir, "");
 			
 			fs.readdir(dir, (err, files) => {
@@ -77,6 +77,42 @@ class Database {
 		});
 	}
 
+	dupeTheme(data) {
+		let path = this.path;
+		let fs = this.fs;
+		let utils = this.utils;
+		let userArgs = this.userArgs;
+		let themePath = this.dataDir + "/themes/" + data.dest;
+		let themePathSrc = this.dataDir + "/themes/" + data.src;
+
+		if (!this.fs.existsSync(themePath)) {
+			this.fs.mkdirSync(themePath);
+			userArgs.DEBUG && utils.console("Created " + themePath);
+		}
+
+		return new Promise((resolve, reject)=>{	
+			let dir = themePathSrc;
+
+			fs.readdir(dir, (err, files) => {
+				if (err) throw err;
+
+				for (const file of files) {
+					let name = path.parse(file).name;
+
+					userArgs.DEBUG && utils.console("moving file " + name);
+
+					fs.copy(path.join(dir, file),themePath + "/" + file, err => {
+						if (err) throw err;							
+					});
+				}
+				
+				setTimeout(()=>{
+					resolve();
+				},500);								
+			});			
+		});
+	}
+
 	/**
 	 * map folder to set of dbs (theme)
 	 * @param {string} themeDir folder name
@@ -85,6 +121,11 @@ class Database {
 		let utils = this.utils;
 		let userArgs = this.userArgs;
 		let themePath = this.dataDir + "/themes/" + themeDir;
+
+		if (!this.fs.existsSync(themePath)) {
+			this.fs.mkdirSync(themePath);
+			userArgs.DEBUG && utils.console("Created " + themePath);
+		}
 
 		const { TemplateIncludesQueries } = require("./databases/templateincludes");
 		const { TemplateColorsQueries } = require("./databases/templatecolors");
@@ -141,7 +182,7 @@ class Database {
 
 		let addDatabase = this.addDatabase.bind(this);
 
-		return new Promise(function (resolve, reject) {			
+		return new Promise((resolve, reject)=>{			
 			addDatabase("bans", BansQueries);
 			addDatabase("bits", BitsQueries);
 			addDatabase("channelpoints", ChannelPointsQueries);
@@ -176,7 +217,11 @@ class Database {
 	}
 
 	addDatabase(key, db) {
-		this.databases[key] = new db({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path });
+		let addToThemes = (key === "templatetheme") ? this.addToThemes.bind(this):false;
+		let dupeTheme = (key === "templatetheme") ? this.dupeTheme.bind(this):false;
+		let setTheme = (key === "templatetheme") ? this.setTheme.bind(this):false;
+
+		this.databases[key] = new db({ cryptr: this.cryptr, dataDir: this.dataDir, utils: this.utils, path: this.path, addToThemes: addToThemes, dupeTheme: dupeTheme, setTheme: setTheme });
 	}
 }
 

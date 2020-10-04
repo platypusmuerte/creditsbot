@@ -23,7 +23,7 @@ class TemplateSortQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -34,7 +34,7 @@ class TemplateSortQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});		
 	}
@@ -42,7 +42,7 @@ class TemplateSortQueries {
 	setData(data) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.assign(data).write();
 
 			resolve("");
@@ -52,7 +52,7 @@ class TemplateSortQueries {
 	addNew(data) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.push(data).write();
 
 			resolve("");

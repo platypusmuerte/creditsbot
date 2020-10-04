@@ -50,6 +50,10 @@ exports.constants = {
 	MESSAGES: {
 		BLACKLISTED: "Ignored/blacklisted"
 	},
+	PATCHES: {
+		VERSION_FILE: "./patches/verstion.txt",
+		FOLDER: "./patches"
+	},
 	PATHS: {
 		ADD_USER: "/add/:key/:user/:amount",
 		CREDITS: "/credits",

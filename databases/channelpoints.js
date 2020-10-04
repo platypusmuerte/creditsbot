@@ -21,7 +21,7 @@ class ChannelPointsQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -29,7 +29,7 @@ class ChannelPointsQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.DATABASE_NAMES.CHANNELPOINTS).value());
 		});
 	}
@@ -40,7 +40,7 @@ class ChannelPointsQueries {
 	addUser(user, amount) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (db.get(constants.DATABASE_NAMES.CHANNELPOINTS).find({ name: user }).has("name").value()) {
 				let newAmount = (db.get(constants.DATABASE_NAMES.CHANNELPOINTS).find({ name: user }).value().amount * 1) + amount * 1;
 				db.get(constants.DATABASE_NAMES.CHANNELPOINTS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
@@ -58,7 +58,7 @@ class ChannelPointsQueries {
 	removeUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(constants.DATABASE_NAMES.CHANNELPOINTS).remove({ name: user }).write();
 
 			resolve("");
@@ -72,7 +72,7 @@ class ChannelPointsQueries {
 		let db = this.db;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray));
@@ -86,7 +86,7 @@ class ChannelPointsQueries {
 		let db = this.db;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray));
@@ -99,7 +99,7 @@ class ChannelPointsQueries {
 	getUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let data = db.get(constants.DATABASE_NAMES.CHANNELPOINTS).find({ name: user }).value();
 
 			if (data) {

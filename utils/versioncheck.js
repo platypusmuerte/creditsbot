@@ -23,7 +23,7 @@ class VersionCheck {
 		let notifyCLI = this.notifyCLI.bind(this);
 		let versionCheckFile = this.versionCheckFile;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			superagent.get(versionCheckFile).end((e, r) => {
 				
 				if (r.text.replace(/\./g, '') * 1 > constants.APP.VERSION.replace(/\./g, '')*1) {
@@ -40,7 +40,7 @@ class VersionCheck {
 	get() {
 		let versionCheckFile = this.versionCheckFile;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			superagent.get(versionCheckFile).end((e, r) => {
 				let resp = {update: false};
 				

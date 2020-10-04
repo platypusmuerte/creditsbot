@@ -79,6 +79,15 @@ class PostProcessor {
 			case "setsectionenabled":
 				this.uiSetSectionEnabled(req, res);
 				break;
+			case "addtheme":
+				this.uiAddTheme(req, res);
+				break;
+			case "dupetheme":
+				this.uiDupeTheme(req, res);
+				break;
+			case "changetheme":
+				this.uiChangeTheme(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -277,6 +286,45 @@ class PostProcessor {
 
 		this.db.theme().credittemplates.toggleSectionByID(data.enabled, data.id).then(() => {
 			res.json({ "success": true });
+		});
+	}
+
+	/**
+	 * Add new theme
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	uiAddTheme(req, res) {
+		let data = req.body;
+
+		this.db.databases.templatetheme.addNew(data).then((theme) => {
+			res.json({ "theme": theme });
+		});
+	}
+
+	/**
+	 * Dupe a theme
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	uiDupeTheme(req, res) {
+		let data = req.body;
+
+		this.db.databases.templatetheme.duplicate(data).then((theme) => {
+			res.json({ "theme": theme });
+		});
+	}
+
+	/**
+	 * Change theme
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	uiChangeTheme(req, res) {
+		let data = req.body;
+
+		this.db.databases.templatetheme.activateThemeByID(data.id).then((result) => {
+			res.json(result);
 		});
 	}
 }

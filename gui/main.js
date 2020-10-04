@@ -51,7 +51,7 @@ class GUI {
 		this.page = (params[0]) ? params[0] : this.defaultPage;
 		this.subPage = (params[1]) ? params[1] : this.defaultSubPage;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			buildPage(req.query).then((pageContent) => {
 				resolve(pageContent);
 			});
@@ -69,7 +69,7 @@ class GUI {
 		let htmlPreStr = this.getHtmlOpen() + this.getHead() + this.getBodyOpen();
 		let htmlPostStr = this.getFooterIncludes() + this.getBodyClose() + this.getHtmlClose()
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			getBody(query).then((body) => {
 				resolve(htmlPreStr + body + htmlPostStr);
 			});
@@ -97,7 +97,7 @@ class GUI {
 
 		body.push(topSection.render());		
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			bodyContent.render().then((res) => {
 				body.push(`<div class="container-fluid mainSectionContainer h-100">
 					<div class="row">

@@ -66,6 +66,7 @@ class PageMenu {
 							<a class="nav-link ` + this.isActive("template", "edit") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/edit">Sections</a>
 							<a class="nav-link ` + this.isActive("template", "settings") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/settings">Settings</a>
 							<a class="nav-link ` + this.isActive("template", "sort") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/sort">Sort</a>
+							<a class="nav-link ` + this.isActive("template", "theme") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/theme">Theme</a>
 						</nav>
       				</div>
 				</div>

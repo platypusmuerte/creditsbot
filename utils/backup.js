@@ -30,7 +30,7 @@ class Backup {
 		let createNewBackupFolder = this.createNewBackupFolder.bind(this);
 		let backupData = this.backupData.bind(this);
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			ensureMainBackupFolder().then(()=>{
 				createNewBackupFolder().then(()=>{
 					backupData();
@@ -47,7 +47,7 @@ class Backup {
 		let userArgs = this.userArgs;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (!fs.existsSync("./backups")) {
 				fs.mkdirSync("./backups");
 				userArgs.DEBUG && utils.console("Created ./backups");
@@ -69,7 +69,7 @@ class Backup {
 		this.backupPath = "./backups/" + folder;
 		let backupPath = this.backupPath;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (!fs.existsSync(backupPath)) {
 				fs.mkdirSync(backupPath);
 				userArgs.DEBUG && utils.console("Created " + backupPath);
@@ -89,7 +89,7 @@ class Backup {
 		let utils = this.utils;
 		let backupPath = this.backupPath;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			fs.copy("./data", backupPath + "/data").then(() => {
 				userArgs.DEBUG && utils.console("./data backed up");
 				resolve();

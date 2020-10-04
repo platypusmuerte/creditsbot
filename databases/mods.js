@@ -22,7 +22,7 @@ class ModsQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -30,7 +30,7 @@ class ModsQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.DATABASE_NAMES.MODS).value());
 		});
 	}
@@ -41,7 +41,7 @@ class ModsQueries {
 	addUser(user, amount) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (db.get(constants.DATABASE_NAMES.MODS).filter({ name: user }).size().value() * 1 < 1) {
 				db.get(constants.DATABASE_NAMES.MODS).push({ name: user, amount: 1 }).write();
 			}
@@ -56,7 +56,7 @@ class ModsQueries {
 	removeUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(constants.DATABASE_NAMES.MODS).remove({ name: user }).write();
 
 			resolve("");
@@ -67,7 +67,7 @@ class ModsQueries {
 	 * returns string
 	 */
 	getTop10(asArray = false) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve("");
 		});
 	}
@@ -76,7 +76,7 @@ class ModsQueries {
 	 * returns string
 	 */
 	getTop5(asArray = false) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve("");
 		});
 	}
@@ -85,7 +85,7 @@ class ModsQueries {
 	 * returns string
 	 */
 	getUser(user) {
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve("");
 		});
 	}

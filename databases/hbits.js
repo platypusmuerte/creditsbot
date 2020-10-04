@@ -21,7 +21,7 @@ class HBitsQueries {
 	getState() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.value());
 		});
 	}
@@ -32,7 +32,7 @@ class HBitsQueries {
 	getAll() {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			resolve(db.get(constants.DATABASE_NAMES.HISTORIC_BITS).value());
 		});
 	}
@@ -43,7 +43,7 @@ class HBitsQueries {
 	addUser(user, amount) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (db.get(constants.DATABASE_NAMES.HISTORIC_BITS).find({ name: user }).has("name").value()) {
 				let newAmount = (db.get(constants.DATABASE_NAMES.HISTORIC_BITS).find({ name: user }).value().amount * 1) + amount * 1;
 				db.get(constants.DATABASE_NAMES.HISTORIC_BITS).find({ name: user }).assign({ name: user, amount: newAmount }).write();
@@ -61,7 +61,7 @@ class HBitsQueries {
 	removeUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			db.get(constants.DATABASE_NAMES.HISTORIC_BITS).remove({ name: user }).write();
 
 			resolve("");
@@ -75,7 +75,7 @@ class HBitsQueries {
 		let db = this.db;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_BITS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 10, asArray));
@@ -89,7 +89,7 @@ class HBitsQueries {
 		let db = this.db;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_BITS).value();
 
 			resolve(utils.getTopUsers(list, "amount", "desc", 5, asArray));
@@ -102,7 +102,7 @@ class HBitsQueries {
 	getUser(user) {
 		let db = this.db;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			let data = db.get(constants.DATABASE_NAMES.HISTORIC_BITS).find({ name: user }).value();
 
 			if (data) {

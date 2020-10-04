@@ -34,7 +34,7 @@ class ExportData {
 		let writeExport = this.writeExport.bind(this);
 		
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			ensureMainExportFolder().then(() => {
 				createNewExportFolder().then(() => {
 					runExports().then((allData)=>{
@@ -57,7 +57,7 @@ class ExportData {
 		let utils = this.utils;
 		let exportPath = this.exportPath;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			fs.writeFile(exportPath + "/fullexport.json", JSON.stringify({ data: allData }), () => {
 				userArgs.DEBUG && utils.console("Exports created");
 				resolve();
@@ -88,7 +88,7 @@ class ExportData {
 		let userArgs = this.userArgs;
 		let utils = this.utils;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (!fs.existsSync("./exports")) {
 				fs.mkdirSync("./exports");
 				userArgs.DEBUG && utils.console("Created ./exports");
@@ -110,7 +110,7 @@ class ExportData {
 		this.exportPath = "./exports/" + folder;
 		let exportPath = this.exportPath;
 
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject)=>{
 			if (!fs.existsSync(exportPath)) {
 				fs.mkdirSync(exportPath);
 				userArgs.DEBUG && utils.console("Created " + exportPath);
