@@ -1,5 +1,6 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
+const { templatepage } = require("../../defaults/templatepage");
 const { codemirrorincludes } = require("../libs/codemirror/includes");
 const { modal_editor_single_lg } = require("../modals/editor.single.lg");
 
@@ -58,7 +59,7 @@ class TemplatePage extends BodyBase {
 				<span id="subsuccess" class="badge badge-success formSuccess invisible">Updated</span>
 			</form>
 		</div>
-		${modal_editor_single_lg({textarea: this.data.page})}
+		${modal_editor_single_lg({textarea: templatepage.page})}
 		`;
 	}
 
