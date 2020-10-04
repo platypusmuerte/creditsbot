@@ -13,7 +13,6 @@ class PageMenu {
 	 * @param {object} userArgs 	merged user settings
 	 * @param {string} page 		current main page/path/folder
 	 * @param {string} subPage		current sub page/path/folder
-	 * @param {string} theme		db theme
 	 */
 	constructor(params) {
 		this.utils = params.utils;
@@ -23,7 +22,6 @@ class PageMenu {
 		this.userArgs = params.userArgs;
 		this.page = params.page;
 		this.subPage = params.subpage;
-		this.theme = params.theme;
 	}
 
 	/**

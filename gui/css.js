@@ -6,10 +6,11 @@ body {
 .nav-link {
 	color: #fff
 }
-.activeMenu, h1, h2, h3, h4, .versionText, .formLabel, .dragSectionTitle, .modal-title {
+.activeMenu, h1, h2, h3, h4, .versionText, .formLabel, .dragSectionTitle, .modal-title, .themeText {
 	color: #ff9900;
 }
 .titleText {
+	height: 100%;
 	font-size: 2vw;
 }
 .titleVersion {
@@ -18,8 +19,12 @@ body {
 .queryRow {
 	margin-bottom: 30px;
 }
-.versionText {
+.versionText, .themeText {
 	font-size: 1vw;
+}
+.themeText {
+	display: inline-block;
+	margin: auto 0;
 }
 .topSectionContainer {
 	border-bottom: 2px solid #ff9900;

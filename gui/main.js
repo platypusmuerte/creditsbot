@@ -1,7 +1,6 @@
 const { constants } = require('../constants');
 const { css } = require("./css");
 const { js } = require("./js");
-//const { mytinycolor } = require("./libs/spectrum-colorpicker2/mytinycolor");
 
 const { PageTopSection } = require("./section.top");
 const { PageMenu } = require("./menu");
@@ -46,15 +45,18 @@ class GUI {
 	 * @returns {promise}	string of entire html page for browser
 	 */
 	loadPage(req) {
+		let db = this.db;
 		let buildPage = this.buildPage.bind(this);
 		let params = req.params[0].split("/");
 		this.page = (params[0]) ? params[0] : this.defaultPage;
 		this.subPage = (params[1]) ? params[1] : this.defaultSubPage;
 
 		return new Promise((resolve, reject)=>{
-			buildPage(req.query).then((pageContent) => {
-				resolve(pageContent);
-			});
+			db.databases.templatetheme.getActiveTheme().then((activeTheme)=>{
+				buildPage(req.query, activeTheme).then((pageContent) => {
+					resolve(pageContent);
+				});
+			});			
 		});;
 	}
 
@@ -64,13 +66,13 @@ class GUI {
 	 * 
 	 * @returns {promise}	string of page sections for rendering
 	 */
-	buildPage(query) {
+	buildPage(query, activeTheme) {
 		let getBody = this.getBody.bind(this);
 		let htmlPreStr = this.getHtmlOpen() + this.getHead() + this.getBodyOpen();
 		let htmlPostStr = this.getFooterIncludes() + this.getBodyClose() + this.getHtmlClose()
 
 		return new Promise((resolve, reject)=>{
-			getBody(query).then((body) => {
+			getBody(query, activeTheme).then((body) => {
 				resolve(htmlPreStr + body + htmlPostStr);
 			});
 		});
@@ -88,10 +90,10 @@ class GUI {
 	 * 
 	 * @returns {promise} string of top, menu, and body content
 	 */
-	getBody(query) {
+	getBody(query, activeTheme) {
 		let body = [];
 
-		let topSection = new PageTopSection({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, subpage: this.subPage });
+		let topSection = new PageTopSection({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, subpage: this.subPage, activeTheme: activeTheme });
 		let pageMenu = new PageMenu({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, subpage: this.subPage });
 		let bodyContent = new PageBody({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, subpage: this.subPage, query: query });
 
@@ -123,7 +125,6 @@ class GUI {
 	 * Builds the head section for the GUI page and returns as a string
 	 */
 	getHead() {
-		let myTinyColor = this.fs.readFileSync('./gui/libs/spectrum-colorpicker2/mytinycolor.js');
 
 		return `<head>
 		<meta charset="utf-8">

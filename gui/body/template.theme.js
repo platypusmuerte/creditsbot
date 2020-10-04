@@ -150,8 +150,9 @@ class TemplateTheme extends BodyBase {
 
 			// swap themes
 			$("#themes").on("change",()=>{				
-				post("changetheme", {id: $("#themes").val()}, (data)=>{
+				post("changetheme", {id: $("#themes").val()}, (data)=>{					
 					if(data.success) {
+						$(".themeText").empty().append("Theme: " + $("#themes option:selected").text());
 						$("#changesuccess").removeClass("invisible").addClass("visible");
 						setTimeout(()=>{
 							$("#changesuccess").removeClass("visible").addClass("invisible");							

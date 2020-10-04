@@ -13,7 +13,7 @@ class PageTopSection {
 	 * @param {object} userArgs 	merged user settings
 	 * @param {string} page 		current main page/path/folder
 	 * @param {string} subPage		current sub page/path/folder
-	 * @param {string} theme		db theme
+	 * @param {object} activeTheme	name, id, etc
 	 */
 	constructor(params) {
 		this.utils = params.utils;
@@ -23,7 +23,7 @@ class PageTopSection {
 		this.userArgs = params.userArgs;
 		this.page = params.page;
 		this.subPage = params.subpage;
-		this.theme = params.theme;
+		this.activeTheme = params.activeTheme;
 	}
 
 	/**
@@ -44,6 +44,9 @@ class PageTopSection {
 					<div id="valert" class="alert alert-warning fade show alertBanner invisible" role="alert">
 						<strong>New Version Available </strong> Version <span id="version"></span> is now <a target="_creditwiki" href="https://github.com/platypusmuerte/creditsbot/wiki">available</a>.
 					</div>
+				</div>
+				<div class="col col-2 d-flex align-items-center">
+					<div class="themeText">Theme: ${this.activeTheme.name}</div>
 				</div>
 				<div class="col col-3 d-flex align-items-center">
 					<div class="versionText">
