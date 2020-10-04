@@ -44,7 +44,6 @@ class Builder {
 
 	/**
 	 * Initialize or reset the rawData
-	 * @TODO:	mainCSS moved to DB, stop using the file
 	 */
 	initRawData() {
 		this.rawData = {

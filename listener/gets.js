@@ -15,7 +15,7 @@ class GetHandler {
 	 * @param {object} 	userArgs 		merged user settings
 	 * @param {object} 	exp 			express
 	 * @param {objecet} builder 		credits builder class
-	 * @param {object} 	blacklist 		the blacklist database (@TODO: we have db here, why am I doin it like this?)
+	 * @param {object} 	blacklist 		the blacklist database 
 	 * @param {object} 	testData 		TestData class
 	 * @param {object} 	versioncheck 	VersionChecker class
 	 * 
