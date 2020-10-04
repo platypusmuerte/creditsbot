@@ -139,7 +139,7 @@ class GUI {
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">		
 		<script>` + js + `</script>
 		<style>` + css + `</style>
-		<script>` + myTinyColor + `</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tinycolor/1.4.2/tinycolor.min.js"></script>
 		</head>`;
 	}
 
