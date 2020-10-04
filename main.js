@@ -71,6 +71,7 @@ patches.prep().then((s,f)=>{
 					listener.start().then(()=>{
 						patches.postPatches(db).then(()=>{
 							// done patching
+							db.switchToActiveTheme();
 						});
 					});	
 				});			

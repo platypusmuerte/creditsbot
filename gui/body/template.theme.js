@@ -39,8 +39,6 @@ class TemplateTheme extends BodyBase {
 		this.data = qData;
 		let opts = ``;
 
-		console.log(this.data);
-
 		this.data.forEach((theme)=>{
 			let selected = (theme.active) ? ` selected="1"`:``;
 			opts += `<option value="${theme.id}"${selected}>${theme.name}</option>`;
@@ -169,7 +167,6 @@ class TemplateTheme extends BodyBase {
 		}
 
 		function post(action, payload, cb) {
-			console.log(action, payload);
 			$.ajax({
 				type: "POST",
 				url: "${constants.PATHS.UI_BASE_API}" + action,

@@ -81,7 +81,7 @@ class CreditTemplatesQueries {
 			let data = db.sortBy("id").value();
 
 			let filtered = data.map((ct)=>{
-				return {id: ct.id, type: ct.type, enabled: ct.enabled};
+				return {id: ct.id, type: ct.type, enabled: ct.enabled, title: ct.title};
 			});
 
 			resolve(filtered);

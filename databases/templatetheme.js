@@ -54,7 +54,6 @@ class TemplateThemeQueries {
 		return new Promise((resolve, reject)=>{
 			getActiveTheme().then((activeTheme)=>{
 				deactivateThemeDyID(activeTheme.id).then(()=>{
-					console.log("activating " + id);
 					db.find({ id: id }).assign({ active: true }).write();
 					setTheme(id);
 					resolve({success: true});

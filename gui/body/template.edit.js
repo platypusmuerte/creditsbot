@@ -51,6 +51,7 @@ class TemplateEdit extends BodyBase {
 		
 		this.data.forEach((ct)=>{
 			let css = (ct.enabled) ? '':' class="templateDisabled"';
+
 			if(ct.type === "dynamic") {
 				dynOpts += '<option' + css + ' data-type="' + ct.type + '" value="' + ct.id + '">&nbsp;&nbsp;&nbsp;' + ct.id.replace(/_/g, " ") + '</option>';
 			} else if(ct.type === "content") {
@@ -58,7 +59,8 @@ class TemplateEdit extends BodyBase {
 			} else if(ct.type === "static") {
 				staticOpts += '<option' + css + ' data-type="' + ct.type + '" value="' + ct.id + '">&nbsp;&nbsp;&nbsp;' + ct.id.replace(/_/g, " ") + '</option>';
 			} else if (ct.type === "custom") {
-				customOpts += '<option' + css + ' data-type="' + ct.type + '" value="' + ct.id + '">&nbsp;&nbsp;&nbsp;' + ct.id.replace(/_/g, " ") + '</option>';
+				let optText = (ct.title.length) ? ct.title:ct.id.replace(/_/g, " ");
+				customOpts += '<option' + css + ' data-type="' + ct.type + '" value="' + ct.id + '">&nbsp;&nbsp;&nbsp;' + optText + '</option>';
 			}
 		});
 

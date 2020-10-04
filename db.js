@@ -34,6 +34,15 @@ class Database {
 	}
 
 	/**
+	 * Switch to active theme, after app ready
+	 */
+	switchToActiveTheme() {
+		this.databases.templatetheme.getActiveTheme().then((theme)=>{
+			this.setTheme(theme.id);
+		});
+	}
+
+	/**
 	 * returns reference to set of dbs (data/themes/THEME)
 	 */
 	theme() {
@@ -77,6 +86,10 @@ class Database {
 		});
 	}
 
+	/**
+	 * Duplicate a theme (copy its dbs to a new folder)
+	 * @param {object} data src and dest paths
+	 */
 	dupeTheme(data) {
 		let path = this.path;
 		let fs = this.fs;
