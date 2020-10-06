@@ -14,6 +14,7 @@ class GetProcessor {
 	 * @param {object} testData			TestData class
 	 * @param {object} gui				GUI class
 	 * @param {object} versioncheck		VersionChecker class
+	 * @param {object} overlayPage		overlay web page
 	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
@@ -24,6 +25,7 @@ class GetProcessor {
 		this.testData = params.testData;
 		this.gui = params.gui;
 		this.versioncheck = params.versioncheck;
+		this.overlayPage = params.overlayPage;
 	}
 
 	/**
@@ -198,6 +200,17 @@ class GetProcessor {
 	 */
 	getUI(req, res) {
 		this.gui.loadPage(req).then((page) => {
+			res.send(page);
+		});
+	}
+
+	/**
+	 * Pass off request to the overlay handler
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	getOverlay(req, res) {
+		this.overlayPage.loadPage(req).then((page) => {
 			res.send(page);
 		});
 	}

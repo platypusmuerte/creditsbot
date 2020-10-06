@@ -57,7 +57,7 @@ class GUI {
 					resolve(pageContent);
 				});
 			});			
-		});;
+		});
 	}
 
 	/**

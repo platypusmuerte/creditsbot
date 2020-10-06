@@ -17,6 +17,7 @@ class RouteHandler {
 		this.backup = params.backup;
 		this.exportdata = params.exportdata;
 		this.versioncheck = params.versioncheck;
+		this.overlayPage = params.overlayPage;
 
 		const { GetHandler } = require("./gets");
 		const { PostHandler } = require("./posts");
@@ -31,7 +32,8 @@ class RouteHandler {
 				builder: this.builder, 
 				testData: this.testData, 
 				gui: this.gui,
-				versioncheck: this.versioncheck
+				versioncheck: this.versioncheck,
+				overlayPage: this.overlayPage
 			}),
 			posts: new PostHandler({ 
 				dataDir: this.dataDir, 

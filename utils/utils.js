@@ -27,6 +27,14 @@ class Utils {
 	}
 
 	/**
+	 * Send different colored message to cli
+	 * @param {string} msg message to send to cli
+	 */
+	wsconsole(msg) {
+		console.log(chalk.hex("#ff9900")("[CREDITSBOT] ") + chalk.hex("#c4b512")("[Websocket] ") + chalk.hex("#297bd6")(msg));
+	}
+
+	/**
 	 * Only return object of params were expecting
 	 * @param {object} q express query string object
 	 */

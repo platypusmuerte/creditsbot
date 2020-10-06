@@ -18,6 +18,7 @@ class GetHandler {
 	 * @param {object} 	blacklist 		the blacklist database 
 	 * @param {object} 	testData 		TestData class
 	 * @param {object} 	versioncheck 	VersionChecker class
+	 * @param {object}	overlayPage		the overlay page class
 	 * 
 	 * @property {object}	processor	GetProcessor class
 	 */
@@ -33,8 +34,9 @@ class GetHandler {
 		this.testData = params.testData;
 		this.gui = params.gui;
 		this.versioncheck = params.versioncheck;
+		this.overlayPage = params.overlayPage;
 
-		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck });
+		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck, overlayPage: this.overlayPage });
 	}
 
 	/**
@@ -235,6 +237,20 @@ class GetHandler {
 
 		this.exp.get(path, (req, res) => {
 			processor.uiGetData(req, res);
+		});
+
+		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
+	}
+
+	/**
+	 * Get the overlay, and return to browser
+	 */
+	getOverlay() {		
+		let path = constants.PATHS.OVERLAY;
+		let processor = this.processor;
+
+		this.exp.get(path, (req, res) => {
+			processor.getOverlay(req, res);
 		});
 
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);

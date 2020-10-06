@@ -22,6 +22,7 @@ class Listener {
 	 * @param {object} backup		Backup class
 	 * @param {object} exportdata	Export class
 	 * @param {object} versioncheck	Version checker class
+	 * @param {object} overlayPage	overlayPage class
 	 * 
 	 * @property {object} routeHandler RouteHandler class
 	 */
@@ -40,6 +41,7 @@ class Listener {
 		this.exportdata = params.exportdata;
 		this.versioncheck = params.versioncheck;
 		this.fs = params.fs;
+		this.overlayPage = params.overlayPage;
 
 		this.routeHandler = new RouteHandler({ 
 			utils: this.utils, 
@@ -52,7 +54,8 @@ class Listener {
 			gui: this.gui, 
 			backup: this.backup, 
 			exportdata: this.exportdata,
-			versioncheck: this.versioncheck
+			versioncheck: this.versioncheck,
+			overlayPage: this.overlayPage
 		});
 	}
 
@@ -89,6 +92,7 @@ class Listener {
 		this.routeHandler.routes.gets.getUI();
 		this.routeHandler.routes.gets.getCredits();
 		this.routeHandler.routes.gets.uiGetData();
+		this.routeHandler.routes.gets.getOverlay();
 
 		this.routeHandler.routes.posts.uiSetData();
 

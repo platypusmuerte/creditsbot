@@ -21,8 +21,10 @@ let { GUI } = require("./gui/main");
 let { VersionCheck } = require("./utils/versioncheck");
 let { Patches } = require("./patches/main");
 let { RequiredFiles } = require("./utils/requiredfiles");
+let { OverlayWebSocket } = require("./websocket/main");
+let { OverlayPage } = require("./websocket/overlay");
 
-let utils, listener, db, builder, testData, gui, patches;
+let utils, listener, db, builder, testData, gui, patches, overlayWebsocket, overlayPage;
 utils = new Utils();
 
 // make sure folders and files exist as early as possible
@@ -65,13 +67,22 @@ patches.prep().then((s,f)=>{
 					gui = new GUI({ db, utils, dataDir, userArgs, fs });
 					backup = new Backup({ fs, path, utils, dataDir, userArgs });
 					exportdata = new ExportData({ db, fs, path, utils, dataDir, userArgs });
-					listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs });
+
+					overlayWebsocket = new OverlayWebSocket({ utils, userArgs });
+
+					overlayPage = new OverlayPage({ utils, userArgs });
+
+
+					listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs, overlayPage });					
 					
 					// start listening to gets/posts and then run patch check
 					listener.start().then(()=>{
 						patches.postPatches(db).then(()=>{
 							// done patching
 							db.switchToActiveTheme();
+						}).then(()=>{
+							// fire up websocket
+							overlayWebsocket.init();
 						});
 					});	
 				});			

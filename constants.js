@@ -9,7 +9,8 @@ exports.constants = {
 			BLACKLIST: [],
 			CLEAN_ON_STARTUP: true,
 			DEBUG: true,
-			PORT: 3022
+			PORT: 3022,
+			WEBSOCKET_PORT: 3023
 		}
 	},
 	DATA_FILE_EXT: ".db",
@@ -61,6 +62,7 @@ exports.constants = {
 		GET_10: "/top10/:key",
 		GET_5: "/top5/:key",
 		GET_USER: "/get/:key/:user",
+		OVERLAY: "/overlay",
 		PING: "/ping",
 		REMOVE_USER: "/remove/:user",
 		TESTDATA_ADD: "/testdata/add",
