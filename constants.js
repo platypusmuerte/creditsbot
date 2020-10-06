@@ -94,6 +94,10 @@ exports.constants = {
 		DEFAULT_CSS: "_default.css",
 		USER_HTML: "_user.html",
 		USER_CSS: "_user.css"
+	},
+	TWITTER: {
+		PATH_ADD_RULE: "https://api.twitter.com/2/tweets/search/stream/rules",
+		PATH_STREAM: "https://api.twitter.com/2/tweets/search/stream?"
 	}
 };
 
