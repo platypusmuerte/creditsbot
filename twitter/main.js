@@ -1,5 +1,6 @@
 const { constants } = require('../constants');
 const superagent = require('superagent');
+const Twitter = require('twitter-v2');
 
 /**
  * Twitter class - use a dev account to listen for data on the Twitter stream using rules
@@ -142,25 +143,7 @@ class Twitter {
 
 	connectToTwitterStream() {
 		return new Promise((resolve, reject)=>{
-			superagent.get(constants.TWITTER.PATH_ADD_RULE + "expansions=author_id").set(
-				'Authorization','Bearer ' + devKeys.bearer
-			).on("data",(data)=>{
-
-			}).then((res) => {
-				if(e) {
-					console.log(e);
-					reject(e);
-				} else {
-					//r.text r.body
-					console.log("rule add response");
-					let respData = r.body;
-					console.log(respData, r.text);
-
-					
-
-					resolve(true);
-				}				
-			});
+			
 		});		
 	}
 }

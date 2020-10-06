@@ -88,9 +88,13 @@ class PostProcessor {
 			case "changetheme":
 				this.uiChangeTheme(req, res);
 				break;
+			case "setoverlaytwitter":
+				this.uiSetOverlayTwitter(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
+			
 		}
 	}
 
@@ -325,6 +329,19 @@ class PostProcessor {
 
 		this.db.databases.templatetheme.activateThemeByID(data.id).then((result) => {
 			res.json(result);
+		});
+	}
+
+	/**
+	 * Change twitter settings
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	uiSetOverlayTwitter(req, res) {
+		let data = req.body;
+
+		this.db.theme().overlaytwitter.setData(data).then(() => {
+			res.json({ "success": true });
 		});
 	}
 }

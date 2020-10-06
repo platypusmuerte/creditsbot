@@ -148,6 +148,7 @@ class Database {
 		const { TemplateSortQueries } = require("./databases/templatesort");
 		const { TemplatePageQueries } = require("./databases/templatepage");
 		const { TemplateDefaultCSSQueries } = require("./databases/templatedefaultcss");
+		const { OverlayTwitterQueries } = require("./databases/overlaytwitter");
 
 		this.themes[themeDir] = {
 			templateincludes: new TemplateIncludesQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
@@ -157,7 +158,8 @@ class Database {
 			credittemplates: new CreditTemplatesQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
 			templatesort: new TemplateSortQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
 			templatepage: new TemplatePageQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
-			templatedefaultcss: new TemplateDefaultCSSQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path })
+			templatedefaultcss: new TemplateDefaultCSSQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			overlaytwitter: new OverlayTwitterQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path })
 		};
 
 		userArgs.DEBUG && utils.console("DBs created for theme " + themeDir);

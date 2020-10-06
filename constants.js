@@ -85,7 +85,8 @@ exports.constants = {
 		TEMPLATE_PAGE: "templatepage",
 		TEMPLATE_SETTINGS: "templatesettings",
 		TEMPLATE_SORT: "templatesort",
-		TEMPLATE_THEME: "templatetheme"
+		TEMPLATE_THEME: "templatetheme",
+		OVERLAY_TWITTER: "overlaytwitter"
 	},
 	TEMPLATE_DIRS: {
 		BASE: "./templates",

@@ -52,6 +52,7 @@ class PageBody {
 		const { TemplatePage } = require("./body/template.page");
 		const { TemplateDefaultCSS } = require("./body/template.defaultcss");
 		const { TemplateTheme } = require("./body/template.theme");
+		const { OverlayTwitter } = require("./body/overlay.twitter");
 
 		this.body = {
 			home: new BodyHome({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
@@ -68,7 +69,8 @@ class PageBody {
 			template_sort: new TemplateSort({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			template_page: new TemplatePage({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
 			template_defaultcss: new TemplateDefaultCSS({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
-			template_theme: new TemplateTheme({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
+			template_theme: new TemplateTheme({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query }),
+			overlay_twitter: new OverlayTwitter({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, page: this.page, query: this.query })
 		};
 
 		this.pageStr = this.page + ((this.subPage) ? "_" + this.subPage : "");
@@ -142,6 +144,11 @@ class PageBody {
 					break;
 				case "template_theme":
 					db.databases.templatetheme.getAll().then((themes) => {
+						resolve(themes);
+					});
+					break;
+				case "overlay_twitter":
+					db.theme().overlaytwitter.getAll().then((themes) => {
 						resolve(themes);
 					});
 					break;
