@@ -5,6 +5,7 @@ exports.twitter = {
 	access_secret: "",
 	bearer: "",
 	hashtag: "#poundsign",
+	duration: 5,
 	enabled: false,
 	ruleid: false,
 	template: `
@@ -12,7 +13,7 @@ exports.twitter = {
 	<div class="overlayTwitterBox">
 		<div class="overlayTwitterIcon"></div>		
 		<div class="overlayTwitterMessage">
-			{{{tweeter}}} shared the stream on Twitter!
+			<span class="overlayTwitterName">{{{tweeter}}}</span> shared the stream on Twitter!
 		</div>
 	</div>
 </div>`,
@@ -27,6 +28,9 @@ exports.twitter = {
 	
 }
 .overlayTwitterMessage {
+	
+}
+.overlayTwitterName {
 	
 }`
 };

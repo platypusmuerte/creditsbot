@@ -63,12 +63,21 @@ class OverlayTwitter extends BodyBase {
 					</div>
 				</div>
 
-				<label class="formLabel">Enable Tweet Alerts Overlay</label>
+				<label class="formLabel">Watch for HashTag</label>
 
 				<div class="row justify-content-start queryRow">
 					<div class="col-3">
 						<label class="colorPickerLabel" for="hashtag">Hash Tag: (a-z, 0-9, _, -, no spaces)</label>
 						<input type="text" class="form-control" id="hashtag" value="${this.data.hashtag}" placeholder="Enter #poundsign here">
+					</div>
+				</div>
+
+				<label class="formLabel">Overlay Alert Duration</label>
+
+				<div class="row justify-content-start queryRow">
+					<div class="col-3">
+						<label class="colorPickerLabel" for="duration">Seconds:</label>
+						<input type="text" class="form-control" id="duration" value="${this.data.duration}" placeholder="Number in seconds">
 					</div>
 				</div>
 
@@ -147,9 +156,13 @@ class OverlayTwitter extends BodyBase {
 			initCodeMirror({textarea: $("#modal_editor_double_sm_smTextArea2")[0], mode: "htmlmixed", refresh: true});
 
 			$("#formsub").on("click",(e)=>{
+				let duration = $("#duration").val().replace(/[^0-9]/gi,'');
+				let durationSecs = (duration.length < 1) ? 1:duration*1;
+
 				let payload = {
 					enabled: $("#alertEnabled").is(":checked"),
 					hashtag: $("#hashtag").val().replace(/[^a-z0-9_-]/gi,''),
+					duration: durationSecs,
 					template: $("#alertTemplate").val(),
 					css: $("#alertCSS").val(),
 					api_key: $("#apikey").val(),

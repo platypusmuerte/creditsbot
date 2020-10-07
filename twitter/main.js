@@ -30,6 +30,12 @@ class TwitterManager {
 		this.newRule = false;
 		this.running = false;
 
+		this.config;
+
+		this.newConfig();
+	}
+
+	newConfig() {
 		this.config = {
 			api: false,
 			apisecret: false,
@@ -38,6 +44,7 @@ class TwitterManager {
 			bearer: false,
 			enabled: false,
 			hashtag: false,
+			duration: false,
 			template: false,
 			css: false,
 			ruleid: false
@@ -83,6 +90,7 @@ class TwitterManager {
 			bearer: data.bearer,
 			enabled: data.enabled,
 			hashtag: this.ensureHashTag(data.hashtag),
+			duration: data.duration,
 			template: data.template,
 			css: data.css,
 			ruleid: data.ruleid
@@ -130,18 +138,7 @@ class TwitterManager {
 	 */
 	stop() {
 		if(this.running) {
-			this.config = {
-				api: false,
-				apisecret: false,
-				acess: false,
-				accesssecret: false,
-				bearer: false,
-				enabled: false,
-				hashtag: false,
-				template: false,
-				css: false,
-				ruleid: false
-			};
+			this.newConfig();
 
 			this.stream.close();
 			this.running = false;
@@ -184,11 +181,19 @@ class TwitterManager {
 	}
 
 	buildAlertForOverlay(eventUsers) {
-		let alerts = [];
+		let events = {
+			css: `<style>` + this.config.css + `</style>`,
+			alerts: []
+		};
+		
+		let template = this.config.template;
 
 		eventUsers.forEach((user)=>{
 			// user.username is twitter user handle
+			events.alerts.push(template.replace('{{{tweeter}}}', user.username));
 		});
+
+		this.overlayWebsocket.sendMessage(JSON.stringify(events));
 	}
 
 	logEventToDB(eventUsers) {
