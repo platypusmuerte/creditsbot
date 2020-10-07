@@ -67,7 +67,7 @@ class OverlayTwitter extends BodyBase {
 
 				<div class="row justify-content-start queryRow">
 					<div class="col-3">
-						<label class="colorPickerLabel" for="hashtag">Hash Tag:</label>
+						<label class="colorPickerLabel" for="hashtag">Hash Tag: (a-z, 0-9, _, -, no spaces)</label>
 						<input type="text" class="form-control" id="hashtag" value="${this.data.hashtag}" placeholder="Enter #poundsign here">
 					</div>
 				</div>
@@ -149,7 +149,7 @@ class OverlayTwitter extends BodyBase {
 			$("#formsub").on("click",(e)=>{
 				let payload = {
 					enabled: $("#alertEnabled").is(":checked"),
-					hashtag: $("#hashtag").val(),
+					hashtag: $("#hashtag").val().replace(/[^a-z0-9_-]/gi,''),
 					template: $("#alertTemplate").val(),
 					css: $("#alertCSS").val(),
 					api_key: $("#apikey").val(),

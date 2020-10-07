@@ -38,6 +38,7 @@ class Database {
 	 */
 	switchToActiveTheme() {
 		this.databases.templatetheme.getActiveTheme().then((theme)=>{
+			this.userArgs.DEBUG && this.utils.console("Changed to theme " + theme.name);
 			this.setTheme(theme.id);
 		});
 	}
