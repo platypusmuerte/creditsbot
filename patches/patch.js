@@ -29,64 +29,10 @@ class PatchFile {
 	pre() {
 		let utils = this.utils;
 		let userArgs = this.userArgs;
-		let pre_moveDB = this.pre_moveDB.bind(this);
 
 		return new Promise((resolve, reject)=>{	
-			userArgs.DEBUG && utils.console("Running pre-patches");
-			pre_moveDB().then(()=>{
-				resolve();
-			});			
-		});
-	}
-
-	/**
-	 * move theme files to default theme location
-	 */
-	pre_moveDB() {
-		let moveDbFile = this.moveDbFile.bind(this);
-
-		return new Promise((resolve, reject)=>{
-			Promise.all([
-				moveDbFile("credittemplates.sdb"),
-				moveDbFile("templatecolors.sdb"),
-				moveDbFile("templatecustomcss.sdb"),
-				moveDbFile("templatedefaultcss.sdb"),
-				moveDbFile("templateincludes.sdb"),
-				moveDbFile("templatepage.sdb"),
-				moveDbFile("templatesettings.sdb"),
-				moveDbFile("templatesort.sdb")
-			]).then(()=>{
-				resolve();
-			});
-		});
-	}
-
-	/**
-	 * Move a file, and resolve when done moving it
-	 * @param {string} f file name
-	 */
-	moveDbFile(f) {
-		let path = this.path;
-		let fs = this.fs;
-		let utils = this.utils;
-		let userArgs = this.userArgs;
-
-		return new Promise((resolve, reject)=>{
-			userArgs.DEBUG && utils.console("		moving file " + f);
-
-			fs.pathExists(path.join("./data", f)).then((exists)=>{
-				if(exists) {
-					fs.move(path.join("./data", f),"./data/themes/default/" + f, err => {
-						if (err) throw err;
-						userArgs.DEBUG && utils.console("		moved file " + f);
-						resolve();
-					});
-				} else {
-					userArgs.DEBUG && utils.console("		failed to move: " + f);
-					resolve();
-				}
-			});
-			
+			userArgs.DEBUG && utils.console("No pre-patches");
+			resolve();			
 		});
 	}
 
@@ -97,16 +43,12 @@ class PatchFile {
 		this.db = db;
 		let utils = this.utils;
 		let userArgs = this.userArgs;
-		let updateColorDB = this.updateColorDB.bind(this);
-		let updateExistingTemplates = this.updateExistingTemplates.bind(this);
-		let addStreamLootsTemplates = this.addStreamLootsTemplates.bind(this);
+		let addStreamTweetsTemplates = this.addStreamTweetsTemplates.bind(this);
 
 		return new Promise((resolve, reject)=>{
 			userArgs.DEBUG && utils.console("Running post-patches");
 			Promise.all([
-				updateColorDB(),
-				updateExistingTemplates(),
-				addStreamLootsTemplates()
+				addStreamTweetsTemplates()
 			]).then(()=>{
 				userArgs.DEBUG && utils.console("Patching complete");
 				resolve();
@@ -115,134 +57,17 @@ class PatchFile {
 	}
 
 	/**
-	 * Update colors DB
-	 */
-	updateColorDB() {
-		let db = this.db;
-		let utils = this.utils;
-		let userArgs = this.userArgs;
-
-		const { templatecolors } = require("../defaults/templatecolors");
-
-		return new Promise((resolve, reject)=>{	
-			db.theme().templatecolors.getAll().then((colors)=>{
-				db.theme().templatecolors.setData({
-					title: colors.title,
-					subtitle: colors.subtitle,
-					background: colors.background,
-					sectiontitle: colors.sectiontitle,
-					textcolor: colors.textcolor,
-					amountcolor: templatecolors.amountcolor,
-					totalcolor: templatecolors.totalcolor,
-					sectionborder: colors.sectionborder
-				}).then(()=>{
-					userArgs.DEBUG && utils.console("		color db updated ");
-					resolve();
-				});				
-			});			
-		});
-	}
-
-	/**
-	 * update templates with new classes for better style control
-	 */
-	updateExistingTemplates() {
-		let db = this.db;
-		let utils = this.utils;
-		let userArgs = this.userArgs;
-		let updateExistingTemplate = this.updateExistingTemplate.bind(this);
-		let p = [];
-
-		return new Promise((resolve, reject)=>{
-			db.theme().credittemplates.getAll().then((allTemplates)=>{			
-
-				allTemplates.forEach((t,i)=>{
-					p.push(updateExistingTemplate(t));
-				});
-
-				Promise.all(p).then((pRes)=>{
-					userArgs.DEBUG && utils.console("		templates updated ");
-					resolve();
-				});
-			});
-		});
-	}
-
-	/**
-	 * Update existing template
-	 */
-	updateExistingTemplate(t) {
-		let getTemplateByID = this.getTemplateByID.bind(this);
-		let setTemplateByID = this.setTemplateByID.bind(this);
-
-		return new Promise((resolve, reject)=>{
-			getTemplateByID(t.id).then((thisTemplate)=>{
-				let template = Object.assign({},thisTemplate);
-
-				delete template["defaults"];
-				
-				let str = template.inner;
-
-				if(str.indexOf("amountColor") === -1) {
-					str = template.inner.replace('class="amount','class="amount amountColor');
-				}
-
-				if(str.indexOf("totalColor") === -1) {
-					str = str.replace('class="total','class="total totalColor');
-				}
-
-				template.inner = str;
-				
-
-				setTemplateByID(template).then((dbID)=>{
-					resolve("complete");
-				});				
-			});	
-		});
-	}
-
-	/**
-	 * get template by id for updating
-	 */
-	getTemplateByID(id) {
-		let db = this.db;
-
-		return new Promise((resolve, reject)=>{
-			db.theme().credittemplates.getTemplateByID(id).then((thisTemplate)=>{
-				resolve(thisTemplate);
-			});
-		});
-	}
-
-	/**
-	 * set template by id for updating
-	 */
-	setTemplateByID(t) {		
-		let db = this.db;
-		
-		return new Promise((resolve, reject)=>{
-			db.theme().credittemplates.setTemplateByID(t).then((dbID)=>{
-				resolve(dbID);
-			});
-		});
-	}
-
-	/**
 	 * Add new templates for streamloots purchases
 	 */
-	addStreamLootsTemplates() {
-		let addStreamLootsTemplate = this.addStreamLootsTemplate.bind(this);
+	addStreamTweetsTemplates() {
+		let addStreamTweetsTemplate = this.addStreamTweetsTemplate.bind(this);
 		const { templatedata } = require("../defaults/templatedata");
 
 		let templatesToAdd = [
-			"streamlootspurchase_name",
-			"streamlootspurchase_top5",
-			"streamlootspurchase_name_amount",
-			"streamlootspurchase_name_total",
-			"streamlootspurchase_name_amount_total",
-			"streamlootspurchase_top10",
-			"hstreamlootspurchase_top10H",
-			"hstreamlootspurchase_top5H"
+			"streamtweets_name",
+			"streamtweets_name_total",
+			"hstreamtweets_top10H",
+			"hstreamtweets_top5H"
 		];
 
 		return new Promise((resolve, reject)=>{
@@ -250,7 +75,7 @@ class PatchFile {
 
 			templatedata.forEach((t,i)=>{
 				if(templatesToAdd.includes(t.id)) {
-					tPromises.push(addStreamLootsTemplate(t));
+					tPromises.push(addStreamTweetsTemplate(t));
 				}
 			});
 
@@ -263,7 +88,7 @@ class PatchFile {
 	/**
 	 * add template as promise
 	 */
-	addStreamLootsTemplate(t) {
+	addStreamTweetsTemplate(t) {
 		let db = this.db;
 		let utils = this.utils;
 		let userArgs = this.userArgs;

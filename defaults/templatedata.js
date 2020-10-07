@@ -901,5 +901,57 @@ exports.templatedata = [
 </div>`,
 		wrapper: `<div class="hstreamlootspurchaseTop5Wrapper">{{{group}}}</div>`,
 		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
+	},{
+		enabled: true,
+		id: "streamtweets_name",
+		type: "dynamic",
+		key: "streamtweets",
+		title: `The Tweeters`,
+		template: `<div id="section_streamtweets_name" class="creditSection">
+	{{{contentTitle}}}
+	{{{streamtweets_name}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="streamtweetsWrapper">{{{group}}}</div>`,
+		inner: `<div class="name textColor">{{name}}</div>`
+	},{
+		enabled: true,
+		id: "streamtweets_name_total",
+		type: "dynamic",
+		key: "streamtweets",
+		title: `Total Tweets By Viewers`,
+		template: `<div id="section_streamtweets_name_total" class="creditSection">
+	{{{contentTitle}}}
+	{{{streamtweets_name_total}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="streamtweetsTotalWrapper">{{{group}}}</div>`,
+		inner: `<div class="nameTotal"><div class="name textColor">{{name}}</div><div class="total totalColor">{{total}}</div></div>`
+	},{
+		enabled: true,
+		id: "hstreamtweets_top10H",
+		type: "dynamic",
+		key: "hstreamtweets",
+		title: `Overall Top 10 Tweeters`,
+		template: `<div id="section_hstreamtweets_top10H" class="creditSection">
+	{{{contentTitle}}}
+	{{{hstreamtweets_top10H}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="hstreamtweetsTop10Wrapper">{{{group}}}</div>`,
+		inner: `<div class="nameTop10"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
+	},{
+		enabled: true,
+		id: "hstreamtweets_top5H",
+		type: "dynamic",
+		key: "hstreamtweets",
+		title: `Overall Top 5 Tweeters`,
+		template: `<div id="section_hstreamtweets_top5H" class="creditSection">
+	{{{contentTitle}}}
+	{{{hstreamtweets_top5H}}}
+	{{{contentDivider}}}
+</div>`,
+		wrapper: `<div class="hstreamtweetsTop5Wrapper">{{{group}}}</div>`,
+		inner: `<div class="nameTop5"><div class="name textColor">{{name}}</div><div class="amount amountColor">{{amount}}</div></div>`
 	}
 ];

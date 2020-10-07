@@ -118,6 +118,8 @@ class OverlayPage {
 		
 				websocket.onopen = () => {
 					console.log("Connected to WS");
+
+					websocket.send("Hello? Is it me your looking for?");
 				};
 		
 				websocket.onmessage = (e)=> {
