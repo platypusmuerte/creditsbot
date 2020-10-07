@@ -128,5 +128,7 @@ body {
 .cmEditorVLG .CodeMirror {
 	height: 800px;
 }
-
+.disabledOpt {
+	font-weight: bold;
+}
 `;

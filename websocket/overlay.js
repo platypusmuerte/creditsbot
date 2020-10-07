@@ -33,9 +33,61 @@ class OverlayPage {
 				<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>				
 				<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 				<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+				<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 				${this.getRWS()}
 				
 				${this.getMainJS()}
+				<style>
+				.alertWrapper {
+					display: inline-block;
+					position: absolute;
+				}
+				.tl, .tc, .tr, .cl, .cc, .cr, .bl, .bc, .br {
+					
+				}
+				.tl {
+					top: 0px;
+					left: 0px;
+				}
+				.tc {
+					top: 0px;
+					left: 50%;
+					transform: translateX(-50%);
+				}
+				.tr {
+					top: 0px;
+					right: 0px;
+				}
+				.cl {
+					left: 0px;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+				.cc {
+					left: 50%;
+					transform: translateX(-50%);
+					top: 50%;
+					transform: translateY(-50%);
+				}
+				.cr {
+					right: 0px;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+				.bl {
+					bottom: 0px;
+					left: 0px;
+				}
+				.bc {
+					top: 0px;
+					left: 50%;
+					transform: translateX(-50%);
+				}
+				.br {
+					bottom: 0px;
+					right: 0px;
+				}
+				</style>
 			</head>
 			<body>
 			</body>
@@ -49,11 +101,17 @@ class OverlayPage {
 		class OverlayWS {
 			constructor(params) {
 				this.websocket;
-				this.elements = 0;
-				this.actions = [];
+				this.alerts = [];
+				this.duration = 5000;
+				this.entrance = "none";
+				this.visible = "none";
+				this.exit = "none";
+				this.css = '';
+				this.screenpos = "tr";
 			}
 		
 			run() {
+
 				let websocket = new ReconnectingWebSocket("ws://localhost:3023", null, {
 					reconnectInterval: 5000
 				});
@@ -63,8 +121,118 @@ class OverlayPage {
 				};
 		
 				websocket.onmessage = (e)=> {
-					console.log(e);
+					let eventData = JSON.parse(e.data);
+
+					if(eventData.alerts) {
+						let isRunning = (this.alerts.length);
+						this.alerts = [...eventData.alerts];
+						
+						this.duration = eventData.duration*1000;
+						this.entrance = eventData.entrance;
+						this.visible = eventData.visible;
+						this.exit = eventData.exit;
+						this.css = eventData.css;
+						this.screenpos = eventData.screenpos;
+
+						if(!isRunning) {
+							this.processAlerts();
+						}						
+					} else {
+						console.log(eventData);
+					}
 				};
+			}
+
+			processAlerts() {
+				$("body").append(this.css).append($("<div>",{"id":"alertWrapper","class":"alertWrapper " + this.screenpos + " animate__animated"}));
+
+				this.queueAlert();
+			}
+
+			queueAlert() {
+				console.log(this.alerts);
+
+				if(this.alerts.length) {
+					let alert = this.alerts.shift();
+
+					this.doNextAlert(alert).then(()=>{
+						this.queueAlert();
+					});
+				}
+			}
+
+			doNextAlert(alert) {
+				let showAlert = this.showAlert.bind(this);
+				let removeAlert = this.removeAlert.bind(this);
+				let visible = this.visible;
+				let duration = this.duration;
+
+				return new Promise((resolve, reject)=>{
+					this.addAlertToScreen(alert).then(()=>{
+						showAlert().then(()=>{
+							// add visible animation if any
+							if(visible !== "none") {
+								$("#alertWrapper").addClass("animate__" + visible);
+							}
+
+							// leave it on screen for duration
+							// remove animation
+							setTimeout(()=>{
+								$("#alertWrapper").removeClass("animate__" + visible);
+								removeAlert().then(()=>{
+									resolve();
+								});								
+							},duration);
+						});
+					});
+				});
+			}
+
+			addAlertToScreen(alert) {
+				return new Promise((resolve, reject)=>{
+					$("#alertWrapper").append(
+						alert
+					);
+					resolve();
+				});				
+			}
+
+			showAlert() {
+				let entrance = this.entrance;
+
+				return new Promise((resolve, reject)=>{
+					if(entrance === "none") {
+						$("#alertWrapper").show();
+						resolve();
+					} else {
+						$("#alertWrapper").addClass("animate__" + entrance);
+
+						// give animation time to finish
+						setTimeout(()=>{
+							$("#alertWrapper").removeClass("animate__" + entrance);
+							resolve();
+						},2000);
+					}
+				});				
+			}
+
+			removeAlert() {
+				let exit = this.exit;
+
+				return new Promise((resolve, reject)=>{
+					if(exit === "none") {
+						$("#alertWrapper").remove();
+						resolve();
+					} else {
+						$("#alertWrapper").addClass("animate__" + exit);
+
+						// give animation time to finish
+						setTimeout(()=>{
+							$("#alertWrapper").remove();
+							resolve();
+						},2000);
+					}				
+				});				
 			}
 		}
 

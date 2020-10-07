@@ -55,7 +55,12 @@ class OverlayTwitterQueries {
 				bearer: data.bearer,
 				enabled: data.enabled,
 				template: data.template,
-				css: data.css
+				duration: data.duration,
+				entrance: data.entrance,
+				visible: data.visible,
+				exit: data.exit,
+				css: data.css,
+				screenpos: data.screenpos
 			}).write();
 
 			resolve("");

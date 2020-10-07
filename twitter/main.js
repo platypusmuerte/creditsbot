@@ -47,7 +47,11 @@ class TwitterManager {
 			duration: false,
 			template: false,
 			css: false,
-			ruleid: false
+			ruleid: false,
+			entrance: false,
+			visible: false,
+			exit: false,
+			screenpos: false
 		};
 	}
 
@@ -93,7 +97,11 @@ class TwitterManager {
 			duration: data.duration,
 			template: data.template,
 			css: data.css,
-			ruleid: data.ruleid
+			ruleid: data.ruleid,
+			entrance: data.entrance,
+			visible: data.visible,
+			exit: data.exit,
+			screenpos: data.screenpos
 		};
 
 		if(this.newRule && this.config.api) {
@@ -169,10 +177,10 @@ class TwitterManager {
 	 */
 	processData(data, theme) {
 		if(this.config.enabled && data.matching_rules && this.matchesCurrentThemeRule(data.matching_rules, theme)) {
-			this.userArgs.DEBUG && this.utils.notice("Twitter API matched rule for theme: " + theme.name);
-			//this.overlayWebsocket
-			//console.log(data.includes.users);
-			let twitterUsername = data.includes
+			this.userArgs.DEBUG && this.utils.console("Twitter API matched rule for theme: " + theme.name);
+			
+			this.buildAlertForOverlay(data.includes.users);
+			this.logEventToDB(data.includes.users);
 		} else if(!this.config.enabled) {			
 			this.stop();
 		} else {
@@ -182,17 +190,22 @@ class TwitterManager {
 
 	buildAlertForOverlay(eventUsers) {
 		let events = {
+			entrance: this.config.entrance,
+			visible: this.config.visible,
+			exit: this.config.exit,
+			duration: this.config.duration,
+			screenpos: this.config.screenpos,
 			css: `<style>` + this.config.css + `</style>`,
 			alerts: []
 		};
-		
-		let template = this.config.template;
 
 		eventUsers.forEach((user)=>{
+			let template = this.config.template;
+			let templateStr = template.replace('{{{tweeter}}}', user.username);
 			// user.username is twitter user handle
-			events.alerts.push(template.replace('{{{tweeter}}}', user.username));
+			events.alerts.push(templateStr);
 		});
-
+		
 		this.overlayWebsocket.sendMessage(JSON.stringify(events));
 	}
 

@@ -44,10 +44,10 @@ class TemplateEdit extends BodyBase {
 		let contentOpts = '';
 		let staticOpts = '';
 		let customOpts = '';
-		let dividerDyn = '<option value="---" disabled>Dynamic Sections</option>';
-		let dividerStatic = '<option value="---" disabled>Static Sections</option>';
-		let dividerContent = '<option value="---" disabled>Content Sections</option>';
-		let dividerCustom = '<option value="---" disabled>Custom Sections</option>';
+		let dividerDyn = '<option class="disabledOpt" value="---" disabled>Dynamic Sections</option>';
+		let dividerStatic = '<option class="disabledOpt" value="---" disabled>Static Sections</option>';
+		let dividerContent = '<option class="disabledOpt" value="---" disabled>Content Sections</option>';
+		let dividerCustom = '<option class="disabledOpt" value="---" disabled>Custom Sections</option>';
 		
 		this.data.forEach((ct)=>{
 			let css = (ct.enabled) ? '':' class="templateDisabled"';

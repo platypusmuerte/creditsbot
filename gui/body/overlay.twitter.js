@@ -3,6 +3,7 @@ const { BodyBase } = require("./body.base");
 const { twitter } = require("../../defaults/twitter");
 const { codemirrorincludes } = require("../libs/codemirror/includes");
 const { modal_editor_double_sm_sm } = require("../modals/editor.double.sm.sm");
+const { animatecss } = require("../../defaults/animatecss");
 
 /**
  * Manage tweet alerts
@@ -43,6 +44,16 @@ class OverlayTwitter extends BodyBase {
 
 		let cbChecked = (this.data.enabled) ? ' checked="1"':'';
 
+		let opts = ['<option value="none">None</option>'];
+		
+		Object.entries(animatecss).forEach(([k,v])=>{
+			opts.push(`<option class="disabledOpt" value="---" disabled>${k}</option>`);
+
+			v.forEach((cssStr)=>{
+				opts.push(`<option value="${cssStr}">&nbsp;&nbsp;&nbsp;${cssStr}</option>`);
+			});
+		});
+
 		return `
 		${codemirrorincludes}
 		<script>${this.js()}</script>
@@ -72,12 +83,38 @@ class OverlayTwitter extends BodyBase {
 					</div>
 				</div>
 
-				<label class="formLabel">Overlay Alert Duration</label>
+				<label class="formLabel">Overlay Alert Settings</label>
 
 				<div class="row justify-content-start queryRow">
-					<div class="col-3">
+					<div class="col-1">
 						<label class="colorPickerLabel" for="duration">Seconds:</label>
-						<input type="text" class="form-control" id="duration" value="${this.data.duration}" placeholder="Number in seconds">
+						<input type="text" class="form-control numberInput" id="duration" value="${this.data.duration}" placeholder="Number in seconds">
+					</div>
+					<div class="col-2">
+						<label class="colorPickerLabel" for="animationEntrance">Entrance Animation:</label>
+						<select class="form-control templateDD" id="animationEntrance">${opts}</select>
+					</div>
+					<div class="col-2">
+						<label class="colorPickerLabel" for="animationVisible">Visible Animation:</label>
+						<select class="form-control templateDD" id="animationVisible">${opts}</select>
+					</div>
+					<div class="col-2">
+						<label class="colorPickerLabel" for="animationExit">Exit Animation:</label>
+						<select class="form-control templateDD" id="animationExit">${opts}</select>
+					</div>
+					<div class="col-2">
+						<label class="colorPickerLabel" for="screenPos">Screen Position:</label>
+						<select class="form-control templateDD" id="screenPos">
+							<option value="tl">Top Left</option>
+							<option value="tc">Top Center</option>
+							<option value="tr">Top Right</option>
+							<option value="cl">Center Left</option>
+							<option value="cc">Center Center</option>
+							<option value="cr">Center Right</option>
+							<option value="bl">Bottom Left</option>
+							<option value="bc">Bottom Center</option>
+							<option value="br">Bottom Right</option>
+						</select>
 					</div>
 				</div>
 
@@ -102,7 +139,7 @@ class OverlayTwitter extends BodyBase {
 				<div class="row justify-content-start queryRow">
 					<div class="col-6">
 						<label class="colorPickerLabel" for="apiKey">API Key:</label>
-						<input type="text" class="form-control" id="apikey" value="${this.data.api_key}" placeholder="Enter api token here">
+						<input type="password" class="form-control" id="apikey" value="${this.data.api_key}" placeholder="Enter api token here">
 					</div>
 				</div>
 				
@@ -116,7 +153,7 @@ class OverlayTwitter extends BodyBase {
 				<div class="row justify-content-start queryRow">
 					<div class="col-6">
 						<label class="colorPickerLabel" for="accesskey">Access Key:</label>
-						<input type="text" class="form-control" id="accesskey" value="${this.data.access_key}" placeholder="Enter access token here">
+						<input type="password" class="form-control" id="accesskey" value="${this.data.access_key}" placeholder="Enter access token here">
 					</div>
 				</div>
 				
@@ -148,12 +185,18 @@ class OverlayTwitter extends BodyBase {
 	* 		updates template
 	*/
 	js() {
+		console.log(this.data.screenpos);
 		return `
 		function init_template_page() {
 			initCodeMirror({textarea: $("#alertTemplate")[0], mode: "htmlmixed"});
-			initCodeMirror({textarea: $("#alertCSS")[0], mode: "htmlmixed"});
+			initCodeMirror({textarea: $("#alertCSS")[0], mode: "css"});
 			initCodeMirror({textarea: $("#modal_editor_double_sm_smTextArea1")[0], mode: "htmlmixed", refresh: true});
-			initCodeMirror({textarea: $("#modal_editor_double_sm_smTextArea2")[0], mode: "htmlmixed", refresh: true});
+			initCodeMirror({textarea: $("#modal_editor_double_sm_smTextArea2")[0], mode: "css", refresh: true});
+
+			$("#animationEntrance").val("${this.data.entrance}");
+			$("#animationVisible").val("${this.data.visible}");
+			$("#animationExit").val("${this.data.exit}");
+			$("#screenPos").val("${this.data.screenpos}");
 
 			$("#formsub").on("click",(e)=>{
 				let duration = $("#duration").val().replace(/[^0-9]/gi,'');
@@ -169,7 +212,11 @@ class OverlayTwitter extends BodyBase {
 					api_secret: $("#apisecret").val(),
 					access_key: $("#accesskey").val(),
 					access_secret: $("#accesssecret").val(),
-					bearer: $("#bearertoken").val()
+					bearer: $("#bearertoken").val(),
+					entrance: $("#animationEntrance").val(),
+					visible: $("#animationVisible").val(),
+					exit: $("#animationExit").val(),
+					screenpos: $("#screenPos").val()
 				};
 
 				$.ajax({
