@@ -10,7 +10,7 @@ class HStreamLootsPurchaseQueries {
 		this.dataDir = params.dataDir;
 		this.utils = params.utils;
 		this.path = params.path;
-		this.DBNAME = constants.DATABASE_NAMES.HSTREAMLOOTSPURCHASE;
+		this.DBNAME = constants.DATABASE_NAMES.HISTORIC_STREAMLOOTSPURCHASE;
 
 		const { HStreamLootsPurchaseDBAdapter } = require("../adapters/hstreamlootspurchase");
 		this.db = new HStreamLootsPurchaseDBAdapter({ cryptr: this.cryptr, dataDir: this.dataDir, path: this.path }).get();

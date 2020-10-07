@@ -30,6 +30,7 @@ exports.constants = {
 		RAIDS: "raids",
 		STREAMLOOTS: "streamloots",
 		STREAMLOOTSPURCHASE: "streamlootspurchase",
+		STREAMTWEETS: "streamtweets",
 		SUBS: "subs",
 		VIPS: "vips",
 
@@ -41,6 +42,7 @@ exports.constants = {
 		HISTORIC_RAIDS: "hraids",
 		HISTORIC_STREAMLOOTS: "hstreamloots",
 		HISTORIC_STREAMLOOTSPURCHASE: "hstreamlootspurchase",
+		HISTORIC_STREAMTWEETS: "hstreamtweets",
 		HISTORIC_SUBS: "hsubs"
 	},
 	DEFAULT_DB_THEME: "default",

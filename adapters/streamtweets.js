@@ -3,7 +3,7 @@ const { constants } = require('../constants');
 /**
  * DB Adapter
  */
-class HStreamLootsPurchaseDBAdapter {
+class StreamTweetsDBAdapter {
 	/**
 	 *
 	 * @param {package}	path		path
@@ -22,12 +22,12 @@ class HStreamLootsPurchaseDBAdapter {
 		this.low = require('lowdb');
 		this.FileSync = require('lowdb/adapters/FileSync');
 
-		this.dataFile = this.path.join(this.dataDir, constants.DATABASE_NAMES.HISTORIC_STREAMLOOTSPURCHASE + constants.DATA_FILE_HISTORIC_EXT);
+		this.dataFile = this.path.join(this.dataDir, constants.DATABASE_NAMES.STREAMTWEETS + constants.DATA_FILE_EXT);
 	}
 
 	getDefaults() {
 		let obj = {};
-		obj[constants.DATABASE_NAMES.HISTORIC_STREAMLOOTSPURCHASE] = [];
+		obj[constants.DATABASE_NAMES.STREAMTWEETS] = [];
 
 		return obj;
 	}
@@ -55,4 +55,4 @@ class HStreamLootsPurchaseDBAdapter {
 	}
 }
 
-exports.HStreamLootsPurchaseDBAdapter = HStreamLootsPurchaseDBAdapter;
+exports.StreamTweetsDBAdapter = StreamTweetsDBAdapter;

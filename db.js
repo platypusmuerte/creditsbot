@@ -191,6 +191,8 @@ class Database {
 		const { HRaidsQueries } = require("./databases/hraids");
 		const { HStreamLootsQueries } = require("./databases/hstreamloots");
 		const { HStreamLootsPurchaseQueries } = require("./databases/hstreamlootspurchase");
+		const { StreamTweetsQueries } = require("./databases/streamtweets");
+		const { HStreamTweetsQueries } = require("./databases/hstreamtweets");
 		const { HSubsQueries } = require("./databases/hsubs");
 		
 		const { BlacklistQueries } = require("./databases/blacklist");		
@@ -212,6 +214,7 @@ class Database {
 			addDatabase("raids", RaidsQueries);
 			addDatabase("streamloots", StreamLootsQueries);
 			addDatabase("streamlootspurchase", StreamLootsPurchaseQueries);
+			addDatabase("streamtweets", StreamTweetsQueries);
 			addDatabase("subs", SubsQueries);
 			addDatabase("vips", VipsQueries);
 	
@@ -223,6 +226,7 @@ class Database {
 			addDatabase("hraids", HRaidsQueries);
 			addDatabase("hstreamloots", HStreamLootsQueries);
 			addDatabase("hstreamlootspurchase", HStreamLootsPurchaseQueries);
+			addDatabase("hstreamtweets", HStreamTweetsQueries);
 			addDatabase("hsubs", HSubsQueries);
 	
 			addDatabase("blacklist", BlacklistQueries);
