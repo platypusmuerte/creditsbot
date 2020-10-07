@@ -16,6 +16,7 @@ class PostHandler {
 	 * @param {object} 	backup 			Backup class
 	 * @param {object} 	exportdata 		Export class
 	 * @param {object} 	gui 			GUI class
+	 * @param {object} 	twitterManager	twitterManager
 	 *
 	 * @property {object}	processor	PostProcessor class
 	 */
@@ -29,8 +30,9 @@ class PostHandler {
 		this.backup = params.backup;
 		this.exportdata = params.exportdata;
 		this.gui = params.gui;
+		this.twitterManager = params.twitterManager;
 
-		this.processor = new PostProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, gui: this.gui, backup: this.backup, exportdata: this.exportdata });
+		this.processor = new PostProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, gui: this.gui, backup: this.backup, exportdata: this.exportdata, twitterManager: this.twitterManager });
 	}
 
 	/**

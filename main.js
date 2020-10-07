@@ -23,8 +23,9 @@ let { Patches } = require("./patches/main");
 let { RequiredFiles } = require("./utils/requiredfiles");
 let { OverlayWebSocket } = require("./websocket/main");
 let { OverlayPage } = require("./websocket/overlay");
+let { TwitterManager } = require("./twitter/main");
 
-let utils, listener, db, builder, testData, gui, patches, overlayWebsocket, overlayPage;
+let utils, listener, db, builder, testData, gui, patches, overlayWebsocket, overlayPage, twitter;
 utils = new Utils();
 
 // make sure folders and files exist as early as possible
@@ -61,19 +62,18 @@ patches.prep().then((s,f)=>{
 					let versioncheck = new VersionCheck({ utils, userArgs });
 
 					// run checker now, for cli notification. GUI has its own calls
-					versioncheck.run();
+					versioncheck.run();	
 
 					testData = new TestData({ userArgs, utils });
 					gui = new GUI({ db, utils, dataDir, userArgs, fs });
 					backup = new Backup({ fs, path, utils, dataDir, userArgs });
-					exportdata = new ExportData({ db, fs, path, utils, dataDir, userArgs });
+					exportdata = new ExportData({ db, fs, path, utils, dataDir, userArgs });				
 
 					overlayWebsocket = new OverlayWebSocket({ utils, userArgs });
-
 					overlayPage = new OverlayPage({ utils, userArgs });
-
-
-					listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs, overlayPage });					
+					twitterManager = new TwitterManager({ db, utils, userArgs, overlayWebsocket });
+					
+					listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs, overlayPage, twitterManager });					
 					
 					// start listening to gets/posts and then run patch check
 					listener.start().then(()=>{
@@ -83,6 +83,9 @@ patches.prep().then((s,f)=>{
 						}).then(()=>{
 							// fire up websocket
 							overlayWebsocket.init();
+						}).then(()=>{
+							// fire up the twitter manager
+							twitterManager.init();
 						});
 					});	
 				});			

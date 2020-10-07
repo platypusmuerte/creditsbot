@@ -18,6 +18,7 @@ class RouteHandler {
 		this.exportdata = params.exportdata;
 		this.versioncheck = params.versioncheck;
 		this.overlayPage = params.overlayPage;
+		this.twitterManager = params.twitterManager;
 
 		const { GetHandler } = require("./gets");
 		const { PostHandler } = require("./posts");
@@ -43,7 +44,8 @@ class RouteHandler {
 				exp: this.exp, 
 				backup: this.backup, 
 				exportdata: this.exportdata, 
-				gui: this.gui 
+				gui: this.gui,
+				twitterManager: this.twitterManager
 			})
 		};
 	}

@@ -63,6 +63,22 @@ class OverlayTwitterQueries {
 	}
 
 	/**
+	 * Write settings
+	 * @param {object} data object to write
+	 */
+	setRuleID(ruleid) {
+		let db = this.db;
+
+		return new Promise((resolve, reject)=>{
+			db.assign({
+				ruleid: ruleid
+			}).write();
+
+			resolve("");
+		});		
+	}
+
+	/**
 	 * Get setting
 	 * @param	{string}	setting		setting to get
 	 */

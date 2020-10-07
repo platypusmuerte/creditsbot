@@ -14,6 +14,7 @@ class PostProcessor {
 	 * @param {object} backup			Backup class
 	 * @param {object} exportdata		Export class
 	 * @param {object} gui				GUI class
+	 * @param {object} twitterManager	twitterManager
 	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
@@ -24,6 +25,7 @@ class PostProcessor {
 		this.backup = params.backup;
 		this.exportdata = params.exportdata;
 		this.gui = params.gui;
+		this.twitterManager = params.twitterManager;
 	}
 
 	/**
@@ -339,8 +341,13 @@ class PostProcessor {
 	 */
 	uiSetOverlayTwitter(req, res) {
 		let data = req.body;
+		let twitterManager = this.twitterManager;
 
 		this.db.theme().overlaytwitter.setData(data).then(() => {
+			this.db.theme().overlaytwitter.getAll().then((newData)=>{
+				twitterManager.updateConfig(newData);
+			});
+
 			res.json({ "success": true });
 		});
 	}

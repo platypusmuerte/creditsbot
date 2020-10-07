@@ -6,6 +6,7 @@ exports.twitter = {
 	bearer: "",
 	hashtag: "#poundsign",
 	enabled: false,
+	ruleid: false,
 	template: `
 <div class="overlayTwitterWrapper">
 	<div class="overlayTwitterBox">
