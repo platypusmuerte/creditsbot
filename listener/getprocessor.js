@@ -82,6 +82,12 @@ class GetProcessor {
 			case constants.DATABASE_NAMES.STREAMLOOTS:
 				this.addToUserHistory(key, user, amount, expectedQueryParams);
 				break;
+			case constants.DATABASE_NAMES.STREAMLOOTSPURCHASE:
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
+				break;
+			case constants.DATABASE_NAMES.STREAMTWEETS:
+				this.addToUserHistory(key, user, amount, expectedQueryParams);
+				break;
 		}
 	}
 

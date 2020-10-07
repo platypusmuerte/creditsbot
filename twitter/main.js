@@ -192,10 +192,9 @@ class TwitterManager {
 	}
 
 	logEventToDB(eventUsers) {
-		let alerts = [];
-
 		eventUsers.forEach((user)=>{
-			// user.username is twitter user handle
+			this.db.databases.streamtweets.addUser(user.username, 1);
+			this.db.databases.hstreamtweets.addUser(user.username, 1);
 		});
 	}
 
