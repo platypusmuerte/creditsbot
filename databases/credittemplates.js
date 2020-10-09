@@ -169,6 +169,7 @@ class CreditTemplatesQueries {
 		
 		return new Promise((resolve, reject)=>{
 			db.find({ id: id }).assign({enabled: enabled}).write();
+			resolve("");
 		});
 	}
 	

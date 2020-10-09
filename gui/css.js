@@ -72,39 +72,64 @@ body {
 }
 .dragSectionIcon {
 	display: inline-block;
+	width: 20px;
+	vertical-align: top;
+	padding-top: 10px;
+	color: #297bd6;
+}
+.dragSectionOnOff {
+	display: inline-block;
 	width: 30px;
 	vertical-align: top;
 	padding-top: 10px;
-	color: #ff9900;
+}
+.dragSectionDesc {
+	display: block;
+	font-weight: 425;
+	font-size: 1rem;
+	color: #6c757d;
 }
 .dragSectionBody {
 	display: inline-block;
 }
-.sectionEnabledLabel, .sectionToggleIsOn {
+.sectionEnabledLabel, .sectionToggleIsOn, .allSectionToggleIsOn {
 	color: #0ddb44;
 }
-.sectionDisabledLabel, .sectionToggleIsOff {
+.sectionDisabledLabel, .sectionToggleIsOff, .allSectionToggleIsOff {
 	color: #db0d0d;
 }
-.sectionToggleIsOn, .sectionToggleIsOff {
+.sectionToggleIsOn, .sectionToggleIsOff, .allSectionToggleIsOn, .allSectionToggleIsOff {
 	cursor: pointer;
 }
+.allSectionToggleIsOn, .allSectionToggleIsOff {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 26px;
+}
 .sectionDBLabel, .sectionKey {
-	margin-left: 30px;
 	text-transform: capitalize;
+}
+.dragSectionEditIcon {
+	display: inline-block;
+	float: right;
+	padding-top: 10px;
+	padding-right: 8px;
 }
 .sectionDragEdit {
 	font-size: .8em;
-	margin-left: 30px;
 	visibility: hidden;
 }
 .sectionDraggable {
 	transition: background-color .3s linear;
+	padding: 4px;
+	cursor: default;
 }
-.sectionToggle {
-	visibility: hidden;
+.dragSectionTitle {
+	font-weight: 500;
+	line-height: 1.2;
+	font-size: 1.2rem;
 }
-.sectionDraggable:hover .sectionDragEdit, .sectionDraggable:hover .sectionToggle {
+.sectionDraggable:hover .sectionDragEdit {
 	visibility: visible;
 }
 .modalDialogLg {

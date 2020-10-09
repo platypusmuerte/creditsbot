@@ -51,7 +51,7 @@ class OverlayTwitter extends BodyBase {
 			<h1 class="display-4">Overlay Twitter Alerts</h1>
 			<p class="lead">Show retweet events in an overlay</p>
 			<hr class="my-4">
-
+			<p>Check the Wiki for how to create a Twitter Dev Account, and obtain the required keys. Its <strong>super simple</strong>.
 			${this.tabsHeader()}
 			<div class="tab-content guiTabBody" id="nav-tabContent">
 				${this.tab_settings()}
