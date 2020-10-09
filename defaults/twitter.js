@@ -4,13 +4,15 @@ exports.twitter = {
 	access_key: "",
 	access_secret: "",
 	bearer: "",
-	hashtag: "#poundsign",
+	hashtag: "poundsign",
 	duration: 5,
 	entrance: 'none',
 	visible: 'none',
 	exit: 'none',
 	enabled: false,
 	ruleid: false,
+	volume: .5,
+	soundfile: "",
 	screenpos: "tr",
 	template: `
 <div class="overlayTwitterWrapper">

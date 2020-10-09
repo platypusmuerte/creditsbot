@@ -46,22 +46,7 @@ class OverlayTwitterQueries {
 		let db = this.db;
 
 		return new Promise((resolve, reject)=>{
-			db.assign({
-				hashtag: data.hashtag,
-				api_key: data.api_key,
-				api_secret: data.api_secret,
-				access_key: data.access_key,
-				access_secret: data.access_secret,
-				bearer: data.bearer,
-				enabled: data.enabled,
-				template: data.template,
-				duration: data.duration,
-				entrance: data.entrance,
-				visible: data.visible,
-				exit: data.exit,
-				css: data.css,
-				screenpos: data.screenpos
-			}).write();
+			db.assign(data).write();
 
 			resolve("");
 		});		

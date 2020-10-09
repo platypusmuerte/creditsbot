@@ -1,6 +1,7 @@
 const { constants } = require('../constants');
 const superagent = require('superagent');
 const Twitter = require('twitter-v2');
+const { twitter } = require("../defaults/twitter");
 
 /**
  * TwitterManager class - use a dev account to listen for data on the Twitter stream using rules
@@ -36,23 +37,7 @@ class TwitterManager {
 	}
 
 	newConfig() {
-		this.config = {
-			api: false,
-			apisecret: false,
-			acess: false,
-			accesssecret: false,
-			bearer: false,
-			enabled: false,
-			hashtag: false,
-			duration: false,
-			template: false,
-			css: false,
-			ruleid: false,
-			entrance: false,
-			visible: false,
-			exit: false,
-			screenpos: false
-		};
+		this.config = twitter;
 	}
 
 	/**
@@ -87,10 +72,10 @@ class TwitterManager {
 		this.newRule = (this.ensureHashTag(data.hashtag) !== this.ensureHashTag(this.config.hashtag.toString()));
 
 		this.config = {
-			api: data.api_key,
-			apisecret: data.api_secret,
-			acess: data.access_key,
-			accesssecret: data.access_secret,
+			api_key: data.api_key,
+			api_secret: data.api_secret,
+			access_key: data.access_key,
+			access_secret: data.access_secret,
 			bearer: data.bearer,
 			enabled: data.enabled,
 			hashtag: this.ensureHashTag(data.hashtag),
@@ -101,10 +86,12 @@ class TwitterManager {
 			entrance: data.entrance,
 			visible: data.visible,
 			exit: data.exit,
-			screenpos: data.screenpos
+			screenpos: data.screenpos,
+			volume: data.volume,
+			soundfile: data.soundfile
 		};
 
-		if(this.newRule && this.config.api) {
+		if(this.newRule && this.config.api_key) {
 			this.createNewRule();
 		}
 
@@ -120,24 +107,27 @@ class TwitterManager {
 	 */
 	start() {
 		if(!this.running) {
-			this.client = new Twitter({
-				consumer_key: this.config.api,
-				consumer_secret: this.config.apisecret,
-				bearer_token: this.config.bearer
-			});
+			this.userArgs.DEBUG && this.utils.console("Twitter API waiting to connect for " + this.config.hashtag);
 
-			this.stream = this.client.stream("tweets/search/stream", {
-				"tweet.fields":"created_at",
-				"expansions":"author_id",
-				"user.fields":"created_at"
-			});
+			setTimeout(()=>{
+				this.client = new Twitter({
+					consumer_key: this.config.api_key,
+					consumer_secret: this.config.api_secret,
+					bearer_token: this.config.bearer
+				});
 
-			this.db.databases.templatetheme.getActiveTheme().then((theme)=>{
-				this.waitForData(theme);
-				this.running = true;
-				this.userArgs.DEBUG && this.utils.console("Twitter API listening for " + this.config.hashtag);
-			});
-					
+				this.stream = this.client.stream("tweets/search/stream", {
+					"tweet.fields":"created_at",
+					"expansions":"author_id",
+					"user.fields":"created_at"
+				});
+
+				this.db.databases.templatetheme.getActiveTheme().then((theme)=>{
+					this.waitForData(theme);
+					this.running = true;
+					this.userArgs.DEBUG && this.utils.console("Twitter API listening for " + this.config.hashtag);
+				});	
+			},5000);					
 		}		
 	}
 
@@ -162,9 +152,19 @@ class TwitterManager {
 	async waitForData(theme) {
 		let processData = this.processData.bind(this);
 		let data;
+		try {
+			for await (data of this.stream) {
+				processData(data, theme);
+			}
+		} catch(e) {
+			this.userArgs.DEBUG && this.utils.notice("Twitter API already connected, flushing connection, then restarting Twitter API....");
+			
+			this.stream.close();
+			this.running = false;
 
-		for await (data of this.stream) {
-			processData(data, theme);
+			setTimeout(()=>{
+				this.start();
+			},5000);
 		}
 	}
 
@@ -189,24 +189,27 @@ class TwitterManager {
 	}
 
 	buildAlertForOverlay(eventUsers) {
-		let events = {
-			entrance: this.config.entrance,
-			visible: this.config.visible,
-			exit: this.config.exit,
-			duration: this.config.duration,
-			screenpos: this.config.screenpos,
-			css: `<style>` + this.config.css + `</style>`,
-			alerts: []
-		};
+		let alerts = [];
 
 		eventUsers.forEach((user)=>{
 			let template = this.config.template;
 			let templateStr = template.replace('{{{tweeter}}}', user.username);
-			// user.username is twitter user handle
-			events.alerts.push(templateStr);
+			
+			alerts.push({
+				event: "twitter",
+				entrance: this.config.entrance,
+				visible: this.config.visible,
+				exit: this.config.exit,
+				duration: this.config.duration,
+				screenpos: this.config.screenpos,
+				css: `<style>` + this.config.css + `</style>`,
+				volume: this.config.volume,
+				soundfile: this.config.soundfile,
+				template: templateStr
+			});
 		});
 		
-		this.overlayWebsocket.sendMessage(JSON.stringify(events));
+		this.overlayWebsocket.sendMessage(JSON.stringify(alerts));
 	}
 
 	logEventToDB(eventUsers) {

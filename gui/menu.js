@@ -51,6 +51,16 @@ class PageMenu {
       				</div>
 				</div>
 
+				<a class="nav-link ` + this.isActive("overlay") + `" href="#" data-toggle="collapse" data-target="#menuThree" aria-expanded="true" aria-controls="menuThree">Overlay</a>
+
+				<div id="menuThree" class="collapse${this.isOpenMenu("overlay")}" aria-labelledby="headingOne" data-parent="#accordionExample">
+      				<div class="card-body">
+        				<nav class="nav flex-column subMenu">
+							<a class="nav-link ` + this.isActive("overlay", "twitter") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}overlay/twitter">Twitter Alerts</a>
+						</nav>
+      				</div>
+				</div>
+
 				<a class="nav-link ` + this.isActive("template") + `" href="#" data-toggle="collapse" data-target="#menuTwo" aria-expanded="true" aria-controls="menuTwo">Template</a>
 
 				<div id="menuTwo" class="collapse${this.isOpenMenu("template")}" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -65,16 +75,6 @@ class PageMenu {
 							<a class="nav-link ` + this.isActive("template", "settings") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/settings">Settings</a>
 							<a class="nav-link ` + this.isActive("template", "sort") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/sort">Sort</a>
 							<a class="nav-link ` + this.isActive("template", "theme") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/theme">Theme</a>
-						</nav>
-      				</div>
-				</div>
-
-				<a class="nav-link ` + this.isActive("overlay") + `" href="#" data-toggle="collapse" data-target="#menuThree" aria-expanded="true" aria-controls="menuThree">Overlay</a>
-
-				<div id="menuThree" class="collapse${this.isOpenMenu("overlay")}" aria-labelledby="headingOne" data-parent="#accordionExample">
-      				<div class="card-body">
-        				<nav class="nav flex-column subMenu">
-							<a class="nav-link ` + this.isActive("overlay", "twitter") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}overlay/twitter">Twitter Alerts</a>
 						</nav>
       				</div>
 				</div>
