@@ -14,6 +14,7 @@ class VersionCheck {
 		this.utils = params.utils;
 		this.userArgs = params.userArgs;
 		this.versionCheckFile = "https://raw.githubusercontent.com/platypusmuerte/creditsbot/master/version.txt";
+		this.lastCheck = 0;
 	}
 
 	/**
@@ -38,19 +39,35 @@ class VersionCheck {
 	 * Getter for the UI
 	 */
 	get() {
+		let userArgs = this.userArgs;
+		let utils = this.utils;
+		let updateLastCheck = this.updateLastCheck.bind(this);
 		let versionCheckFile = this.versionCheckFile;
+		let now = Date.now();
+		let gap = 15 * 60000;
 
 		return new Promise((resolve, reject)=>{
-			superagent.get(versionCheckFile).end((e, r) => {
-				let resp = {update: false};
-				
-				if (r.text.replace(/\./g, '') * 1 > constants.APP.VERSION.replace(/\./g, '') * 1) {
-					resp.update = r.text;
-				}
+			if((now - this.lastCheck) > gap) {
+				updateLastCheck();
+				userArgs.DEBUG && utils.console("Checking versions");
 
-				resolve(resp);
-			});
+				superagent.get(versionCheckFile).end((e, r) => {
+					let resp = {update: false};
+					
+					if (r.text.replace(/\./g, '') * 1 > constants.APP.VERSION.replace(/\./g, '') * 1) {
+						resp.update = r.text;
+					}
+
+					resolve(resp);
+				});
+			} else {
+				this.userArgs.DEBUG && this.utils.console("Too soon, skipping version check");
+			}			
 		});	
+	}
+
+	updateLastCheck() {
+		this.lastCheck = Date.now();
 	}
 
 	/**
