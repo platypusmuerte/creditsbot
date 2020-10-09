@@ -1,6 +1,8 @@
 const { constants } = require('../../constants');
 const { BodyBase } = require("./body.base");
+const { defaultcss } = require("../../defaults/templatedefaultcss");
 const { codemirrorincludes } = require("../libs/codemirror/includes");
+const { modal_editor_single_lg } = require("../modals/editor.single.lg");
 
 /**
  * Default css page
@@ -52,9 +54,12 @@ class TemplateDefaultCSS extends BodyBase {
 					<label class="formLabel" for="templateDefaultCSS">Custom CSS Definitions</label>
 					<textarea class="form-control" id="templateDefaultCSS" rows="25">${this.data.css}</textarea>
 				</div>
-				<button id="formsub" type="button" class="btn btn-primary">Submit</button><span id="subsuccess" class="badge badge-success formSuccess invisible">Success</span>
+				<button id="formsub" type="button" class="btn btn-primary">Submit</button>
+				<button id="viewdefaults" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_editor_single_lg">View Default</button>
+				<span id="subsuccess" class="badge badge-success formSuccess invisible">Success</span>
 			</form>
 		</div>
+		${modal_editor_single_lg({textarea: defaultcss.css})}
 		`;
 	}
 
@@ -66,6 +71,7 @@ class TemplateDefaultCSS extends BodyBase {
 		return `
 		function init_template_defaultcss() {
 			initCodeMirror({textarea: $("#templateDefaultCSS")[0], mode: "css"});
+			initCodeMirror({textarea: $("#modal_editor_single_lgTextArea")[0], mode: "css", refresh: true});
 
 			$("#formsub").on("click",(e)=>{
 				let payload = {
