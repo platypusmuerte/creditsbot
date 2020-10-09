@@ -67,7 +67,16 @@ class PatchFile {
 			"streamtweets_name",
 			"streamtweets_name_total",
 			"hstreamtweets_top10H",
-			"hstreamtweets_top5H"
+			"hstreamtweets_top5H",
+			/* catch missed templates to sort for new 2.1.0 users */
+			"streamlootspurchase_name",
+			"streamlootspurchase_top5",
+			"streamlootspurchase_name_amount",
+			"streamlootspurchase_name_total",
+			"streamlootspurchase_name_amount_total",
+			"streamlootspurchase_top10",
+			"hstreamlootspurchase_top10H",
+			"hstreamlootspurchase_top5H"
 		];
 
 		return new Promise((resolve, reject)=>{
@@ -95,23 +104,30 @@ class PatchFile {
 		let addedToDb = false;
 
 		return new Promise((resolve, reject)=>{
-			db.theme().credittemplates.addNew(t).then((added)=>{
-				if(added) {
-					userArgs.DEBUG && utils.console("		added template " + t.id);
-					addedToDb = true;
-				} else {
-					userArgs.DEBUG && utils.console("		template " + t.id + " already exists");
-				}				
-			}).then(()=>{
-				if(addedToDb) {
-					db.theme().templatesort.addNew(t.id).then(()=>{
-						userArgs.DEBUG && utils.console("		added to sort ");
-						resolve();
-					});
-				} else {
-					resolve();
-				}
-			});		
+			db.databases.templatetheme.getAll().then((themes)=>{
+				themes.forEach((theme)=>{
+					db.themes[theme.id].credittemplates.addNew(t).then((added)=>{
+						if(added) {
+							userArgs.DEBUG && utils.console("		added template " + t.id + " to theme " + theme.name);
+							addedToDb = true;
+						} else {
+							userArgs.DEBUG && utils.console("		template " + t.id + " already exists in theme " + theme.name);
+						}				
+					}).then(()=>{
+						db.themes[theme.id].templatesort.getAll().then((fullsortlist)=>{
+							if(fullsortlist.includes(t.id)) {
+								userArgs.DEBUG && utils.console("		sort " + t.id + " exists in theme " + theme.name);
+								resolve();
+							} else {
+								db.themes[theme.id].templatesort.addNew(t.id).then(()=>{
+									userArgs.DEBUG && utils.console("		added " + t.id + " to sort for theme " + theme.name);
+									resolve();
+								});								
+							}
+						});
+					});	
+				});
+			});						
 		});
 	}
 }

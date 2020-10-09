@@ -91,6 +91,7 @@ body {
 }
 .dragSectionBody {
 	display: inline-block;
+	max-width: 400px;
 }
 .sectionEnabledLabel, .sectionToggleIsOn, .allSectionToggleIsOn {
 	color: #0ddb44;
@@ -125,6 +126,7 @@ body {
 	cursor: default;
 }
 .dragSectionTitle {
+	display: block;
 	font-weight: 500;
 	line-height: 1.2;
 	font-size: 1.2rem;

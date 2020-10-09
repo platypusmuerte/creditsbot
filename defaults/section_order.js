@@ -58,5 +58,17 @@ exports.sectionOrder = [
 	"hhosts_top5H",
 	"hraids_top5H",
 	"hchannelpoints_top5H",
-	"footerWrapper"
+	"footerWrapper",
+	"streamlootspurchase_name",
+	"streamlootspurchase_top5",
+	"streamlootspurchase_name_amount",
+	"streamlootspurchase_name_total",
+	"streamlootspurchase_name_amount_total",
+	"streamlootspurchase_top10",
+	"hstreamlootspurchase_top10H",
+	"hstreamlootspurchase_top5H",
+	"streamtweets_name",
+	"streamtweets_name_total",
+	"hstreamtweets_top10H",
+	"hstreamtweets_top5H"
 ];
