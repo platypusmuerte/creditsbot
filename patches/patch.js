@@ -116,7 +116,7 @@ class PatchFile {
 							userArgs.DEBUG && utils.console("		template " + t.id + " already exists in theme " + theme.name);
 						}				
 					}).then(()=>{
-						userArgs.DEBUG && utils.console("---- theme ID: " + theme.id);
+						
 						db.themes[theme.id].templatesort.getAll().then((fullsortlist)=>{
 							
 							if(fullsortlist.includes(t.id)) {
