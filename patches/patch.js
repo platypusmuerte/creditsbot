@@ -44,11 +44,13 @@ class PatchFile {
 		let utils = this.utils;
 		let userArgs = this.userArgs;
 		let addStreamTweetsTemplates = this.addStreamTweetsTemplates.bind(this);
+		let updateDefaultCSS = this.updateDefaultCSS.bind(this);
 
 		return new Promise((resolve, reject)=>{
 			userArgs.DEBUG && utils.console("Running post-patches");
 			Promise.all([
-				addStreamTweetsTemplates()
+				addStreamTweetsTemplates(),
+				updateDefaultCSS()
 			]).then(()=>{
 				userArgs.DEBUG && utils.console("Patching complete");
 				resolve();
@@ -128,6 +130,39 @@ class PatchFile {
 					});	
 				});
 			});						
+		});
+	}
+
+	/**
+	 * Update default CSS values
+	 */
+	updateDefaultCSS() {
+		let db = this.db;
+		let utils = this.utils;
+		let userArgs = this.userArgs;
+
+		return new Promise((resolve, reject)=>{
+			db.databases.templatetheme.getAll().then((themes)=>{
+				themes.forEach((theme)=>{
+					db.themes[theme.id].templatedefaultcss.getAll().then((defCSS)=>{
+						
+						if(defCSS.css.indexOf('.streamlootspurchaseWrapper, .streamtweetsWrapper') === -1) {
+							let css = defCSS.css.replace('.streamLootsWrapper, .hstreamlootsWrapper','.streamLootsWrapper, .hstreamlootsWrapper, .streamlootspurchaseWrapper, .streamtweetsWrapper');
+							let css2 = css.replace('.giftsubsAmountWrapper, .donosAmountWrapper','.giftsubsAmountWrapper, .donosAmountWrapper, .streamlootsAmountWrapper, .streamlootspurchaseAmountWrapper');
+							let css3 = css2.replace('.donosTotalWrapper, .streamlootsTotalWrapper','.donosTotalWrapper, .streamlootsTotalWrapper, \r\n.streamlootspurchaseTotalWrapper, .streamtweetsTotalWrapper');
+							let css4 = css3.replace('.donosAmountTotalWrapper, .streamlootsAmountTotalWrapper','.donosAmountTotalWrapper, .streamlootsAmountTotalWrapper, .streamlootspurchaseAmountTotalWrapper');
+							let css5 = css4.replace('.streamlootsTop10CardsWrapper, .hstreamlootsTop10CardsWrapper','.streamlootsTop10CardsWrapper, .hstreamlootsTop10CardsWrapper, \r\n.streamlootspurchaseTop5Wrapper, .streamlootspurchaseTop10Wrapper, .hstreamlootspurchaseTop10Wrapper, .hstreamlootspurchaseTop5Wrapper, .hstreamtweetsTop10Wrapper, .hstreamtweetsTop5Wrapper');
+
+							db.themes[theme.id].templatedefaultcss.setData({css: css5}).then(()=>{
+								userArgs.DEBUG && utils.console("		updated defaultCSS for theme " + theme.name);
+								resolve();
+							});	
+						} else {
+							userArgs.DEBUG && utils.console("		skipped CSS updates for theme " + theme.name);
+						}
+					});
+				});
+			});			
 		});
 	}
 }

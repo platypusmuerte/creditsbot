@@ -72,7 +72,7 @@ body {
 }
 .bansWrapper, .bitsWrapper, .channelpointsWrapper, .chattersWrapper, .donosWrapper, .followsWrapper, .giftsubsWrapper, 
 .hostsWrapper, .modsWrapper, .patreonsWrapper, .raidsWrapper, .subsWrapper, .hbitsWrapper, .hchannelpointsWrapper, .hgiftsubsWrapper, 
-.hhostsWrapper, .hraidsWrapper, .hsubsWrapper, .vipsWrapper, .streamLootsWrapper, .hstreamlootsWrapper {
+.hhostsWrapper, .hraidsWrapper, .hsubsWrapper, .vipsWrapper, .streamLootsWrapper, .hstreamlootsWrapper, .streamlootspurchaseWrapper, .streamtweetsWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -87,7 +87,7 @@ body {
 	color: #fff;
 	font-size: 2vw;
 }
-.bitsAmountWrapper, .channelpointsAmountWrapper, .chattersAmountWrapper, .giftsubsAmountWrapper, .donosAmountWrapper, .streamlootsAmountWrapper {
+.bitsAmountWrapper, .channelpointsAmountWrapper, .chattersAmountWrapper, .giftsubsAmountWrapper, .donosAmountWrapper, .streamlootsAmountWrapper, .streamlootspurchaseAmountWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -122,7 +122,8 @@ body {
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid #ff9900;
 }
-.bitsTotalWrapper, .channelpointsTotalWrapper, .giftsubsTotalWrapper, .hostsTotalWrapper, .raidsTotalWrapper, .subsTotalWrapper, .donosTotalWrapper, .streamlootsTotalWrapper {
+.bitsTotalWrapper, .channelpointsTotalWrapper, .giftsubsTotalWrapper, .hostsTotalWrapper, .raidsTotalWrapper, .subsTotalWrapper, .donosTotalWrapper, .streamlootsTotalWrapper, 
+.streamlootspurchaseTotalWrapper, .streamtweetsTotalWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -157,7 +158,7 @@ body {
 	border-bottom: 10px solid transparent;
 	border-left: 10px solid #ff9900;
 }
-.bitsAmountTotalWrapper, .channelpointsAmountTotalWrapper, .giftsubsAmountTotalWrapper, .donosAmountTotalWrapper, .streamlootsAmountTotalWrapper {
+.bitsAmountTotalWrapper, .channelpointsAmountTotalWrapper, .giftsubsAmountTotalWrapper, .donosAmountTotalWrapper, .streamlootsAmountTotalWrapper, .streamlootspurchaseAmountTotalWrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
@@ -215,7 +216,8 @@ body {
 .channelpointsTop5Wrapper, .chattersTop5Wrapper, .giftsubsTop5Wrapper, .hbitsTop10Wrapper, .hchannelpointsTop10Wrapper, .hgiftsubsTop10Wrapper,
 .hhostsTop10Wrapper, .hraidsTop10Wrapper, .hsubsTop10Wrapper, .hbitsTop5Wrapper, .hchannelpointsTop5Wrapper, .hgiftsubsTop5Wrapper, .hhostsTop5Wrapper,
 .hraidsTop5Wrapper, .hsubsTop5Wrapper,.donosTop10Wrapper, .donosTop5Wrapper, .hdonosTop10Wrapper, .hdonosTop5Wrapper, .streamlootsTop5Wrapper, .streamlootsTop10Wrapper,
-.hstreamlootsTop5Wrapper, .hstreamlootsTop10Wrapper, .streamlootsTop5CardsWrapper, .hstreamlootsTop5CardsWrapper, .streamlootsTop10CardsWrapper, .hstreamlootsTop10CardsWrapper {
+.hstreamlootsTop5Wrapper, .hstreamlootsTop10Wrapper, .streamlootsTop5CardsWrapper, .hstreamlootsTop5CardsWrapper, .streamlootsTop10CardsWrapper, .hstreamlootsTop10CardsWrapper,
+.streamlootspurchaseTop5Wrapper, .streamlootspurchaseTop10Wrapper, .hstreamlootspurchaseTop10Wrapper, .hstreamlootspurchaseTop5Wrapper, .hstreamtweetsTop10Wrapper, .hstreamtweetsTop5Wrapper {
 	display: block;
 	width: 80%;
 	margin: 0 auto;
