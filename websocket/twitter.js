@@ -1,4 +1,4 @@
-exports.oc_twitter = `${class Twitter {
+exports.oc_twitter = `class Twitter {
 	constructor(params) {
 		this.props;
 		this.wait = 2000;
@@ -154,4 +154,4 @@ exports.oc_twitter = `${class Twitter {
 			volume: this.props.volume
 		});
 	}
-}}`;
+}`;
