@@ -116,7 +116,9 @@ class PatchFile {
 							userArgs.DEBUG && utils.console("		template " + t.id + " already exists in theme " + theme.name);
 						}				
 					}).then(()=>{
+						userArgs.DEBUG && utils.console("---- theme ID: " + theme.id);
 						db.themes[theme.id].templatesort.getAll().then((fullsortlist)=>{
+							
 							if(fullsortlist.includes(t.id)) {
 								userArgs.DEBUG && utils.console("		sort " + t.id + " exists in theme " + theme.name);
 								resolve();
@@ -159,6 +161,7 @@ class PatchFile {
 							});	
 						} else {
 							userArgs.DEBUG && utils.console("		skipped CSS updates for theme " + theme.name);
+							resolve();
 						}
 					});
 				});
