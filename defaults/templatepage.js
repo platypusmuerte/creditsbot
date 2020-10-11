@@ -36,15 +36,15 @@ exports.templatepage = {
 
 			let creditsHeight = $("#credits").height();
 			let wrapperHeight = $("#creditsWrapper").height();
-			let creditsPlusWrapper = creditsHeight;
-			let scrollDistance = creditsPlusWrapper + wrapperHeight;
+			let creditsPlusWrapper = (REPLAY) ? creditsHeight + 1800:creditsHeight;
+			let scrollDistance = creditsHeight;
 			let rollupTime = Math.round(wrapperHeight + creditsHeight + creditsPlusWrapper + scrollDistance) * 2 + (SCROLL_SPEED_TWEAK * 1000);
 
 			$("#credits").css("bottom", (creditsHeight) * -1).show().animate({ top: "-=" + scrollDistance + "px" }, rollupTime, "linear", () => {
 
 				if (REPLAY) {
 					$("#credits").removeAttr("style").hide();
-					setTimeout(credits, 3000);
+					setTimeout(credits, 1000);
 				}
 			});
 		}

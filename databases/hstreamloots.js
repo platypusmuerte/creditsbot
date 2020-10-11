@@ -102,7 +102,7 @@ class HStreamLootsQueries {
 		return new Promise((resolve, reject)=>{
 			let list = db.get(constants.DATABASE_NAMES.HISTORIC_STREAMLOOTS).value();
 
-			resolve(utils.getTopCards(list, 10));
+			resolve(utils.getTopCards(list, 5));
 		});
 	}
 

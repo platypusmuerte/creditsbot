@@ -42,7 +42,7 @@ class TestData {
 				
 				keys.forEach((k) => {
 					superagent.get("http://localhost:" + userArgs.PORT + "/add/" + k + "/" + d.name + "/" + d.amount + "/?card=" + d.card).end((e, r) => {
-						if (e) done(e);
+						if (e) userArgs.DEBUG && utils.console(e);
 						userArgs.DEBUG && utils.console("Added test data for " + d.name);
 					});
 				});
