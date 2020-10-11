@@ -87,7 +87,8 @@ class OverlayPage {
 		
 			run() {
 				let websocket = new ReconnectingWebSocket("ws://localhost:3023", null, {
-					reconnectInterval: 5000
+					reconnectInterval: 5000,
+					automaticOpen: true
 				});
 		
 				websocket.onopen = () => {

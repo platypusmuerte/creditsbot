@@ -167,7 +167,10 @@ body {
 .guiTabBody {
 	padding-top: 20px;
 }
-
+.twitterTestBtnWrapper button {
+	margin-top: 8px;
+	margin-left: 40px;
+}
 
 
 
