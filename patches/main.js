@@ -123,7 +123,6 @@ class Patches {
 				writeVersion();
 
 				if(requireRestart) {
-					console.log("requires restart");
 					setTimeout(restarting,1000);
 				}
 

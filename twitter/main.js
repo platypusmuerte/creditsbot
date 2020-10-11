@@ -212,6 +212,32 @@ class TwitterManager {
 		this.overlayWebsocket.sendMessage(JSON.stringify(alerts));
 	}
 
+	/**
+	 * Send overlay event for testing
+	 * @param {object} data twitter config for test
+	 */
+	testAlertToOverlay() {
+		let alerts = [];
+
+		let template = this.config.template;
+		let templateStr = template.replace('{{{tweeter}}}', "TestEvent");
+		
+		alerts.push({
+			event: "twitter",
+			entrance: this.config.entrance,
+			visible: this.config.visible,
+			exit: this.config.exit,
+			duration: this.config.duration,
+			screenpos: this.config.screenpos,
+			css: `<style>` + this.config.css + `</style>`,
+			volume: this.config.volume,
+			soundfile: this.config.soundfile,
+			template: templateStr
+		});
+
+		this.overlayWebsocket.sendMessage(JSON.stringify(alerts));
+	}
+
 	logEventToDB(eventUsers) {
 		eventUsers.forEach((user)=>{
 			this.db.databases.streamtweets.addUser(user.username, 1);

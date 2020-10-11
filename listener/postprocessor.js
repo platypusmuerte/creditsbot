@@ -93,6 +93,9 @@ class PostProcessor {
 			case "setoverlaytwitter":
 				this.uiSetOverlayTwitter(req, res);
 				break;
+			case "testoverlay":
+				this.testOverlay(req, res);
+				break;
 			default:
 				res.json({ "success": false });
 				break;
@@ -350,6 +353,22 @@ class PostProcessor {
 
 			res.json({ "success": true });
 		});
+	}
+
+	/**
+	 * Fire off an overlay test
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	testOverlay(req, res) {
+		let data = req.body;
+		let twitterManager = this.twitterManager;
+
+		if(data.target === "twitter") {
+			this.twitterManager.testAlertToOverlay();			
+		}
+
+		res.json({ "success": true });
 	}
 }
 

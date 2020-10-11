@@ -76,7 +76,7 @@ class OverlayTwitter extends BodyBase {
 				<a class="nav-link active" id="nav-settings-tab" data-toggle="tab" href="#nav-settings" role="tab" aria-controls="nav-settings" aria-selected="true">Settings</a>
 				<a class="nav-link" id="nav-template-tab" data-toggle="tab" href="#nav-template" role="tab" aria-controls="nav-template" aria-selected="false">Template</a>
 				<a class="nav-link" id="nav-apikeys-tab" data-toggle="tab" href="#nav-apikeys" role="tab" aria-controls="nav-apikeys" aria-selected="false">API Keys</a>
-				<div class="twitterTestBtnWrapper"><button id="formsubx" type="button" class="btn btn-primary btn-sm">Send Test</button></div>
+				<div class="twitterTestBtnWrapper"><button id="testOverlay" type="button" class="btn btn-primary btn-sm">Send Test</button></div>
 			</div>
 		</nav>
 		`;
@@ -288,6 +288,18 @@ class OverlayTwitter extends BodyBase {
 					setTimeout(()=>{
 						$("#subsuccess").removeClass("visible").addClass("invisible");
 					},3000);
+				});
+			});
+
+			$("#testOverlay").on("click",()=>{
+				$.ajax({
+					type: "POST",
+					url: "${constants.PATHS.UI_BASE_API}testoverlay",
+					data: JSON.stringify({"target":"twitter"}),
+					contentType: "application/json",
+					dataType: "json"
+				}).done((data)=>{
+					
 				});
 			});
 		}
