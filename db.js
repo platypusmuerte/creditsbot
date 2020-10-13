@@ -197,6 +197,7 @@ class Database {
 		
 		const { BlacklistQueries } = require("./databases/blacklist");		
 		const { TemplateThemeQueries } = require("./databases/templatetheme");
+		const { TransitionsQueries } = require("./databases/transitions");
 
 		let addDatabase = this.addDatabase.bind(this);
 
@@ -231,6 +232,7 @@ class Database {
 	
 			addDatabase("blacklist", BlacklistQueries);
 			addDatabase("templatetheme", TemplateThemeQueries);
+			addDatabase("transitions", TransitionsQueries);
 			
 			resolve();
 		});
