@@ -6,15 +6,16 @@ const { constants } = require('../constants');
 class PostProcessor {
 	/**
 	 *
-	 * @param {string} dataDir			path to user data dir
-	 * @param {object} utils			Utils class
+	 * @param {string} dataDir				path to user data dir
+	 * @param {object} utils				Utils class
 	 * @param {object} path
-	 * @param {object} db				db adapter
-	 * @param {object} userArgs			merged user settings
-	 * @param {object} backup			Backup class
-	 * @param {object} exportdata		Export class
-	 * @param {object} gui				GUI class
-	 * @param {object} twitterManager	twitterManager
+	 * @param {object} db					db adapter
+	 * @param {object} userArgs				merged user settings
+	 * @param {object} backup				Backup class
+	 * @param {object} exportdata			Export class
+	 * @param {object} gui					GUI class
+	 * @param {object} twitterManager		twitterManager
+	 * @param {object} transitionManager	transitionManager
 	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
@@ -26,6 +27,7 @@ class PostProcessor {
 		this.exportdata = params.exportdata;
 		this.gui = params.gui;
 		this.twitterManager = params.twitterManager;
+		this.transitionManager = params.transitionManager;
 	}
 
 	/**
@@ -95,6 +97,18 @@ class PostProcessor {
 				break;
 			case "testoverlay":
 				this.testOverlay(req, res);
+				break;
+			case "testtransition":
+				this.testTransition(req, res);
+				break;
+			case "settransitionbyid":
+				this.setTransitionByID(req, res);
+				break;			
+			case "newtransition":
+				this.newTransition(req, res);
+				break;
+			case "deletetransition":
+				this.deleteTransition(req, res);
 				break;
 			default:
 				res.json({ "success": false });
@@ -362,13 +376,64 @@ class PostProcessor {
 	 */
 	testOverlay(req, res) {
 		let data = req.body;
-		let twitterManager = this.twitterManager;
 
 		if(data.target === "twitter") {
 			this.twitterManager.testAlertToOverlay();			
 		}
 
 		res.json({ "success": true });
+	}
+
+	/**
+	 * Fire off an transition test
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	testTransition(req, res) {
+		let data = req.body;
+
+		this.transitionManager.sendTest(data.target);	
+
+		res.json({ "success": true });
+	}
+
+	/**
+	 * Fire off an transition test
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	setTransitionByID(req, res) {
+		let data = req.body;
+		
+		this.db.databases.transitions.setByID(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	/**
+	 * Fire off an transition test
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	newTransition(req, res) {
+		let data = req.body;
+
+		this.db.databases.transitions.addNew(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	/**
+	 * Fire off an transition test
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	deleteTransition(req, res) {
+		let data = req.body;
+
+		this.db.databases.transitions.removeByID(data).then(() => {
+			res.json({ "success": true });
+		});
 	}
 }
 

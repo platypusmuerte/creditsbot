@@ -171,7 +171,9 @@ body {
 	margin-top: 8px;
 	margin-left: 40px;
 }
-
+.defTransitionOpt {
+	font-style: italic;
+}
 
 
 

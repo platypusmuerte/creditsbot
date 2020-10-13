@@ -6,15 +6,17 @@ const { constants } = require('../constants');
 class GetProcessor {
 	/**
 	 * 
-	 * @param {string} dataDir			path to user data dir 
-	 * @param {object} utils			Utils class
+	 * @param {string} dataDir				path to user data dir 
+	 * @param {object} utils				Utils class
 	 * @param {object} path				
-	 * @param {object} db				db adapter
-	 * @param {object} userArgs			merged user settings
-	 * @param {object} testData			TestData class
-	 * @param {object} gui				GUI class
-	 * @param {object} versioncheck		VersionChecker class
-	 * @param {object} overlayPage		overlay web page
+	 * @param {object} db					db adapter
+	 * @param {object} userArgs				merged user settings
+	 * @param {object} testData				TestData class
+	 * @param {object} gui					GUI class
+	 * @param {object} versioncheck			VersionChecker class
+	 * @param {object} overlayPage			overlay web page
+	 * @param {object} transitionsPage		transitionsPage
+	 * @param {object} transitionManager	transitionManager
 	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
@@ -26,6 +28,8 @@ class GetProcessor {
 		this.gui = params.gui;
 		this.versioncheck = params.versioncheck;
 		this.overlayPage = params.overlayPage;
+		this.transitionsPage = params.transitionsPage;
+		this.transitionManager = params.transitionManager;
 	}
 
 	/**
@@ -222,6 +226,28 @@ class GetProcessor {
 	}
 
 	/**
+	 * Pass off request to the overlay handler
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	getTransitions(req, res) {
+		this.transitionsPage.loadPage(req).then((page) => {
+			res.send(page);
+		});
+	}
+
+	/**
+	 * Pass off request to the overlay handler
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	fireTransitions(req, res, key) {
+		this.transitionManager.sendTransition(key).then(() => {
+			res.send("");
+		});
+	}
+
+	/**
 	 * Handle all get tasks from UI
 	 * @param {objecet} req express request object
 	 * @param {object} res express response object
@@ -240,6 +266,9 @@ class GetProcessor {
 				break;
 			case "getversioncheck":
 				this.uiGetVersionCheck(req, res);
+				break;			
+			case "gettransition":
+				this.uiGetTransitionByID(req, res);
 				break;
 			default:
 				res.json({ "success": false });
@@ -280,6 +309,20 @@ class GetProcessor {
 	uiGetVersionCheck(req, res) {
 		this.versioncheck.get().then((vc)=>{
 			res.json(vc);
+		});
+	}
+
+	/**
+	 * Call the version checker, and send results back to UI
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	uiGetTransitionByID(req, res) {
+		let expectedQueryParams = this.utils.getExpectedQueryParams(req.query);
+		let transitionid = expectedQueryParams.transitionid||false;
+
+		this.db.databases.transitions.getByID(transitionid).then((transition)=>{
+			res.json(transition);
 		});
 	}
 }

@@ -8,24 +8,25 @@ let { RouteHandler } = require("./routehandler");
 class Listener {
 	/**
 	 * 
-	 * @param {object} utils			Utils class
+	 * @param {object} utils				Utils class
 	 * @param {object} path			
 	 * @param {object} fs
-	 * @param {object} exp				express class
-	 * @param {object} db				db adapter
-	 * @param {string} dataDir			path to users data dir
-	 * @param {object} userArgs			merged user settings
-	 * @param {object} builder			credits builder class
-	 * @param {object} testData			TestData class
-	 * @param {object} express			express method reference (not same as exp)
-	 * @param {object} gui				GUI class
-	 * @param {object} backup			Backup class
-	 * @param {object} exportdata		Export class
-	 * @param {object} versioncheck		Version checker class
-	 * @param {object} overlayPage		overlayPage class
-	 * @param {object} twitterManager	twitterManager
+	 * @param {object} exp					express class
+	 * @param {object} db					db adapter
+	 * @param {string} dataDir				path to users data dir
+	 * @param {object} userArgs				merged user settings
+	 * @param {object} builder				credits builder class
+	 * @param {object} testData				TestData class
+	 * @param {object} express				express method reference (not same as exp)
+	 * @param {object} gui					GUI class
+	 * @param {object} backup				Backup class
+	 * @param {object} exportdata			Export class
+	 * @param {object} versioncheck			Version checker class
+	 * @param {object} overlayPage			overlayPage class
+	 * @param {object} twitterManager		twitterManager
+	 * @param {object} transitionManager	transitionManager
 	 * 
-	 * @property {object} routeHandler 	RouteHandler class
+	 * @property {object} routeHandler 		RouteHandler class
 	 */
 	constructor(params) {
 		this.utils = params.utils;
@@ -44,6 +45,8 @@ class Listener {
 		this.fs = params.fs;
 		this.overlayPage = params.overlayPage;
 		this.twitterManager = params.twitterManager;
+		this.transitionsPage = params.transitionsPage;
+		this.transitionManager = params.transitionManager;
 
 		this.routeHandler = new RouteHandler({ 
 			utils: this.utils, 
@@ -58,7 +61,9 @@ class Listener {
 			exportdata: this.exportdata,
 			versioncheck: this.versioncheck,
 			overlayPage: this.overlayPage,
-			twitterManager: this.twitterManager
+			twitterManager: this.twitterManager,
+			transitionsPage: this.transitionsPage,
+			transitionManager: this.transitionManager
 		});
 	}
 
@@ -96,6 +101,8 @@ class Listener {
 		this.routeHandler.routes.gets.getCredits();
 		this.routeHandler.routes.gets.uiGetData();
 		this.routeHandler.routes.gets.getOverlay();
+		this.routeHandler.routes.gets.getTransitions();
+		this.routeHandler.routes.gets.fireTransitions();
 
 		this.routeHandler.routes.posts.uiSetData();
 

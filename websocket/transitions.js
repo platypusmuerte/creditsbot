@@ -1,12 +1,9 @@
 const { constants } = require('../constants');
-const { oc_twitter } = require("./twitter");
-const { overlaycss } = require("./css");
-const { twitter } = require("../defaults/twitter");
 
 /**
  * run a websocket to broadcast events for overlay html content
  */
-class OverlayPage {
+class TransitionsPage {
 	/**
 	 * 
 	 * @param {object} utils 	Utils class
@@ -15,22 +12,6 @@ class OverlayPage {
 	constructor(params) {
 		this.utils = params.utils;
 		this.userArgs = params.userArgs;
-
-		let template = twitter.template;
-		let templateStr = template.replace('{{{tweeter}}}', "PlatypusMuerte");
-			
-		this.testData = {
-			event: "twitter",
-			entrance: "bounceInLeft",
-			visible: "headShake",
-			exit: "bounceOutLeft",
-			duration: 5,
-			screenpos: twitter.screenpos,
-			css: `<style>` + twitter.css + `</style>`,
-			volume: twitter.volume,
-			soundfile: "tweet.mp3",
-			template: templateStr
-		};
 	}
 
 	loadPage(req) {
@@ -54,14 +35,9 @@ class OverlayPage {
 				<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 				<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js" integrity="sha512-ALoawPS0JxHQ+8dGL7htZIlVNRaE/SN9gHD4G8pJJTi9H4BQ/3PjdvhggSGR34g00mvTPFkxQuveQUsJA5664Q==" crossorigin="anonymous"></script>
-				<script>${oc_twitter}</script>
-
 				${this.getRWS()}
 				
-				${this.getMainJS()}
-
-				${overlaycss}
-				
+				${this.getMainJS()}			
 			</head>
 			<body>
 			</body>
@@ -76,13 +52,6 @@ class OverlayPage {
 			constructor(params) {
 				this.websocket;
 				this.alerts = [];
-				this.twitter = new Twitter();
-			}
-
-			test(data) {
-				this.alerts = [...data];
-
-				this.processAlerts();
 			}
 		
 			run() {
@@ -92,53 +61,24 @@ class OverlayPage {
 				});
 		
 				this.websocket.onopen = () => {
-					this.websocket.send("Hello? Is it me your looking for?");
+					this.websocket.send("Hello? Looking for a transition?");
 				};
 		
 				this.websocket.onmessage = (e)=> {
 					let eventData = JSON.parse(e.data);
-					
-					if(eventData.test) {
-						console.log(eventData);
-					} else {
-						let running = (this.alerts.length);
+					console.log(eventData);
 
-						this.alerts = [...eventData];
-
-						if(!running) {
-							this.processAlerts();
-						}
+					if(eventData.event === "transition") {
+						console.log();
+						$("body").empty().append(eventData.content);
 					}					
 				};
-			}
-
-			processAlerts() {
-				if(this.alerts.length) {
-					let alert = this.alerts.shift();
-					let processor = false;
-
-					switch(alert.event) {
-						case "twitter":
-							processor = this.twitter;
-						break;
-					}
-
-					if(processor) {
-						processor.newAlert(alert).then(()=>{
-							this.processAlerts();
-						});
-					}					
-				}
-			}
+			}			
 		}
 
 		$(document).ready(function () {
 			let ows = new OverlayWS();
 			ows.run();
-
-			/*setTimeout(()=>{
-				ows.test([${JSON.stringify(this.testData)}]);
-			},1000);*/
 		});
 		</script>
 		`;
@@ -179,4 +119,4 @@ class OverlayPage {
 	}
 }
 
-exports.OverlayPage = OverlayPage;
+exports.TransitionsPage = TransitionsPage;

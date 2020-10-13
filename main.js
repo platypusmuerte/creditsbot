@@ -24,8 +24,10 @@ let { RequiredFiles } = require("./utils/requiredfiles");
 let { OverlayWebSocket } = require("./websocket/main");
 let { OverlayPage } = require("./websocket/overlay");
 let { TwitterManager } = require("./twitter/main");
+let { TransitionsPage } = require("./websocket/transitions");
+let { TransitionManager } = require("./transitions/main");
 
-let utils, listener, db, builder, testData, gui, patches, overlayWebsocket, overlayPage, twitter;
+let utils, listener, db, builder, testData, gui, patches, overlayWebsocket, overlayPage, twitter, transitionsPage, transitionManager;
 utils = new Utils();
 
 // make sure folders and files exist as early as possible
@@ -72,8 +74,10 @@ patches.prep().then((s,f)=>{
 					overlayWebsocket = new OverlayWebSocket({ utils, userArgs });
 					overlayPage = new OverlayPage({ utils, userArgs });
 					twitterManager = new TwitterManager({ db, utils, userArgs, overlayWebsocket });
+					transitionsPage = new TransitionsPage({ utils, userArgs });
+					transitionManager = new TransitionManager({ db, utils, userArgs, overlayWebsocket });
 					
-					listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs, overlayPage, twitterManager });					
+					listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs, overlayPage, twitterManager, transitionsPage: transitionsPage, transitionManager: transitionManager });					
 					
 					// start listening to gets/posts and then run patch check
 					listener.start().then(()=>{

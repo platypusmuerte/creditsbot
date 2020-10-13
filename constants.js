@@ -69,6 +69,8 @@ exports.constants = {
 		REMOVE_USER: "/remove/:user",
 		TESTDATA_ADD: "/testdata/add",
 		TESTDATA_REMOVE: "/testdata/remove",
+		TRANSITIONS: "/transitions",
+		TRANSITION_TRIGGER: "/trigger/transition/:key",
 
 		UI_PAGE_HOME: "/ui/*",
 		UI_GET_DATA: "/uiget/:task",
@@ -76,7 +78,7 @@ exports.constants = {
 		UI_BASE_API: "/uiset/",
 		UI_BASE_API_GET: "/uiget/"
 	},
-	QUERY_PARAMS: ["card","templateid"],
+	QUERY_PARAMS: ["card","templateid","transitionid"],
 	SETTINGS_DATABASE_NAMES: {
 		TEMPLATE_BLACKLIST: "blacklist",
 		TEMPLATE_COLORS: "templatecolors",

@@ -8,19 +8,21 @@ let { GetProcessor } = require("./getprocessor");
 class GetHandler {
 	/**
 	 *
-	 * @param {string}	dataDir			path to user data dir
-	 * @param {object} 	utils 			Utils class
+	 * @param {string}	dataDir				path to user data dir
+	 * @param {object} 	utils 				Utils class
 	 * @param {object} 	path 			
-	 * @param {objecet} db 				db adapter
-	 * @param {object} 	userArgs 		merged user settings
-	 * @param {object} 	exp 			express
-	 * @param {objecet} builder 		credits builder class
-	 * @param {object} 	blacklist 		the blacklist database 
-	 * @param {object} 	testData 		TestData class
-	 * @param {object} 	versioncheck 	VersionChecker class
-	 * @param {object}	overlayPage		the overlay page class
+	 * @param {objecet} db 					db adapter
+	 * @param {object} 	userArgs 			merged user settings
+	 * @param {object} 	exp 				express
+	 * @param {objecet} builder 			credits builder class
+	 * @param {object} 	blacklist 			the blacklist database 
+	 * @param {object} 	testData 			TestData class
+	 * @param {object} 	versioncheck 		VersionChecker class
+	 * @param {object}	overlayPage			the overlay page class
+	 * @param {object}	transitionsPage		transitionsPage
+	 * @param {object}	transitionManager	transitionManager
 	 * 
-	 * @property {object}	processor	GetProcessor class
+	 * @property {object}	processor		GetProcessor class
 	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
@@ -35,8 +37,10 @@ class GetHandler {
 		this.gui = params.gui;
 		this.versioncheck = params.versioncheck;
 		this.overlayPage = params.overlayPage;
+		this.transitionsPage = params.transitionsPage;
+		this.transitionManager = params.transitionManager;
 
-		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck, overlayPage: this.overlayPage });
+		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck, overlayPage: this.overlayPage, transitionsPage: this.transitionsPage, transitionManager: this.transitionManager });
 	}
 
 	/**
@@ -251,6 +255,36 @@ class GetHandler {
 
 		this.exp.get(path, (req, res) => {
 			processor.getOverlay(req, res);
+		});
+
+		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
+	}
+
+	/**
+	 * Get the overlay, and return to browser
+	 */
+	getTransitions() {		
+		let path = constants.PATHS.TRANSITIONS;
+		let processor = this.processor;
+
+		this.exp.get(path, (req, res) => {
+			processor.getTransitions(req, res);
+		});
+
+		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
+	}
+
+	/**
+	 * Fire transition
+	 */
+	fireTransitions() {
+		let path = constants.PATHS.TRANSITION_TRIGGER;
+		let processor = this.processor;
+
+		this.exp.get(path, (req, res) => {
+			let key = req.params.key || false;
+
+			processor.fireTransitions(req, res, key);
 		});
 
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);

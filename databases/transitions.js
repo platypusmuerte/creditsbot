@@ -54,28 +54,28 @@ class TransitionsQueries {
 		let db = this.db;
 
 		return new Promise((resolve, reject)=>{
-			let all = db.value();
+			let all = db.sortBy("name").value();
 			let resp = [];
 
 			all.forEach((t)=>{
-				resp.push({value: t.id, label: t.name});
+				resp.push({value: t.id, label: t.name, isdefault: t.isdefault});
 			});
 
-			resolve(db.value());
+			resolve(resp);
 		});		
 	}
 
 	/**
 	 * Add new template (usually via patching)
 	 */
-	addNew(template) {
+	addNew(data) {
 		let db = this.db;
 
 		return new Promise((resolve, reject)=>{
-			if (db.find({ id: template.id }).has("id").value()) {
+			if (db.find({ id: data.id }).has("id").value()) {
 				resolve(false);
 			} else {
-				db.push(template).write();
+				db.push(data).write();
 				resolve(true);
 			}
 		});
@@ -85,7 +85,7 @@ class TransitionsQueries {
 	 * Get a template by its ID
 	 * @param {string} id template id
 	 */
-	getTemplateByID(id) {
+	getByID(id) {
 		let db = this.db;
 
 		return new Promise((resolve, reject)=>{
@@ -100,7 +100,7 @@ class TransitionsQueries {
 	 * Update a template, add new (from patches), add custom template
 	 * @param {object} data		template object 
 	 */
-	setTemplateByID(data) {
+	setByID(data) {
 		let db = this.db;
 
 		return new Promise((resolve, reject)=>{
@@ -114,7 +114,7 @@ class TransitionsQueries {
 	 * Remove a template from database
 	 * @param {object} data contains template id to remove
 	 */
-	removeTemplateByID(data) {
+	removeByID(data) {
 		let db = this.db;
 
 		return new Promise((resolve, reject)=>{
