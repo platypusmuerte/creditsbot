@@ -112,6 +112,8 @@ class PatchFile {
 								userArgs.DEBUG && utils.console("		default css in theme " + theme.name + " updated");
 								resolve();
 							});
+						} else {
+							resolve();
 						}
 					});
 				});
