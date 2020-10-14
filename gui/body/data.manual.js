@@ -200,7 +200,10 @@ class DataManual extends BodyBase {
 
 			$("#topsusersub").on("click",(e)=>{				
 				call("top" + $("#topsusertype").val() + "/" + $("#topsuserdb").val(), (data)=>{
-					$("#topsuserresults").val(data);
+					let val = ($("#topsuserdb").val() === "streamloots" || $("#topsuserdb").val() === "hstreamloots") ? JSON.stringify(data): data;
+
+
+					$("#topsuserresults").val(val);
 					$("#topsusersuccess").removeClass("invisible").addClass("visible");
 					setTimeout(()=>{
 						$("#topsusersuccess").removeClass("visible").addClass("invisible");

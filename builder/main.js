@@ -527,6 +527,7 @@ class Builder {
 		let rawTitle = this.rawData.contentTitle.template;
 		let rawFooter = this.rawData.contentDivider.template;
 		let setRawData = this.setRawData.bind(this);
+		let addCardToSection = this.addCardToSection.bind(this);
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
 
@@ -534,29 +535,45 @@ class Builder {
 			let users = '';
 
 			db.databases[t.key].getTop5(true, { card: 1 }).then((all) => {
+				let p = [];
+
 				if(all.length) {
 					all.forEach((a) => {
-						users += Mustache.render(inner, a);
+						p.push(addCardToSection(inner, a));
 					});
 
-					let contentSection = Mustache.render(wrapper, { group: users });
-					let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
-					let contentDivider = Mustache.render(rawFooter, { nodata: "" });
+					Promise.all(p).then((allMustaches)=>{
+						users = allMustaches.join('');
 
-					let replacement = {
-						contentTitle: contentTitle,
-						contentDivider: contentDivider
-					};
+						let contentSection = Mustache.render(wrapper, { group: users });
+						let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
+						let contentDivider = Mustache.render(rawFooter, { nodata: "" });
 
-					replacement[t.id] = contentSection;
+						let replacement = {
+							contentTitle: contentTitle,
+							contentDivider: contentDivider
+						};
 
-					setRawData("sections", Mustache.render(mainHTML, replacement));
+						replacement[t.id] = contentSection;
+
+						setRawData("sections", Mustache.render(mainHTML, replacement));
+					});					
 				} else {
 					//setRawData("sections", "");
 				}
 				
 				resolve();
 			});
+		});
+	}
+
+	/**
+	 * 
+	 * @param {*} t 
+	 */
+	addCardToSection(inner, a) {
+		return new Promise((resolve, reject)=>{
+			resolve( Mustache.render(inner, a) );
 		});
 	}
 
@@ -572,6 +589,7 @@ class Builder {
 		let rawTitle = this.rawData.contentTitle.template;
 		let rawFooter = this.rawData.contentDivider.template;
 		let setRawData = this.setRawData.bind(this);
+		let addCardToSection = this.addCardToSection.bind(this);
 
 		this.userArgs.DEBUG && this.utils.console("Adding data to template for " + t.id);
 
@@ -579,23 +597,29 @@ class Builder {
 			let users = '';
 
 			db.databases[t.key].getTop10(true, { card: 1 }).then((all) => {
+				let p = [];
+				
 				if(all.length) {
 					all.forEach((a) => {
-						users += Mustache.render(inner, a);
+						p.push(addCardToSection(inner, a));
 					});
 
-					let contentSection = Mustache.render(wrapper, { group: users });
-					let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
-					let contentDivider = Mustache.render(rawFooter, { nodata: "" });
+					Promise.all(p).then((allMustaches)=>{
+						users = allMustaches.join('');
 
-					let replacement = {
-						contentTitle: contentTitle,
-						contentDivider: contentDivider
-					};
+						let contentSection = Mustache.render(wrapper, { group: users });
+						let contentTitle = Mustache.render(rawTitle, { content_title: t.title });
+						let contentDivider = Mustache.render(rawFooter, { nodata: "" });
 
-					replacement[t.id] = contentSection;
+						let replacement = {
+							contentTitle: contentTitle,
+							contentDivider: contentDivider
+						};
 
-					setRawData("sections", Mustache.render(mainHTML, replacement));
+						replacement[t.id] = contentSection;
+
+						setRawData("sections", Mustache.render(mainHTML, replacement));
+					});					
 				} else {
 					//setRawData("sections", "");
 				}

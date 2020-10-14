@@ -89,6 +89,14 @@ class Patches {
 				let { PatchFile } = require("./p220_221");
 				this.patchFile = new PatchFile({ utils: this.utils, dataDir: this.dataDir, userArgs: this.userArgs, fs: this.fs, path: this.path, db: this.db });
 				resolve();
+			} else if(fromVersion < 230) {
+				// updating TO 2.3.0
+				setRequireRestart(false);
+				setUpdateMessage("");
+
+				let { PatchFile } = require("./p221_230");
+				this.patchFile = new PatchFile({ utils: this.utils, dataDir: this.dataDir, userArgs: this.userArgs, fs: this.fs, path: this.path, db: this.db });
+				resolve();
 			} else {
 				// current/up to date - do nothing
 				resolve();

@@ -49,10 +49,6 @@ class OverlayWebSocket {
 			this.clients[msg.conn] = ws;
 			
 			this.userArgs.DEBUG && this.utils.wsconsole("Established connection with: " + msg.conn);
-
-			/*setInterval(()=>{
-				this.sendMessage('{"initiate":"polling"}',msg.conn);
-			},5000);*/
 		});
 	}
 
