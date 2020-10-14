@@ -47,12 +47,14 @@ class VersionCheck {
 		let gap = 15 * 60000;
 
 		return new Promise((resolve, reject)=>{
+			let resp = {update: false};
+			
 			if((now - this.lastCheck) > gap) {
 				updateLastCheck();
 				userArgs.DEBUG && utils.console("Checking versions");
 
 				superagent.get(versionCheckFile).end((e, r) => {
-					let resp = {update: false};
+					
 					
 					if (r.text.replace(/\./g, '') * 1 > constants.APP.VERSION.replace(/\./g, '') * 1) {
 						resp.update = r.text;
@@ -62,6 +64,7 @@ class VersionCheck {
 				});
 			} else {
 				this.userArgs.DEBUG && this.utils.console("Too soon, skipping version check");
+				resolve(resp);
 			}			
 		});	
 	}
