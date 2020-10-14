@@ -57,7 +57,7 @@ class TransitionManager {
 			db.databases.transitions.getByID(transitionID).then((transition)=>{
 				let payload = `<style>${transition.css}</style>${transition.body}<script>${transition.js}</script>`;
 
-				overlayWebsocket.sendMessage(JSON.stringify({event: "transition",content: payload}));
+				overlayWebsocket.sendMessage(JSON.stringify({event: "transition",content: payload}),"transitions");
 				userArgs.DEBUG && utils.console("Sent test transition: " + transition.name);
 				resolve();
 			});
@@ -78,7 +78,7 @@ class TransitionManager {
 			db.databases.transitions.getByID(transitionID).then((transition)=>{
 				let payload = `<style>${transition.css}</style>${transition.body}<script>${transition.js}</script>`;
 
-				overlayWebsocket.sendMessage(JSON.stringify({event: "transition",content: payload}));
+				overlayWebsocket.sendMessage(JSON.stringify({event: "transition",content: payload}),"transitions");
 				userArgs.DEBUG && utils.console("Sent transition: " + transition.name);
 				resolve();
 			});

@@ -61,7 +61,7 @@ class TransitionsPage {
 				});
 		
 				this.websocket.onopen = () => {
-					this.websocket.send("Hello? Looking for a transition?");
+					this.websocket.send(JSON.stringify({"conn":"transitions"}));
 				};
 		
 				this.websocket.onmessage = (e)=> {

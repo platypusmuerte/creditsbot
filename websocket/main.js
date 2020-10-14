@@ -19,6 +19,7 @@ class OverlayWebSocket {
 
 		this.wss;
 		this.ws;
+		this.clients = {};
 	}
 
 	init() {
@@ -31,8 +32,8 @@ class OverlayWebSocket {
 		this.userArgs.DEBUG && this.utils.wsconsole("Initialized ");
 
 		setTimeout(()=>{
-			this.sendMessage('{"test":"pass"}');
-		},5000);
+			this.sendMessage('{"initiate":true}',"all");
+		},8000);
 	}
 
 	onopen() {
@@ -43,7 +44,15 @@ class OverlayWebSocket {
 		this.ws = ws;
 		
 		this.ws.on("message",(message) => {
-			this.userArgs.DEBUG && this.utils.wsconsole("Received: " + message);
+			let msg = JSON.parse(message);
+
+			this.clients[msg.conn] = ws;
+			
+			this.userArgs.DEBUG && this.utils.wsconsole("Established connection with: " + msg.conn);
+
+			/*setInterval(()=>{
+				this.sendMessage('{"initiate":"polling"}',msg.conn);
+			},5000);*/
 		});
 	}
 
@@ -51,11 +60,23 @@ class OverlayWebSocket {
 		this.userArgs.DEBUG && this.utils.wsconsole("Closed ");
 	}
 
-	sendMessage(data) {
-		this.userArgs.DEBUG && this.utils.wsconsole("Sending message ");
+	sendMessage(data,client) {
+		this.userArgs.DEBUG && this.utils.wsconsole("Sending message to " + client);
 
 		if(this.ws) {
-			this.ws.send(data);
+			if(client === "all") {
+				this.wss.clients.forEach((client)=>{
+					if(client.readyState === WebSocket.OPEN) {
+						client.send(data);
+					}
+				});
+			} else {
+				if(this.clients[client]) {
+					this.clients[client].send(data);
+				} else {
+					this.userArgs.DEBUG && this.utils.wsconsole("No client reference for  " + client);
+				}				
+			}			
 		} else {
 			this.userArgs.DEBUG && this.utils.wsconsole("No clients to send to ");
 		}		

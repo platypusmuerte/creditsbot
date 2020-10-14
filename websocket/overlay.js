@@ -92,13 +92,13 @@ class OverlayPage {
 				});
 		
 				this.websocket.onopen = () => {
-					this.websocket.send("Hello? Is it me your looking for?");
+					this.websocket.send(JSON.stringify({"conn":"overlay"}));
 				};
 		
 				this.websocket.onmessage = (e)=> {
 					let eventData = JSON.parse(e.data);
 					
-					if(eventData.test) {
+					if(eventData.initiate) {
 						console.log(eventData);
 					} else {
 						let running = (this.alerts.length);

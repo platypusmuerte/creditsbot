@@ -209,7 +209,7 @@ class TwitterManager {
 			});
 		});
 		
-		this.overlayWebsocket.sendMessage(JSON.stringify(alerts));
+		this.overlayWebsocket.sendMessage(JSON.stringify(alerts),"overlay");
 	}
 
 	/**
@@ -235,7 +235,7 @@ class TwitterManager {
 			template: templateStr
 		});
 
-		this.overlayWebsocket.sendMessage(JSON.stringify(alerts));
+		this.overlayWebsocket.sendMessage(JSON.stringify(alerts),"overlay");
 	}
 
 	logEventToDB(eventUsers) {
