@@ -44,11 +44,13 @@ class PatchFile {
 		let utils = this.utils;
 		let userArgs = this.userArgs;
 		let updateMainPageTemplate = this.updateMainPageTemplate.bind(this);
+		let updateDefaultCSS = this.updateDefaultCSS.bind(this);
 
 		return new Promise((resolve, reject)=>{
 			userArgs.DEBUG && utils.console("Running post-patches");
 			Promise.all([
-				updateMainPageTemplate()
+				updateMainPageTemplate(),
+				updateDefaultCSS()
 			]).then(()=>{
 				userArgs.DEBUG && utils.console("Patching complete");
 				resolve();
@@ -89,6 +91,30 @@ class PatchFile {
 					});
 				});
 
+			});
+		});
+	}
+
+	updateDefaultCSS() {
+		let db = this.db;
+		let utils = this.utils;
+		let userArgs = this.userArgs;
+		let newTemplate;
+
+		return new Promise((resolve, reject)=>{
+			db.databases.templatetheme.getAll().then((themes)=>{
+				themes.forEach((theme)=>{
+					db.themes[theme.id].templatedefaultcss.getAll().then((template)=>{
+						if(template.css.indexOf(`.streamtweetsWrapper .name`) === -1) {
+							newTemplate = template.css.replace(`.hstreamlootsWrapper .name`,`.hstreamlootsWrapper .name, .streamtweetsWrapper .name`);
+
+							db.themes[theme.id].templatedefaultcss.setData({css: newTemplate}).then(()=>{
+								userArgs.DEBUG && utils.console("		default css in theme " + theme.name + " updated");
+								resolve();
+							});
+						}
+					});
+				});
 			});
 		});
 	}

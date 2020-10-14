@@ -81,7 +81,7 @@ body {
 .bansWrapper .name, .bitsWrapper .name, .channelpointsWrapper .name, .chattersWrapper .name, .donosWrapper .name, .followsWrapper .name, 
 .giftsubsWrapper .name, .hostsWrapper .name, .modsWrapper .name, .patreonsWrapper .name, .raidsWrapper .name, .subsWrapper .name, .hbitsWrapper .name, 
 .hchannelpointsWrapper .name, .hgiftsubsWrapper .name, .hhostsWrapper .name, .hraidsWrapper .name, .hsubsWrapper .name, .vipsWrapper .name,
-.streamLootsWrapper .name, .hstreamlootsWrapper .name {
+.streamLootsWrapper .name, .hstreamlootsWrapper .name, .streamtweetsWrapper .name {
 	display: inline-block;
 	padding: 10px;
 	color: #fff;
