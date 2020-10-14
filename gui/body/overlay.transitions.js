@@ -55,10 +55,12 @@ class OverlayTransitions extends BodyBase {
 			<p class="lead">Customizable scene transitions</p>
 			<hr class="my-4">
 			<p>Edit, create and delete customizable scene transitions</p>
-			<p>Transitions are available at http://localhost:${this.userArgs.PORT}${constants.PATHS.TRANSITIONS}</p>
-			<div class="alert alert-warning" role="alert">
-				This feature is experimental
-			</div>
+			<p>Transitions are available at
+			<ul>
+				<li>View: http://localhost:${this.userArgs.PORT}${constants.PATHS.TRANSITIONS}</li>
+				<li>Trigger: http://localhost:${this.userArgs.PORT}${constants.PATHS.TRANSITIONS}/:key</li>
+			</ul></p>
+			
 			<label class="formLabel">Select Transition</label>
 
 			<div class="row justify-content-start queryRow">
@@ -90,7 +92,7 @@ class OverlayTransitions extends BodyBase {
 
 			<button id="formsub" type="button" class="btn btn-primary" disabled>Submit</button>
 			<button id="viewdefaults" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_editor_single_lg" disabled>View Default</button>
-			<button id="delete" type="button" class="btn btn-danger invisible">Delete Transition</button>
+			<button id="delete" type="button" class="btn btn-danger" disabled>Delete Transition</button>
 			<span id="subsuccess" class="badge badge-success formSuccess invisible">Success</span>
 		</div>
 		${modal_editor_single_lg({textarea: ""})}
@@ -160,46 +162,73 @@ class OverlayTransitions extends BodyBase {
 			defTA.setOption("readOnly", true);
 
 			$("#transitionDD").on("change",()=>{
-				$.ajax({
-					type: "GET",
-					url: "${constants.PATHS.UI_BASE_API_GET}gettransition",
-					data: {transitionid:$("#transitionDD").val()},
-					contentType: "application/json",
-					dataType: "json"
-				}).done((data)=>{
-					currentTransition = data;
+				if($("#transitionDD").val() === "addnew") {
+					$("#transitionName").val("");
+					$("#transitionKey").val("");
 
-					$("#transitionName").val(currentTransition.name);
-					$("#transitionKey").val(currentTransition.id);
-					
-					bodyTA.setValue(currentTransition.body);
-					cssTA.setValue(currentTransition.css);
-					jsTA.setValue(currentTransition.js);
+					bodyTA.setValue("");
+					cssTA.setValue("");
+					jsTA.setValue("");
 
 					bodyTA.setOption("readOnly", false);
 					cssTA.setOption("readOnly", false);
 					jsTA.setOption("readOnly", false);
 
-					swapTextAreaContent(currentTransition.body, "htmlmixed");
-
-					$("#transitionName").prop("disabled",currentTransition.isDefault);
-					$("#transitionKey").prop("disabled",currentTransition.isDefault);
+					$("#transitionName").prop("disabled",false);
+					$("#transitionKey").prop("disabled",false);
 					$("#formsub").prop("disabled",false);
-					$("#viewdefaults").prop("disabled", !!currentTransition.isDefault);
-				});
+					$("#delete").prop("disabled",true);
+					$("#viewdefaults").prop("disabled", true);
+				} else {
+					$.ajax({
+						type: "GET",
+						url: "${constants.PATHS.UI_BASE_API_GET}gettransition",
+						data: {transitionid:$("#transitionDD").val()},
+						contentType: "application/json",
+						dataType: "json"
+					}).done((data)=>{
+						currentTransition = data;
+
+						$("#transitionName").val(currentTransition.name);
+						$("#transitionKey").val(currentTransition.id);
+						
+						bodyTA.setValue(currentTransition.body);
+						cssTA.setValue(currentTransition.css);
+						jsTA.setValue(currentTransition.js);
+
+						bodyTA.setOption("readOnly", false);
+						cssTA.setOption("readOnly", false);
+						jsTA.setOption("readOnly", false);
+
+						let defBody = currentTransition.defaults ? currentTransition.defaults.body:"";
+
+						swapTextAreaContent(defBody, "htmlmixed");
+
+						$("#transitionName").prop("disabled",!!currentTransition.isdefault);
+						$("#transitionKey").prop("disabled",!!currentTransition.isdefault);
+						$("#formsub").prop("disabled",false);
+						$("#delete").prop("disabled",!!currentTransition.isdefault);
+						$("#viewdefaults").prop("disabled", !!!currentTransition.isdefault);
+					});
+				}				
 			});
 
 			$(".pageTabs a").on("click",(e)=>{
 				if($("#transitionDD").val() !== "---" && $("#transitionDD").val() !== "addnew") {
+					let defContent;
+
 					switch($(e.target).attr("href").split("-")[1]) {
 						case "body":
-							swapTextAreaContent(currentTransition.body, "htmlmixed")
+							defContent = currentTransition.defaults ? currentTransition.defaults.body:"";
+							swapTextAreaContent(defContent, "htmlmixed");
 						break;
 						case "styles":
-							swapTextAreaContent(currentTransition.css, "css")
+							defContent = currentTransition.defaults ? currentTransition.defaults.css:"";
+							swapTextAreaContent(defContent, "css");
 						break;
 						case "scripts":
-							swapTextAreaContent(currentTransition.js, "javascript")
+							defContent = currentTransition.defaults ? currentTransition.defaults.js:"";
+							swapTextAreaContent(defContent, "javascript");
 						break;
 					}
 				}
