@@ -265,10 +265,9 @@ class OverlayTransitions extends BodyBase {
 			});
 
 			$("#delete").on("click",(e)=>{
-				/*if($("#transitionDD").val() !== "---" && $("#transitionDD").val() !== "addnew") {
-
-				}*/
-				console.log($($("#transitionDD").find("option:selected")[0]).hasClass("defTransitionOpt"));
+				if($("#transitionDD").val() !== "---" && $("#transitionDD").val() !== "addnew" && !$($("#transitionDD").find("option:selected")[0]).hasClass("defTransitionOpt")) {
+					deleteTransition();
+				}
 			});
 		}
 
@@ -292,8 +291,8 @@ class OverlayTransitions extends BodyBase {
 					$("#subsuccess").removeClass("visible").addClass("invisible");
 				},3000);
 				
-				if($("#templates").val() === "addnew") {
-					location.href = "/ui/overlay/transitions?edit=" + payload.id;
+				if($("#transitionDD").val() === "addnew") {
+					location.href = "/ui/overlay/transitions";
 				}
 			});
 		}
