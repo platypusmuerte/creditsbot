@@ -21,6 +21,7 @@ class RouteHandler {
 		this.twitterManager = params.twitterManager;
 		this.transitionsPage = params.transitionsPage;
 		this.transitionManager = params.transitionManager;
+		this.timerbarManager = params.timerbarManager;
 
 		const { GetHandler } = require("./gets");
 		const { PostHandler } = require("./posts");
@@ -38,7 +39,8 @@ class RouteHandler {
 				versioncheck: this.versioncheck,
 				overlayPage: this.overlayPage,
 				transitionsPage: this.transitionsPage,
-				transitionManager: this.transitionManager
+				transitionManager: this.transitionManager,
+				timerbarManager: this.timerbarManager
 			}),
 			posts: new PostHandler({ 
 				dataDir: this.dataDir, 
@@ -50,7 +52,8 @@ class RouteHandler {
 				exportdata: this.exportdata, 
 				gui: this.gui,
 				twitterManager: this.twitterManager,
-				transitionManager: this.transitionManager
+				transitionManager: this.transitionManager,
+				timerbarManager: this.timerbarManager
 			})
 		};
 	}

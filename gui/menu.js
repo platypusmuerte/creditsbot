@@ -24,6 +24,58 @@ class PageMenu {
 		this.subPage = params.subpage;
 	}
 
+	getMenuDataContent(menuData) {
+		let html = ``;
+
+		menuData.forEach((menuItem)=>{
+			html += this.buildMenuLink(menuItem);
+		});
+
+		return html;
+	}
+
+	buildMenuLink(data) {
+		return `<a class="nav-link ` + this.isActive(data.grouping, data.page) + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}${data.grouping}/${data.page}">${data.label}</a>`;
+	}
+
+	buildMenuContent_data() {
+		let grouping = "data";
+
+		return [
+			{grouping: grouping, page: "backup", label: "Backup"},
+			{grouping: grouping, page: "blacklist", label: "Blacklist"},
+			{grouping: grouping, page: "export", label: "Export"},
+			{grouping: grouping, page: "manual", label: "Manual"},
+			{grouping: grouping, page: "test", label: "Test Data"}
+		];
+	}
+
+	buildMenuContent_overlay() {
+		let grouping = "overlay";
+
+		return [
+			{grouping: grouping, page: "timerbars", label: "Timer Bars"},
+			{grouping: grouping, page: "transitions", label: "Transitions"},
+			{grouping: grouping, page: "twitter", label: "Twitter"}
+		];
+	}
+
+	buildMenuContent_template() {
+		let grouping = "template";
+
+		return [
+			{grouping: grouping, page: "colors", label: "Colors"},
+			{grouping: grouping, page: "customcss", label: "Custom CSS"},
+			{grouping: grouping, page: "defaultcss", label: "Default CSS"},
+			{grouping: grouping, page: "includes", label: "Includes"},
+			{grouping: grouping, page: "page", label: "Page"},
+			{grouping: grouping, page: "edit", label: "Sections"},
+			{grouping: grouping, page: "settings", label: "Settings"},
+			{grouping: grouping, page: "sort", label: "Sort"},
+			{grouping: grouping, page: "theme", label: "Theme"}
+		];
+	}
+
 	/**
 	 * HTML for the left menu
 	 * 		- menu highlights and open/close logic is driven by the page/subpage vars matching current page
@@ -42,11 +94,7 @@ class PageMenu {
 				<div id="menuOne" class="collapse${this.isOpenMenu("data")}" aria-labelledby="headingOne" data-parent="#accordionExample">
       				<div class="card-body">
         				<nav class="nav flex-column subMenu">
-							<a class="nav-link ` + this.isActive("data", "backup") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/backup">Backup</a>
-							<a class="nav-link ` + this.isActive("data", "blacklist") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/blacklist">Blacklist</a>
-							<a class="nav-link ` + this.isActive("data", "export") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/export">Export</a>
-							<a class="nav-link ` + this.isActive("data", "manual") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/manual">Manual</a>
-							<a class="nav-link ` + this.isActive("data", "test") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}data/test">Test Data</a>
+							${this.getMenuDataContent(this.buildMenuContent_data())}
 						</nav>
       				</div>
 				</div>
@@ -56,8 +104,7 @@ class PageMenu {
 				<div id="menuThree" class="collapse${this.isOpenMenu("overlay")}" aria-labelledby="headingOne" data-parent="#accordionExample">
       				<div class="card-body">
 						<nav class="nav flex-column subMenu">
-							<a class="nav-link ` + this.isActive("overlay", "transitions") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}overlay/transitions">Transitions</a>
-							<a class="nav-link ` + this.isActive("overlay", "twitter") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}overlay/twitter">Twitter Alerts</a>
+							${this.getMenuDataContent(this.buildMenuContent_overlay())}
 						</nav>
       				</div>
 				</div>
@@ -67,15 +114,7 @@ class PageMenu {
 				<div id="menuTwo" class="collapse${this.isOpenMenu("template")}" aria-labelledby="headingOne" data-parent="#accordionExample">
       				<div class="card-body">
         				<nav class="nav flex-column subMenu">
-							<a class="nav-link ` + this.isActive("template", "colors") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/colors">Colors</a>
-							<a class="nav-link ` + this.isActive("template", "customcss") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/customcss">Custom CSS</a>
-							<a class="nav-link ` + this.isActive("template", "defaultcss") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/defaultcss">Default CSS</a>
-							<a class="nav-link ` + this.isActive("template", "includes") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/includes">Includes</a>
-							<a class="nav-link ` + this.isActive("template", "page") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/page">Page</a>
-							<a class="nav-link ` + this.isActive("template", "edit") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/edit">Sections</a>
-							<a class="nav-link ` + this.isActive("template", "settings") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/settings">Settings</a>
-							<a class="nav-link ` + this.isActive("template", "sort") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/sort">Sort</a>
-							<a class="nav-link ` + this.isActive("template", "theme") + `" href="${constants.GUI_DIRS.BASE_WEB_PATH}template/theme">Theme</a>
+							${this.getMenuDataContent(this.buildMenuContent_template())}
 						</nav>
       				</div>
 				</div>

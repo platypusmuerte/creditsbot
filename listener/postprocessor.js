@@ -16,6 +16,7 @@ class PostProcessor {
 	 * @param {object} gui					GUI class
 	 * @param {object} twitterManager		twitterManager
 	 * @param {object} transitionManager	transitionManager
+	 * @param {object} timerbarManager		timerbarManager
 	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
@@ -28,6 +29,7 @@ class PostProcessor {
 		this.gui = params.gui;
 		this.twitterManager = params.twitterManager;
 		this.transitionManager = params.transitionManager;
+		this.timerbarManager = params.timerbarManager;
 	}
 
 	/**
@@ -109,6 +111,21 @@ class PostProcessor {
 				break;
 			case "deletetransition":
 				this.deleteTransition(req, res);
+				break;
+			case "newtimerbar":
+				this.newTimerbar(req, res);
+				break;
+			case "settimerbarbykey":
+				this.setTimerbarByKey(req, res);
+				break;
+			case "deletetimerbar":
+				this.deleteTimerbar(req, res);
+				break;
+			case "testtimerbar":
+				this.testTimerbar(req, res);
+				break;
+			case "timerbarcustcss":
+				this.setTimerBarCustCSS(req, res);
 				break;
 			default:
 				res.json({ "success": false });
@@ -432,6 +449,76 @@ class PostProcessor {
 		let data = req.body;
 
 		this.db.databases.transitions.removeByID(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	/**
+	 * Update a Timerbar
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	setTimerbarByKey(req, res) {
+		let data = req.body;
+		
+		this.db.theme().timerbars.setByKey(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	/**
+	 * Add new timer bar
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	newTimerbar(req, res) {
+		let data = req.body;
+
+		this.db.theme().timerbars.addNew(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	/**
+	 * Delete a Timerbar
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	deleteTimerbar(req, res) {
+		let data = req.body;
+		
+		this.db.theme().timerbars.removeByKey(data).then(() => {
+			res.json({ "success": true });
+		});
+	}
+
+	/**
+	 * Fire off an Timerbar test
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	testTimerbar(req, res) {
+		let data = req.body;
+
+		this.db.theme().timerbarscustcss.getAll().then((timerbarscustcss) => {
+			let customCSS = (timerbarscustcss.length > 0) ? timerbarscustcss[0].customcss:'';
+			
+			this.db.theme().timerbars.getByKey(data.target).then((timerbar)=>{
+				this.timerbarManager.processData(timerbar,customCSS);
+				res.json({ "success": true });
+			});
+		});
+	}
+
+	/**
+	 * Set cust timer bars css
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object	 * 
+	 */
+	setTimerBarCustCSS(req, res) {
+		let data = req.body;
+
+		this.db.theme().timerbarscustcss.addNew(data).then(() => {
 			res.json({ "success": true });
 		});
 	}

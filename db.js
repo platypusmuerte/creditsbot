@@ -150,6 +150,8 @@ class Database {
 		const { TemplatePageQueries } = require("./databases/templatepage");
 		const { TemplateDefaultCSSQueries } = require("./databases/templatedefaultcss");
 		const { OverlayTwitterQueries } = require("./databases/overlaytwitter");
+		const { TimerBarsQueries } = require("./databases/timerbars");
+		const { TimerBarsCustCSSQueries } = require("./databases/timerbarscustcss");
 
 		this.themes[themeDir] = {
 			templateincludes: new TemplateIncludesQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
@@ -160,7 +162,9 @@ class Database {
 			templatesort: new TemplateSortQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
 			templatepage: new TemplatePageQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
 			templatedefaultcss: new TemplateDefaultCSSQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
-			overlaytwitter: new OverlayTwitterQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path })
+			overlaytwitter: new OverlayTwitterQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			timerbars: new TimerBarsQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path }),
+			timerbarscustcss: new TimerBarsCustCSSQueries({ cryptr: this.cryptr, dataDir: themePath, utils: this.utils, path: this.path })
 		};
 
 		userArgs.DEBUG && utils.console("DBs created for theme " + themeDir);

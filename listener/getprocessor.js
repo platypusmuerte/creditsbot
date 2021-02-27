@@ -17,6 +17,7 @@ class GetProcessor {
 	 * @param {object} overlayPage			overlay web page
 	 * @param {object} transitionsPage		transitionsPage
 	 * @param {object} transitionManager	transitionManager
+	 * @param {object} timerbarManager		timerbarManager
 	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
@@ -30,6 +31,7 @@ class GetProcessor {
 		this.overlayPage = params.overlayPage;
 		this.transitionsPage = params.transitionsPage;
 		this.transitionManager = params.transitionManager;
+		this.timerbarManager = params.timerbarManager;
 	}
 
 	/**
@@ -248,6 +250,22 @@ class GetProcessor {
 	}
 
 	/**
+	 * Pass off request to the overlay handler
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	fireTimerBarEvent(req, res, key) {
+		this.db.theme().timerbars.getByKey(key).then((timerbar)=>{
+			if(timerbar) {
+				this.timerbarManager.processData(timerbar);
+			} else {
+				this.userArgs.DEBUG && this.utils.console("Timer bar task not found. Bad key?: " + key);
+			}
+			res.send("");
+		});
+	}
+
+	/**
 	 * Handle all get tasks from UI
 	 * @param {objecet} req express request object
 	 * @param {object} res express response object
@@ -269,6 +287,9 @@ class GetProcessor {
 				break;			
 			case "gettransition":
 				this.uiGetTransitionByID(req, res);
+				break;			
+			case "gettimerbars":
+				this.uiGetTimerbarsByKey(req, res);
 				break;
 			default:
 				res.json({ "success": false });
@@ -323,6 +344,20 @@ class GetProcessor {
 
 		this.db.databases.transitions.getByID(transitionid).then((transition)=>{
 			res.json(transition);
+		});
+	}
+
+	/**
+	 * Get the list of timer bars
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	uiGetTimerbarsByKey(req, res) {
+		let expectedQueryParams = this.utils.getExpectedQueryParams(req.query);
+		let timerbarkey = expectedQueryParams.timerbarkey||false;
+
+		this.db.theme().timerbars.getByKey(timerbarkey).then((timerbar)=>{
+			res.json(timerbar);
 		});
 	}
 }

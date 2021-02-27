@@ -1,0 +1,231 @@
+<html>
+	<head>
+		<title>Test</title>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+			.timerbars {
+				display: block;
+				width: 300px;
+				height: auto;
+				overflow: hidden;
+			}
+			.timerbar {
+				display: block;
+				position: relative;
+				width: 100%;
+				height: 40px;
+				margin-bottom: 10px;
+				font-family: 'Varela Round', sans-serif;
+				line-height: 40px;
+				border-radius: 4px;
+			}
+			.timerbarcontent {
+				display: block;
+				position: absolute;
+				width: 100%;
+				height: 40px;
+				z-index: 101;
+			}
+			.timerbarfill {
+				display: block;
+				position: absolute;
+				width: 100%;
+				height: 40px;
+				z-index: 100;
+				border-radius: 4px;
+			}
+			.timerbarlabel {
+				display: inline-block;
+				width: 80%;
+				padding-left: 6px;
+			}
+			.timerbarcounter {
+				display: inline-block;
+			}
+		</style>
+		<script>
+			class TimerBars {		
+				
+				constructor(params) {
+					this.count = 0;
+					this.barwidth = 300;
+
+					this.active = {};
+				}
+
+				addTimerBar(timerbar) {
+					this.active[timerbar.key] = (this.active[timerbar.key]) ? ++this.active[timerbar.key]:1;
+
+					this.makeBar(timerbar);
+				}
+
+				makeBar(timerbar) {
+					let cssClasses = "animate__animated animate__bounceInDown timerbar " + timerbar.key;
+					let key = "timerbar" + ++this.count;
+					let minutes = Math.floor(timerbar.time / 60);
+					let seconds = timerbar.time % 60;
+
+					if(seconds < 10) {
+						seconds = "0" + seconds;
+					}
+
+					$("#timerbars").append(
+						$("<div>",{"class":cssClasses, "id":key,"data-time":timerbar.time}).css({
+							width: this.barwidth + 'px',
+							color: timerbar.color,
+							backgroundColor: timerbar.background
+						}).append(
+							$("<div>",{"class":"timerbarcontent"}).append(
+								$("<div>",{"class":"timerbarlabel"}).append(timerbar.label)
+							).append(
+								$("<div>",{"class":"timerbarcounter"}).append(minutes + ":" + seconds)
+							)
+						).append(
+							this.getTimerBarFill(timerbar,key)
+						)
+					);
+					
+					if(this.active[timerbar.key] === 1) {
+						this.updateCounter(key);
+					}
+				}
+
+				getTimerBarFill(timerbar,key) {
+					if(this.active[timerbar.key] > 1) {
+						return $("<div>",{"class":"timerbarfill " + timerbar.key + "fill"}).css({
+							width: this.barwidth + 'px',
+							color: timerbar.color,
+							backgroundColor: timerbar.fill
+						})
+					} else {
+						return $("<div>",{"class":"timerbarfill " + timerbar.key + "fill"}).css({
+							width: this.barwidth + 'px',
+							color: timerbar.color,
+							backgroundColor: timerbar.fill
+						}).animate(
+							{width: '0px'},
+							timerbar.time*1000,
+							"linear",
+							()=>{
+								this.removeBar(key,timerbar.key);
+							}
+						);
+					}
+				}
+
+				updateCounter(bar) {
+					let counterDiv = $("#" + bar).find(".timerbarcounter")[0];
+					let time = $("#" + bar).attr("data-time")*1;
+
+					let minutes = Math.floor(time / 60);
+					let seconds = time % 60;
+
+					if(seconds < 10) {
+						seconds = "0" + seconds;
+					}
+
+					$(counterDiv).html(minutes + ":" + seconds);
+
+					$("#" + bar).attr("data-time",time - 1);
+
+					if(time > 0) {
+						setTimeout(()=>{
+							this.updateCounter(bar);
+						},1000);
+					}
+				}
+
+				removeBar(key,type) {
+					this.active[type] = --this.active[type];
+
+					$("#" + key).addClass("animate__flipOutX");
+
+					setTimeout(()=>{
+						$("#" + key).remove();
+
+						if($(".timerbars").find("." + type)[0]) {
+							this.startNext(type);
+						}
+					},1000);
+
+					
+				}
+
+				startNext(type) {
+					if($(".timerbars").find("." + type)[0]) {
+						let time = $($(".timerbars").find("." + type)[0]).attr("data-time");
+						let bar = $($(".timerbars").find("." + type)[0]);
+
+						$(bar.find(".timerbarfill")).animate(
+							{width: '0px'},
+							time*1000,
+							"linear",
+							()=>{
+								this.removeBar($(bar).attr("id"),type);
+							}
+						)
+
+						this.updateCounter($(bar).attr("id"));
+					}
+				}
+			}
+
+
+
+
+
+			$(document).ready(() => {
+				let TB = new TimerBars();
+
+				TB.addTimerBar({
+	background: "#ff9900",
+	color: "#fff",
+	fill: "#297bd6",
+	key: "example1",
+	label: "Melee Only",
+	time: 10
+});
+
+				setTimeout(()=>{
+					TB.addTimerBar({
+	background: "#ff9900",
+	color: "#fff",
+	fill: "#297bd6",
+	key: "example1",
+	label: "Melee Only",
+	time: 300
+});
+				},3000);
+
+				setTimeout(()=>{
+					TB.addTimerBar({
+	background: "#ff9900",
+	color: "#fff",
+	fill: "#297bd6",
+	key: "example1",
+	label: "Melee Only",
+	time: 300
+});
+				},5000);
+
+				setTimeout(()=>{
+					TB.addTimerBar({
+	background: "#ff9900",
+	color: "#fff",
+	fill: "#297bd6",
+	key: "example1",
+	label: "Melee Only",
+	time: 300
+});
+				},5000);
+				
+			});
+		</script>
+	</head>
+	<body>
+		<div id="timerbars" class="timerbars"></div>
+	</body>
+</html>

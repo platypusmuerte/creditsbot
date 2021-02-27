@@ -18,6 +18,7 @@ class PostHandler {
 	 * @param {object} 	gui 				GUI class
 	 * @param {object} 	twitterManager		twitterManager
 	 * @param {object}	transitionManager	transitionManager
+	 * @param {object}	timerbarManager		timerbarManager
 	 *
 	 * @property {object}	processor		PostProcessor class
 	 */
@@ -33,8 +34,9 @@ class PostHandler {
 		this.gui = params.gui;
 		this.twitterManager = params.twitterManager;
 		this.transitionManager = params.transitionManager;
+		this.timerbarManager = params.timerbarManager;
 
-		this.processor = new PostProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, gui: this.gui, backup: this.backup, exportdata: this.exportdata, twitterManager: this.twitterManager, transitionManager: this.transitionManager });
+		this.processor = new PostProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, gui: this.gui, backup: this.backup, exportdata: this.exportdata, twitterManager: this.twitterManager, transitionManager: this.transitionManager, timerbarManager: this.timerbarManager });
 	}
 
 	/**

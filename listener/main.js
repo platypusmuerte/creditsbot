@@ -25,6 +25,7 @@ class Listener {
 	 * @param {object} overlayPage			overlayPage class
 	 * @param {object} twitterManager		twitterManager
 	 * @param {object} transitionManager	transitionManager
+	 * @param {object} timerbarManager		timerbarManager
 	 * 
 	 * @property {object} routeHandler 		RouteHandler class
 	 */
@@ -47,6 +48,7 @@ class Listener {
 		this.twitterManager = params.twitterManager;
 		this.transitionsPage = params.transitionsPage;
 		this.transitionManager = params.transitionManager;
+		this.timerbarManager = params.timerbarManager;
 
 		this.routeHandler = new RouteHandler({ 
 			utils: this.utils, 
@@ -63,7 +65,8 @@ class Listener {
 			overlayPage: this.overlayPage,
 			twitterManager: this.twitterManager,
 			transitionsPage: this.transitionsPage,
-			transitionManager: this.transitionManager
+			transitionManager: this.transitionManager,
+			timerbarManager: this.timerbarManager
 		});
 	}
 
@@ -103,6 +106,7 @@ class Listener {
 		this.routeHandler.routes.gets.getOverlay();
 		this.routeHandler.routes.gets.getTransitions();
 		this.routeHandler.routes.gets.fireTransitions();
+		this.routeHandler.routes.gets.fireTimerBarEvent();
 
 		this.routeHandler.routes.posts.uiSetData();
 

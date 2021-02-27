@@ -21,6 +21,7 @@ class GetHandler {
 	 * @param {object}	overlayPage			the overlay page class
 	 * @param {object}	transitionsPage		transitionsPage
 	 * @param {object}	transitionManager	transitionManager
+	 * @param {object}	timerbarManager		timerbarManager
 	 * 
 	 * @property {object}	processor		GetProcessor class
 	 */
@@ -39,8 +40,9 @@ class GetHandler {
 		this.overlayPage = params.overlayPage;
 		this.transitionsPage = params.transitionsPage;
 		this.transitionManager = params.transitionManager;
+		this.timerbarManager = params.timerbarManager;
 
-		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck, overlayPage: this.overlayPage, transitionsPage: this.transitionsPage, transitionManager: this.transitionManager });
+		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck, overlayPage: this.overlayPage, transitionsPage: this.transitionsPage, transitionManager: this.transitionManager, timerbarManager: this.timerbarManager });
 	}
 
 	/**
@@ -285,6 +287,22 @@ class GetHandler {
 			let key = req.params.key || false;
 
 			processor.fireTransitions(req, res, key);
+		});
+
+		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
+	}
+
+	/**
+	 * Fire transition
+	 */
+	fireTimerBarEvent() {
+		let path = constants.PATHS.TIMERBAR_TRIGGER;
+		let processor = this.processor;
+
+		this.exp.get(path, (req, res) => {
+			let key = req.params.key || false;
+
+			processor.fireTimerBarEvent(req, res, key);
 		});
 
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);

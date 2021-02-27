@@ -71,6 +71,8 @@ exports.constants = {
 		TESTDATA_REMOVE: "/testdata/remove",
 		TRANSITIONS: "/transitions",
 		TRANSITION_TRIGGER: "/trigger/transition/:key",
+		TIMERBARS: "/timerbars",
+		TIMERBAR_TRIGGER: "/trigger/timerbars/:key",
 
 		UI_PAGE_HOME: "/ui/*",
 		UI_GET_DATA: "/uiget/:task",
@@ -78,7 +80,7 @@ exports.constants = {
 		UI_BASE_API: "/uiset/",
 		UI_BASE_API_GET: "/uiget/"
 	},
-	QUERY_PARAMS: ["card","templateid","transitionid"],
+	QUERY_PARAMS: ["card","templateid","transitionid","timerbarkey"],
 	SETTINGS_DATABASE_NAMES: {
 		TEMPLATE_BLACKLIST: "blacklist",
 		TEMPLATE_COLORS: "templatecolors",
@@ -91,7 +93,9 @@ exports.constants = {
 		TEMPLATE_SORT: "templatesort",
 		TEMPLATE_THEME: "templatetheme",
 		OVERLAY_TWITTER: "overlaytwitter",
-		TRANSITIONS: "transitions"
+		TRANSITIONS: "transitions",
+		TIMERBARS: "timerbars",
+		TIMERBARSCUSTCSS: "timerbarscustcss"
 	},
 	TEMPLATE_DIRS: {
 		BASE: "./templates",

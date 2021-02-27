@@ -1,5 +1,6 @@
 const { constants } = require('../constants');
 const { oc_twitter } = require("./twitter");
+const { oc_timerbars } = require('./timerbars');
 const { overlaycss } = require("./css");
 const { twitter } = require("../defaults/twitter");
 
@@ -55,7 +56,7 @@ class OverlayPage {
 				<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js" integrity="sha512-ALoawPS0JxHQ+8dGL7htZIlVNRaE/SN9gHD4G8pJJTi9H4BQ/3PjdvhggSGR34g00mvTPFkxQuveQUsJA5664Q==" crossorigin="anonymous"></script>
 				<script>${oc_twitter}</script>
-
+				<script>${oc_timerbars}</script>
 				${this.getRWS()}
 				
 				${this.getMainJS()}
@@ -77,6 +78,7 @@ class OverlayPage {
 				this.websocket;
 				this.alerts = [];
 				this.twitter = new Twitter();
+				this.timerbars = new TimerBars();
 			}
 
 			test(data) {
@@ -121,6 +123,8 @@ class OverlayPage {
 						case "twitter":
 							processor = this.twitter;
 						break;
+						case "timerbar":
+							processor = this.timerbars;
 					}
 
 					if(processor) {

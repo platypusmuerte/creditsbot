@@ -48,4 +48,48 @@ exports.overlaycss = `<style>
 		bottom: 75px;
 		right: 75px;
 	}
+
+
+	/* timer bars */
+	@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+	.timerbars {
+		display: block;
+		width: 300px;
+		height: auto;
+		overflow: hidden;
+	}
+	.timerbar {
+		display: block;
+		position: relative;
+		width: 100%;
+		height: 40px;
+		margin-bottom: 10px;
+		font-family: 'Varela Round', sans-serif;
+		line-height: 40px;
+		border-radius: 4px;
+	}
+	.timerbarcontent {
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 40px;
+		z-index: 101;
+	}
+	.timerbarfill {
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 40px;
+		z-index: 100;
+		border-radius: 4px;
+	}
+	.timerbarlabel {
+		display: inline-block;
+		width: 80%;
+		padding-left: 6px;
+	}
+	.timerbarcounter {
+		display: inline-block;
+	}
 	</style>`;
