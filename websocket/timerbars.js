@@ -3,8 +3,8 @@ exports.oc_timerbars = `class TimerBars {
 	constructor(params) {
 		this.count = 0;
 		this.barwidth = 300;
-		this.animObj;
 		this.active = {};
+		this.inprogress = false;
 
 		if($.find("#timerbars").length < 1) {
 			$("body").append(
@@ -17,10 +17,30 @@ exports.oc_timerbars = `class TimerBars {
 		this.addCustomCSS(alert);
 
 		return new Promise((resolve, reject)=>{
-			this.addTimerBarColors(alert);
-			this.addTimerBar(alert);
+			if(this.inprogress) {
+				this.waitToAdd(alert);
+			} else {
+				this.addTimerBarColors(alert);
+				this.addTimerBar(alert);
+			}
+			
 			resolve();
 		});
+	}
+
+	waitToAdd(alert) {
+		setTimeout(()=>{
+			this.tryToAdd(alert);
+		},2000);
+	}
+
+	tryToAdd(alert) {
+		if(this.inprogress) {
+			this.waitToAdd(alert);
+		} else {
+			this.addTimerBarColors(alert);
+			this.addTimerBar(alert);
+		}
 	}
 
 	addCustomCSS(alert) {
@@ -51,26 +71,29 @@ exports.oc_timerbars = `class TimerBars {
 			seconds = "0" + seconds;
 		}
 
+		let timeStr = this.getTimeString(timerBarTime)
+
 		if(this.active[timerbar.key] === 1) {
+			this.inprogress = true;
 			let existingBar = $(".timerbars").find("." + timerbar.key)[0];
 			let newTimeVal = $(existingBar).attr("data-time")*1 + timerBarTime;
 
 			timerbar.time = newTimeVal+1;
 
-			this.appendTimerBar(cssClasses, key, newTimeVal, timerbar.label, minutes, seconds, this.getTimerBarFill(timerbar,key));
+			this.appendTimerBar(cssClasses, key, newTimeVal, timerbar.label, timeStr, this.getTimerBarFill(timerbar,key));
 
 			setTimeout(()=>{
 				this.removeBar($(existingBar).attr("id"),timerbar.key);
 			},500);
 		} else {
-			this.appendTimerBar(cssClasses, key, timerBarTime, timerbar.label, minutes, seconds, this.getTimerBarFill(timerbar,key));
+			this.appendTimerBar(cssClasses, key, timerBarTime, timerbar.label, timeStr, this.getTimerBarFill(timerbar,key));
 
 			this.active[timerbar.key] = 1;			
 			this.updateCounter(key);
 		}
 	}
 
-	appendTimerBar(cssClasses, key, timeValue, label, m, s, fill) {
+	appendTimerBar(cssClasses, key, timeValue, label, timeStr, fill) {
 		$("#timerbars").append(
 			$("<div>",{"class":cssClasses, "id":key,"data-time":timeValue}).css({
 				width: this.barwidth + 'px'
@@ -78,7 +101,7 @@ exports.oc_timerbars = `class TimerBars {
 				$("<div>",{"class":"timerbarcontent"}).append(
 					$("<div>",{"class":"timerbarlabel"}).append(label)
 				).append(
-					$("<div>",{"class":"timerbarcounter"}).append(m + ":" + s)
+					$("<div>",{"class":"timerbarcounter"}).append(timeStr)
 				)
 			).append(
 				fill
@@ -136,37 +159,47 @@ exports.oc_timerbars = `class TimerBars {
 			this.updateCounter($(bar).attr("id"));
 
 			this.active[type] = 1;
+			this.inprogress = false;
 		}
 	}
 
 	updateCounter(bar) {
-		let counterDiv = $("#" + bar).find(".timerbarcounter")[0];
-		let time = $("#" + bar).attr("data-time")*1;
+		if($("#" + bar).length) {
+			let counterDiv = $("#" + bar).find(".timerbarcounter")[0];
+			let time = $("#" + bar).attr("data-time")*1;
+			
+			$(counterDiv).html(this.getTimeString(time));
 
-		let minutes = Math.floor(time / 60);
-		let seconds = time % 60;
+			$("#" + bar).attr("data-time",time - 1);
 
-		if(seconds < 10) {
-			seconds = "0" + seconds;
-		}
-
-		$(counterDiv).html(minutes + ":" + seconds);
-
-		$("#" + bar).attr("data-time",time - 1);
-
-		if(time > 0) {
-			setTimeout(()=>{
-				this.updateCounter(bar);
-			},1000);
-		}
+			if(time > 0) {
+				setTimeout(()=>{
+					this.updateCounter(bar);
+				},1000);
+			}
+		}		
 	}
 
 	reSort() {
-		let $wrapper = $('.timerbars');
+		if($(".timerbar").length > 1) {
+			let $wrapper = $('.timerbars');
 
-		$wrapper.find('.timerbar').sort(function(a, b) {
-			return +a.getAttribute('data-time') - +b.getAttribute('data-time');
-		})
-		.appendTo($wrapper);
+			$wrapper.find('.timerbar').sort(function(a, b) {
+				return +a.getAttribute('data-time') - +b.getAttribute('data-time');
+			}).appendTo($wrapper);
+		}		
+	}
+
+	getTimeString(time) {
+		let timeStr = new Date(time * 1000).toISOString().substr(11, 8).split(":");
+
+		if(timeStr[0] !== "00") {
+			let hour = timeStr[0]*1;
+			return hour + ":" + timeStr[1] + ":" + timeStr[2];
+		} else if(timeStr[1] !== "00") {
+			return timeStr[1]*1 + ":" + timeStr[2];
+		} else {
+			return timeStr[2]*1;
+		}
 	}
 }`;

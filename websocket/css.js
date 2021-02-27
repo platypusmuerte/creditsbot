@@ -95,5 +95,7 @@ exports.overlaycss = `<style>
 	}
 	.timerbarcounter {
 		display: inline-block;
+		position: absolute;
+		right: 5px;
 	}
 	</style>`;
