@@ -1,7 +1,7 @@
 {
   "name": "PlatysCREDITSBOT",
   "productName": "platysCREDITSBOT",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Create stream credits and other stream overlays",
   "main": "main.js",
   "scripts": {

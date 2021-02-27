@@ -49,7 +49,7 @@ exports.overlaycss = `<style>
 		right: 75px;
 	}
 	body {
-		background: url('https://i.pcmag.com/imagery/reviews/05C0yBOQyhHZX8Im2M2pjnT-1..1603475053.png') no-repeat;
+		
 	}
 
 
