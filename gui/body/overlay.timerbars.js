@@ -172,7 +172,7 @@ class OverlayTimerBars extends BodyBase {
 					}).done((data)=>{
 						$(".timerbarInput,#testOverlay,#formsub,#delete").prop("disabled",false);
 						$("#timerbarName").val(data.label);
-						$("#timerbarKey").val($("#timerDD").val());
+						$("#timerbarKey").val($("#timerDD").val()).prop("disabled",true);
 						$("#timerbarTime").val(data.time);
 
 						$($(".colorPickerInput")[0]).val(data.color);
