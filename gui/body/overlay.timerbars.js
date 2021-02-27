@@ -56,7 +56,7 @@ class OverlayTimerBars extends BodyBase {
 			<p>Transitions are available at
 			<ul>
 				<li>View: http://localhost:${this.userArgs.PORT}${constants.PATHS.OVERLAY}</li>
-				<li>Add Timer Bar to stack: http://localhost:${this.userArgs.PORT}${constants.PATHS.TIMERBAR_TRIGGER}</li>
+				<li>Trigger: http://localhost:${this.userArgs.PORT}/trigger/timerbars/KEY (replace KEY with your timer bar key)</li>
 			</ul></p>
 			
 			${this.tabsHeader()}

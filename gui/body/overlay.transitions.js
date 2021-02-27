@@ -58,7 +58,7 @@ class OverlayTransitions extends BodyBase {
 			<p>Transitions are available at
 			<ul>
 				<li>View: http://localhost:${this.userArgs.PORT}${constants.PATHS.TRANSITIONS}</li>
-				<li>Trigger: http://localhost:${this.userArgs.PORT}${constants.PATHS.TRANSITION_TRIGGER}</li>
+				<li>Trigger: http://localhost:${this.userArgs.PORT}/trigger/transitions/KEY (replace KEY with your transition key)</li>
 			</ul></p>
 			
 			<label class="formLabel">Select Transition</label>
