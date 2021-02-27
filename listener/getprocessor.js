@@ -255,13 +255,17 @@ class GetProcessor {
 	 * @param {object} res express response object
 	 */
 	fireTimerBarEvent(req, res, key) {
-		this.db.theme().timerbars.getByKey(key).then((timerbar)=>{
-			if(timerbar) {
-				this.timerbarManager.processData(timerbar);
-			} else {
-				this.userArgs.DEBUG && this.utils.console("Timer bar task not found. Bad key?: " + key);
-			}
-			res.send("");
+		this.db.theme().timerbarscustcss.getAll().then((timerbarscustcss) => {
+			let customCSS = (timerbarscustcss.length > 0) ? timerbarscustcss[0].customcss:'';
+			
+			this.db.theme().timerbars.getByKey(key).then((timerbar)=>{
+				if(timerbar) {
+					this.timerbarManager.processData(timerbar,customCSS);
+				} else {
+					this.userArgs.DEBUG && this.utils.console("Timer bar task not found. Bad key?: " + key);
+				}
+				res.send("");
+			});
 		});
 	}
 

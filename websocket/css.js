@@ -48,6 +48,9 @@ exports.overlaycss = `<style>
 		bottom: 75px;
 		right: 75px;
 	}
+	body {
+		background: url('https://i.pcmag.com/imagery/reviews/05C0yBOQyhHZX8Im2M2pjnT-1..1603475053.png') no-repeat;
+	}
 
 
 	/* timer bars */
@@ -63,24 +66,25 @@ exports.overlaycss = `<style>
 		display: block;
 		position: relative;
 		width: 100%;
-		height: 40px;
+		height: 48px;
 		margin-bottom: 10px;
 		font-family: 'Varela Round', sans-serif;
-		line-height: 40px;
+		font-size: 26px;
+		line-height: 48px;
 		border-radius: 4px;
 	}
 	.timerbarcontent {
 		display: block;
 		position: absolute;
 		width: 100%;
-		height: 40px;
+		height: 48px;
 		z-index: 101;
 	}
 	.timerbarfill {
 		display: block;
 		position: absolute;
 		width: 100%;
-		height: 40px;
+		height: 48px;
 		z-index: 100;
 		border-radius: 4px;
 	}

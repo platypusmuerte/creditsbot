@@ -66,10 +66,8 @@ class TransitionsPage {
 		
 				this.websocket.onmessage = (e)=> {
 					let eventData = JSON.parse(e.data);
-					console.log(eventData);
 
 					if(eventData.event === "transition") {
-						console.log();
 						$("body").empty().append(eventData.content);
 					}					
 				};

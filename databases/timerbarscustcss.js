@@ -54,11 +54,8 @@ class TimerBarsCustCSSQueries {
 		let db = this.db;
 		let newData = Object.assign({},{key: "custcss"},data);
 
-		console.log(newData,data);
-
 		return new Promise((resolve, reject)=>{
 			if (db.find({ key: newData.key }).has("key").value()) {
-				console.log('exists',db.find({ key: newData.key }).has("key").value());
 				db.find({ key: newData.key }).assign(newData).write();		
 				
 				resolve(true);

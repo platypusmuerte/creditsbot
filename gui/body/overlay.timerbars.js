@@ -39,9 +39,6 @@ class OverlayTimerBars extends BodyBase {
 	render(qData) {
 		this.data = qData;
 
-		console.log(this.data);
-
-
 		let allOpts = `<option value="---">Choose Timer</option><option value="addnew">New Timer</option>`;
 
 		this.data.timerbars.forEach((t)=>{
@@ -164,6 +161,7 @@ class OverlayTimerBars extends BodyBase {
 					$(".timerbarInput").prop("disabled",false);
 					$("#testOverlay,#formsub,#delete").prop("disabled",true);
 					$("#timerbarTime").val(300);
+					$("#timerbarName,#timerbarKey").val("");
 				} else if($("#timerDD").val() !== "---") {
 					$.ajax({
 						type: "GET",
@@ -246,8 +244,6 @@ class OverlayTimerBars extends BodyBase {
 				let payload = {
 					customcss: $("#cssContent").val()
 				};
-
-				console.log(payload);
 
 				post(payload, "timerbarcustcss", true);
 			});
