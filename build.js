@@ -37,7 +37,8 @@ async.series([
 		cb();
 	},
 	(cb)=>{
-		exec('pkg -t host --output ./dist/' + constants.APP.EXENAME + '_' + constants.APP.VERSION + '.exe main.js')
+		console.log("running pkg");
+		exec('pkg -t latest --output ./dist/' + constants.APP.EXENAME + '_' + constants.APP.VERSION + '.exe main.js')
 		cb();
 	}
 ]);

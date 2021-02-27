@@ -101,7 +101,7 @@ class OverlayPage {
 					let eventData = JSON.parse(e.data);
 					
 					if(eventData.initiate) {
-						console.log(eventData);
+						//console.log(eventData);
 					} else {
 						let running = (this.alerts.length);
 
