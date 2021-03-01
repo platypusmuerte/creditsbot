@@ -107,6 +107,7 @@ class Listener {
 		this.routeHandler.routes.gets.getTransitions();
 		this.routeHandler.routes.gets.fireTransitions();
 		this.routeHandler.routes.gets.fireTimerBarEvent();
+		this.routeHandler.routes.gets.removeTimerBarByKey();
 
 		this.routeHandler.routes.posts.uiSetData();
 

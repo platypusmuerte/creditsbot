@@ -5,6 +5,7 @@ exports.oc_timerbars = `class TimerBars {
 		this.barwidth = 300;
 		this.active = {};
 		this.inprogress = false;
+		this.callStack = [];
 
 		if($.find("#timerbars").length < 1) {
 			$("body").append(
@@ -17,7 +18,9 @@ exports.oc_timerbars = `class TimerBars {
 		this.addCustomCSS(alert);
 
 		return new Promise((resolve, reject)=>{
-			if(this.inprogress) {
+			if(alert.removebykey) {
+				this.removeTimerBarAmountByKey(alert.key);
+			} else if(this.inprogress) {
 				this.waitToAdd(alert);
 			} else {
 				this.addTimerBarColors(alert);
@@ -80,22 +83,22 @@ exports.oc_timerbars = `class TimerBars {
 
 			timerbar.time = newTimeVal+1;
 
-			this.appendTimerBar(cssClasses, key, newTimeVal, timerbar.label, timeStr, this.getTimerBarFill(timerbar,key));
+			this.appendTimerBar(cssClasses, key, newTimeVal, timerbar.label, timeStr, this.getTimerBarFill(timerbar,key), timerBarTime);
 
 			setTimeout(()=>{
 				this.removeBar($(existingBar).attr("id"),timerbar.key);
 			},500);
 		} else {
-			this.appendTimerBar(cssClasses, key, timerBarTime, timerbar.label, timeStr, this.getTimerBarFill(timerbar,key));
+			this.appendTimerBar(cssClasses, key, timerBarTime, timerbar.label, timeStr, this.getTimerBarFill(timerbar,key), timerBarTime);
 
 			this.active[timerbar.key] = 1;			
 			this.updateCounter(key);
 		}
 	}
 
-	appendTimerBar(cssClasses, key, timeValue, label, timeStr, fill) {
+	appendTimerBar(cssClasses, key, timeValue, label, timeStr, fill, baseTime) {
 		$("#timerbars").append(
-			$("<div>",{"class":cssClasses, "id":key,"data-time":timeValue}).css({
+			$("<div>",{"class":cssClasses, "id":key,"data-time":timeValue, "data-basetime":baseTime}).css({
 				width: this.barwidth + 'px'
 			}).append(
 				$("<div>",{"class":"timerbarcontent"}).append(
@@ -200,6 +203,19 @@ exports.oc_timerbars = `class TimerBars {
 			return timeStr[1]*1 + ":" + timeStr[2];
 		} else {
 			return timeStr[2]*1;
+		}
+	}
+
+	removeTimerBarAmountByKey(key) {
+		if($("." + key).length) {
+			let timeRemaining = ($("." + key).length) ? $($("." + key)[0]).attr("data-time")*1:0;
+			let baseTime = ($("." + key).length) ? $($("." + key)[0]).attr("data-basetime")*1:0;
+
+			if((timeRemaining > baseTime)) {
+				$($("." + key)[0]).attr("data-time",timeRemaining - baseTime);
+			} else {
+				this.removeBar($($("." + key)[0]).attr("id"),key);
+			}			
 		}
 	}
 }`;

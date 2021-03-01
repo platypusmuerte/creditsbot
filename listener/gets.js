@@ -293,7 +293,7 @@ class GetHandler {
 	}
 
 	/**
-	 * Fire transition
+	 * Fire Timerbar
 	 */
 	fireTimerBarEvent() {
 		let path = constants.PATHS.TIMERBAR_TRIGGER;
@@ -303,6 +303,22 @@ class GetHandler {
 			let key = req.params.key || false;
 
 			processor.fireTimerBarEvent(req, res, key);
+		});
+
+		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
+	}
+
+	/**
+	 * Remove Timerbar
+	 */
+	removeTimerBarByKey() {
+		let path = constants.PATHS.TIMERBAR_TRIGGER_REMOVE;
+		let processor = this.processor;
+
+		this.exp.get(path, (req, res) => {
+			let key = req.params.key || false;
+
+			processor.removeTimerBarByKey(req, res, key);
 		});
 
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);

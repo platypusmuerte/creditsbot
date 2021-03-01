@@ -255,12 +255,30 @@ class GetProcessor {
 	 * @param {object} res express response object
 	 */
 	fireTimerBarEvent(req, res, key) {
+		this.handleTimerBarEvent(req, res, key, false);
+	}
+
+	/**
+	 * Pass off request to the overlay handler
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	removeTimerBarByKey(req, res, key) {
+		this.handleTimerBarEvent(req, res, key, true);
+	}
+
+	/**
+	 * Pass off request to the overlay handler
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	handleTimerBarEvent(req, res, key, remove) {
 		this.db.theme().timerbarscustcss.getAll().then((timerbarscustcss) => {
 			let customCSS = (timerbarscustcss.length > 0) ? timerbarscustcss[0].customcss:'';
 			
 			this.db.theme().timerbars.getByKey(key).then((timerbar)=>{
 				if(timerbar) {
-					this.timerbarManager.processData(timerbar,customCSS);
+					this.timerbarManager.processData(timerbar,customCSS, remove);
 				} else {
 					this.userArgs.DEBUG && this.utils.console("Timer bar task not found. Bad key?: " + key);
 				}

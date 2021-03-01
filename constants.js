@@ -73,6 +73,7 @@ exports.constants = {
 		TRANSITION_TRIGGER: "/trigger/transition/:key",
 		TIMERBARS: "/timerbars",
 		TIMERBAR_TRIGGER: "/trigger/timerbars/:key",
+		TIMERBAR_TRIGGER_REMOVE: "/remove/timerbars/:key",
 
 		UI_PAGE_HOME: "/ui/*",
 		UI_GET_DATA: "/uiget/:task",

@@ -32,14 +32,14 @@ class TimerBarManager {
 	 * @param {object} timerbar timer bar obj
 	 * @param {string} customCSS timer bar str
 	 */
-	processData(timerbar,customCSS) {
+	processData(timerbar,customCSS, remove) {
 		this.userArgs.DEBUG && this.utils.console("Processing timer bar: " + timerbar.key);
 
-		this.buildAlertForOverlay(timerbar,customCSS);
+		this.buildAlertForOverlay(timerbar,customCSS, remove);
 	}
 
-	buildAlertForOverlay(timerbar,customcss) {
-		let timerBarEvent = [Object.assign({},{event: "timerbar",customcss: customcss},timerbar)];
+	buildAlertForOverlay(timerbar,customcss, remove) {
+		let timerBarEvent = [Object.assign({},{event: "timerbar",customcss: customcss, removebykey: remove},timerbar)];
 		
 		this.overlayWebsocket.sendMessage(JSON.stringify(timerBarEvent),"overlay");
 	}
