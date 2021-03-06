@@ -163,8 +163,10 @@ class OverlayPage {
 						break;
 						case "timerbar":
 							processor = this.timerbars;
+						break;
 						case "customoverlay":
 							processor = customOverlayClasses[alert.key];
+						break;
 					}
 
 					if(processor) {
