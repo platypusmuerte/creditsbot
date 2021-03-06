@@ -69,7 +69,7 @@ class CustomOverlayManager {
 			if(ds[subkey]) {
 				return ds[subkey];
 			} else {
-				return {error: "no data (" + subkey + ")"};
+				return ds;
 			}
 		}
 	}
@@ -77,8 +77,7 @@ class CustomOverlayManager {
 	/**
 	 * Clear data store by key or subkey
 	 */
-	clearData(query) {
-		let key = (query.key) ? query.key:false;
+	clearData(key,query) {
 		let subkey = (query.subkey) ? query.subkey:false;
 		let ds = this.dataStore;
 
