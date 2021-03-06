@@ -16,6 +16,7 @@ class OverlayWebSocket {
 	constructor(params) {
 		this.utils = params.utils;
 		this.userArgs = params.userArgs;
+		this.messageCallbacks = {};
 
 		this.wss;
 		this.ws;
@@ -46,9 +47,19 @@ class OverlayWebSocket {
 		this.ws.on("message",(message) => {
 			let msg = JSON.parse(message);
 
-			this.clients[msg.conn] = ws;
-			
-			this.userArgs.DEBUG && this.utils.wsconsole("Established connection with: " + msg.conn);
+			if(msg.conn && msg.callback && msg.key && msg.type) {
+				try {
+					this.messageCallbacks[msg.type + "_" + msg.key](msg.callback,msg.type,msg.key);
+
+					this.userArgs.DEBUG && this.utils.wsconsole("WS callback for : " + msg.type + "_" + msg.key);
+				} catch(e) {
+					this.userArgs.DEBUG && this.utils.wsconsole("FAILED WS callback for : " + msg.type + "_" + msg.key);
+				}
+			} else if(msg.conn) {
+				this.clients[msg.conn] = ws;
+				
+				this.userArgs.DEBUG && this.utils.wsconsole("Established connection with: " + msg.conn);
+			}			
 		});
 	}
 

@@ -73,6 +73,9 @@ class OverlayPage {
 	getMainJS() {
 		return `
 		<script>
+		let ows;
+		let customOverlayClasses = {};
+
 		class OverlayWS {
 			constructor(params) {
 				this.websocket;
@@ -85,6 +88,39 @@ class OverlayPage {
 				this.alerts = [...data];
 
 				this.processAlerts();
+			}
+
+			addCustomOverlay(key) {
+				if(!customOverlayClasses[key]) {
+					customOverlayClasses[key] = new customOverlayClasses[key]();
+				}
+			}
+
+			reInitCustomClass(key) {
+				customOverlayClasses[key] = null;
+
+				$.getScript('/usercontent/customoverlayjs/' + key + '.js',()=>{
+					customOverlayClasses[key] = new customOverlayClasses[key]({eventKey: key});
+				});
+			}
+
+			includeCustomOverlay(eventData) {
+				let p = eventData.map((ed)=>{
+					if(ed.event && (ed.event === "customoverlay") && (!customOverlayClasses[ed.key])) {
+						return new Promise((resolve, reject)=>{
+							$.getScript('/usercontent/customoverlayjs/' + ed.key + '.js',()=>{
+								customOverlayClasses[ed.key] = new customOverlayClasses[ed.key]({eventKey: ed.key});
+								resolve();
+							});
+						});
+					}
+				});
+
+				return new Promise((resolve, reject)=>{
+					Promise.all(p).then(()=>{
+						resolve();
+					});
+				});				
 			}
 		
 			run() {
@@ -99,18 +135,20 @@ class OverlayPage {
 		
 				this.websocket.onmessage = (e)=> {
 					let eventData = JSON.parse(e.data);
-					
+
 					if(eventData.initiate) {
 						//console.log(eventData);
 					} else {
-						let running = (this.alerts.length);
+						this.includeCustomOverlay(eventData).then(()=>{
+							let running = (this.alerts.length);
 
-						this.alerts = [...eventData];
+							this.alerts = [...eventData];
 
-						if(!running) {
-							this.processAlerts();
-						}
-					}					
+							if(!running) {
+								this.processAlerts();
+							}
+						});						
+					}															
 				};
 			}
 
@@ -125,25 +163,51 @@ class OverlayPage {
 						break;
 						case "timerbar":
 							processor = this.timerbars;
+						case "customoverlay":
+							processor = customOverlayClasses[alert.key];
 					}
 
 					if(processor) {
-						processor.newAlert(alert).then(()=>{
-							this.processAlerts();
-						});
+						if(alert.event === "customoverlay") {
+							processor.run(alert).then(()=>{
+								this.processAlerts();
+							});
+						} else {
+							processor.newAlert(alert).then(()=>{
+								this.processAlerts();
+							});
+						}						
 					}					
 				}
+			}
+
+			processResponse(data) {
+				let respData = Object.assign({},{conn: "overlay"},data);
+
+				this.websocket.send(JSON.stringify(respData));
 			}
 		}
 
 		$(document).ready(function () {
-			let ows = new OverlayWS();
+			ows = new OverlayWS();
 			ows.run();
 
 			/*setTimeout(()=>{
 				ows.test([${JSON.stringify(this.testData)}]);
 			},1000);*/
 		});
+
+		function addCustomOverlay(key,customOverlayClass) {
+			ows.addCustomOverlay(key,customOverlayClass);
+		}
+
+		function reInitCustomClass(key,customOverlayClass) {
+			ows.reInitCustomClass(key,customOverlayClass);
+		}
+
+		function sendResponse(data) {
+			ows.processResponse(data);
+		}
 		</script>
 		`;
 	}

@@ -27,8 +27,9 @@ let { TwitterManager } = require("./twitter/main");
 let { TransitionsPage } = require("./websocket/transitions");
 let { TransitionManager } = require("./transitions/main");
 let { TimerBarManager } = require("./timerbars/main");
+let { CustomOverlayManager } = require('./customoverlay/main');
 
-let utils, listener, db, builder, testData, gui, patches, overlayWebsocket, overlayPage, twitter, transitionsPage, transitionManager, timerberManager;
+let utils, listener, db, builder, testData, gui, patches, overlayWebsocket, overlayPage, twitter, transitionsPage, transitionManager, timerbarManager, customOverlayManager;
 utils = new Utils();
 
 // make sure folders and files exist as early as possible
@@ -78,8 +79,9 @@ patches.prep().then((s,f)=>{
 					transitionsPage = new TransitionsPage({ utils, userArgs });
 					transitionManager = new TransitionManager({ db, utils, userArgs, overlayWebsocket });
 					timerbarManager = new TimerBarManager({ db, utils, userArgs, overlayWebsocket });
+					customOverlayManager = new CustomOverlayManager({ db, utils, userArgs, overlayWebsocket });
 					
-					listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs, overlayPage, twitterManager, transitionsPage: transitionsPage, transitionManager: transitionManager, timerbarManager: timerbarManager });					
+					listener = new Listener({ db, utils, exp, dataDir, userArgs, builder, testData, express, gui, backup, exportdata, versioncheck: versioncheck, fs, overlayPage, twitterManager, transitionsPage: transitionsPage, transitionManager: transitionManager, timerbarManager: timerbarManager, customOverlayManager: customOverlayManager });					
 					
 					// start listening to gets/posts and then run patch check
 					listener.start().then(()=>{

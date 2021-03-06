@@ -60,6 +60,8 @@ exports.constants = {
 	PATHS: {
 		ADD_USER: "/add/:key/:user/:amount",
 		CREDITS: "/credits",
+		CUSTOM_OVERLAY: "/customoverlay",
+		CUSTOM_OVERLAY_TRIGGER: "/customoverlay/:key",
 		GET_ALL: "/getall/:key",
 		GET_10: "/top10/:key",
 		GET_5: "/top5/:key",

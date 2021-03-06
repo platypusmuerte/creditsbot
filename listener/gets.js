@@ -22,6 +22,7 @@ class GetHandler {
 	 * @param {object}	transitionsPage		transitionsPage
 	 * @param {object}	transitionManager	transitionManager
 	 * @param {object}	timerbarManager		timerbarManager
+	 * @param {object}	customOverlayManager	customOverlayManager
 	 * 
 	 * @property {object}	processor		GetProcessor class
 	 */
@@ -41,8 +42,9 @@ class GetHandler {
 		this.transitionsPage = params.transitionsPage;
 		this.transitionManager = params.transitionManager;
 		this.timerbarManager = params.timerbarManager;
+		this.customOverlayManager = params.customOverlayManager;
 
-		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck, overlayPage: this.overlayPage, transitionsPage: this.transitionsPage, transitionManager: this.transitionManager, timerbarManager: this.timerbarManager });
+		this.processor = new GetProcessor({ utils: this.utils, db: this.db, dataDir: this.dataDir, userArgs: this.userArgs, testData: this.testData, gui: this.gui, versioncheck: this.versioncheck, overlayPage: this.overlayPage, transitionsPage: this.transitionsPage, transitionManager: this.transitionManager, timerbarManager: this.timerbarManager, customOverlayManager: this.customOverlayManager });
 	}
 
 	/**
@@ -319,6 +321,22 @@ class GetHandler {
 			let key = req.params.key || false;
 
 			processor.removeTimerBarByKey(req, res, key);
+		});
+
+		this.userArgs.DEBUG && this.utils.console("Added GET " + path);
+	}
+
+	/**
+	 * Process custom overlay calls
+	 */
+	processCustomOverlayCalls() {
+		let path = constants.PATHS.CUSTOM_OVERLAY_TRIGGER;
+		let processor = this.processor;
+
+		this.exp.get(path, (req, res) => {
+			let key = req.params.key || false;
+
+			processor.processCustomOverlayCalls(req, res, key);
 		});
 
 		this.userArgs.DEBUG && this.utils.console("Added GET " + path);

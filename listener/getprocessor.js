@@ -18,6 +18,7 @@ class GetProcessor {
 	 * @param {object} transitionsPage		transitionsPage
 	 * @param {object} transitionManager	transitionManager
 	 * @param {object} timerbarManager		timerbarManager
+	 * @param {object} customOverlayManager		customOverlayManager
 	 */
 	constructor(params) {
 		this.dataDir = params.dataDir;
@@ -32,6 +33,7 @@ class GetProcessor {
 		this.transitionsPage = params.transitionsPage;
 		this.transitionManager = params.transitionManager;
 		this.timerbarManager = params.timerbarManager;
+		this.customOverlayManager = params.customOverlayManager;
 	}
 
 	/**
@@ -285,6 +287,17 @@ class GetProcessor {
 				res.send("");
 			});
 		});
+	}
+
+	/**
+	 * Process custom overlay calls
+	 * @param {objecet} req express request object
+	 * @param {object} res express response object
+	 */
+	processCustomOverlayCalls(req, res, key) {
+		res.send(this.customOverlayManager.processData(key,req.query));		
+
+		this.userArgs.DEBUG && this.utils.console("Processed custom overlay event for: " + key);
 	}
 
 	/**

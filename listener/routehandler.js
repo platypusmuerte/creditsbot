@@ -22,6 +22,7 @@ class RouteHandler {
 		this.transitionsPage = params.transitionsPage;
 		this.transitionManager = params.transitionManager;
 		this.timerbarManager = params.timerbarManager;
+		this.customOverlayManager = params.customOverlayManager;
 
 		const { GetHandler } = require("./gets");
 		const { PostHandler } = require("./posts");
@@ -40,7 +41,8 @@ class RouteHandler {
 				overlayPage: this.overlayPage,
 				transitionsPage: this.transitionsPage,
 				transitionManager: this.transitionManager,
-				timerbarManager: this.timerbarManager
+				timerbarManager: this.timerbarManager,
+				customOverlayManager: this.customOverlayManager
 			}),
 			posts: new PostHandler({ 
 				dataDir: this.dataDir, 
